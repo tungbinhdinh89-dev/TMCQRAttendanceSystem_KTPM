@@ -1,0 +1,12 @@
+{
+  "description": "Hệ thống chấm công và kiểm soát ra vào bằng mã QR cho TMC Manufacturing.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  },
+  "title": "TMC Access — Kết nối con người, an tâm vận hành",
+  "language": "vi"
+}
