@@ -1,0 +1,10 @@
+:root {
+  font-family: "Instrument Sans", sans-serif;
+  color: #17211b;
+  background: #f5f7f3;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}

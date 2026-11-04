@@ -19,3 +19,7 @@ logs/
 # beside it.
 /.plugins/
 /.opencode-skills/
+/plans
+/guidelines
+/stephen-skills
+env-variable.txt
