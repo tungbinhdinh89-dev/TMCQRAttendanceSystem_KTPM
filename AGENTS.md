@@ -39,3 +39,14 @@ This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin con
 - Use double quotes for strings containing apostrophes (`"We're here to help"`), or escape them in single-quoted strings. An unescaped apostrophe in a single-quoted string breaks the build.
 - Ensure JSX tags are closed and braces are balanced.
 - Export components as default exports.
+
+## Backend bounded contexts
+
+- Backend entities belong to the owning bounded context under `api/src/modules/<context>/infrastructure/persistence/entities/`.
+- Use one `*.orm-entity.ts` file per TypeORM entity. Do not add entity definitions back to the central registry.
+- Shared persistence column bases may live under `api/src/platform/infrastructure/database/`; they must not contain business entities.
+- Keep `api/src/platform/infrastructure/database/entities.ts` as a TypeORM registry only: imports plus the `databaseEntities` array.
+- Keep ORM entities separate from domain entities and HTTP DTOs. ORM entities may use scalar FK IDs without importing another module's ORM entity.
+- Shared FE/BE wire contracts belong in `contracts/src/` and must remain framework- and TypeORM-free. API-specific validation DTOs can wrap those types in the API presentation layer.
+- Name persistence classes with the `OrmEntity` suffix and files with kebab-case, for example `factory.orm-entity.ts`.
+- When adding a table, update its bounded-context entity, the central registry, and the migration/constraint plan. Do not use TypeORM `synchronize` for schema management.

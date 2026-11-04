@@ -1,4 +1,1 @@
-export interface SubmitQrScanInput {
-  eventId: string
-  token: string
-}
+export type { SubmitQrScanRequest as SubmitQrScanInput } from "@tmc/contracts"
