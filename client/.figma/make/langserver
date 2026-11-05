@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
+CLIENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$CLIENT_DIR"
 exec pnpm dlx --package=@vtsls/language-server@^0.3.0 vtsls --stdio

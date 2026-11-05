@@ -111,7 +111,7 @@ TanStack Query có cơ chế mutation và tùy chọn retry/persist. Với yêu 
 
 ### 3.2. Những điểm cần chuyển từ demo sang hệ thống M2
 
-Đối chiếu [src/data/api.ts](../src/data/api.ts), [src/app/context.tsx](../src/app/context.tsx) và [src/app/router.tsx](../src/app/router.tsx): lớp API hiện đọc/ghi dữ liệu demo trong localStorage; context lấy toàn bộ “database” và phiên chọn account lưu ở trình duyệt. Đây là nền UI có thể tận dụng, còn backend M2 cần thay nguồn dữ liệu và cơ chế xác thực.
+Đối chiếu [src/data/api.ts](../client/src/data/api.ts), [src/app/context.tsx](../client/src/app/context.tsx) và [src/app/router.tsx](../client/src/app/router.tsx): lớp API hiện đọc/ghi dữ liệu demo trong localStorage; context lấy toàn bộ “database” và phiên chọn account lưu ở trình duyệt. Đây là nền UI có thể tận dụng, còn backend M2 cần thay nguồn dữ liệu và cơ chế xác thực.
 
 | Hiện trạng quan sát được | Bước chuyển đề xuất |
 |---|---|
@@ -123,7 +123,7 @@ TanStack Query có cơ chế mutation và tùy chọn retry/persist. Với yêu 
 
 Gợi ý ánh xạ: EMPLOYEE → EMP; DEPARTMENT_MANAGER → SUP; HR_MANAGER → HR; SYSTEM_ADMIN → ADM. SECURITY_MANAGER và GATE_OPERATOR có thể là hai tập quyền thuộc SEC nếu nhóm quyết định giữ; không tự xem cả hai là ADM. Enum role trong schema demo ở api.ts chưa có EXE, trong khi M1 có actor này.
 
-**Đóng gói ngoài Figma Make:** [App.tsx](../src/App.tsx) và [index.css](../src/index.css) đang tham chiếu @figma/astraui. Cần xác nhận cách cung cấp dependency/theme này trong môi trường chạy độc lập hoặc lập kế hoạch thay lớp liên quan. Đây là điểm tích hợp cần kiểm tra, chưa phải kết luận build hiện tại bị lỗi.
+**Đóng gói ngoài Figma Make:** [App.tsx](../client/src/App.tsx) và [index.css](../client/src/index.css) đang tham chiếu @figma/astraui. Cần xác nhận cách cung cấp dependency/theme này trong môi trường chạy độc lập hoặc lập kế hoạch thay lớp liên quan. Đây là điểm tích hợp cần kiểm tra, chưa phải kết luận build hiện tại bị lỗi.
 
 ## 4. Backend: vì sao chọn NestJS + TypeORM?
 

@@ -2,6 +2,10 @@
 
 Prototype frontend tiếng Việt cho hệ thống chấm công và kiểm soát ra vào bằng QR của TMC Manufacturing.
 
+Repo là pnpm workspace: `client/` sở hữu frontend, `api/` sở hữu backend,
+`contracts/` chứa kiểu dữ liệu giao tiếp dùng chung. Root giữ lệnh điều phối,
+lockfile và cấu hình Git/AI. Xem [cấu trúc và lý do giữ từng phần](doc/repository-layout.md).
+
 ## Trải nghiệm
 
 - `/`: website giới thiệu, điểm vào mặc định.
@@ -44,10 +48,10 @@ Kiosk có các tình huống hết hạn, khóa QR, sai nhà máy và payload l�
 React, TypeScript, Vite; Astra UI là nguồn component/token; MUI bổ sung bảng, date picker và drawer. React Router, TanStack Query, React Hook Form + Zod, Recharts, Lucide, react-qr-code và html5-qrcode phục vụ nghiệp vụ.
 
 ```sh
-pnpm install
+pnpm install --frozen-lockfile
 pnpm build
-pnpm --dir api build
-pnpm --dir api test
+pnpm typecheck
+pnpm test
 pnpm --dir api test:integration
 ```
 
@@ -58,7 +62,7 @@ pnpm.cmd --dir api build
 pnpm.cmd --dir api start
 ```
 
-Lệnh `api start` ưu tiên `DATABASE_URL` của terminal, sau đó nạp `api/.env` nếu có. Khi vẫn chưa có `DATABASE_URL`, lệnh đọc host/port/username/pass từ `env-variable.txt` ở root, dùng `DATABASE_NAME` hoặc mặc định `tmc`. Không cần chép thông tin kết nối vào source; thiếu cấu hình sẽ báo lỗi rõ thay vì thử PostgreSQL mặc định ở localhost.
+Lệnh `api start` ưu tiên `DATABASE_URL` của terminal, sau đó nạp `api/.env` nếu có. Khi vẫn chưa có `DATABASE_URL`, lệnh đọc host/port/username/pass từ `api/env-variable.txt`, dùng `DATABASE_NAME` hoặc mặc định `tmc`. Không cần chép thông tin kết nối vào source; thiếu cấu hình sẽ báo lỗi rõ thay vì thử PostgreSQL mặc định ở localhost.
 
 Chạy cả backend và frontend:
 

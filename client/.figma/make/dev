@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+CLIENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
+export PORT="${PORT:-8443}"
+exec pnpm --dir "$CLIENT_DIR" dev

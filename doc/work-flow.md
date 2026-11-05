@@ -35,7 +35,7 @@ TMC Access phục vụ kiểm soát ra/vào và ghi công tại Bình Dương (~
 | [teach-stack.md](teach-stack.md), [structure-architecture.md](structure-architecture.md) | NestJS/TypeORM/PostgreSQL, modular monolith, Clean Architecture; client/ và api/ |
 | [schema-database.md](schema-database.md), [user-flow.md](user-flow.md) | Schema 37 bảng và luồng chuẩn; thiết kế không đồng nghĩa đã có migrations/API |
 | [README](../README.md), [package.json](../package.json), [AGENTS.md](../AGENTS.md), [CLAUDE.md](../CLAUDE.md) | Bằng chứng cấu trúc/source và hướng dẫn hiện tại |
-| [Kế hoạch prototype cũ](../plans/tmc-access-frontend-prototype.md), [UI guidelines](../guidelines/Guidelines.md) | Tái sử dụng thiết kế; các dòng “chưa có UI” trong kế hoạch cũ đã lỗi thời so với source |
+| [Kế hoạch prototype cũ](../plans/tmc-access-frontend-prototype.md), [UI guidelines](../client/guidelines/Guidelines.md) | Tái sử dụng thiết kế; các dòng “chưa có UI” trong kế hoạch cũ đã lỗi thời so với source |
 | Nội dung lập kế hoạch người dùng gửi | Một người + AI hỗ trợ, 4 Sprint, ticket đủ chi tiết, deadline nội bộ; không tạo remote issues |
 
 Backend **đã được người dùng chốt Node.js/NestJS**, không mở lại lựa chọn ASP.NET từ phương án chung trong mẫu. Frontend giữ React/TypeScript/Vite, Astra làm nguồn token/component hiện có, MUI bổ sung; không thay toàn bộ design system bằng MUI.
@@ -46,13 +46,13 @@ Backend **đã được người dùng chốt Node.js/NestJS**, không mở lạ
 
 | Component | Current Status | Existing Files | Missing Work | Notes |
 |---|---|---|---|---|
-| Frontend shell/router | Có source prototype | [App.tsx](../src/App.tsx), [router.tsx](../src/app/router.tsx), [main.tsx](../src/main.tsx) | Chuyển client/, HTTP adapters và mode dữ liệu | Chưa có client/ ở source hiện tại |
-| Design system | Có Astra provider/CSS và MUI bridge | [index.css](../src/index.css), [mui-theme.tsx](../src/styles/mui-theme.tsx), [ui.tsx](../src/components/ui.tsx) | Xác minh dependency và baseline Figma có thể tái lập | Import Astra tồn tại nhưng package.json chưa khai báo @figma/astraui; không tìm thấy package/kit ở node_modules đường dẫn kiểm tra; chưa kết luận build fail |
-| Auth/RBAC | Chỉ demo phía client | [context.tsx](../src/app/context.tsx), [rbac.ts](../src/lib/rbac.ts), [Login.tsx](../src/features/auth/Login.tsx) | Session/RBAC/scope ở server, xóa cache theo identity | Session hiện là account ID localStorage; ADM có quyền rộng trong prototype |
-| Employee/QR | Có UI và QR tự sinh | [Mobile.tsx](../src/features/employee-mobile/Mobile.tsx), [qr.ts](../src/lib/qr.ts) | QR ký, jti, revocation, redemption | QR TTL 60s hiện không có chữ ký; cooldown 30s không phải chống replay |
-| Kiosk/camera | Có source Virtual Scanner và webcam | [Kiosk.tsx](../src/features/kiosk/Kiosk.tsx) | API trạm, eventId, kết quả thật, recovery | Camera có xử lý permission/lifecycle trong source; chưa thử thiết bị ở lần này |
-| Access/attendance | Có mô phỏng localStorage | [api.ts](../src/data/api.ts), [types.ts](../src/data/types.ts) | Durable PG transaction, command state, evidence và ledger | Đang tự luân phiên ENTRY/EXIT, ghi công ngay khi allowed; cần thay ở server mode |
-| History/dashboard | Có UI với dữ liệu mẫu | [Dashboard.tsx](../src/features/dashboard/Dashboard.tsx), [Access.tsx](../src/features/access-control/Access.tsx), [Attendance.tsx](../src/features/attendance/Attendance.tsx) | Query scoped/pagination; phân biệt thật/mô phỏng | Không coi KPI quy mô1.400 là dataset kiểm thử 1.400 |
+| Frontend shell/router | Có source prototype | [App.tsx](../client/src/App.tsx), [router.tsx](../client/src/app/router.tsx), [main.tsx](../client/src/main.tsx) | Chuyển client/, HTTP adapters và mode dữ liệu | Chưa có client/ ở source hiện tại |
+| Design system | Có Astra provider/CSS và MUI bridge | [index.css](../client/src/index.css), [mui-theme.tsx](../client/src/styles/mui-theme.tsx), [ui.tsx](../client/src/components/ui.tsx) | Xác minh dependency và baseline Figma có thể tái lập | Import Astra tồn tại nhưng package.json chưa khai báo @figma/astraui; không tìm thấy package/kit ở node_modules đường dẫn kiểm tra; chưa kết luận build fail |
+| Auth/RBAC | Chỉ demo phía client | [context.tsx](../client/src/app/context.tsx), [rbac.ts](../client/src/lib/rbac.ts), [Login.tsx](../client/src/features/auth/Login.tsx) | Session/RBAC/scope ở server, xóa cache theo identity | Session hiện là account ID localStorage; ADM có quyền rộng trong prototype |
+| Employee/QR | Có UI và QR tự sinh | [Mobile.tsx](../client/src/features/employee-mobile/Mobile.tsx), [qr.ts](../client/src/lib/qr.ts) | QR ký, jti, revocation, redemption | QR TTL 60s hiện không có chữ ký; cooldown 30s không phải chống replay |
+| Kiosk/camera | Có source Virtual Scanner và webcam | [Kiosk.tsx](../client/src/features/kiosk/Kiosk.tsx) | API trạm, eventId, kết quả thật, recovery | Camera có xử lý permission/lifecycle trong source; chưa thử thiết bị ở lần này |
+| Access/attendance | Có mô phỏng localStorage | [api.ts](../client/src/data/api.ts), [types.ts](../client/src/data/types.ts) | Durable PG transaction, command state, evidence và ledger | Đang tự luân phiên ENTRY/EXIT, ghi công ngay khi allowed; cần thay ở server mode |
+| History/dashboard | Có UI với dữ liệu mẫu | [Dashboard.tsx](../client/src/features/dashboard/Dashboard.tsx), [Access.tsx](../client/src/features/access-control/Access.tsx), [Attendance.tsx](../client/src/features/attendance/Attendance.tsx) | Query scoped/pagination; phân biệt thật/mô phỏng | Không coi KPI quy mô1.400 là dataset kiểm thử 1.400 |
 | Backend/TCS/HRS | Chưa có source triển khai server trong inventory | Chỉ có thiết kế trong doc/ | api/ NestJS, mock TCS, adapters | Mock HRS và export đầy đủ ngoài code baseline |
 | Database | Có schema tài liệu | [schema-database.md](schema-database.md) | TypeORM mappings/migrations/seed, PG env | Chưa tìm thấy migrations/compose backend |
 | Test/CI | Chưa có bộ tự động trong inventory | package scripts chỉ dev/build/preview/format | Unit/integration/API/failure/E2E/perf, CI | Có pnpm-lock.yaml; chưa thấy .github/workflows |
@@ -185,6 +185,8 @@ P0 không đồng nghĩa CORE: tài liệu, security tests, foundation và submi
 ### 4.4. Vai trò Junior Full Stack Developer và rules áp dụng
 
 AI agent đóng vai **Junior Full Stack Developer**: nhận ticket, phân tích requirement, thực hiện đúng acceptance criteria (AC), tuân thủ rules đã cho và cung cấp bằng chứng kiểm tra. Agent có thể xử lý frontend, backend, contracts, database và tài liệu trong phạm vi ticket; Solo Developer vẫn là owner/reviewer và người nghiệm thu.
+
+Cấu trúc repo hiện hành và trách nhiệm root/client/api/contracts được ghi tại [repository-layout.md](repository-layout.md). Các inventory lúc lập kế hoạch ban đầu là snapshot lịch sử; khi triển khai phải đối chiếu đường dẫn source hiện có.
 
 - Đọc [AGENTS.md](../AGENTS.md), hướng dẫn áp dụng tại thư mục sửa, ticket ở §8 và tài liệu nghiệp vụ/kiến trúc liên quan trước khi code. Yêu cầu trực tiếp mới nhất của người dùng có ưu tiên hơn hướng dẫn cũ; nếu requirement còn mâu thuẫn ảnh hưởng kết quả, làm rõ trước phần việc phụ thuộc.
 - Chỉ làm scope và deliverables được giao; không tự thêm feature, đổi stack/kiến trúc, refactor ngoài phạm vi hoặc chuyển ticket khác sang In Progress. Tự quyết chi tiết triển khai thông thường khi đã đủ dữ kiện.
@@ -510,7 +512,7 @@ Ticket hoãn vẫn có scope/AC để sử dụng sau, nhưng chỉ chuyển Rea
 - Due Date: 05/11/2026
 - Dependencies: [TMC-001](#tmc-001)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: client/** từ src/, public/, index.html và config hiện tại; root package.json, pnpm-workspace.yaml, lockfile, .figma/make cấu hình entry khi cần.
 - Verification Commands: pnpm --dir client exec tsc --noEmit; pnpm --dir client build; smoke test preview.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -924,7 +926,7 @@ Tạo dữ liệu server có UUID ổn định; không nhập session/localStora
 - Due Date: 10/11/2026
 - Dependencies: [TMC-007](#tmc-007), [TMC-002](#tmc-002)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: client/src/app/context.tsx, client/src/app/router.tsx, client/src/features/auth/**, client/src/lib/rbac.ts, client/src/shared/api/**.
 - Verification Commands: pnpm --dir client exec tsc --noEmit; pnpm --dir client build; smoke auth/permission.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -1545,7 +1547,7 @@ Triển khai state machine command; commit quyền gửi trước external HTTP.
 - Due Date: 14/11/2026
 - Dependencies: [TMC-010](#tmc-010), [TMC-008](#tmc-008)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: client/src/features/employee-mobile/**, client/src/features/eqr/** nếu tách, client/src/shared/api/**, client/src/lib/qr.ts.
 - Verification Commands: pnpm --dir client exec tsc --noEmit; pnpm --dir client build; kiểm tra portal bằng tài khoản EMP.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -1614,7 +1616,7 @@ Tái sử dụng trang mobile hiện có, thay makeQr phía client bằng endpoi
 - Due Date: 17/11/2026
 - Dependencies: [TMC-016](#tmc-016), [TMC-017](#tmc-017)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: client/src/features/kiosk/**, client/src/shared/api/**, client/src/features/gate/application/**; doc/demo.md.
 - Verification Commands: pnpm --dir client exec tsc --noEmit; pnpm --dir client build; demo portal→virtual kiosk.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -1821,7 +1823,7 @@ Tạo read models/DTO nhỏ cho status, access history và attendance history. K
 - Due Date: 19/11/2026
 - Dependencies: [TMC-020](#tmc-020), [TMC-008](#tmc-008)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: client/src/features/employee-mobile/**, client/src/features/access-control/**, client/src/features/attendance/** phần đọc, client/src/shared/api/**.
 - Verification Commands: pnpm --dir client exec tsc --noEmit; pnpm --dir client build; smoke history/detail.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -1959,7 +1961,7 @@ Ticket riêng cho Network Failure Architecture M2. Cụ thể hóa R1 online/rec
 - Due Date: 20/11/2026
 - Dependencies: [TMC-018](#tmc-018), [TMC-020](#tmc-020), [TMC-022](#tmc-022)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: client/src/features/kiosk/{application,infrastructure}/**, client/src/features/kiosk/Kiosk.tsx, client/src/shared/api/**.
 - Verification Commands: pnpm --dir client exec tsc --noEmit; pnpm --dir client test:e2e; manual DevTools offline.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -2235,7 +2237,7 @@ Tạo harness điều khiển lỗi có thể lặp lại và quan sát cả app
 - Due Date: 23/11/2026
 - Dependencies: [TMC-018](#tmc-018)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: client/src/features/kiosk/** phần camera, client test camera lifecycle, doc/demo.md.
 - Verification Commands: pnpm --dir client build; manual webcam/fallback; E2E lifecycle bằng fake camera nếu hỗ trợ.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -2304,7 +2306,7 @@ P1: reuse html5-qrcode/ScanCamera hiện có, nối cùng application scan adapt
 - Due Date: 24/11/2026
 - Dependencies: [TMC-020](#tmc-020), [TMC-021](#tmc-021), [TMC-025](#tmc-025)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: client/src/features/dashboard/**, api/src/modules/gate/application/queries/**, client/src/shared/api/**.
 - Verification Commands: pnpm --dir client build; pnpm --dir api test:integration -- --runInBand; manual count comparison.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -3339,7 +3341,7 @@ P2 nghiên cứu/prototype edge, không phải bật offline OPEN cho kiosk hi�
 - Due Date: Chưa xếp lịch — sau 01/12/2026
 - Dependencies: [TMC-007](#tmc-007), [TMC-008](#tmc-008)
 - Status: Backlog
-- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../guidelines/Guidelines.md) và baseline source
+- Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md), [UI guidelines](../client/guidelines/Guidelines.md) và baseline source
 - Files/Modules được phép thay đổi: api/src/modules/iam/** management, client/src/features/settings/**, doc/permission-matrix.md.
 - Verification Commands: pnpm --dir api test:integration -- --runInBand; pnpm --dir client test:e2e.
 - Human Approval Required: Solo Developer review/nghiệm thu trước Done; không tự phê duyệt output của AI
@@ -4000,7 +4002,7 @@ Mẫu cập nhật hằng ngày: **Ngày — Ticket — Planned/Actual/Remaining
 | [Tech stack §10](teach-stack.md), [architecture](structure-architecture.md), [schema 37 bảng](schema-database.md) | Kế thừa prefix `/api`, các URL đã đề xuất và sáu bounded context. Một endpoint biểu diễn use case; không sinh CRUD cho mọi bảng. |
 | [Bootstrap API](../api/src/main.ts), [AppModule](../api/src/app.module.ts), [module wiring](../api/src/bootstrap/modules/iam.module.ts), [contracts](../contracts/src/index.ts) | Source hiện có prefix `api`, các Nest module khởi tạo, ORM entities và kiểu wire ban đầu; chưa tìm thấy `@Controller`, route handler HTTP hoặc đăng ký controller trong `api/src/` ở thời điểm đối chiếu. |
 
-**Hiện trạng endpoint nghiệp vụ đã triển khai: 0 được xác nhận từ source.** Các bảng dưới là **contract đề xuất**, không phải danh sách API đang chạy. Không suy ra API đã có chỉ từ migration, seed, bảng dữ liệu hoặc hàm localStorage trong [prototype `src/data/api.ts`](../src/data/api.ts). Health/OpenAPI cũng đang là deliverable của ticket nền, chưa có bằng chứng route hoạt động.
+**Hiện trạng endpoint nghiệp vụ đã triển khai: 0 được xác nhận từ source.** Các bảng dưới là **contract đề xuất**, không phải danh sách API đang chạy. Không suy ra API đã có chỉ từ migration, seed, bảng dữ liệu hoặc hàm localStorage trong [prototype `src/data/api.ts`](../client/src/data/api.ts). Health/OpenAPI cũng đang là deliverable của ticket nền, chưa có bằng chứng route hoạt động.
 
 Mã `API-<nhóm>-<số>` là mã tra cứu của catalogue, không phải ticket hay entity ID. Cột phạm vi được hiểu như sau:
 

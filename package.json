@@ -1,44 +1,27 @@
 {
-  "name": "figma-make-app",
+  "name": "tmc-access-workspace",
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "packageManager": "pnpm@10.34.3",
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10 <11"
+  },
   "scripts": {
-    "dev": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",
+    "dev": "pnpm --dir client dev",
     "dev:client": "pnpm --dir client dev",
     "dev:full": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",
-    "build": "pnpm --dir client build",
+    "start:api": "pnpm --dir api start",
+    "build": "pnpm run build:client && pnpm run build:api",
+    "build:client": "pnpm --dir client build",
+    "build:api": "pnpm --dir api build",
     "preview": "pnpm --dir client preview",
+    "test": "pnpm --dir api test",
+    "typecheck": "pnpm --dir contracts typecheck && pnpm --dir client typecheck && pnpm --dir api typecheck",
     "format": "oxfmt"
   },
-  "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@figma/astraui": "^1.0.0",
-    "@hookform/resolvers": "^5.0.0",
-    "@mui/material": "7.3.5",
-    "@mui/x-date-pickers": "^8.17.0",
-    "@tanstack/react-query": "^5.90.0",
-    "date-fns": "^4.1.0",
-    "html5-qrcode": "^2.3.8",
-    "lucide-react": "^0.577.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-hook-form": "^7.55.0",
-    "react-qr-code": "^2.0.18",
-    "react-router-dom": "^7.13.0",
-    "recharts": "^2.15.2",
-    "zod": "^4.0.0"
-  },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.0.0",
-    "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^6.0.0",
-    "oxfmt": "^0.2.0",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.7.0",
-    "vite": "^8.0.5"
+    "oxfmt": "^0.2.0"
   }
 }

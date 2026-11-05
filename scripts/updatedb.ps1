@@ -11,7 +11,7 @@ if ($LASTEXITCODE -ne 0) {
 
 $env:DB_ACTION = "status"
 Write-Host "Verifying database metadata..."
-$envFile = Join-Path $PSScriptRoot "..\env-variable.txt"
+$envFile = Join-Path $PSScriptRoot "..\api\env-variable.txt"
 $line = Get-Content $envFile -Raw
 $hostValue = [regex]::Match($line, 'host:\s*([^:]+)').Groups[1].Value.Trim()
 $portValue = [regex]::Match($line, 'port\s+(\d+)').Groups[1].Value.Trim()

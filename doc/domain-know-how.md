@@ -6,7 +6,7 @@
 
 **Cách hiểu trạng thái:** **Thiết kế đích** là nghiệp vụ được mô tả trong bộ tài liệu M1/M2; **Prototype** là hành vi đọc được từ source frontend dùng localStorage. Các sơ đồ chính diễn giải thiết kế đích; chúng không xác nhận backend, thiết bị thật hoặc HRS đã được tích hợp. Việc đối chiếu source trong tài liệu này là đọc mã, chưa chạy kiểm thử ứng dụng.
 
-**Hiện trạng source được đối chiếu:** prototype đầy đủ màn hình nằm trong `src/` ở root. Workspace cũng có skeleton `client/` và `api/`: client đang hiển thị [KioskPage khởi tạo](../client/src/features/gate/presentation/pages/KioskPage.tsx), backend đã có [ranh giới module](../api/src/modules/README.md), [port cổng](../api/src/modules/gate/application/ports/turnstile.gateway.ts) và các module Nest khởi tạo. Skeleton này là bước chuẩn bị cho cấu trúc đích; các mô tả hành vi demo bên dưới được đối chiếu với `src/`, không mặc định đã chuyển đầy đủ sang `client/` và `api/`.
+**Đường dẫn source hiện hành:** frontend nằm trong `client/src/`, backend nằm trong `api/src/`, contracts dùng chung nằm trong `contracts/src/`. Xem [repository-layout.md](repository-layout.md) để biết trách nhiệm từng package. Các mô tả prototype dưới đây cần được phân biệt với API nghiệp vụ đã triển khai: frontend vẫn có hành vi demo, còn backend hiện có bootstrap/session auth tối thiểu; không mặc định toàn bộ flow đã được nối API thật.
 
 | Muốn hiểu | Đọc phần |
 | --- | --- |
@@ -102,7 +102,7 @@ Ví dụ: SEC tại Bình Dương và SEC tại Long An cùng role nhưng có sc
 
 Prototype đang dùng sáu role: `SYSTEM_ADMIN`, `HR_MANAGER`, `SECURITY_MANAGER`, `GATE_OPERATOR`, `DEPARTMENT_MANAGER`, `EMPLOYEE`. Hai role an ninh là cách chia trong UI demo; EXE chưa có role tương ứng. `canManage()` hiện cho admin quyền rộng và cho manager xử lý công, khác với giới hạn SUP/ADM trong thiết kế. Cần ánh xạ và chốt quyền khi triển khai backend, thay vì xem hai mô hình đã trùng nhau.
 
-Nguồn: [actors và giới hạn](user-flow.md), [role/scope trong prototype](../src/lib/rbac.ts).
+Nguồn: [actors và giới hạn](user-flow.md), [role/scope trong prototype](../client/src/lib/rbac.ts).
 
 <a id="cfg"></a>
 
@@ -204,7 +204,7 @@ QR bị lộ được xử lý bằng thu hồi, mã ngắn hạn, kiểm tra qu
 
 **Prototype:** QR có hạn 60 giây nhưng không có chữ ký; `qrLocked` là cờ khóa demo. Cooldown 30 giây trong luồng quét là cơ chế demo riêng, chưa thay thế kiểm soát `jti` trên server.
 
-Nguồn: [UF-01/UF-04](user-flow.md), [QR M2 trong tech stack, phần 9.1](teach-stack.md), [mã QR prototype](../src/lib/qr.ts).
+Nguồn: [UF-01/UF-04](user-flow.md), [QR M2 trong tech stack, phần 9.1](teach-stack.md), [mã QR prototype](../client/src/lib/qr.ts).
 
 <a id="gate"></a>
 
@@ -308,7 +308,7 @@ Sự kiện/revision gốc được giữ lại. Hai HR cùng sửa một versio
 
 **Prototype:** `Attendance` lưu `checkIn/checkOut` theo ngày; duyệt Adjustment cập nhật bản ghi đó trực tiếp. Đây là mô hình demo đơn giản hơn ledger/revision của thiết kế đích.
 
-Nguồn: [UF-06](user-flow.md), [nhóm ATT](schema-database.md#t-attendance_events), [API demo](../src/data/api.ts).
+Nguồn: [UF-06](user-flow.md), [nhóm ATT](schema-database.md#t-attendance_events), [API demo](../client/src/data/api.ts).
 
 <a id="ca-lam"></a>
 
@@ -327,7 +327,7 @@ Ví dụ minh họa: ca bắt đầu 08:00, grace 5 phút; theo công thức pro
 
 Luồng quét demo có xử lý ngày công cho ca qua đêm theo cách đơn giản trong code. Quy tắc nghiệp vụ cho ca đêm, đổi ca, thiếu lượt, làm thêm và phép cần chốt riêng; schema thiết kế hiện tại chưa có nhóm bảng lịch ca đầy đủ. Không suy ra mọi trường hợp này đã được thiết kế hoặc hiện thực chỉ từ màn Ca làm.
 
-Nguồn: [Shift/Employee trong kiểu dữ liệu](../src/data/types.ts), [màn Ca làm](../src/features/shifts/Shifts.tsx), [xử lý công demo](../src/data/api.ts), [điểm chưa chốt của đặc tả](sumary-assigment.md).
+Nguồn: [Shift/Employee trong kiểu dữ liệu](../client/src/data/types.ts), [màn Ca làm](../client/src/features/shifts/Shifts.tsx), [xử lý công demo](../client/src/data/api.ts), [điểm chưa chốt của đặc tả](sumary-assigment.md).
 
 <a id="rpt"></a>
 
@@ -372,7 +372,7 @@ flowchart TD
 
 **Prototype:** có báo cáo và xuất CSV theo bộ lọc; chưa có giao nhận HRS trong lớp API demo đã đọc. CSV phục vụ người dùng không thay bước gửi API/xác nhận lô.
 
-Nguồn: [UF-07/UF-08](user-flow.md), [nhóm RPT](schema-database.md#t-export_batches), [báo cáo prototype](../src/features/reports/Reports.tsx).
+Nguồn: [UF-07/UF-08](user-flow.md), [nhóm RPT](schema-database.md#t-export_batches), [báo cáo prototype](../client/src/features/reports/Reports.tsx).
 
 <a id="van-hanh"></a>
 
@@ -392,7 +392,7 @@ Các chức năng này hỗ trợ nhiều miền. Trong schema, AuditEntry thu�
 
 Prototype có Notification theo nhân viên, cờ đã đọc và tạo thông báo khi duyệt điều chỉnh. Đây là thông báo trong dữ liệu trình duyệt; chưa chứng minh có push/email/SMS. Giao diện sáng/tối và đặt lại dữ liệu demo là tiện ích ứng dụng; chúng không phải nghiệp vụ xác nhận hiện diện hay đối soát lương.
 
-Nguồn: [Outbox/Job/Worker](explain-detail.md), [nhóm OPS](schema-database.md#t-outbox_messages), [API thông báo demo](../src/data/api.ts).
+Nguồn: [Outbox/Job/Worker](explain-detail.md), [nhóm OPS](schema-database.md#t-outbox_messages), [API thông báo demo](../client/src/data/api.ts).
 
 <a id="phuc-hoi"></a>
 
@@ -471,7 +471,7 @@ Bảng này đối chiếu route/source prototype trong `src/` ở root, giúp t
 
 Lớp `api` hiện đọc/ghi localStorage; quét demo tự luân phiên ENTRY/EXIT và cập nhật công khi `allowed`. Thiết kế đích lấy chiều từ trạm, tách kết quả cổng/công và chỉ ghi công chính thức theo nguồn đủ bằng chứng. Đây là khác biệt cần xử lý khi chuyển sang backend.
 
-Nguồn: [router](../src/app/router.tsx), [kiểu dữ liệu demo](../src/data/types.ts), [API demo](../src/data/api.ts), [màn hình và flow đích](user-flow.md).
+Nguồn: [router](../client/src/app/router.tsx), [kiểu dữ liệu demo](../client/src/data/types.ts), [API demo](../client/src/data/api.ts), [màn hình và flow đích](user-flow.md).
 
 <a id="quy-tac"></a>
 

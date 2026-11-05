@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+CLIENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$CLIENT_DIR"
+exec figma-analyze routes "$@"

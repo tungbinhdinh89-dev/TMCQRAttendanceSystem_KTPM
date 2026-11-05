@@ -1,5 +1,7 @@
 # Structure Architecture — Clean Architecture cho client/ và api/
 
+**Cấu trúc repository hiện hành:** xem [repository-layout.md](repository-layout.md). Frontend và công cụ Figma/guidelines nằm trong `client/`; root chỉ điều phối pnpm workspace và giữ cấu hình chung. Các phần chuyển đổi source bên dưới mô tả thiết kế/lộ trình, không phải yêu cầu khôi phục scaffold root cũ.
+
 **Stack thống nhất:** Frontend **React + TypeScript + Vite** trong **client/**; backend **Node.js + NestJS + TypeScript + TypeORM + PostgreSQL** trong **api/**, đúng hướng lựa chọn trong [teach-stack.md](teach-stack.md). Backend giữ modular monolith và sáu module M1.
 
 **Phạm vi tài liệu:** Cây thư mục, trách nhiệm, chiều import, interface và wiring mẫu để hình dung trước khi tạo skeleton source. Cấu trúc bên dưới là thiết kế đích; source hiện tại chưa được di chuyển hoặc sinh thêm ứng dụng trong lần cập nhật tài liệu này.

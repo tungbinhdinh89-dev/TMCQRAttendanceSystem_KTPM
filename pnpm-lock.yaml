@@ -7,86 +7,10 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@emotion/react':
-        specifier: ^11.14.0
-        version: 11.14.0(@types/react@19.2.14)(react@19.2.4)
-      '@emotion/styled':
-        specifier: ^11.14.1
-        version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4)
-      '@figma/astraui':
-        specifier: ^1.0.0
-        version: 1.0.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@hookform/resolvers':
-        specifier: ^5.0.0
-        version: 5.9.2(ajv@8.20.0)(react-hook-form@7.55.0(react@19.2.4))(zod@4.6.7)
-      '@mui/material':
-        specifier: 7.3.5
-        version: 7.3.5(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@mui/x-date-pickers':
-        specifier: ^8.17.0
-        version: 8.29.5(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@mui/material@7.3.5(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@mui/system@7.3.11(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(date-fns@4.4.0)(dayjs@1.11.23)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@tanstack/react-query':
-        specifier: ^5.90.0
-        version: 5.104.5(@types/react@19.2.14)(react@19.2.4)
-      date-fns:
-        specifier: ^4.1.0
-        version: 4.4.0
-      html5-qrcode:
-        specifier: ^2.3.8
-        version: 2.3.8
-      lucide-react:
-        specifier: ^0.577.0
-        version: 0.577.0(react@19.2.4)
-      react:
-        specifier: ^19.0.0
-        version: 19.2.4
-      react-dom:
-        specifier: ^19.0.0
-        version: 19.2.4(react@19.2.4)
-      react-hook-form:
-        specifier: ^7.55.0
-        version: 7.55.0(react@19.2.4)
-      react-qr-code:
-        specifier: ^2.0.18
-        version: 2.2.0(react@19.2.4)
-      react-router-dom:
-        specifier: ^7.13.0
-        version: 7.18.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      recharts:
-        specifier: ^2.15.2
-        version: 2.15.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      zod:
-        specifier: ^4.0.0
-        version: 4.6.7
     devDependencies:
-      '@tailwindcss/vite':
-        specifier: ^4.0.0
-        version: 4.2.2(vite@8.0.5(@types/node@22.19.17)(jiti@2.6.1)(terser@5.51.2))
-      '@types/node':
-        specifier: ^22.0.0
-        version: 22.19.17
-      '@types/react':
-        specifier: ^19.0.0
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.0.0
-        version: 19.2.3(@types/react@19.2.14)
-      '@vitejs/plugin-react':
-        specifier: ^6.0.0
-        version: 6.0.1(vite@8.0.5(@types/node@22.19.17)(jiti@2.6.1)(terser@5.51.2))
       oxfmt:
         specifier: ^0.2.0
         version: 0.2.0
-      tailwindcss:
-        specifier: ^4.0.0
-        version: 4.2.2
-      typescript:
-        specifier: ^5.7.0
-        version: 5.9.3
-      vite:
-        specifier: ^8.0.5
-        version: 8.0.5(@types/node@22.19.17)(jiti@2.6.1)(terser@5.51.2)
 
   api:
     dependencies:
@@ -188,6 +112,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.0.0
         version: 4.2.2(vite@8.0.5(@types/node@22.19.17)(jiti@2.6.1)(terser@5.51.2))
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.17
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.14
@@ -207,7 +134,11 @@ importers:
         specifier: ^8.0.5
         version: 8.0.5(@types/node@22.19.17)(jiti@2.6.1)(terser@5.51.2)
 
-  contracts: {}
+  contracts:
+    devDependencies:
+      typescript:
+        specifier: ^5.7.0
+        version: 5.9.3
 
 packages:
 

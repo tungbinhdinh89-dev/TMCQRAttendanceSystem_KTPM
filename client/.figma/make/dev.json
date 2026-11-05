@@ -1,0 +1,16 @@
+{
+  "installOn": [
+    ".mise.toml",
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "api/package.json",
+    "client/package.json",
+    "contracts/package.json"
+  ],
+  "restartOn": [
+    "client/vite.config.ts",
+    "client/.figma/vite-plugins.ts",
+    "client/.figma/make/site.json"
+  ]
+}

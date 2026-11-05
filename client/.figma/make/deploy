@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+CLIENT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$CLIENT_DIR"
 pnpm run build
 figma make deploy --build-dir dist

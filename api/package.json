@@ -8,7 +8,8 @@
     "start": "node scripts/start.mjs",
     "seed:demo": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js",
     "test": "pnpm run build && node --test test/auth.service.test.mjs test/bootstrap.test.mjs test/runtime-env.test.mjs",
-    "test:integration": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js && node --test test/integration/**/*.test.mjs"
+    "test:integration": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js && node --test test/integration/**/*.test.mjs",
+    "typecheck": "tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@tmc/contracts": "workspace:*",

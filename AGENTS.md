@@ -1,44 +1,35 @@
-# figma-make-app
+# TMC Access workspace
 
-React + Vite + Tailwind CSS project running inside Figma Make.
+This repository is a pnpm workspace with three packages: `api/` (NestJS),
+`client/` (React + Vite + Tailwind CSS v4), and `contracts/` (shared wire types).
 
-## Development Server
+## Start here
 
-A Vite development server is **already running** on `$PORT` (default 8443). You don't need to start it manually.
+- `README.md` and `doc/repository-layout.md` describe setup and directory ownership.
+- Read `doc/work-flow.md` for ticket requirements, branch names, commit messages,
+  verification and push checkpoints. Work only on the assigned ticket.
+- `client/src/main.tsx`, `client/src/App.tsx`, `client/src/index.css` are the UI entry points.
+- `client/index.html`, `client/vite.config.ts`, `client/tsconfig.json` belong to the client.
+- `api/src/main.ts` and `api/src/app.module.ts` bootstrap the backend.
+- `contracts/src/` contains framework-independent request/response types.
+- `scripts/` contains workspace development and database operations.
+- `client/.figma/` contains client preview/deployment tooling and site metadata.
+- `client/guidelines/Guidelines.md` applies to UI work; also read `client/AGENTS.md`.
 
-- Preview URL: The user can access the running app through the preview panel
-- Hot reload: Changes to source files are reflected immediately
+## Workspace rules
 
-## Project Structure
-
-This is the canonical project structure. Start with task-relevant files below. Only follow imports or inspect other files when required, when a documented path is missing, or when the repository contradicts this guide.
-
-- `src/main.tsx` - React entrypoint; imports `src/index.css` and mounts `src/App.tsx` into the `#root` element
-- `src/App.tsx` - Primary application component and the usual starting point for UI work
-- `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
-- `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`
-- `package.json` - Project dependencies and the Vite build, development, preview, and formatting scripts
-- `vite.config.ts` - Vite configuration with React, Tailwind CSS v4, and Figma Make plugins plus the `@` alias for `src`
-- `.mise.toml` - Toolchain versions for Node.js and pnpm
-
-## Dependencies
-
-- Runtime: React 19 and React DOM 19
-- Styling: Tailwind CSS v4 with the `@tailwindcss/vite` plugin
-- Build tooling: Vite 8, TypeScript 5.7, and `@vitejs/plugin-react`
-- Formatting: oxfmt
-
-## Styling
-
-This project uses **Tailwind CSS v4** through the `@tailwindcss/vite` plugin configured in `vite.config.ts`. `src/index.css` imports Tailwind with `@import 'tailwindcss';`. Use Tailwind utility classes directly in JSX and put global CSS or Tailwind v4 theme customization in `src/index.css`. This scaffold does not need a Tailwind config file or PostCSS config.
-
-`src/main.tsx` imports `src/index.css`, so global font wiring belongs in `src/index.css`. Keep CSS `@import` statements first, then add any `@font-face` rules and font-family defaults there.
-
-## Code quality
-
-- Use double quotes for strings containing apostrophes (`"We're here to help"`), or escape them in single-quoted strings. An unescaped apostrophe in a single-quoted string breaks the build.
-- Ensure JSX tags are closed and braces are balanced.
-- Export components as default exports.
+- Keep application dependencies in their owning package. Root `package.json`
+  contains orchestration and shared development tools only.
+- Keep the root pnpm workspace manifest and single lockfile. Root `node_modules/.pnpm`
+  is required by pnpm's default workspace linker; it is generated and ignored.
+- Build artifacts belong in `client/dist` or `api/dist`; do not restore a root UI scaffold.
+- Use Node/pnpm versions from `.mise.toml` and `packageManager` in root `package.json`.
+- Run `pnpm build`, `pnpm typecheck` and `pnpm test` as appropriate to the change.
+  In Windows PowerShell, use `pnpm.cmd` if script execution blocks `pnpm.ps1`.
+- Preserve unrelated changes and local configuration. Never commit real credentials.
+  Local API configuration lives in `api/.env` or ignored `api/env-variable.txt`.
+- Do not start duplicate dev servers. Figma-managed previews use the configured
+  `PORT` (commonly 8443); local client development defaults to 5173.
 
 ## Backend bounded contexts
 

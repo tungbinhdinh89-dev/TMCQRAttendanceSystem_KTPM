@@ -18,7 +18,7 @@ test("startup reads the configured database host and port and escapes credential
   const path = configFile(t, `host: db.example.invalid: port 5433, username: demo.user, pass: ${password}`)
   const env = { DATABASE_NAME: "tmc test" }
 
-  assert.equal(configureDatabaseEnvironment({ env, configPath: path }), "env-variable.txt")
+  assert.equal(configureDatabaseEnvironment({ env, configPath: path }), "api/env-variable.txt")
   const url = new URL(env.DATABASE_URL)
   assert.equal(url.hostname, "db.example.invalid")
   assert.equal(url.port, "5433")

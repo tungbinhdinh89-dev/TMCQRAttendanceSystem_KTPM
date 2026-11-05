@@ -1,8 +1,10 @@
 node_modules/
+.pnpm-store/
 dist/
 build/
 .cache/
 .env*
+!.env.example
 .vite/
 vite.config.*.timestamp-*
 *.tsbuildinfo
@@ -11,7 +13,7 @@ logs/
 *.log
 .claude-replay.*
 .tmp-*
-/.figma/design-context/
+/client/.figma/design-context/
 
 # Platform-managed agentplat state, not project source. In the
 # client-initiated single-repo workspace layout (make's `Path: "."` spec) the
@@ -20,6 +22,5 @@ logs/
 /.plugins/
 /.opencode-skills/
 /plans
-/guidelines
-/stephen-skills
+/skills/stephen-skills/
 env-variable.txt
