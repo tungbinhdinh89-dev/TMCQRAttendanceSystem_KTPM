@@ -51,6 +51,15 @@ pnpm --dir api test
 pnpm --dir api test:integration
 ```
 
+Chạy riêng backend sau khi build:
+
+```powershell
+pnpm.cmd --dir api build
+pnpm.cmd --dir api start
+```
+
+Lệnh `api start` ưu tiên `DATABASE_URL` của terminal, sau đó nạp `api/.env` nếu có. Khi vẫn chưa có `DATABASE_URL`, lệnh đọc host/port/username/pass từ `env-variable.txt` ở root, dùng `DATABASE_NAME` hoặc mặc định `tmc`. Không cần chép thông tin kết nối vào source; thiếu cấu hình sẽ báo lỗi rõ thay vì thử PostgreSQL mặc định ở localhost.
+
 Chạy cả backend và frontend:
 
 ```powershell
