@@ -24,3 +24,13 @@ pnpm --filter @tmc/api exec node (Join-Path $PSScriptRoot "..\api\scripts\db-che
 if ($LASTEXITCODE -ne 0) {
   throw "Database verification failed."
 }
+
+if ([string]::IsNullOrWhiteSpace($env:DEMO_PASSWORD) -or [string]::IsNullOrWhiteSpace($env:DEMO_STATION_SECRET)) {
+  throw "Set DEMO_PASSWORD and DEMO_STATION_SECRET before running updatedb.ps1; these values are hashed and never stored in the repository."
+}
+
+Write-Host "Seeding demo identity, scope, and IN/OUT stations..."
+pnpm --filter @tmc/api seed:demo
+if ($LASTEXITCODE -ne 0) {
+  throw "Demo seed failed."
+}

@@ -785,7 +785,7 @@ Thiết lập công cụ kiểm thử và CI từ đầu, tách DB test khỏi d
 - Start Date: 07/11/2026
 - Due Date: 07/11/2026
 - Dependencies: [TMC-004](#tmc-004)
-- Status: Backlog
+- Status: In Review
 - Input Documents: [M1](spec.pdf), [M2](SA_CC_hk261_Assignment_M2.pdf), [architecture](structure-architecture.md), [schema](schema-database.md), [flow](user-flow.md)
 - Files/Modules được phép thay đổi: api/src/shared/infrastructure/database/seeds/**, api/test/fixtures/**, doc/demo-accounts.md.
 - Verification Commands: pnpm --dir api seed:demo; pnpm --dir api test:integration -- --runInBand.
@@ -797,29 +797,29 @@ Tạo dữ liệu server có UUID ổn định; không nhập session/localStora
 
 **Implementation Tasks**
 
-- [ ] Seed BD/LA, department/team, employee/assignment và access grants khác nhau.
-- [ ] Seed EMP/HR/SUP/SEC/ADM/EXE và permission/scope tối thiểu; map hai role security prototype về SEC theo permission.
-- [ ] Seed trạm riêng IN/OUT, endpoint mock TCS, station credential và config version.
-- [ ] Seed tài khoản bằng hash mật khẩu; lưu secret trạm qua env và hướng dẫn reset DB demo riêng.
+- [x] Seed BD/LA, department/team, employee/assignment và access grants khác nhau.
+- [x] Seed EMP/HR/SUP/SEC/ADM/EXE và permission/scope tối thiểu; map hai role security prototype về SEC theo permission.
+- [x] Seed trạm riêng IN/OUT, endpoint mock TCS, station credential và config version.
+- [x] Seed tài khoản bằng hash mật khẩu; lưu secret trạm qua env và hướng dẫn reset DB demo riêng.
 
 **Acceptance Criteria**
 
-- [ ] Employee tổ chức BD có thể có grant LA; access không suy từ site duy nhất.
+- [x] Employee tổ chức BD có thể có grant LA; access không suy từ site duy nhất.
 - [ ] Trạm quyết định direction tại server, client không được sửa nhà máy/hướng.
-- [ ] Có nhân viên inactive, revoked và out-of-scope phục vụ negative tests.
+- [x] Có nhân viên inactive, revoked và out-of-scope phục vụ negative tests.
 
 **Testing Checklist**
 
-- [ ] Seed hai lần không tạo trùng dữ liệu định danh.
-- [ ] Query kiểm tra FK tổ chức và mỗi role/scope.
-- [ ] Kiểm tra không có mật khẩu hoặc credential thô trong git/log.
+- [x] Seed hai lần không tạo trùng dữ liệu định danh.
+- [x] Query kiểm tra FK tổ chức và mỗi role/scope.
+- [x] Kiểm tra không có mật khẩu hoặc credential thô trong git/log.
 
 **Definition of Done**
 
-- [ ] Phạm vi và mọi Acceptance Criteria của ticket đã đạt, không mở feature ngoài scope.
+- [ ] Phạm vi và mọi Acceptance Criteria của ticket đã đạt, không mở feature ngoài scope. Direction enforcement còn phụ thuộc ticket backend access.
 - [ ] Code/diff đã được Solo Developer review, tuân import boundary, scope và secret handling.
 - [ ] Build/typecheck thành công cho phần code bị ảnh hưởng; không che lỗi bằng bỏ qua kiểm tra.
-- [ ] Các kiểm chứng trong Testing Checklist có kết quả/evidence thật; không đánh dấu pass khi chưa chạy.
+- [x] Các kiểm chứng trong Testing Checklist có kết quả/evidence thật; không đánh dấu pass khi chưa chạy.
 - [ ] Không còn lỗi blocking; limitations hoặc ticket hoãn đã được ghi rõ.
 - [ ] Tài liệu/API contract hoặc runbook liên quan đã được cập nhật.
 - [ ] Solo Developer nghiệm thu và cập nhật trạng thái Done sau khi tích hợp.
