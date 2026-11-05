@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "start:dev": "nest start --watch",
+    "start:dev": "node --import ./scripts/load-env.mjs ./node_modules/@nestjs/cli/bin/nest.js start --watch",
     "build": "nest build",
     "start": "node scripts/start.mjs",
-    "seed:demo": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js",
+    "seed:demo": "pnpm build && node --import ./scripts/load-env.mjs dist/platform/infrastructure/database/seeds/demo-seed.js",
     "test": "pnpm run build && node --test test/auth.service.test.mjs test/bootstrap.test.mjs test/runtime-env.test.mjs",
-    "test:integration": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js && node --test test/integration/**/*.test.mjs",
+    "test:integration": "pnpm build && node --import ./scripts/load-env.mjs --test test/integration/demo-seed.integration.test.mjs",
     "typecheck": "tsc --noEmit --incremental false"
   },
   "dependencies": {

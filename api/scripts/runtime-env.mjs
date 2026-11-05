@@ -4,7 +4,14 @@ export function configureDatabaseEnvironment({
   env = process.env,
   configPath = new URL("../env-variable.txt", import.meta.url),
 } = {}) {
-  if (env.DATABASE_URL?.trim()) return "DATABASE_URL"
+  if (env.DATABASE_URL?.trim()) {
+    if (env.DATABASE_NAME?.trim()) {
+      const target = new URL(env.DATABASE_URL)
+      target.pathname = `/${encodeURIComponent(env.DATABASE_NAME.trim())}`
+      env.DATABASE_URL = target.toString()
+    }
+    return "DATABASE_URL"
+  }
 
   let config
   try {

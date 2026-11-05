@@ -1,16 +1,16 @@
 import { Client } from "pg"
 
 const databaseUrl = process.env.DATABASE_URL
-const databaseName = process.env.DATABASE_NAME || "tmc"
+const databaseName = process.env.DATABASE_NAME || (databaseUrl && decodeURIComponent(new URL(databaseUrl).pathname.slice(1))) || "tmc"
 const action = process.env.DB_ACTION || "status"
 
 if (!databaseUrl) throw new Error("DATABASE_URL is not set.")
 
 const targetUrl = new URL(databaseUrl)
-targetUrl.pathname = `/${databaseName}`
+targetUrl.pathname = `/${encodeURIComponent(databaseName)}`
 const adminUrl = new URL(databaseUrl)
 adminUrl.pathname = "/postgres"
-const connect = (connectionString) => new Client({ connectionString: connectionString.toString() })
+const connect = (connectionString) => new Client({ connectionString: connectionString.toString(), connectionTimeoutMillis: 5000 })
 
 async function ensureDatabase() {
   const admin = connect(adminUrl)

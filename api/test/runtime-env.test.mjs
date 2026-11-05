@@ -34,6 +34,16 @@ test("an explicit DATABASE_URL takes precedence over the local configuration", (
   assert.equal(env.DATABASE_URL, original)
 })
 
+test("an explicit database name changes only the database selected in DATABASE_URL", (t) => {
+  const env = { DATABASE_URL: "postgresql://demo:test@db.example.invalid:5433/old?sslmode=require", DATABASE_NAME: "tmc test" }
+  configureDatabaseEnvironment({ env, configPath: configFile(t) })
+  const url = new URL(env.DATABASE_URL)
+  assert.equal(decodeURIComponent(url.pathname), "/tmc test")
+  assert.equal(url.hostname, "db.example.invalid")
+  assert.equal(url.port, "5433")
+  assert.equal(url.searchParams.get("sslmode"), "require")
+})
+
 test("missing database configuration fails clearly instead of using localhost defaults", (t) => {
   assert.throws(
     () => configureDatabaseEnvironment({ env: {}, configPath: configFile(t) }),
