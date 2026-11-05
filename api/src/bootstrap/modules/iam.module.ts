@@ -10,7 +10,7 @@ import { AuthController } from "../../modules/iam/presentation/auth.controller"
     {
       provide: AuthService,
       useFactory: (dataSource: DataSource) => new AuthService(dataSource),
-      inject: ["APP_DATA_SOURCE"],
+      inject: [DataSource],
     },
   ],
   controllers: [AuthController],

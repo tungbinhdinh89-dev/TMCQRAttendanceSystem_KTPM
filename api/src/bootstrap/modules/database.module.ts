@@ -1,18 +1,17 @@
 import { Module } from "@nestjs/common"
+import { DataSource } from "typeorm"
 import { appDataSource } from "../../platform/infrastructure/database/data-source"
 
 @Module({
   providers: [
     {
-      provide: "APP_DATA_SOURCE",
+      provide: DataSource,
       useFactory: async () => {
-        if (!appDataSource.isInitialized) {
-          await appDataSource.initialize()
-        }
+        if (!appDataSource.isInitialized) await appDataSource.initialize()
         return appDataSource
       },
     },
   ],
-  exports: ["APP_DATA_SOURCE"],
+  exports: [DataSource],
 })
 export class DatabaseModule {}

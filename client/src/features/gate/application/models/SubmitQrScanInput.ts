@@ -1,1 +1,0 @@
-export type { SubmitQrScanRequest as SubmitQrScanInput } from "@tmc/contracts"

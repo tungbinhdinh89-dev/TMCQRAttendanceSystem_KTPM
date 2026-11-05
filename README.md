@@ -21,9 +21,9 @@ Prototype frontend tiếng Việt cho hệ thống chấm công và kiểm soát
 
 **Mật khẩu chung: `Tmc@123`.** Mỗi vai trò có trang đích, menu, phạm vi dữ liệu và quyền thao tác riêng.
 
-## Dữ liệu demo
+## Dữ liệu demo và backend
 
-Dữ liệu được lưu ở `tmc-access-db:v1`, phiên đăng nhập ở `tmc-access-session:v1`. Bộ mẫu gồm 40 hồ sơ đại diện cho quy mô 1.400 nhân viên tại Bình Dương và Long An.
+Dữ liệu nền được seed trong PostgreSQL. Frontend client lấy bootstrap data từ `GET /api/demo/bootstrap`; phiên UI hiện tại vẫn dùng `tmc-access-session:v1`.
 
 Thêm/sửa nhân viên, khóa QR, phân ca, duyệt điều chỉnh và quét kiosk đều lưu lại sau khi tải trang. Tab cùng trình duyệt được cập nhật qua sự kiện `storage`.
 
@@ -45,12 +45,22 @@ React, TypeScript, Vite; Astra UI là nguồn component/token; MUI bổ sung b�
 
 ```sh
 pnpm install
-pnpm format src
-pnpm exec tsc --noEmit
 pnpm build
+pnpm --dir api build
+pnpm --dir api test
+pnpm --dir api test:integration
 ```
 
-Trong Figma Make, dev server được môi trường quản lý tự động; không cần khởi động server khác.
+Chạy cả backend và frontend:
+
+```powershell
+$env:DEMO_PASSWORD = "mat-khau-demo"
+$env:DEMO_STATION_SECRET = "station-secret-demo"
+pnpm --dir api seed:demo
+pnpm dev:full
+```
+
+`pnpm dev` chỉ chạy frontend; `pnpm dev:full` chạy API PostgreSQL và frontend cùng lúc.
 
 Ảnh minh họa: Sam Moghadam / Unsplash, được lưu cục bộ để preview ổn định. Font Instrument Sans được lưu cục bộ; giấy phép ở `public/fonts/OFL.txt`.
 
@@ -60,4 +70,6 @@ Backend NestJS hiện cung cấp session auth tối thiểu:
 - `GET /api/me` kiểm tra session, trạng thái tài khoản và trả role/scope/permission hiện hành.
 - `POST /api/auth/logout` thu hồi session hiện tại.
 
-Chạy kiểm thử auth bằng `pnpm --dir api test`. Frontend vẫn là prototype; các API nghiệp vụ QR, kiosk và attendance chưa được triển khai đầy đủ.
+Chạy kiểm thử auth bằng `pnpm --dir api test`; seed và kiểm thử PostgreSQL chạy riêng bằng `pnpm --dir api seed:demo` và `pnpm --dir api test:integration`.
+
+**Giới hạn:** Backend có bootstrap API cho dữ liệu demo và session auth tối thiểu. Frontend vẫn dùng phiên prototype; các API nghiệp vụ QR, kiosk, attendance và việc tích hợp session vào frontend chưa hoàn chỉnh. Không dùng hệ thống hiện tại để kiểm soát ra vào thực tế.

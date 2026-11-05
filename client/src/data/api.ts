@@ -11,6 +11,7 @@ import { seedDatabase } from "./seed"
 import { dayOf, formatTime, minutes, today } from "../lib/date"
 import { parseQr } from "../lib/qr"
 const KEY = "tmc-access-db:v1"
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api"
 const person = z.object({
   id: z.string(),
   code: z.string(),
@@ -128,8 +129,23 @@ async function mutate(fn: (db: Database) => void) {
 }
 export const api = {
   async getDatabase() {
-    await delay()
-    return read()
+    const response = await fetch(`${API_BASE_URL}/demo/bootstrap`, {
+      headers: { Accept: "application/json" },
+    })
+    if (!response.ok) {
+      throw new Error(`Không thể tải dữ liệu từ API (${response.status})`)
+    }
+    const body: unknown = await response.json()
+    if (
+      !body ||
+      typeof body !== "object" ||
+      !("data" in body) ||
+      !body.data ||
+      typeof body.data !== "object"
+    ) {
+      throw new Error("API trả về dữ liệu không hợp lệ")
+    }
+    return schema.parse(body.data)
   },
   saveEmployee: (employee: Employee) =>
     mutate((db) => {
