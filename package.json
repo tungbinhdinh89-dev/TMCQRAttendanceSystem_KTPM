@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm --dir client dev",
+    "dev": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",
+    "dev:client": "pnpm --dir client dev",
+    "dev:full": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",
     "build": "pnpm --dir client build",
     "preview": "pnpm --dir client preview",
     "format": "oxfmt"

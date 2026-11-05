@@ -21,9 +21,9 @@ Prototype frontend tiếng Việt cho hệ thống chấm công và kiểm soát
 
 **Mật khẩu chung: `Tmc@123`.** Mỗi vai trò có trang đích, menu, phạm vi dữ liệu và quyền thao tác riêng.
 
-## Dữ liệu demo
+## Dữ liệu demo và backend
 
-Dữ liệu được lưu ở `tmc-access-db:v1`, phiên đăng nhập ở `tmc-access-session:v1`. Bộ mẫu gồm 40 hồ sơ đại diện cho quy mô 1.400 nhân viên tại Bình Dương và Long An.
+Dữ liệu nền được seed trong PostgreSQL. Frontend client lấy bootstrap data từ `GET /api/demo/bootstrap`; phiên UI hiện tại vẫn dùng `tmc-access-session:v1`.
 
 Thêm/sửa nhân viên, khóa QR, phân ca, duyệt điều chỉnh và quét kiosk đều lưu lại sau khi tải trang. Tab cùng trình duyệt được cập nhật qua sự kiện `storage`.
 
@@ -45,13 +45,23 @@ React, TypeScript, Vite; Astra UI là nguồn component/token; MUI bổ sung b�
 
 ```sh
 pnpm install
-pnpm format src
-pnpm exec tsc --noEmit
+pnpm install
 pnpm build
+pnpm --dir api build
+pnpm --dir api test:integration
 ```
 
-Trong Figma Make, dev server được môi trường quản lý tự động; không cần khởi động server khác.
+Chạy cả backend và frontend:
+
+```powershell
+$env:DEMO_PASSWORD = "mat-khau-demo"
+$env:DEMO_STATION_SECRET = "station-secret-demo"
+pnpm --dir api seed:demo
+pnpm dev:full
+```
+
+`pnpm dev` chỉ chạy frontend; `pnpm dev:full` chạy API PostgreSQL và frontend cùng lúc.
 
 Ảnh minh họa: Sam Moghadam / Unsplash, được lưu cục bộ để preview ổn định. Font Instrument Sans được lưu cục bộ; giấy phép ở `public/fonts/OFL.txt`.
 
-**Giới hạn:** Đây là prototype không có backend. RBAC chỉ phục vụ trình diễn frontend, QR không có chữ ký bảo mật và không dùng để kiểm soát ra vào thực tế. Dữ liệu không đồng bộ giữa các thiết bị hoặc trình duyệt khác nhau.
+**Giới hạn:** Backend hiện có bootstrap API cho dữ liệu demo; auth, scan, attendance và các API ghi nghiệp vụ đầy đủ vẫn đang triển khai theo các ticket tiếp theo. Không dùng hệ thống hiện tại để kiểm soát ra vào thực tế.
