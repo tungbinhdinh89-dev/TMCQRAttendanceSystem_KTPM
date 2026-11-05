@@ -2,7 +2,7 @@
 
 **Ngày lập:** 03/11/2026. **Thời gian mục tiêu:** 04/11–01/12/2026, 4 Sprint. **Owner/Reviewer duy nhất:** Solo Developer. **Trạng thái:** kế hoạch, chưa thực thi backlog.
 
-Tài liệu làm theo nội dung lập kế hoạch bạn đính kèm và lưu tại **doc/work-flow.md** theo yêu cầu trực tiếp của bạn, thay cho vị trí root ghi trong mẫu. Chỉ lập kế hoạch; không tạo source code, GitHub Issues/Projects hoặc tự giao việc cho agent.
+Tài liệu làm theo nội dung lập kế hoạch bạn đính kèm và lưu tại **doc/work-flow.md** theo yêu cầu trực tiếp của bạn, thay cho vị trí root ghi trong mẫu. Lần lập kế hoạch ban đầu chỉ tạo tài liệu, không tạo source code, GitHub Issues/Projects hoặc tự giao việc cho agent. **Cập nhật ngày 05/11/2026:** bổ sung quy trình thực thi ticket cho AI agent trong vai trò Junior Full Stack Developer tại §4.4–4.9; chỉ triển khai ticket được giao, không tự chạy toàn bộ backlog.
 
 **Kết quả capacity:** phạm vi đề xuất trong 4 tuần gồm **38 ticket / 106 giờ người**, trong đó 36 P0 / 102 giờ và 2 P1 / 4 giờ. Toàn backlog là **9 Epic, 28 Feature, 43 ticket / 151 giờ người**; 5 ticket / 45 giờ được hoãn. Khả thi có điều kiện ở **6 giờ/ngày × 6 ngày/tuần**, chưa phù hợp mức 4 giờ/ngày. Ước lượng không phải cam kết hiệu suất AI.
 
@@ -164,7 +164,7 @@ Trên GitHub Projects có thể tạo trường Priority, Classification, Epic, 
 | Review mỗi ticket | Xem diff, chạy kiểm chứng, so ports/import/transaction/scope; AI không tự nghiệm thu |
 | Sprint Review, 20–30 phút | Demo vertical slice; đọc AC/evidence; ticket chưa đạt đưa lại backlog |
 | Retrospective, 10–15 phút | So estimate/actual, thời gian AI rework, blocker/dependency; sửa kế hoạch Sprint sau |
-| Git | main ổn định; branch feat/tmc-014-idempotency hoặc tương tự; diff/commit nhỏ; PR khi hữu ích; không merge suite liên quan đang fail |
+| Git | main ổn định; nhánh theo ticket/Feature tại §4.6; mỗi phần việc hoàn chỉnh phải commit → kiểm tra đạt → push rồi mới làm tiếp theo §4.8; PR khi hữu ích; không merge suite liên quan đang fail |
 
 Thời gian lập kế hoạch/điều phối và gián đoạn nằm trong buffer ở §12; thời gian review/test từng ticket đã ở estimate. Không mở thêm agent/branch trùng file khi chưa có phân công rõ. Dependency cùng ngày phải hoàn tất trước bước sau theo thứ tự §9.3.
 
@@ -180,6 +180,120 @@ Thời gian lập kế hoạch/điều phối và gián đoạn nằm trong buff
 | Milestone | milestone:M2 cho backlog này; P2 chưa có sprint không tự có deadline 01/12 |
 
 P0 không đồng nghĩa CORE: tài liệu, security tests, foundation và submission có thể P0/SUPPORTING hoặc DOCUMENTATION. CORE là nghiệp vụ module, không là chứng nhận đã hoàn thành.
+
+### 4.4. Vai trò Junior Full Stack Developer và rules áp dụng
+
+AI agent đóng vai **Junior Full Stack Developer**: nhận ticket, phân tích requirement, thực hiện đúng acceptance criteria (AC), tuân thủ rules đã cho và cung cấp bằng chứng kiểm tra. Agent có thể xử lý frontend, backend, contracts, database và tài liệu trong phạm vi ticket; Solo Developer vẫn là owner/reviewer và người nghiệm thu.
+
+- Đọc [AGENTS.md](../AGENTS.md), hướng dẫn áp dụng tại thư mục sửa, ticket ở §8 và tài liệu nghiệp vụ/kiến trúc liên quan trước khi code. Yêu cầu trực tiếp mới nhất của người dùng có ưu tiên hơn hướng dẫn cũ; nếu requirement còn mâu thuẫn ảnh hưởng kết quả, làm rõ trước phần việc phụ thuộc.
+- Chỉ làm scope và deliverables được giao; không tự thêm feature, đổi stack/kiến trúc, refactor ngoài phạm vi hoặc chuyển ticket khác sang In Progress. Tự quyết chi tiết triển khai thông thường khi đã đủ dữ kiện.
+- Tuân thủ bounded context và Clean Architecture: ORM entity nằm ở module sở hữu, một file `*.orm-entity.ts` cho mỗi entity; registry chỉ import và liệt kê; wire contracts ở `contracts/src/` không phụ thuộc framework/TypeORM. Thay đổi schema phải có migration/constraint plan, không dùng `synchronize`.
+- Giữ quy ước UI, tokens và phân quyền đã chốt; khi ticket đi qua nhiều lớp, kiểm tra tính nhất quán giữa UI, API, contracts và persistence. Phân biệt dữ liệu thật, mock và phần chỉ thiết kế.
+- Giữ nguyên thay đổi có sẵn của người dùng hoặc agent khác; không stage/commit lẫn file ngoài công việc. Nếu thay đổi chồng lên đúng file cần sửa, tách phần của mình bằng diff hoặc làm rõ phần sở hữu trước khi ghi đè.
+- Không tự tạo thêm agent; chỉ phân công song song khi người dùng hoặc hướng dẫn áp dụng yêu cầu rõ, có ranh giới file và trách nhiệm tích hợp.
+
+### 4.5. Quy trình từ nhận ticket đến bàn giao
+
+1. **Nhận ticket:** xác định ID, Feature/Epic, mục tiêu, priority, dependencies, AC, deliverables và rules. Dùng ID có thật trong backlog; yêu cầu trực tiếp chưa có ID thì ghi lại nội dung được giao, không tự gán một `TMC-xxx` bất kỳ.
+2. **Phân tích requirement:** tóm tắt expected behavior, input/output, luồng chính, trường hợp lỗi/quyền truy cập, phạm vi không làm và các lớp bị ảnh hưởng. Đối chiếu source hiện tại; đánh dấu AC đã có, cần sửa và cách kiểm chứng từng AC. Chỉ hỏi khi thiếu thông tin làm thay đổi hành vi hoặc chặn triển khai.
+3. **Chia phần việc:** lập các phần nhỏ có kết quả kiểm chứng được, ghi file dự kiến sửa và lệnh kiểm tra thực tế có trong repo. Không coi placeholder hoặc code chưa chạy là phần việc hoàn thành.
+4. **Tạo nhánh:** kiểm tra `git status`, nhánh hiện tại, base và remote; tạo hoặc tiếp tục đúng nhánh ticket theo §4.6 trước khi sửa. Với ticket mới, dùng base tích hợp đã thống nhất và cập nhật bằng fast-forward khi phù hợp; không tạo nhánh từ công việc khác chưa tích hợp. Working tree có thay đổi ngoài scope thì giữ nguyên, tách bằng worktree khi cần; không tự reset/stash/xóa chúng.
+5. **Triển khai từng phần:** thực hiện đúng requirement/rules, xử lý cả trường hợp lỗi liên quan; hoàn tất vòng **code → commit → kiểm tra → push** ở §4.8 trước phần việc tiếp theo.
+6. **Kiểm tra toàn ticket:** đối chiếu toàn bộ AC và DoD, chạy kiểm tra tích hợp liên quan; cập nhật docs/contracts nếu hành vi thay đổi. Mọi sửa đổi phát sinh cũng phải qua vòng commit → kiểm tra → push.
+7. **Bàn giao:** báo ticket, nhánh, commit đã push, kết quả kiểm tra và phần còn thiếu theo §4.9; chuyển In Review khi có bằng chứng. Push thành công chưa đủ điều kiện Done; chỉ Done sau review, tích hợp baseline và Solo nghiệm thu theo §15.
+
+### 4.6. Quy ước đặt tên nhánh
+
+Áp dụng quy ước nhánh của dự án theo dạng phổ biến `<type>/<ticket-id>-<feature-code>-<short-description>`; đây là convention của repo, không phải định dạng bắt buộc của Git.
+
+- `type`: `feat`, `fix`, `docs`, `refactor`, `test`, `perf`, `build`, `ci` hoặc `chore`, theo mục đích chính.
+- `ticket-id` và `feature-code`: dùng ID thật trong §7–8, viết thường trên nhánh, ví dụ `tmc-014`, `e01`.
+- `short-description`: tiếng Anh ngắn gọn, chữ thường, phân tách bằng dấu `-`; không có khoảng trắng, dấu tiếng Việt hoặc tên mơ hồ như `update`, `final`, `new-branch`.
+- Một ticket có thể có nhiều commit trên cùng nhánh; không tạo nhánh cho từng file/commit. Tiếp tục đúng nhánh nếu ticket đã có nhánh.
+- Khi yêu cầu trực tiếp chưa có ticket/Feature ID, dùng `<type>/<short-description>`, ví dụ `docs/workflow-ticket-delivery-process`; không bịa ID hoặc tạo remote issue để đủ tên.
+
+| Công việc | Tên nhánh mẫu |
+|---|---|
+| TMC-014, Feature E01: lưu attempt idempotent | `feat/tmc-014-e01-persist-idempotent-attempt` |
+| Sửa lỗi replay trong TMC-015, Feature C02 | `fix/tmc-015-c02-prevent-qr-replay` |
+| TMC-001, Feature I01: làm rõ scope | `docs/tmc-001-i01-clarify-m2-scope` |
+
+Không code trực tiếp hoặc push công việc ticket lên `main`; không tự merge, force-push hay viết lại lịch sử đã chia sẻ.
+
+### 4.7. Quy ước commit — Conventional Commits
+
+Mỗi commit chứa **một phần việc hoàn chỉnh có mục đích rõ ràng**, có thể review và kiểm chứng riêng. Không đợi hết ticket mới commit tất cả; không tạo commit cho mỗi thao tác lưu file.
+
+```text
+<type>(<scope>): <description>
+
+<body giải thích lý do hoặc ảnh hưởng khi cần>
+
+Refs: <ticket-id>
+```
+
+| Type | Khi sử dụng |
+|---|---|
+| `feat` | Thêm hành vi/tính năng |
+| `fix` | Sửa lỗi |
+| `docs` | Chỉ thay đổi tài liệu |
+| `refactor` | Đổi cấu trúc, giữ hành vi |
+| `test` | Thêm/sửa kiểm thử |
+| `perf` | Cải thiện hiệu năng |
+| `build`, `ci` | Thay đổi build/dependency hoặc CI |
+| `style`, `chore`, `revert` | Định dạng không đổi hành vi, bảo trì hoặc hoàn tác commit |
+
+- `scope` là module/phạm vi như `iam`, `eqr`, `att`, `client`, `api`, `contracts`, `db`, `workflow`; có thể bỏ nếu không có scope phù hợp.
+- Description viết tiếng Anh, bắt đầu bằng động từ dạng mệnh lệnh, nêu kết quả cụ thể, không chấm cuối câu; ưu tiên cả dòng đầu không quá 72 ký tự. Tránh `update code`, `fix bug`, `done`, `WIP`.
+- Footer `Refs: TMC-xxx` liên kết ticket có thật; bỏ footer nếu yêu cầu chưa có ID. Không dùng `Closes` khi chưa đủ điều kiện đóng ticket.
+- Thay đổi phá vỡ tương thích phải nằm trong requirement được chấp thuận; dùng `!` sau type/scope và mô tả `BREAKING CHANGE:` trong footer khi có.
+
+```text
+feat(eqr): issue short-lived QR tokens
+
+Refs: TMC-010
+```
+
+Ví dụ khác: `fix(eqr): reject redeemed QR tokens`, `test(att): cover duplicate passage events`, `docs(workflow): define ticket delivery process`.
+
+### 4.8. Vòng bắt buộc cho mỗi phần việc: commit → kiểm tra → push
+
+1. **Hoàn tất phần việc và xem diff:** dùng `git diff`, kiểm tra đúng scope/requirement, không có secret hoặc file sinh ngoài ý muốn. Stage bằng đường dẫn cụ thể hoặc hunk; không dùng `git add .` khi working tree còn thay đổi ngoài phạm vi. Xem `git diff --cached` trước commit để bảo đảm chỉ chứa phần mình làm.
+2. **Commit ngay phần việc vừa xong** theo §4.7. Nếu hook từ chối, sửa nguyên nhân rồi commit lại, không bỏ qua hook. Ghi nhận hash commit để gắn kết quả kiểm tra.
+3. **Kiểm tra commit vừa tạo:** chạy `git show --stat HEAD`, `git diff --check HEAD^ HEAD` và các lệnh phù hợp với phần thay đổi. Kiểm tra nội dung/link với docs; typecheck/build và test hành vi liên quan với code; migration/constraint với schema; kiểm tra tích hợp các lớp khi thay đổi đi qua nhiều lớp. Dùng scripts/config hiện có, không bịa lệnh test hoặc báo pass khi chưa chạy. Giữ nguyên trạng thái file đã kiểm tra; nếu sinh thêm thay đổi cần lưu, commit rồi kiểm tra lại trước push.
+4. **Nếu fail:** giữ commit ở local, sửa trên cùng nhánh, tạo commit sửa lỗi và chạy lại kiểm tra bị ảnh hưởng. Không push hoặc chuyển sang phần việc kế tiếp khi kiểm tra bắt buộc còn fail. Thiếu môi trường/dependency thì báo chính xác kiểm tra chưa chạy và blocker; không ghi là đạt.
+5. **Nếu đạt thì push:** lần đầu dùng `git push -u origin <branch>`, các lần sau `git push origin <branch>`. Việc nhận ticket kèm workflow này cho phép commit/push lên nhánh ticket của repo hiện tại; không cần xin xác nhận lại từng phần đã được giao. Vẫn tuân thủ quyền thực thi của môi trường; push không bao hàm quyền merge/release/deploy.
+6. **Xác nhận push thành công rồi mới làm tiếp:** kiểm tra mã thoát của lệnh push và đối chiếu hash remote với local, ví dụ `git ls-remote --exit-code origin refs/heads/<branch>` so với `git rev-parse HEAD`. Nếu push lỗi, xử lý lỗi mạng/quyền theo quyền hiện có; nếu remote có commit mới thì fetch, review và tích hợp phù hợp, kiểm tra lại rồi push bình thường. Không force-push; nếu chưa giải quyết được thì dừng phần việc phụ thuộc và báo blocker. Không chạy vòng retry vô hạn.
+
+Ví dụ các lệnh cho một phần việc của TMC-014; thay đường dẫn/lệnh kiểm tra bằng file và scripts thực tế của ticket, chạy từng bước và đọc kết quả trước bước kế tiếp:
+
+```sh
+git status --short
+git diff
+git add -- <file-thuoc-phan-viec>
+git diff --cached
+git commit -m "feat(att): persist idempotent scan attempts" -m "Refs: TMC-014"
+git show --stat HEAD
+git diff --check HEAD^ HEAD
+# Chạy build/typecheck/test liên quan có trong repo; chỉ push khi đạt.
+git push -u origin feat/tmc-014-e01-persist-idempotent-attempt
+git ls-remote --exit-code origin refs/heads/feat/tmc-014-e01-persist-idempotent-attempt
+git rev-parse HEAD
+```
+
+### 4.9. Mẫu báo cáo bàn giao ticket
+
+```text
+Ticket / Feature: ID thật hoặc yêu cầu trực tiếp được giao
+Requirement / AC: kết quả cần đạt và trạng thái từng tiêu chí
+Branch: tên nhánh theo §4.6
+Changes: các phần việc đã hoàn thành, file/module và lý do
+Commits: hash + message từng phần; trạng thái đã push/chưa push
+Verification: lệnh đã chạy, kết quả thực tế, commit được kiểm tra
+Remote: nhánh remote và hash đã xác nhận sau push
+Remaining / blockers: phần chưa làm, kiểm tra chưa chạy và lý do
+Status / next: In Review hoặc Blocked và bước xử lý cụ thể
+```
 
 <a id="s5"></a>
 
@@ -3713,7 +3827,7 @@ Không có rủi ro nào được coi đã xử lý chỉ vì có một dòng mi
 
 **Definition of Ready:** có scope/AC/deliverables/file boundary; dependencies bắt buộc Done; input/env/secret references có nguồn; verification command tồn tại; owner/executor/reviewer và capacity rõ.
 
-**Definition of Done:** phiếu §8 đạt toàn bộ; reviewer đã xem diff; build/typecheck/test liên quan có kết quả; evidence gắn commit/môi trường; API/docs đồng bộ; integrated baseline; Solo nghiệm thu. Ticket chỉ tài liệu không bắt chạy unit tests vô nghĩa, nhưng phải kiểm tra nội dung/link/diagram/export phù hợp.
+**Definition of Done:** phiếu §8 đạt toàn bộ; reviewer đã xem diff; build/typecheck/test liên quan có kết quả; từng phần việc đã commit, kiểm tra đạt và push đúng nhánh theo §4.6–4.8; evidence gắn commit/môi trường; API/docs đồng bộ; integrated baseline; Solo nghiệm thu. Ticket chỉ tài liệu không bắt chạy unit tests vô nghĩa, nhưng phải kiểm tra nội dung/link/diagram/export phù hợp.
 
 **Blocking/critical cho release:** có thể OPEN lặp ngoài contract, ghi công không bằng chứng, mất công đã xác nhận trong kịch bản kiểm chứng, rò dữ liệu/scope/secret, không chạy được core demo hoặc thiếu yêu cầu báo cáo M2. Thiếu animation, chart phụ hoặc màn P2 không tự trở thành blocker.
 
