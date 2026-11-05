@@ -7,6 +7,7 @@
     "build": "nest build",
     "start": "node scripts/start.mjs",
     "seed:demo": "pnpm build && node --import ./scripts/load-env.mjs dist/platform/infrastructure/database/seeds/demo-seed.js",
+    "seed:ui": "pnpm build && node --import ./scripts/load-env.mjs scripts/seed-ui-accounts.mjs",
     "test": "pnpm run build && node --test test/auth.service.test.mjs test/bootstrap.test.mjs test/runtime-env.test.mjs",
     "test:integration": "pnpm build && node --import ./scripts/load-env.mjs --test test/integration/demo-seed.integration.test.mjs",
     "typecheck": "tsc --noEmit --incremental false"

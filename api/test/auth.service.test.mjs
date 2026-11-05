@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
 import test from "node:test"
-import { AuthService, encodePassword, hashToken } from "../dist/modules/iam/application/auth.service.js"
+import { AuthService, encodePassword, hashToken, verifyPassword } from "../dist/modules/iam/application/auth.service.js"
+import { scryptSync } from "node:crypto"
 
 const user = {
   id: "00000000-0000-0000-0000-000000000001",
@@ -72,7 +73,10 @@ test("login creates an opaque session and returns scoped identity", async () => 
   assert.equal(result.identity.employee.employeeCode, "EMP001")
   assert.equal(result.identity.roles[0].scopeType, "SELF")
   assert.notEqual(result.token, user.passwordHash)
-  assert.equal(fixture.sessionRepository.findOne({ where: { tokenHash: hashToken(result.token) } }) instanceof Promise, true)
+  const persisted = await fixture.sessionRepository.findOne({ where: { tokenHash: hashToken(result.token) } })
+  assert.match(persisted.id, /^[0-9a-f-]{36}$/)
+  assert.equal(persisted.tokenHash, hashToken(result.token))
+  assert.notEqual(persisted.tokenHash, result.token)
 })
 
 test("expired or revoked sessions are rejected and logout revokes the hash", async () => {
@@ -82,4 +86,12 @@ test("expired or revoked sessions are rejected and logout revokes the hash", asy
 
   await service.logout(result.token)
   await assert.rejects(() => service.me(result.token), { name: "UnauthorizedException" })
+})
+
+test("password verification supports legacy demo seed salt bytes and rejects wrong passwords", () => {
+  const salt = Buffer.from("00112233445566778899aabbccddeeff", "hex")
+  const encoded = `scrypt$${salt.toString("hex")}$${scryptSync("fixture-password", salt, 64).toString("hex")}`
+  assert.equal(verifyPassword("fixture-password", encoded), true)
+  assert.equal(verifyPassword("wrong-password", encoded), false)
+  assert.equal(verifyPassword("fixture-password", "scrypt$invalid$bad"), false)
 })

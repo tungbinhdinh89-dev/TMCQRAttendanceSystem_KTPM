@@ -237,9 +237,8 @@ export default function DesktopLayout() {
               variant="subtle"
               icon={<LogOut size={16} />}
               aria-label="Đăng xuất"
-              onClick={() => {
-                logout()
-                navigate("/dang-nhap")
+              onClick={async () => {
+                if (await logout()) navigate("/dang-nhap")
               }}
             />
           </div>

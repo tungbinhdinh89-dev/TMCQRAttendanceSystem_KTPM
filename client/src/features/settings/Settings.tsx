@@ -22,9 +22,9 @@ import { useApp } from "../../app/context"
 import { Card, PageHeader, Title, InfoRow, Person } from "../../components/ui"
 import { api } from "../../data/api"
 import { sites } from "../../data/types"
-import { homeFor, roleLabels } from "../../lib/rbac"
+import { roleLabels } from "../../lib/rbac"
 export default function Settings() {
-  const { db, run, login, busy } = useApp(),
+  const { db, run, busy } = useApp(),
     navigate = useNavigate(),
     { theme, setTheme } = useTheme()
   const [section, setSection] = useState("general"),
@@ -122,8 +122,7 @@ export default function Settings() {
             <Card>
               <Title level={3}>Tài khoản trải nghiệm</Title>
               <div className="text-label-sm text-text-secondary mt-md mb-xl">
-                Chuyển vai trò để kiểm tra phạm vi truy cập. Mật khẩu chung:
-                Tmc@123.
+                Mở form đăng nhập để kiểm tra vai trò bằng tài khoản seed. Cần xác thực mật khẩu; không chuyển danh tính trực tiếp.
               </div>
               {db.accounts.map((a) => (
                 <div className="account-setting-row" key={a.id}>
@@ -135,11 +134,10 @@ export default function Settings() {
                     variant="neutral"
                     size="small"
                     onClick={() => {
-                      login(a.id)
-                      navigate(homeFor(a.role))
+                      navigate(`/dang-nhap?username=${encodeURIComponent(a.username)}`)
                     }}
                   >
-                    Trải nghiệm
+                    Đăng nhập tài khoản
                   </Button>
                 </div>
               ))}

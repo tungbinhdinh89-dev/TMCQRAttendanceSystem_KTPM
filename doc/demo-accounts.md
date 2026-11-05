@@ -1,5 +1,12 @@
 # Demo accounts and seed data
 
+The current run commands, eight seeded usernames, demo password, role scopes,
+and UI verification steps are maintained in the root [README](../README.md#7-tài-khoản-seed-để-test-trực-tiếp-trên-ui).
+Six accounts can log in; `sup.demo` and `sec.demo` remain negative fixtures.
+Use `pnpm.cmd --dir api seed:ui` to preview a targeted account preparation,
+then `pnpm.cmd --dir api seed:ui --apply` with `DEMO_PASSWORD` set to apply it.
+This targeted operation preserves station credentials and requires base fixtures.
+
 The demo seed creates stable UUIDs for both factories, scoped employees, six
 roles (`EMP`, `HR`, `SUP`, `SEC`, `ADM`, `EXE`), IN/OUT stations, and the TCS
 integration endpoint. Employee access is granted independently of the
@@ -12,7 +19,7 @@ Set secrets outside the repository before seeding:
 $env:DATABASE_URL = "postgres://localhost:5432/tmc"
 $env:DEMO_PASSWORD = "<local-demo-password>"
 $env:DEMO_STATION_SECRET = "<local-station-secret>"
-pnpm --dir api seed:demo
+pnpm.cmd --dir api seed:demo
 ```
 
 The seed stores only scrypt hashes. It is idempotent by stable UUID and never
@@ -34,7 +41,7 @@ it performs both steps.
 Run the TMC-006 PostgreSQL verification after seeding:
 
 ```powershell
-pnpm --dir api test:integration
+pnpm.cmd --dir api test:integration
 ```
 
 The test checks both factories, all six roles, active/revoked/inactive

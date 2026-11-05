@@ -12,9 +12,6 @@ const fixture = JSON.parse(
 
 test("TMC-006 demo seed satisfies identity, scope, and station scenarios", async () => {
   if (!databaseUrl) throw new Error("DATABASE_URL is required for the TMC-006 integration test.")
-  if (!password || !stationSecret) {
-    throw new Error("DEMO_PASSWORD and DEMO_STATION_SECRET are required for the TMC-006 integration test.")
-  }
 
   const client = new Client({ connectionString: databaseUrl })
   await client.connect()
@@ -36,6 +33,13 @@ test("TMC-006 demo seed satisfies identity, scope, and station scenarios", async
       roles.rows.map((row) => row.code).sort(),
       fixture.requiredRoles.slice().sort(),
     )
+
+    const positiveUsers = await client.query(
+      "SELECT u.username, u.status AS user_status, e.status AS employee_status FROM users u JOIN employees e ON e.id = u.employee_id WHERE u.username = ANY($1::varchar[])",
+      [["emp.demo", "hr.demo", "adm.demo", "exe.demo", "sup.active.demo", "sec.active.demo"]],
+    )
+    assert.equal(positiveUsers.rows.length, 6)
+    assert.ok(positiveUsers.rows.every(row => row.user_status === "ACTIVE" && row.employee_status === "ACTIVE"))
 
     const employees = await client.query(
       `SELECT employee_code, status FROM employees
@@ -69,8 +73,8 @@ test("TMC-006 demo seed satisfies identity, scope, and station scenarios", async
     for (const row of secrets.rows) {
       const hash = row.password_hash ?? row.secret_hash
       assert.match(hash, /^scrypt\$[0-9a-f]+\$[0-9a-f]+$/)
-      assert.notEqual(hash, password)
-      assert.notEqual(hash, stationSecret)
+      if (password) assert.notEqual(hash, password)
+      if (stationSecret) assert.notEqual(hash, stationSecret)
     }
 
     const foreignKeys = await client.query(`

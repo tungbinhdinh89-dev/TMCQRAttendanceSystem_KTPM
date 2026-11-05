@@ -20,7 +20,7 @@
     "build:client": "pnpm --dir client build",
     "build:api": "pnpm --dir api build",
     "preview": "pnpm --dir client preview",
-    "test": "pnpm --dir api test",
+    "test": "pnpm --dir api test && pnpm --dir client test",
     "typecheck": "pnpm --dir contracts typecheck && pnpm --dir client typecheck && pnpm --dir api typecheck",
     "format": "oxfmt"
   },

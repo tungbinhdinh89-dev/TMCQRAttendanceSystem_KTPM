@@ -466,9 +466,8 @@ export default function Mobile() {
                 className="w-full mt-2xl"
                 variant="neutral"
                 iconStart={<LogOut size={16} />}
-                onClick={() => {
-                  logout()
-                  navigate("/dang-nhap")
+                onClick={async () => {
+                  if (await logout()) navigate("/dang-nhap")
                 }}
               >
                 Đăng xuất

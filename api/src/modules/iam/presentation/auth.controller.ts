@@ -13,10 +13,10 @@ export class AuthController {
     @Body() body: { username?: string; password?: string },
     @Res({ passthrough: true }) response: ResponseLike,
   ) {
-    if (!body.username || !body.password) {
+    if (typeof body?.username !== "string" || typeof body.password !== "string" || !body.username.trim() || !body.password) {
       throw new BadRequestException({ code: "AUTH_INVALID_REQUEST", message: "username and password are required" })
     }
-    const result = await this.authService.login(body.username, body.password)
+    const result = await this.authService.login(body.username.trim(), body.password)
     setSessionCookie(response, result.token, result.expiresAt)
     return { user: result.identity, expiresAt: result.expiresAt }
   }

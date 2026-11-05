@@ -1,4 +1,4 @@
-export type Role = "SYSTEM_ADMIN" | "HR_MANAGER" | "SECURITY_MANAGER" | "GATE_OPERATOR" | "DEPARTMENT_MANAGER" | "EMPLOYEE"
+export type Role = "SYSTEM_ADMIN" | "HR_MANAGER" | "SECURITY_MANAGER" | "GATE_OPERATOR" | "DEPARTMENT_MANAGER" | "EMPLOYEE" | "EXECUTIVE"
 export type SiteId = "bd" | "la"
 export const attendanceLabels = {
   "on-time": "Đúng giờ",
@@ -16,6 +16,9 @@ export interface Employee {
   status: "active" | "inactive"
   qrLocked: boolean
   shiftId: string
+  factoryId?: string | null
+  departmentId?: string | null
+  teamId?: string | null
 }
 export interface Account {
   id: string
@@ -25,6 +28,11 @@ export interface Account {
   employeeId: string
   site: SiteId
   department: string
+  scopeType?: string
+  factoryId?: string | null
+  departmentId?: string | null
+  teamId?: string | null
+  permissions?: string[]
 }
 export interface Shift {
   id: string

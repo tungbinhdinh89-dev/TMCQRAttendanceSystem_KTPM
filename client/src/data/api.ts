@@ -22,6 +22,9 @@ const person = z.object({
   status: z.enum(["active", "inactive"]),
   qrLocked: z.boolean(),
   shiftId: z.string(),
+  factoryId: z.string().nullable().optional(),
+  departmentId: z.string().nullable().optional(),
+  teamId: z.string().nullable().optional(),
 })
 const schema = z.object({
   version: z.literal(1),
@@ -38,6 +41,7 @@ const schema = z.object({
         "GATE_OPERATOR",
         "DEPARTMENT_MANAGER",
         "EMPLOYEE",
+        "EXECUTIVE",
       ]),
       employeeId: z.string(),
       site: z.enum(["bd", "la"]),
@@ -130,6 +134,7 @@ async function mutate(fn: (db: Database) => void) {
 export const api = {
   async getDatabase() {
     const response = await fetch(`${API_BASE_URL}/demo/bootstrap`, {
+      credentials: "include",
       headers: { Accept: "application/json" },
     })
     if (!response.ok) {

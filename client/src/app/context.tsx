@@ -9,14 +9,16 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Toast, Button } from "@figma/astraui"
 import { api } from "../data/api"
+import { authApi } from "../data/auth"
+import { accountFromSession } from "../lib/session"
 import type { Account, Database } from "../data/types"
 
 interface AppState {
   db: Database
   account?: Account
   busy: boolean
-  login: (id: string) => void
-  logout: () => void
+  login: (username: string, password: string) => Promise<Account>
+  logout: () => Promise<boolean>
   notify: (message: string, error?: boolean) => void
   run: (task: () => Promise<unknown>, message?: string) => Promise<boolean>
 }
@@ -32,22 +34,21 @@ interface ToastState {
 }
 export default function AppProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient()
+  const { data: identity, isPending: sessionPending, error: sessionError } = useQuery({
+    queryKey: ["session"], queryFn: authApi.me, retry: false, staleTime: 0,
+  })
   const {
     data: db,
     error,
     refetch,
-  } = useQuery({ queryKey: ["database"], queryFn: api.getDatabase })
-  const [session, setSession] = useState(() => {
-    try {
-      return localStorage.getItem("tmc-access-session:v1") || ""
-    } catch {
-      return ""
-    }
-  })
+  } = useQuery({ queryKey: ["database", identity?.userId ?? "public"], queryFn: api.getDatabase })
   const [pending, setPending] = useState(0)
   const [toast, setToast] = useState<ToastState | null>(null)
   const notify = (message: string, error = false) =>
     setToast({ message, error })
+  useEffect(() => {
+    localStorage.removeItem("tmc-access-session:v1")
+  }, [])
   useEffect(() => {
     if (!toast) return
     const timer = setTimeout(() => setToast(null), 4500)
@@ -63,35 +64,36 @@ export default function AppProvider({ children }: { children: ReactNode }) {
     const sync = (event: StorageEvent) => {
       if (event.key === "tmc-access-db:v1")
         queryClient.invalidateQueries({ queryKey: ["database"] })
+      if (event.key === "tmc-auth-event")
+        queryClient.invalidateQueries({ queryKey: ["session"] })
     }
     window.addEventListener("storage", sync)
     return () => window.removeEventListener("storage", sync)
   }, [queryClient])
-  const logout = () => {
-    localStorage.removeItem("tmc-access-session:v1")
-    setSession("")
-    queryClient.invalidateQueries({ queryKey: ["database"] })
+  const logout = async () => {
+    try {
+      await authApi.logout()
+      await queryClient.cancelQueries({ queryKey: ["session"] })
+      queryClient.setQueryData(["session"], null)
+      queryClient.removeQueries({ queryKey: ["database"] })
+      localStorage.removeItem("tmc-access-db:v1")
+      localStorage.setItem("tmc-auth-event", String(Date.now()))
+      return true
+    } catch (error) {
+      notify(error instanceof Error ? error.message : "Không thể đăng xuất.", true)
+      return false
+    }
   }
-  const account = db?.accounts.find((a) => a.id === session)
-  useEffect(() => {
-    if (
-      db &&
-      session &&
-      (!account ||
-        db.employees.find((e) => e.id === account.employeeId)?.status ===
-          "inactive")
-    )
-      logout()
-  }, [db, session, account])
-  if (error)
+  const account = identity && db ? accountFromSession(identity, db) : undefined
+  if (error || sessionError)
     return (
       <div className="app-loading">
         <div className="text-title">Không thể tải dữ liệu demo</div>
-        <div className="text-label-sm text-text-secondary">{error.message}</div>
-        <Button onClick={() => refetch()}>Thử lại</Button>
+        <div className="text-label-sm text-text-secondary">{(error || sessionError)?.message}</div>
+        <Button onClick={() => { refetch(); queryClient.invalidateQueries({ queryKey: ["session"] }) }}>Thử lại</Button>
       </div>
     )
-  if (!db)
+  if (!db || sessionPending)
     return (
       <div className="app-loading">
         <div className="brand-mark">T</div>
@@ -130,9 +132,19 @@ export default function AppProvider({ children }: { children: ReactNode }) {
         run,
         notify,
         logout,
-        login: (id) => {
-          localStorage.setItem("tmc-access-session:v1", id)
-          setSession(id)
+        login: async (username, password) => {
+          const nextIdentity = await authApi.login(username, password)
+          const nextAccount = accountFromSession(nextIdentity, db)
+          if (!nextAccount) {
+            await authApi.logout()
+            throw new Error("Tài khoản chưa được cấp vai trò ứng dụng hợp lệ.")
+          }
+          await queryClient.cancelQueries({ queryKey: ["session"] })
+          queryClient.setQueryData(["session"], nextIdentity)
+          queryClient.removeQueries({ queryKey: ["database"] })
+          localStorage.removeItem("tmc-access-db:v1")
+          localStorage.setItem("tmc-auth-event", String(Date.now()))
+          return nextAccount
         },
       }}
     >

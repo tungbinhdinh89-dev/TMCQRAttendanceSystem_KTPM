@@ -1,5 +1,6 @@
-import { createHash, randomBytes, scryptSync, timingSafeEqual } from "node:crypto"
-import { ConflictException, Injectable, UnauthorizedException } from "@nestjs/common"
+import { createHash, randomBytes, randomUUID, scryptSync, timingSafeEqual } from "node:crypto"
+import { Injectable, UnauthorizedException } from "@nestjs/common"
+import type { SessionIdentity } from "@tmc/contracts"
 import { DataSource } from "typeorm"
 import { EmployeeOrmEntity } from "../../eqr/infrastructure/persistence/entities/employee.orm-entity"
 import { PermissionOrmEntity } from "../infrastructure/persistence/entities/permission.orm-entity"
@@ -11,21 +12,6 @@ import { UserSessionOrmEntity } from "../infrastructure/persistence/entities/use
 
 export const SESSION_COOKIE = "tmc_session"
 const SESSION_TTL_MS = 8 * 60 * 60 * 1000
-
-type SessionIdentity = {
-  userId: string
-  username: string
-  employeeId: string
-  employee: { employeeCode: string; fullName: string; status: string }
-  roles: Array<{
-    code: string
-    scopeType: string
-    factoryId: string | null
-    departmentId: string | null
-    teamId: string | null
-    permissions: string[]
-  }>
-}
 
 @Injectable()
 export class AuthService {
@@ -45,6 +31,7 @@ export class AuthService {
     const token = randomBytes(32).toString("base64url")
     const expiresAt = new Date(Date.now() + SESSION_TTL_MS)
     const session = this.dataSource.getRepository(UserSessionOrmEntity).create({
+      id: randomUUID(),
       userId: user.id,
       tokenHash: hashToken(token),
       expiresAt,
@@ -108,10 +95,10 @@ export class AuthService {
       .leftJoin(PermissionOrmEntity, "permission", "permission.id = rolePermission.permission_id")
       .select([
         "role.code AS code",
-        "assignment.scope_type AS scopeType",
-        "assignment.factory_id AS factoryId",
-        "assignment.department_id AS departmentId",
-        "assignment.team_id AS teamId",
+        'assignment.scope_type AS "scopeType"',
+        'assignment.factory_id AS "factoryId"',
+        'assignment.department_id AS "departmentId"',
+        'assignment.team_id AS "teamId"',
         "permission.code AS permission",
       ])
       .where("assignment.user_id = :userId", { userId: user.id })
@@ -158,12 +145,14 @@ export function hashToken(token: string): string {
   return createHash("sha256").update(token).digest("hex")
 }
 
-function verifyPassword(password: string, encoded: string): boolean {
+export function verifyPassword(password: string, encoded: string): boolean {
   const [scheme, salt, expected] = encoded.split("$")
-  if (scheme !== "scrypt" || !salt || !expected) return false
+  if (scheme !== "scrypt" || !salt || !/^[0-9a-f]{128}$/i.test(expected ?? "")) return false
   try {
-    const actual = scryptSync(password, salt, 64).toString("hex")
-    return actual.length === expected.length && timingSafeEqual(Buffer.from(actual), Buffer.from(expected))
+    const expectedBytes = Buffer.from(expected, "hex")
+    if (timingSafeEqual(scryptSync(password, salt, 64), expectedBytes)) return true
+    // Early demo seeds hashed the random salt bytes, while auth encoded its hex text.
+    return /^[0-9a-f]{32}$/i.test(salt) && timingSafeEqual(scryptSync(password, Buffer.from(salt, "hex"), 64), expectedBytes)
   } catch {
     return false
   }

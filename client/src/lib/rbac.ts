@@ -6,36 +6,31 @@ export const roleLabels: Record<Role, string> = {
   GATE_OPERATOR: "Nhân viên bảo vệ",
   DEPARTMENT_MANAGER: "Quản lý bộ phận",
   EMPLOYEE: "Nhân viên",
+  EXECUTIVE: "Ban điều hành",
 }
 const modules: Record<Role, string[]> = {
   SYSTEM_ADMIN: [
     "tong-quan",
-    "nhan-su",
-    "cham-cong",
     "kiem-soat",
-    "ca-lam",
-    "bao-cao",
     "cai-dat",
-    "mobile",
-    "kiosk",
   ],
   HR_MANAGER: ["tong-quan", "nhan-su", "cham-cong", "ca-lam", "bao-cao"],
-  SECURITY_MANAGER: ["tong-quan", "nhan-su", "kiem-soat", "bao-cao", "kiosk"],
+  SECURITY_MANAGER: ["tong-quan", "kiem-soat", "bao-cao", "kiosk"],
   GATE_OPERATOR: ["kiem-soat", "kiosk"],
   DEPARTMENT_MANAGER: ["tong-quan", "cham-cong", "ca-lam", "bao-cao"],
   EMPLOYEE: ["mobile"],
+  EXECUTIVE: ["tong-quan", "bao-cao"],
 }
 export const hasAccess = (role: Role, module: string) =>
   modules[role].includes(module)
 export const canManage = (role: Role, resource: string) =>
-  role === "SYSTEM_ADMIN" ||
   (
     {
       employees: ["HR_MANAGER"],
-      attendance: ["HR_MANAGER", "DEPARTMENT_MANAGER"],
+      attendance: ["HR_MANAGER"],
       shifts: ["HR_MANAGER"],
-      gates: ["SECURITY_MANAGER"],
-      settings: [],
+      gates: ["SYSTEM_ADMIN"],
+      settings: ["SYSTEM_ADMIN"],
       override: ["SECURITY_MANAGER", "GATE_OPERATOR"],
     }[resource] ?? []
   ).includes(role)
@@ -46,12 +41,12 @@ export const homeFor = (role: Role) =>
       ? "/app/kiem-soat"
       : "/app/tong-quan"
 export const scopeEmployees = (db: Database, account: Account) =>
-  db.employees.filter((e) =>
-    account.role === "EMPLOYEE"
-      ? e.id === account.employeeId
-      : account.role === "DEPARTMENT_MANAGER"
-        ? e.department === account.department && e.site === account.site
-        : account.role === "GATE_OPERATOR"
-          ? e.site === account.site
-          : true,
-  )
+  db.employees.filter((employee) => {
+    if (account.role === "EMPLOYEE") return employee.id === account.employeeId
+    if (account.scopeType === "GLOBAL") return true
+    if (account.scopeType === "SELF") return employee.id === account.employeeId
+    if (account.scopeType === "TEAM") return Boolean(account.teamId) && employee.teamId === account.teamId
+    if (account.scopeType === "DEPARTMENT") return Boolean(account.departmentId) && employee.departmentId === account.departmentId
+    if (account.scopeType === "FACTORY") return Boolean(account.factoryId) && employee.factoryId === account.factoryId
+    return false
+  })

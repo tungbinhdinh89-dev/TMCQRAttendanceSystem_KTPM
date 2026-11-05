@@ -30,24 +30,20 @@ export default function Login() {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      username: search.get("role") === "employee" ? "employee" : "admin",
-      password: "Tmc@123",
+      username: search.get("username") || (search.get("role") === "employee" ? "emp.demo" : "adm.demo"),
+      password: "",
     },
   })
   const selected = form.watch("username")
-  const submit = form.handleSubmit((values) => {
-    const user = db.accounts.find((a) => a.username === values.username.trim())
-    if (!user || values.password !== "Tmc@123") {
-      setError("Tài khoản hoặc mật khẩu chưa đúng. Vui lòng thử lại.")
+  const submit = form.handleSubmit(async (values) => {
+    setError("")
+    let user
+    try {
+      user = await login(values.username, values.password)
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Không thể kết nối máy chủ đăng nhập.")
       return
     }
-    if (
-      db.employees.find((e) => e.id === user.employeeId)?.status === "inactive"
-    ) {
-      setError("Tài khoản đã ngừng hoạt động.")
-      return
-    }
-    login(user.id)
     const returnTo = search.get("returnTo")
     const module = returnTo?.startsWith("/app/")
       ? returnTo.split("/")[2]
@@ -156,15 +152,16 @@ export default function Login() {
               />
               <ErrorText>{form.formState.errors.password?.message}</ErrorText>
               <div className="text-video-title text-text-secondary">
-                Phiên demo được lưu trên trình duyệt này.
+                Mật khẩu được xác thực trên máy chủ; phiên dùng cookie HttpOnly.
               </div>
               <ErrorText>{error}</ErrorText>
               <Button
                 type="submit"
+                disabled={form.formState.isSubmitting}
                 variant="primary"
                 iconEnd={<ArrowRight size={16} />}
               >
-                Đăng nhập
+                {form.formState.isSubmitting ? "Đang đăng nhập…" : "Đăng nhập"}
               </Button>
             </form>
             <div className="demo-divider">
@@ -180,7 +177,7 @@ export default function Login() {
                   }`}
                   onClick={() => {
                     form.setValue("username", a.username)
-                    form.setValue("password", "Tmc@123")
+                    form.setValue("password", "")
                     setError("")
                   }}
                 >
@@ -199,8 +196,7 @@ export default function Login() {
             <div className="demo-note">
               <Lock size={16} />
               <span>
-                Mật khẩu demo: <span className="font-semibold">Tmc@123</span> ·
-                Dữ liệu cục bộ, không có backend.
+                Chọn tài khoản seed và nhập mật khẩu demo trong README. Quyền và trạng thái tài khoản được đọc từ PostgreSQL.
               </span>
             </div>
             {account && (

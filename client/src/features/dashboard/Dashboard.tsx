@@ -34,6 +34,7 @@ import { scopeEmployees, hasAccess } from "../../lib/rbac"
 import { formatDate, formatTime, today } from "../../lib/date"
 import { sites, attendanceLabels } from "../../data/types"
 import { exportCsv } from "../../lib/csv"
+import ExecutiveOverview from "../reports/ExecutiveOverview"
 
 interface ChartPoint {
   day: string
@@ -101,6 +102,10 @@ export function AttendanceChart({ data }: { data: ChartPoint[] }) {
   )
 }
 export default function Dashboard() {
+  const account = useAccount()
+  return account.role === "EXECUTIVE" ? <ExecutiveOverview /> : <DetailedDashboard />
+}
+function DetailedDashboard() {
   const { db } = useApp(),
     account = useAccount(),
     navigate = useNavigate()

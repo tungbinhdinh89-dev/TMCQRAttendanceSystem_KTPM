@@ -1,4 +1,5 @@
 export * from "./common"
+export * from "./auth"
 export * from "./gate"
 export * from "./employee"
 export * from "./attendance"

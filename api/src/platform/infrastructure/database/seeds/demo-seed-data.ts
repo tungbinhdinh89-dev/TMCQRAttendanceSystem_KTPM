@@ -1,6 +1,7 @@
 import { randomBytes, scryptSync } from "node:crypto"
 import type { EntityManager } from "typeorm"
 import type { JsonValue } from "@tmc/contracts"
+import { seedDemoUiAccounts } from "./demo-ui-accounts"
 import { DepartmentOrmEntity } from "../../../../modules/cfg/infrastructure/persistence/entities/department.orm-entity"
 import { FactoryOrmEntity } from "../../../../modules/cfg/infrastructure/persistence/entities/factory.orm-entity"
 import { IntegrationEndpointOrmEntity } from "../../../../modules/cfg/infrastructure/persistence/entities/integration-endpoint.orm-entity"
@@ -125,4 +126,5 @@ export async function seedDemoData(manager: EntityManager): Promise<void> {
   await manager.getRepository(StationCredentialOrmEntity).upsert(demoIds.credentials.map((id, index) => ({
     id, stationId: Object.values(demoIds.stations)[index], secretHash: stationSecretHash, expiresAt: null, revokedAt: null, issuedByUserId: demoIds.users[4], revokedByUserId: null, revokeReason: null,
   })), ["id"])
+  await seedDemoUiAccounts(manager, passwordHash)
 }

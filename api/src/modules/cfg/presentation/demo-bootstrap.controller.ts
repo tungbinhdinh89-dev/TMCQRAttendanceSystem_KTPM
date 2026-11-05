@@ -1,14 +1,14 @@
 import { Controller, Get, ServiceUnavailableException } from "@nestjs/common"
 import { DataSource } from "typeorm"
 
-type DemoRole = "SYSTEM_ADMIN" | "HR_MANAGER" | "SECURITY_MANAGER" | "GATE_OPERATOR" | "DEPARTMENT_MANAGER" | "EMPLOYEE"
+type DemoRole = "SYSTEM_ADMIN" | "HR_MANAGER" | "SECURITY_MANAGER" | "GATE_OPERATOR" | "DEPARTMENT_MANAGER" | "EMPLOYEE" | "EXECUTIVE"
 
 const roleMap: Record<string, DemoRole> = {
   ADM: "SYSTEM_ADMIN",
   HR: "HR_MANAGER",
   SEC: "SECURITY_MANAGER",
   SUP: "DEPARTMENT_MANAGER",
-  EXE: "GATE_OPERATOR",
+  EXE: "EXECUTIVE",
   EMP: "EMPLOYEE",
 }
 
@@ -23,7 +23,7 @@ export class DemoBootstrapController {
         this.dataSource.query(`
           SELECT DISTINCT ON (e.id) e.id, e.employee_code AS code, e.full_name AS name, e.status,
                  COALESCE(d.name, 'Chưa phân bộ phận') AS department,
-                 f.code AS factory_code
+                 f.code AS factory_code, a.factory_id, a.department_id, a.team_id
           FROM employees e
           LEFT JOIN employee_assignments a ON a.employee_id = e.id AND a.valid_to IS NULL
           LEFT JOIN departments d ON d.id = a.department_id
@@ -83,6 +83,9 @@ export class DemoBootstrapController {
             status: employee.status === "ACTIVE" ? "active" : "inactive",
             qrLocked: employee.status !== "ACTIVE",
             shiftId: "day",
+            factoryId: employee.factory_id,
+            departmentId: employee.department_id,
+            teamId: employee.team_id,
           })),
           accounts: accountRows,
           shifts: [

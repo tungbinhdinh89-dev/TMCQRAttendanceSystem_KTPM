@@ -23,7 +23,12 @@ import { scopeEmployees } from "../../lib/rbac"
 import { dayOf, formatDate, today } from "../../lib/date"
 import { exportCsv } from "../../lib/csv"
 import { departments, sites } from "../../data/types"
+import ExecutiveOverview from "./ExecutiveOverview"
 export default function Reports() {
+  const account = useAccount()
+  return account.role === "EXECUTIVE" ? <ExecutiveOverview /> : <DetailedReports />
+}
+function DetailedReports() {
   const { db, notify } = useApp(),
     account = useAccount(),
     [params, setParams] = useSearchParams()
