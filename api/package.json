@@ -5,7 +5,10 @@
   "scripts": {
     "start:dev": "nest start --watch",
     "build": "nest build",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "seed:demo": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js",
+    "test": "node --test test/**/*.test.mjs",
+    "test:integration": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js && node --test test/integration/**/*.test.mjs"
   },
   "dependencies": {
     "@tmc/contracts": "workspace:*",
