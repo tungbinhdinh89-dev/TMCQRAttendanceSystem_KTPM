@@ -54,4 +54,10 @@ Trong Figma Make, dev server được môi trường quản lý tự động; kh
 
 Ảnh minh họa: Sam Moghadam / Unsplash, được lưu cục bộ để preview ổn định. Font Instrument Sans được lưu cục bộ; giấy phép ở `public/fonts/OFL.txt`.
 
-**Giới hạn:** Đây là prototype không có backend. RBAC chỉ phục vụ trình diễn frontend, QR không có chữ ký bảo mật và không dùng để kiểm soát ra vào thực tế. Dữ liệu không đồng bộ giữa các thiết bị hoặc trình duyệt khác nhau.
+Backend NestJS hiện cung cấp session auth tối thiểu:
+
+- `POST /api/auth/login` nhận username/password và trả cookie `HttpOnly` opaque.
+- `GET /api/me` kiểm tra session, trạng thái tài khoản và trả role/scope/permission hiện hành.
+- `POST /api/auth/logout` thu hồi session hiện tại.
+
+Chạy kiểm thử auth bằng `pnpm --dir api test`. Frontend vẫn là prototype; các API nghiệp vụ QR, kiosk và attendance chưa được triển khai đầy đủ.

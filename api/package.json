@@ -5,7 +5,8 @@
   "scripts": {
     "start:dev": "nest start --watch",
     "build": "nest build",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "test": "pnpm run build && node --test test/auth.service.test.mjs"
   },
   "dependencies": {
     "@tmc/contracts": "workspace:*",
