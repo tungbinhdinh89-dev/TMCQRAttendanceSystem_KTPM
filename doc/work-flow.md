@@ -6,7 +6,7 @@ Tài liệu làm theo nội dung lập kế hoạch bạn đính kèm và lưu t
 
 **Kết quả capacity:** phạm vi đề xuất trong 4 tuần gồm **38 ticket / 106 giờ người**, trong đó 36 P0 / 102 giờ và 2 P1 / 4 giờ. Toàn backlog là **9 Epic, 28 Feature, 43 ticket / 151 giờ người**; 5 ticket / 45 giờ được hoãn. Khả thi có điều kiện ở **6 giờ/ngày × 6 ngày/tuần**, chưa phù hợp mức 4 giờ/ngày. Ước lượng không phải cam kết hiệu suất AI.
 
-**Cách đọc:** §1–3 xác định hiện trạng và phạm vi; §5–7 chọn Feature/Ticket; §8 chứa phiếu giao việc đầy đủ; §9–13 kiểm tra lịch và capacity; §14–18 kiểm soát rủi ro, chất lượng và bài nộp. Liên kết TMC-xxx trong các bảng dẫn đến ticket tương ứng.
+**Cách đọc:** §1–3 xác định hiện trạng và phạm vi; §4 hướng dẫn thực thi ticket; §5–7 chọn Feature/Ticket; §8 chứa phiếu giao việc đầy đủ; §9–13 kiểm tra lịch và capacity; §14–18 kiểm soát rủi ro, chất lượng và bài nộp; [§19](#s19) phân tích spec và lập bản đồ API backend toàn hệ thống. Liên kết TMC-xxx trong các bảng dẫn đến ticket tương ứng.
 
 <a id="s1"></a>
 
@@ -16,7 +16,7 @@ TMC Access phục vụ kiểm soát ra/vào và ghi công tại Bình Dương (~
 
 **Mục lục**
 
-| Phần 1–6 | Phần 7–12 | Phần 13–18 |
+| Phần 1–6 | Phần 7–12 | Phần 13–19 |
 |---|---|---|
 | [1. Hiện trạng](#s1) | [7. Product Backlog](#s7) | [13. Dependencies / Critical Path](#s13) |
 | [2. Scope M2](#s2) | [8. Chi tiết 43 ticket](#s8) | [14. Risks](#s14) |
@@ -24,6 +24,7 @@ TMC Access phục vụ kiểm soát ra/vào và ghi công tại Bình Dương (~
 | [4. Agile Workflow](#s4) | [10. Milestone Roadmap](#s10) | [16. Testing Strategy](#s16) |
 | [5. Epic / Feature](#s5) | [11. Work Allocation](#s11) | [17. Progress Checklist](#s17) |
 | [6. Priority Matrix](#s6) | [12. Effort / Capacity](#s12) | [18. Release / Submission](#s18) |
+| | | [19. Phân tích spec / Bản đồ API](#s19) |
 
 ### 1.1. Nguồn và thứ tự áp dụng
 
@@ -3982,3 +3983,382 @@ Mẫu cập nhật hằng ngày: **Ngày — Ticket — Planned/Actual/Remaining
 **Kết luận khả thi của kế hoạch:** 38 ticket baseline/106h trong 4 Sprint có thể làm bởi một người với AI hỗ trợ nếu thực sự có 6h/ngày,6 ngày/tuần và foundation không bị blocker kéo dài. 36 P0/102h phải được giữ; Standard 4h/ngày chưa đủ cho deadline 01/12 với phạm vi này. Toàn 43 ticket/151h không nằm trong cam kết4 tuần. Mọi tiến độ và kết quả kiểm thử vẫn là chưa thực hiện cho tới khi có bằng chứng.
 
 **Kiểm tra tài liệu lúc lập kế hoạch:** đủ 18 phần và 43 phiếu; ID/Feature/Epic hợp lệ; dependency không có vòng lặp; không có P0 phụ thuộc P1/P2; slot ngày nằm đúng Sprint và không vượt 6h/ngày; tổng giờ khớp từng phiếu/bảng/Sprint; liên kết nội bộ và checklist đã kiểm tra. Các kiểm tra này chỉ xác nhận tính nhất quán kế hoạch, chưa xác nhận build, test hoặc milestone của ứng dụng.
+
+<a id="s19"></a>
+
+## 19. Phân tích toàn bộ spec và bản đồ API backend
+
+**Ngày đối chiếu:** 05/11/2026. **Đầu ra:** thiết kế danh mục endpoint để giao ticket, thống nhất contracts và viết OpenAPI; lần cập nhật này không triển khai controller hoặc đổi trạng thái nghiệm thu ticket. Phạm vi bao phủ hệ thống đích trong spec, rộng hơn lát cắt code M2 tại §2.
+
+### 19.1. Nguồn yêu cầu, hiện trạng và giới hạn của bản đồ
+
+| Nguồn đã đối chiếu | Kết luận dùng để thiết kế API |
+|---|---|
+| [Đề M1](SA_CC_hk261_Assignment_M1.pdf), [đề M2](SA_CC_hk261_Assignment_M2.pdf) | Năm nhóm chức năng, sáu nhóm người dùng, tích hợp TCS/HRS; M2 bổ sung mất kết nối và QR tĩnh bị lộ. Đề không cung cấp danh sách URL hay bắt code toàn hệ thống. |
+| [spec.pdf — 37 trang PDF](spec.pdf), đặc biệt [FR/NFR/UC](spec.pdf#page=10), [giao diện và dữ liệu](spec.pdf#page=18), [kiosk/TCS/HRS](spec.pdf#page=21), [ma trận quyền](spec.pdf#page=31) | 30 yêu cầu con FR-1.1…FR-5.4, sáu NFR và tám UC; tách quyết định truy cập, kết quả cổng và bằng chứng công; giữ revision/snapshot và phạm vi quyền. |
+| [User flow](user-flow.md), [domain know-how](domain-know-how.md) | Xác định ai gọi API, thứ tự thao tác, nhánh lỗi, phân biệt SEC xác nhận vật lý và HR hiệu chỉnh công. |
+| [Tech stack §10](teach-stack.md), [architecture](structure-architecture.md), [schema 37 bảng](schema-database.md) | Kế thừa prefix `/api`, các URL đã đề xuất và sáu bounded context. Một endpoint biểu diễn use case; không sinh CRUD cho mọi bảng. |
+| [Bootstrap API](../api/src/main.ts), [AppModule](../api/src/app.module.ts), [module wiring](../api/src/bootstrap/modules/iam.module.ts), [contracts](../contracts/src/index.ts) | Source hiện có prefix `api`, các Nest module khởi tạo, ORM entities và kiểu wire ban đầu; chưa tìm thấy `@Controller`, route handler HTTP hoặc đăng ký controller trong `api/src/` ở thời điểm đối chiếu. |
+
+**Hiện trạng endpoint nghiệp vụ đã triển khai: 0 được xác nhận từ source.** Các bảng dưới là **contract đề xuất**, không phải danh sách API đang chạy. Không suy ra API đã có chỉ từ migration, seed, bảng dữ liệu hoặc hàm localStorage trong [prototype `src/data/api.ts`](../src/data/api.ts). Health/OpenAPI cũng đang là deliverable của ticket nền, chưa có bằng chứng route hoạt động.
+
+Mã `API-<nhóm>-<số>` là mã tra cứu của catalogue, không phải ticket hay entity ID. Cột phạm vi được hiểu như sau:
+
+| Nhãn | Ý nghĩa và tác động kế hoạch |
+|---|---|
+| `M2` | Contract phục vụ lát cắt hoặc nền tảng trong backlog M2 hiện tại; vẫn phải thực hiện và kiểm chứng ticket tương ứng. |
+| `M2-P1` | Contract phục vụ dashboard P1 đã có trong baseline, chỉ làm khi đủ capacity theo §12. |
+| `HT` | Cần cho hệ thống đích theo spec/flow hoặc quản trị vòng đời; chưa cam kết code trong baseline. TMC-040/041 chỉ bao phủ phần mở rộng đã mô tả; các API khác cần ticket/estimate riêng trước khi triển khai. |
+| `MR` | Đề xuất cụ thể hóa quy trình còn thiếu quyết định hoặc mô hình dữ liệu; cần chốt requirement và migration plan trước khi code. |
+| `NCC` | HTTP phía nhà cung cấp/simulator, do backend gọi ra; URL chỉ là mẫu contract, phải ánh xạ theo API thật. Không phải route của TMC. |
+
+**Quy mô catalogue: 121 mục = 117 endpoint TMC đề xuất + 4 mẫu endpoint phía nhà cung cấp.** Trong đó có 20 mục M2, 2 mục M2-P1, 88 mục HT, 7 mục MR và 4 mục NCC; đây là phân loại thiết kế, không phải số API đã hoàn thành.
+
+| Nhóm | Số mục | Phân loại | Tra cứu |
+|---|---|---|---|
+| IAM | 18 | 3 M2, 15 HT | §19.5 |
+| EQR | 19 | 3 M2, 16 HT | §19.6 |
+| GATE | 21 | 9 M2, 12 HT | §19.7 |
+| ATT | 16 | 4 M2, 12 HT | §19.8 |
+| RPT | 13 | 1 M2-P1, 12 HT | §19.9 |
+| CFG | 17 | 1 M2-P1, 16 HT | §19.10 |
+| Vận hành | 5 | 1 M2, 4 HT | §19.11 |
+| Quyền riêng tư | 8 | 1 HT, 7 MR | §19.12 |
+| TCS/HRS gọi ra | 4 | 4 NCC | §19.13 |
+
+### 19.2. Bản phân tích requirement → năng lực backend
+
+| Yêu cầu từ spec | Năng lực/API chịu trách nhiệm | Điều kiện đúng cần giữ |
+|---|---|---|
+| FR-1.1, FR-1.6 | EQR: employees, assignments, access-grants; CFG: tổ chức | Phân công tổ chức khác quyền vào nhà máy; dùng lịch sử hiệu lực khi báo cáo. |
+| FR-1.2, FR-1.3, FR-1.4 | EQR: credential, QR cá nhân, cấp lại/thu hồi, gửi liên kết portal | Credential dài hạn khác token ngắn hạn; deactivate nhân viên đồng thời vô hiệu hóa credential trong transaction. |
+| FR-1.5 | IAM `/me`, ATT công cá nhân, thông báo riêng tư | Lấy employeeId từ phiên; QR không dùng để đăng nhập xem hồ sơ. |
+| FR-2.1 | GATE: station và credential thiết bị | ADM đăng ký nhà máy/hướng/turnstile; ngừng sử dụng thay vì xóa trạm có lịch sử. |
+| FR-2.2, FR-2.3, FR-2.4 | Kiosk submit/status; GATE orchestration; TCS adapter | Xác thực trạm, kiểm tra EQR, lưu attempt/command và claim trước I/O; phản hồi kiosk trong budget, không báo công khi chỉ ACK. |
+| FR-2.5, FR-2.6, FR-2.7 | Ngoại lệ/đối soát, heartbeat, theo dõi OPEN/CLOSE | SEC theo nhà máy; heartbeat là mức S/P1 mở rộng; CLOSE không tạo công và không xóa công đã xác nhận. |
+| FR-3.1, FR-3.2, FR-3.3 | AccessAttempt, callback, AttendanceWriter nội bộ | Cùng trạm/eventId/payload đọc trạng thái cũ; khác payload trả 409; tối đa một nguồn công, không có API tự khai `CONFIRMED`. |
+| FR-3.4, FR-3.5, FR-3.6 | ATT events/revisions/intervals/anomalies/corrections; case MANUAL | Ghép từng cặp IN/OUT, giữ event gốc, CAS theo version; nguồn nhập bù phải đối chiếu nguồn đã phục hồi. |
+| FR-4.1, FR-4.2, FR-4.7 | RPT báo cáo/CSV; GATE nhật ký | SUP chỉ tổ được giao, SEC chỉ nhật ký nhà máy, EXE chỉ tổng hợp; CSV mức S và có audit tải dữ liệu. |
+| FR-4.3, FR-4.4, FR-4.5 | RPT hr-exports, snapshot, retry/status/ACK | Sẵn sàng đối soát tại HRS trước 12:00 ngày 1; cùng payload giữ batchId, thay dữ liệu tạo version mới. |
+| FR-4.6, FR-5.1 | IAM auth/users/roles/permissions/audit | Mọi API kiểm tra permission và scope; ADM không mặc nhiên được sửa công, audit nghiệp vụ lưu cùng transaction. |
+| FR-5.2, FR-5.3 | CFG versions/connectors; EQR signing keys; quan sát vận hành | Giữ snapshot cấu hình cũ cho command/batch; secret chỉ tham chiếu; backup/restore theo runbook vận hành. |
+| FR-5.4 | Policy lưu giữ, privacy requests và worker có quyền | Kiểm tra giữ chứng cứ, bản sao/HRS/backup, ghi lý do và audit; chưa có đầy đủ entity cho workflow riêng tư. |
+| M2: QR bị lộ | Token TTL/jti, revoke credential/key, redemption nguyên tử trong submit | Thu hẹp cửa sổ lạm dụng; vẫn có rủi ro chia sẻ mã trực tiếp. Không có endpoint redeem/verify QR công khai cho client bypass use case. |
+| M2: mất kết nối | GET trạng thái, durable command/jobs, callback và case đối soát | R1 phục hồi request đã nhận; journal không phải sổ công, không tự gửi lại OPEN hoặc mở offline. |
+
+NFR áp dụng xuyên suốt: NFR-1 đo toàn luồng kiosk ≤2s tại tải 800 lượt/30 phút/nhà máy; NFR-2 bảo vệ dữ liệu/nguồn duy nhất bằng transaction; NFR-3 xác thực, scope và audit; NFR-4 giảm dữ liệu lộ qua response/log; NFR-5 giữ ports/adapters và contract tests; NFR-6 kiểm chứng backup/WAL và RPO/RTO đề xuất bằng diễn tập. API tự trả nhanh hoặc HTTP 2xx không chứng minh đã đạt các NFR này.
+
+### 19.3. Bản đồ các nhóm API và bên sử dụng
+
+```mermaid
+flowchart LR
+    EMP["EMP / web di động"] --> IAM["IAM: auth, me, quyền, audit"]
+    HR["HR / SUP / EXE"] --> IAM
+    SEC["SEC / ADM"] --> IAM
+    EMP --> EQR["EQR: nhân viên, QR, access grants"]
+    EMP --> ATT["ATT: công cá nhân, revision, correction"]
+    HR --> EQR
+    HR --> ATT
+    HR --> RPT["RPT: báo cáo, snapshot, HRS"]
+    SEC --> GATE["GATE: trạm, nhật ký, case"]
+    SEC --> CFG["CFG: tổ chức, cấu hình, connectors"]
+    K["Kiosk có danh tính trạm"] --> SCAN["Kiosk API: submit / lookup"]
+    SCAN --> GATE
+    GATE -->|"gọi port nội bộ"| EQR
+    GATE -->|"nguồn đã xác nhận"| ATT
+    GATE -->|"adapter gọi ra"| TCS["TCS / simulator"]
+    TCS -->|"callback đã xác thực"| GATE
+    RPT -->|"query nội bộ"| ATT
+    RPT -->|"adapter gọi ra"| HRS["HRS / simulator"]
+    HRS -->|"ACK callback nếu hỗ trợ"| RPT
+    OPS["Vận hành / quyền riêng tư"] --> CFG
+    OPS --> IAM
+```
+
+Mũi tên biểu diễn nhóm luồng, không cấp chung mọi quyền cho các actor trong một ô. IAM/CFG và các port giữa module chạy trong modular monolith; không biến mọi lời gọi nội bộ thành HTTP hoặc cho client gọi thẳng TCS/HRS. OPS là phần hạ tầng hỗ trợ, không thêm bounded context nghiệp vụ thứ bảy.
+
+### 19.4. Quy ước contract dùng cho toàn catalogue
+
+- **Địa chỉ:** route TMC bắt đầu `/api`, theo `setGlobalPrefix("api")` hiện có; chưa thêm `/v1`. `:id` là path parameter; query không tạo endpoint mới. Đăng ký các route tĩnh như `/monthly/summary` trước route tham số có thể trùng.
+- **Danh tính:** người dùng dùng session theo TMC-007; cấu hình cookie/CSRF theo deployment. Kiosk dùng credential trạm riêng; callback dùng danh tính tích hợp đã xác thực. StationId, actorUserId và scope lấy từ backend, không tin trường tự khai.
+- **Quyền:** `CN` trong bảng là tài khoản đã đăng nhập có employee liên kết, chỉ dữ liệu cá nhân. HR/SUP/SEC/ADM/EXE đều cần permission và scope hiện hành. ADM không tự có quyền HR/SEC, EXE không tự được xem dữ liệu định danh.
+- **Query danh sách:** `page`, `pageSize` có giới hạn server; filter phù hợp như `from`, `to`, `factoryId`, `departmentId`, `teamId`, `employeeId`, `status`; sort chỉ theo trường allowlist và có thứ tự ổn định. Backend luôn giao filter với phạm vi đã cấp; không có filter không đồng nghĩa toàn công ty.
+- **Thời gian/ID:** UUID cho định danh nội bộ; timestamp ISO 8601 biểu diễn instant UTC; `periodStart=YYYY-MM-01` theo `Asia/Ho_Chi_Minh`. Tháng dùng khoảng nửa mở `[windowStart, windowEnd)`; giờ sự kiện khác giờ server nhập nhận.
+- **Phản hồi:** dùng `ApiResponse<T> = { data, traceId }`; danh sách có `PageResponse<T> = { items, page, pageSize, total }` bên trong `data`. Lỗi theo `ApiProblem` hiện có, gồm `type`, `title`, `status`, `detail` đã lọc, `traceId`, `errors` khi cần. CSV/health/vendor contract là ngoại lệ phải khai báo rõ trong OpenAPI.
+- **HTTP:** `200` đọc/thao tác hoặc trả lại kết quả cũ; `201` tạo tài nguyên đã lưu; `202` đã lưu ý định/job nhưng còn xử lý; `204` logout/thu hồi không cần body. `400` payload không hợp lệ; `401` thiếu/sai xác thực; `403` không có quyền thao tác; `404` không có đối tượng hoặc nằm ngoài scope cần che tồn tại; `409` xung đột version/idempotency/trạng thái; `422` dữ liệu nghiệp vụ không thể áp dụng ngoài kết quả scan; `429` vượt giới hạn; `503` dịch vụ chưa thể tiếp nhận bền vững. Mỗi route phải chốt tập mã thực tế khi viết OpenAPI, không dùng tất cả mã cho mọi route.
+- **Ghi dữ liệu:** cập nhật đồng thời dùng `expectedVersion`; không nhận version hoặc actor mới để ghi đè tùy ý. Request tạo job/case/export cần idempotency key và hash nội dung, có phạm vi cùng chủ thể/use case. Same key/same payload trả tài nguyên cũ; khác payload trả 409. Login/logout/đọc dữ liệu không bị áp dụng máy móc cơ chế này.
+- **Dữ liệu nhạy cảm:** không trả passwordHash, private key, QR/token trong log, credential thiết bị hoặc service secret qua DTO đọc. QR cá nhân dùng `Cache-Control: no-store`, không prefetch; các response hồ sơ/công được bảo vệ cache theo phiên. CSV chỉ chứa cột được phép và ghi audit người tải/phạm vi.
+- **Bất biến:** không cung cấp PATCH/DELETE tùy ý cho attendance event/revision, audit, redemption hay snapshot đã chốt. Dùng use case correction, revocation, deactivate hoặc tạo version mới; dữ liệu lịch sử vẫn truy vết được.
+
+### 19.5. IAM — phiên, tài khoản, vai trò và kiểm toán
+
+Nguồn: FR-4.6, FR-5.1, UC-08, [spec ma trận quyền](spec.pdf#page=31), [IAM schema](schema-database.md#t-users). API quản trị đầy đủ ngoài auth nền cần ticket backend riêng; TMC-043 hiện là ticket UI, không tự bao hàm toàn bộ IAM backend.
+
+| ID | Method + endpoint | Ai gọi / scope | Input → kết quả và ý nghĩa | Phạm vi / ticket |
+|---|---|---|---|---|
+| API-IAM-01 | `POST /api/auth/login` | Người dùng portal | Thông tin đăng nhập → phiên hợp lệ/danh tính hoặc lỗi chung; kiểm tra hash, trạng thái tài khoản, rate limit và audit; không dùng QR làm mật khẩu. | M2; TMC-007/008 |
+| API-IAM-02 | `POST /api/auth/logout` | Phiên người dùng hiện tại | Thu hồi phiên hiện tại và xóa cookie; frontend xóa cache nhạy cảm. Không ảnh hưởng danh tính kiosk. | M2; TMC-007/008 |
+| API-IAM-03 | `GET /api/me` | Người dùng đã đăng nhập | Trả user, employee liên kết, role/permission/scope hiệu lực và hồ sơ cá nhân được phép; làm nguồn cho route guard. | M2; TMC-007/008 |
+| API-IAM-04 | `GET /api/users` | ADM | Bộ lọc account/status → danh sách tài khoản quản trị, không trả hash/secret hoặc tự ghép hồ sơ HR chi tiết. | HT |
+| API-IAM-05 | `POST /api/users` | ADM | Username, employeeId liên kết hợp lệ và thông tin khởi tạo theo policy → account; không tự cấp mọi role. | HT |
+| API-IAM-06 | `GET /api/users/:userId` | ADM | UserId → chi tiết account/trạng thái cần cho quản trị; không trả dữ liệu công của người đó. | HT |
+| API-IAM-07 | `PATCH /api/users/:userId` | ADM | Trường account được phép, expectedVersion, reason → trạng thái mới; disable phải vô hiệu hóa phiên theo policy. | HT |
+| API-IAM-08 | `POST /api/users/:userId/password-resets` | ADM có quyền reset | Reason và cơ chế xác minh được duyệt → kết quả khởi tạo reset an toàn; không đọc lại mật khẩu cũ, không trả mật khẩu qua danh sách account. | HT; cần chốt kênh reset |
+| API-IAM-09 | `GET /api/roles` | ADM | Danh sách role và metadata để cấu hình quyền; không coi role UI prototype là role backend đã chốt. | HT |
+| API-IAM-10 | `POST /api/roles` | ADM | Code/name và tập quyền được phép → role mới; kiểm soát quyền mà người tạo được phép ủy quyền. | HT |
+| API-IAM-11 | `PATCH /api/roles/:roleId` | ADM | Metadata, expectedVersion, reason → role cập nhật; không sửa nghĩa role hệ thống hoặc mở rộng đặc quyền ngoài policy. | HT |
+| API-IAM-12 | `GET /api/permissions` | ADM | Danh mục permission do backend định nghĩa → lựa chọn cho cấu hình role; không mở endpoint để client tạo permission tùy ý. | HT |
+| API-IAM-13 | `PUT /api/roles/:roleId/permissions` | ADM có quyền phân quyền | Tập permission, expectedVersion, reason → thay tập quyền nguyên tử, audit và hiệu lực phiên theo policy. | HT |
+| API-IAM-14 | `GET /api/users/:userId/role-assignments` | ADM | UserId → các lần gán role cùng scope tổ/nhà máy và thời hạn; tách khỏi AccessGrant vào cổng. | HT |
+| API-IAM-15 | `POST /api/users/:userId/role-assignments` | ADM | RoleId, scope hợp lệ, hiệu lực, reason → lần gán quyền; xác minh tổ thuộc bộ phận/nhà máy. | HT |
+| API-IAM-16 | `POST /api/users/:userId/role-assignments/:assignmentId/revocation` | ADM | ExpectedVersion/reason → kết thúc hiệu lực gán quyền, cập nhật quyền hiện hành và giữ lịch sử. | HT |
+| API-IAM-17 | `GET /api/audit-entries` | HR/SEC/ADM theo quyền audit | Filter đối tượng/action/thời gian/correlation → nhật ký đã lọc trường và scope; không có API sửa/xóa audit thông thường. | HT; audit writer nội bộ vẫn là M2 |
+| API-IAM-18 | `GET /api/audit-entries/:entryId` | Người có quyền audit đối tượng | EntryId → chi tiết actor/action/reason/tham chiếu trước-sau được phép; hỗ trợ điều tra thay đổi. | HT |
+
+### 19.6. EQR — nhân viên, phân công, quyền nhà máy và QR
+
+Nguồn: FR-1.1…1.6, FR-5.2, UC-02/03 và [EQR schema](schema-database.md#t-employees). Khóa ký thuộc EQR dù người vận hành là ADM; controller không chuyển quyền sở hữu entity sang CFG.
+
+| ID | Method + endpoint | Ai gọi / scope | Input → kết quả và ý nghĩa | Phạm vi / ticket |
+|---|---|---|---|---|
+| API-EQR-01 | `GET /api/me/qr` | CN đang ACTIVE | Trả token QR hiện hành/ngắn hạn, expiresAt và metadata hiển thị tối thiểu; ký bằng key hợp lệ, không cấp quyền nhà máy mới. | M2; TMC-010/017 |
+| API-EQR-02 | `GET /api/employees` | HR; SEC chỉ lookup tối thiểu trong nhà máy | Search/code/status → danh sách nhân viên theo projection được phép; hỗ trợ chọn đúng người khi đối soát, không tải toàn bộ DB prototype. | M2; lookup tối thiểu TMC-025 |
+| API-EQR-03 | `POST /api/employees` | HR | Mã HRS, tên, trạng thái và dữ liệu được duyệt → hồ sơ mới; kiểm tra trùng mã và audit. Không tự tạo account quản trị. | HT |
+| API-EQR-04 | `GET /api/employees/:employeeId` | HR; SEC nếu có quyền projection tối thiểu | EmployeeId → hồ sơ theo scope, role và các trường được phép; EMP lấy hồ sơ qua `/api/me`. | HT |
+| API-EQR-05 | `PATCH /api/employees/:employeeId` | HR | Trường hồ sơ, expectedVersion, reason → hồ sơ sửa; không cho sửa lịch sử phân công hoặc trạng thái credential bằng PATCH chung. | HT |
+| API-EQR-06 | `POST /api/employees/:employeeId/deactivation` | HR | ExpectedVersion/reason → INACTIVE và revoke credential trong cùng transaction; lịch sử công vẫn giữ. | HT; logic từ chối inactive là M2 |
+| API-EQR-07 | `GET /api/employees/:employeeId/assignments` | HR | Khoảng hiệu lực → lịch sử nhà máy/bộ phận/tổ; dùng để giải thích báo cáo kỳ cũ. | HT |
+| API-EQR-08 | `POST /api/employees/:employeeId/assignments` | HR | Nhà máy/bộ phận/tổ, thời gian hiệu lực, expectedVersion/reason → phân công mới; đóng phân công cũ phù hợp, không ghi đè lịch sử. | HT |
+| API-EQR-09 | `GET /api/employees/:employeeId/access-grants` | HR; CN qua quyền đọc cá nhân nếu được cấp | EmployeeId → quyền vào từng nhà máy và hiệu lực; phân biệt với nơi làm việc được phân công. | HT |
+| API-EQR-10 | `POST /api/employees/:employeeId/access-grants` | HR | FactoryId, hiệu lực, reason → quyền vào nhà máy; kiểm tra scope cấp quyền và khoảng hiệu lực. | HT |
+| API-EQR-11 | `POST /api/employees/:employeeId/access-grants/:grantId/revocation` | HR | ExpectedVersion/reason → chấm dứt quyền; scan mới phải đọc quyền hiện hành, không suy từ QR có chữ ký. | HT |
+| API-EQR-12 | `GET /api/employees/:employeeId/qr-credentials` | HR | EmployeeId → metadata credential hiện tại/lịch sử, trạng thái và lý do revoke; không trả token dùng được ở cổng. | HT |
+| API-EQR-13 | `POST /api/employees/:employeeId/qr-credentials` | HR | Reason và kiểm soát version → cấp/cấp lại credential; revoke bản ACTIVE cũ nguyên tử, giữ tối đa một ACTIVE. | HT; seed credential thuộc TMC-009 |
+| API-EQR-14 | `POST /api/employees/:employeeId/qr-credentials/:credentialId/revocation` | HR | ExpectedVersion/reason → revoke credential và vô hiệu token liên quan theo kiểm tra server; không chỉ khóa ảnh QR trên UI. | M2; TMC-010 |
+| API-EQR-15 | `POST /api/employees/:employeeId/qr-deliveries` | HR | Kênh email công ty đã xác minh → job gửi liên kết tới portal cần đăng nhập; không gửi token TTL 60s như ảnh QR dùng lâu dài. | HT; outbox/job |
+| API-EQR-16 | `GET /api/qr-signing-keys` | ADM có quyền quản lý khóa | Trả keyId/algorithm/status/hiệu lực và public metadata cần thiết; không trả private key. | HT; metadata seed TMC-009 là M2 |
+| API-EQR-17 | `POST /api/qr-signing-keys` | ADM có quyền quản lý khóa | KeyId, thuật toán allowlist, public material và secret reference đã provision → metadata khóa mới; không upload private key qua UI công khai. | HT |
+| API-EQR-18 | `POST /api/qr-signing-keys/:keyId/rotation` | ADM có quyền quản lý khóa | ExpectedVersion cấu hình/reason → chọn khóa mới đã provision để ký, chuyển khóa cũ sang VERIFY_ONLY theo policy. | HT |
+| API-EQR-19 | `POST /api/qr-signing-keys/:keyId/revocation` | ADM có quyền quản lý khóa | Reason/keyId → REVOKED; từ chối token của khóa, liên kết audit và quy trình cấp lại cần thiết. | HT |
+
+**Chốt cho bản đồ này:** giữ `GET /api/me/qr` từ đề xuất hiện có ở teach-stack §10.1. Endpoint chỉ phục vụ hiển thị token, không cấp/revoke credential hoặc tiêu thụ jti; không cache/prefetch. Nếu chuyển việc phát hành token sang POST trước khi tích hợp, phải cập nhật catalogue, contracts, OpenAPI và FE cùng một ticket; không duy trì hai contract mâu thuẫn.
+
+### 19.7. GATE — kiosk, trạm, nhật ký và đối soát
+
+Nguồn: FR-2.1…2.7, FR-3.1…3.3/3.6, FR-4.2, UC-01/04 và [GATE schema](schema-database.md#t-gate_stations). Kiosk không có session của HR/SEC; SEC thao tác bằng tài khoản cá nhân.
+
+| ID | Method + endpoint | Ai gọi / scope | Input → kết quả và ý nghĩa | Phạm vi / ticket |
+|---|---|---|---|---|
+| API-GATE-01 | `GET /api/kiosk/station` | Trạm đã xác thực, chính trạm đó | Trả stationId, tên làn, direction/factory hiển thị và config version được phép; không trả credential/TCS secret. | HT; tiện ích provision |
+| API-GATE-02 | `POST /api/kiosk/access-attempts` | Trạm đã xác thực | EventId/token, protocol version khi contract chốt → attempt và ba nhóm trạng thái; server suy ra trạm/cổng/chiều, lưu trước OPEN, chống trùng và replay. | M2; TMC-011…016/018 |
+| API-GATE-03 | `GET /api/kiosk/access-attempts/:eventId` | Chỉ trạm tạo request | EventId trong namespace trạm → trạng thái đã lưu, kể cả token nay đã hết hạn; chỉ lookup, không redeem/mở cổng lần nữa. | M2; TMC-020/023 |
+| API-GATE-04 | `POST /api/kiosk/heartbeats` | Trạm đã xác thực | Health/protocol/config metadata → giờ server nhận và trạng thái kết nối; giờ client không quyết định công. | HT; TMC-039 đang hoãn |
+| API-GATE-05 | `GET /api/gate-stations` | ADM; SEC đọc nhà máy được giao | Filter factory/status → danh sách làn và trạng thái vận hành; không kèm secret hoặc dữ liệu HR. | HT |
+| API-GATE-06 | `POST /api/gate-stations` | ADM | Factory, direction, turnstileId, connector/config → đăng ký trạm; xác minh TCS đúng nhà máy. | HT |
+| API-GATE-07 | `GET /api/gate-stations/:stationId` | ADM; SEC theo nhà máy | StationId → chi tiết cấu hình/health/lý do khóa cần thiết; không có quyền đổi hướng trên kiosk. | HT |
+| API-GATE-08 | `PATCH /api/gate-stations/:stationId` | ADM | Cấu hình được phép, expectedVersion/reason → phiên bản mới; command cũ tiếp tục truy được snapshot đã dùng. | HT |
+| API-GATE-09 | `POST /api/gate-stations/:stationId/deactivation` | ADM | ExpectedVersion/reason → ngừng tiếp nhận scan mới, giữ dữ liệu và xử lý command còn treo theo policy. | HT |
+| API-GATE-10 | `POST /api/gate-stations/:stationId/credentials` | ADM có quyền provision | Metadata/secret reference theo cơ chế provision → credentialId; giá trị secret chỉ chuyển qua kênh triển khai trạm được bảo vệ. | HT |
+| API-GATE-11 | `POST /api/gate-stations/:stationId/credentials/:credentialId/revocation` | ADM | Reason/version → thu hồi danh tính trạm; không làm mất command/attempt cần đối soát. | HT |
+| API-GATE-12 | `GET /api/access-attempts` | SEC; HR theo nhu cầu đối soát | From/to/factory/decision/state → nhật ký gồm allowed, denied, unknown và ngoại lệ; che token/PII không cần thiết. | M2; TMC-020/025 |
+| API-GATE-13 | `GET /api/access-attempts/:attemptId` | SEC/HR có quyền và scope | ID nội bộ của attempt → diễn biến, command/công/case liên quan; khác eventId do kiosk cấp và có giới hạn đọc riêng. | M2; TMC-020/025 |
+| API-GATE-14 | `GET /api/gate-commands/:commandId` | SEC; ADM đọc kỹ thuật được cấp | CommandId → kind/state/deadline/vendor reference đã lọc; không phát lệnh thiết bị khi GET. | HT |
+| API-GATE-15 | `GET /api/gate-commands/:commandId/history` | SEC; ADM đọc kỹ thuật được cấp | CommandId → các lần chuyển trạng thái và nguồn bằng chứng; hỗ trợ đối soát crash/timeout. | HT |
+| API-GATE-16 | `GET /api/gate-reconciliations` | SEC/HR theo quyền, nhà máy | Filter status/type/age → hàng chờ UNKNOWN/OFFLINE/ngoại lệ; không trả mọi case toàn công ty mặc định. | M2; TMC-024/025 |
+| API-GATE-17 | `POST /api/gate-reconciliations` | SEC/HR theo quyền tạo case | CaseKey, station, attempt/command nếu có, thời điểm, reason/evidenceRefs → hồ sơ sự cố; chưa tự xác nhận công. Worker cũng tạo case qua use case nội bộ. | M2; TMC-025 |
+| API-GATE-18 | `GET /api/gate-reconciliations/:caseId` | SEC/HR theo quyền, nhà máy | CaseId → dữ kiện, nguồn, bằng chứng và version hiện hành; dùng trước form resolution. | M2; TMC-025 |
+| API-GATE-19 | `POST /api/gate-reconciliations/:caseId/resolution` | SEC xác minh vật lý; HR nhập bù theo quyền riêng | ExpectedVersion, outcome, reason, evidenceRefs và dữ kiện đã xác minh → kết luận case/công khi đủ quyền và nguồn; ghi nguyên tử, không tự phát OPEN. | M2; TMC-025 |
+| API-GATE-20 | `POST /api/gate-exceptions` | SEC có quyền ngoại lệ, đúng nhà máy | EventId/caseKey mới, station, employee, reason/evidence → lượt ngoại lệ trực tuyến mới qua cùng pipeline lưu/claim/chống trùng; không reset UNKNOWN cũ. | HT; use case FR-2.5 đầy đủ |
+| API-GATE-21 | `POST /api/integrations/tcs/events` | TCS/simulator đã xác thực | VendorEventId, command/station refs, event type/time/evidence → tiếp nhận bền vững và xử lý chống trùng; kiểm tra thứ tự, nguồn và chuyển trạng thái. | M2; TMC-016/019/024/026 |
+
+**Tách hai loại định danh:** API kiosk tìm bằng `(authenticatedStationId, eventId)`; API quản trị tìm `attemptId` nội bộ rồi kiểm tra scope. TCS callback phải tra command đã tồn tại và đúng trạm; không chấp nhận payload tự khai employeeId làm căn cứ tạo công.
+
+### 19.8. ATT — sổ công, khoảng hiện diện, correction và yêu cầu kiểm tra
+
+Nguồn: FR-1.5, FR-3.3…3.6, UC-02/05 và [ATT schema](schema-database.md#t-attendance_events). AttendanceWriter xác nhận nguồn GATE là port nội bộ; không mở POST tự ghi công thành công cho kiosk/EMP.
+
+| ID | Method + endpoint | Ai gọi / scope | Input → kết quả và ý nghĩa | Phạm vi / ticket |
+|---|---|---|---|---|
+| API-ATT-01 | `GET /api/me/attendance/events` | CN | From/to/phân trang → các lượt IN/OUT và revision hiệu lực của mình, không nhận employeeId của người khác. | M2; TMC-020/021 |
+| API-ATT-02 | `GET /api/me/attendance/events/:eventId` | CN, event của mình | ID AttendanceEvent → chi tiết lượt công/nguồn được phép; không phải kiosk eventId. | M2; TMC-020/021 |
+| API-ATT-03 | `GET /api/attendance/events` | HR; SUP chỉ tổ và projection được cấp | Filter nhân viên/nhà máy/kỳ → sổ công trong phạm vi; không cho EXE mặc định xem từng người. | M2; TMC-020 |
+| API-ATT-04 | `GET /api/attendance/events/:eventId` | HR; SUP theo quyền đọc | EventId → dữ liệu hiệu lực, revisionNo và nguồn; dùng expectedVersion khi hiệu chỉnh. | M2; TMC-020 |
+| API-ATT-05 | `GET /api/attendance/events/:eventId/revisions` | HR có quyền lịch sử | EventId → các revision bất biến và liên kết correction, giữ dấu vết trước/sau. | HT; TMC-040 |
+| API-ATT-06 | `GET /api/attendance/intervals` | CN của mình; HR/SUP đúng scope | Khoảng thời gian → từng cặp IN/OUT, tổng hiện diện và version; không lấy first-IN/last-OUT làm tổng giờ. | HT; pairing đầy đủ |
+| API-ATT-07 | `GET /api/attendance/anomalies` | HR/SUP đúng scope | Kỳ/loại bất thường → thiếu lượt, trùng chiều, ca dài hoặc qua nhà máy cần kiểm tra; không tự biến thành lỗi tính lương. | HT; TMC-040 |
+| API-ATT-08 | `POST /api/attendance/corrections` | HR có quyền hiệu chỉnh | EventId, expectedVersion, change, reason, evidenceRefs → correction + revision mới + CAS head + audit; xung đột trả 409. | HT; TMC-040 |
+| API-ATT-09 | `GET /api/attendance/corrections` | HR đúng scope | Filter event/employee/actor/kỳ → lịch sử hiệu chỉnh để đối chiếu trách nhiệm và lô xuất. | HT; TMC-040 |
+| API-ATT-10 | `GET /api/attendance/corrections/:correctionId` | HR đúng scope | CorrectionId → lý do, actor, version trước/sau và bằng chứng được phép. | HT; TMC-040 |
+| API-ATT-11 | `POST /api/attendance/manual-events` | HR có quyền nhập bù | Case đã xác minh, employee/direction/occurredAt, reason/version → nguồn MANUAL duy nhất; đối chiếu attempt/case đã có, không dùng để bypass GATE. | HT; nhập bù HR đầy đủ |
+| API-ATT-12 | `POST /api/me/attendance/review-requests` | CN | EventId tùy chọn, periodStart, reason → yêu cầu HR kiểm tra; thiếu lượt có thể chưa có eventId, chưa sửa sổ công. | HT; workflow TMC-040 mở rộng |
+| API-ATT-13 | `GET /api/me/attendance/review-requests` | CN | Filter kỳ/status → các yêu cầu của mình và kết luận, không đọc yêu cầu người khác. | HT |
+| API-ATT-14 | `GET /api/attendance/review-requests` | HR đúng scope | Filter kỳ/status/người được giao → hàng chờ yêu cầu kiểm tra công. | HT |
+| API-ATT-15 | `GET /api/attendance/review-requests/:requestId` | HR đúng scope; CN sở hữu request | RequestId → nội dung, version và kết luận được phép; lọc ghi chú/bằng chứng nội bộ theo actor. | HT |
+| API-ATT-16 | `POST /api/attendance/review-requests/:requestId/resolution` | HR đúng scope | ExpectedVersion, resolution và correction refs nếu có → CLOSED; kết luận không cần sửa vẫn hợp lệ, đóng request không tự tạo revision. | HT |
+
+M2 tại TMC-025 đã có nhánh xác nhận/nhập bù tối thiểu **trong resolution case**, không bắt xây thêm API-ATT-11 hoặc toàn bộ workflow HR. Không có `PATCH /attendance/events/:id` hay `DELETE /attendance/events/:id`; hủy hiệu lực một lượt cũng đi qua correction/revision với lý do.
+
+### 19.9. RPT — báo cáo, CSV và giao nhận HRS
+
+Nguồn: FR-4.1/4.3…4.5/4.7, UC-06/07, [RPT schema](schema-database.md#t-export_batches). Dashboard P1 không tương đương báo cáo tháng và HRS delivery đầy đủ.
+
+| ID | Method + endpoint | Ai gọi / scope | Input → kết quả và ý nghĩa | Phạm vi / ticket |
+|---|---|---|---|---|
+| API-RPT-01 | `GET /api/reports/dashboard` | HR/SUP/EXE theo projection; SEC chỉ số cổng được cấp | Kỳ/factory trong scope → chỉ số từ nguồn thật, phân biệt mô phỏng và dữ liệu chưa có; không trả drill-down cá nhân cho EXE. | M2-P1; TMC-028 |
+| API-RPT-02 | `GET /api/reports/monthly` | HR; SUP chỉ tổ | PeriodStart và scope hợp lệ → dữ liệu hiện diện theo nhân viên/bộ phận/nhà máy và cờ bất thường; không tính lương. | HT; TMC-041 và query liên quan |
+| API-RPT-03 | `GET /api/reports/monthly/summary` | EXE; HR/SUP trong phạm vi được cấp | PeriodStart/phạm vi → số liệu tổng hợp không lộ định danh; EXE không tự chuyển sang endpoint báo cáo cá nhân. | HT |
+| API-RPT-04 | `GET /api/reports/monthly.csv` | Quyền tải báo cáo tương ứng | Cùng bộ lọc được kiểm tra lại ở server → CSV các cột được phép và audit người tải/kỳ/filter; khác xuất HRS. | HT; FR-4.7 mức S |
+| API-RPT-05 | `GET /api/hr-exports` | HR đúng scope | Kỳ/status/factory → danh sách batch, version, deadline và trạng thái đối soát. | HT; TMC-041 |
+| API-RPT-06 | `POST /api/hr-exports` | HR có quyền xuất | PeriodStart, scopeType/factoryId, idempotency key → snapshot đã chốt, batchId/version/checksum và job; 202 không có nghĩa HRS đã nhận xong. | HT; TMC-041 |
+| API-RPT-07 | `GET /api/hr-exports/:batchId` | HR đúng scope; ADM chỉ metadata kỹ thuật được cấp | BatchId → tiến độ, checksum/count, acceptedAt/remoteReadyAt và nguy cơ trễ hạn; GET đọc local không tự gửi lại. | HT; TMC-041 |
+| API-RPT-08 | `GET /api/hr-exports/:batchId/items` | HR có quyền xem snapshot | BatchId/phân trang → payload item được phép và source revision chính xác; không dựng lại từ hồ sơ hiện tại. | HT; TMC-041 |
+| API-RPT-09 | `GET /api/hr-exports/:batchId/attempts` | HR; ADM đọc kỹ thuật được cấp | BatchId → lịch sử SUBMIT/STATUS, thời gian, outcome và ACK đã lọc; phân biệt số lần gửi với số bản ghi. | HT; TMC-041 |
+| API-RPT-10 | `POST /api/hr-exports/:batchId/retries` | HR có quyền chạy lại | Reason/version/idempotency key → job retry cùng batchId và byte payload; không tạo version mới chỉ vì timeout. | HT; TMC-041 |
+| API-RPT-11 | `POST /api/hr-exports/:batchId/status-checks` | HR có quyền đối soát | BatchId/reason → job tra cứu HRS theo contract, lưu ExportAttempt STATUS; không giả kết quả từ HTTP 2xx cũ. | HT; TMC-041 |
+| API-RPT-12 | `POST /api/hr-exports/:batchId/revisions` | HR có quyền xuất dữ liệu sửa | ExpectedVersion/reason/nguồn đã hiệu chỉnh → snapshot và batchVersion mới, supersedesBatchId; không sửa payload lô cũ. | HT; TMC-040/041 |
+| API-RPT-13 | `POST /api/integrations/hrs/acknowledgements` | HRS đã xác thực, nếu hỗ trợ callback | ACK ID, batchId/period/version/checksum/count/result → kiểm tra nguồn, chống trùng và cập nhật kết quả; chỉ ACCEPTED khi toàn bộ contract khớp. | HT; tùy contract TMC-041 |
+
+Lịch xuất 01:00, retry 1/5/15/30 phút, tăng cảnh báo 09:00/11:00 và mục tiêu 11:30 là đề xuất vận hành trong M1; deadline nghiệp vụ vẫn **trước 12:00 ngày 1**. Scheduler gọi use case nội bộ cùng quy tắc với HR, không cần một HTTP endpoint công khai để cron gọi. Nếu HRS không có callback, adapter nhận ACK từ submit/status; không bắt nhà cung cấp triển khai API-RPT-13.
+
+### 19.10. CFG — tổ chức, phiên bản cấu hình và đầu kết nối
+
+Nguồn: FR-2.1, FR-5.2, UC-08, [CFG schema](schema-database.md#t-factories). EQR sở hữu employee assignment; GATE sở hữu station; CFG không sửa trực tiếp bảng của hai module này.
+
+| ID | Method + endpoint | Ai gọi / scope | Input → kết quả và ý nghĩa | Phạm vi / ticket |
+|---|---|---|---|---|
+| API-CFG-01 | `GET /api/factories` | Người dùng có quyền đọc/filter tương ứng | Danh sách nhà máy trong phạm vi hiện hành, chỉ metadata cần thiết; EXE có thể được cấp phạm vi tổng hợp cả hai nhà máy. | M2-P1; TMC-028 |
+| API-CFG-02 | `POST /api/factories` | ADM | Code/name/timezone được chấp thuận → nhà máy mới; không tự cấp grant hoặc gán role cho ai. | HT |
+| API-CFG-03 | `GET /api/factories/:factoryId` | Người có quyền đọc đối tượng | FactoryId → chi tiết tổ chức được phép, không kèm thống kê HR nhạy cảm. | HT |
+| API-CFG-04 | `PATCH /api/factories/:factoryId` | ADM | Metadata/trạng thái, expectedVersion/reason → cập nhật có audit; ngừng sử dụng phải kiểm tra trạm/phân công đang hiệu lực. | HT |
+| API-CFG-05 | `GET /api/departments` | HR/SUP/ADM theo quyền đọc tổ chức | FactoryId/filter → bộ phận trong phạm vi, phục vụ chọn và kiểm tra scope. | HT |
+| API-CFG-06 | `POST /api/departments` | ADM | FactoryId/code/name → bộ phận mới; xác minh nhà máy hoạt động và mã hợp lệ. | HT |
+| API-CFG-07 | `PATCH /api/departments/:departmentId` | ADM | Metadata/trạng thái/version/reason → thay đổi tổ chức; không chuyển lịch sử nhân viên bằng cách ghi đè quan hệ cũ. | HT |
+| API-CFG-08 | `GET /api/teams` | HR/SUP/ADM theo quyền đọc tổ chức | Factory/department filter → các tổ được phép; server kiểm tra quan hệ cha-con. | HT |
+| API-CFG-09 | `POST /api/teams` | ADM | DepartmentId/code/name → tổ mới; không đồng nghĩa đã gán SUP hoặc nhân viên. | HT |
+| API-CFG-10 | `PATCH /api/teams/:teamId` | ADM | Metadata/trạng thái/version/reason → tổ cập nhật có audit; giữ tham chiếu lịch sử và tránh scope treo. | HT |
+| API-CFG-11 | `GET /api/config-versions` | ADM | ConfigKey/phạm vi → danh sách version và thời điểm hiệu lực, không lộ secret payload. | HT |
+| API-CFG-12 | `GET /api/config-versions/:configVersionId` | ADM; quyền tra kỹ thuật cụ thể | ConfigVersionId → snapshot đã lọc dùng cho giải thích command/batch; payload đã dùng không sửa tại chỗ. | HT |
+| API-CFG-13 | `POST /api/config-versions` | ADM | ConfigKey, supersedesId, payload không chứa secret thô, reason → version mới chưa kích hoạt. | HT |
+| API-CFG-14 | `POST /api/config-versions/:configVersionId/activation` | ADM | ExpectedVersion của cấu hình hiện hành, thời điểm/reason → kích hoạt bản đã kiểm tra; cập nhật con trỏ liên quan nguyên tử. | HT |
+| API-CFG-15 | `GET /api/integration-endpoints` | ADM | ProviderType/factory/status → connector metadata TCS/HRS được phép, không trả auth secret. | HT |
+| API-CFG-16 | `POST /api/integration-endpoints` | ADM | Provider/factory/baseUrl đã duyệt, timeout, contractVersion, secretRef → connector và config snapshot; không nhận URL do kiosk tự gửi. | HT |
+| API-CFG-17 | `PATCH /api/integration-endpoints/:endpointId` | ADM | Thay đổi được duyệt, expectedVersion/reason → cấu hình mới cùng snapshot; không âm thầm chuyển đích command/batch đang đối soát. | HT |
+
+### 19.11. Vận hành — health, hàng chờ và cảnh báo
+
+Nguồn: FR-5.3, NFR-6, UC-08 và [jobs/outbox](schema-database.md#t-background_jobs). Các endpoint chỉ cung cấp quan sát được phép; không tạo đường HTTP tự reset trạng thái nghiệp vụ hoặc restore DB đang chạy.
+
+| ID | Method + endpoint | Ai gọi / scope | Input → kết quả và ý nghĩa | Phạm vi / ticket |
+|---|---|---|---|---|
+| API-OPS-01 | `GET /api/health` | Probe hạ tầng theo deployment | Trả health/readiness tối thiểu và mã 200/503 theo phép kiểm đã định; không trả DSN, secret hoặc stack trace. | M2; TMC-003/005 |
+| API-OPS-02 | `GET /api/operations/status` | ADM có quyền vận hành | Trạng thái ứng dụng/DB/connectors, backlog age, backup/WAL và lần restore test gần nhất nếu đã kết nối nguồn metrics; không khẳng định RPO/RTO chỉ từ health xanh. | HT |
+| API-OPS-03 | `GET /api/operations/jobs` | ADM; HR chỉ job HRS được cấp | Filter type/state/age → metadata durable job, attempts/lease/nextAttemptAt đã lọc, không trả payload QR/secret. | HT |
+| API-OPS-04 | `GET /api/operations/jobs/:jobId` | Quyền đọc job cụ thể | JobId → trạng thái và lỗi đã lọc; kiểm tra quyền đối tượng nguồn, không cho client sửa lease/fencing hoặc ép job thành DONE. | HT |
+| API-OPS-05 | `GET /api/operations/alerts` | ADM; SEC/HR theo loại và scope | Tổng hợp UNKNOWN quá hạn, trạm mất liên lạc, CLOSE lỗi và lô gần hạn từ trạng thái đã lưu; nguồn backup/metrics cần adapter quan sát riêng. | HT; TMC-039 chỉ phần heartbeat |
+
+Backup/restore, migration, seed và fault injection simulator chạy qua CLI/runbook/test harness có quyền; không thêm `/api/reset-database`, `/api/backup/restore` hoặc `/api/test/open-gate` vào API sản phẩm. Không cần public CRUD cho `outbox_messages`, `background_jobs` hay bảng lease.
+
+### 19.12. Quyền riêng tư — các contract cần chốt thêm
+
+Nguồn: FR-1.5, FR-5.4, NFR-4, [spec §10.4](spec.pdf#page=32). Đây là phân rã khả năng phần mềm theo spec, không phải kết luận tuân thủ pháp luật. Policy/thời hạn/giữ chứng cứ và người phê duyệt do TMC quyết định.
+
+Schema hiện chưa có entity đầy đủ cho privacy request, quyết định xử lý, legal hold và execution manifest; **không coi AuditEntry hoặc OutboxMessage là bảng thay thế workflow này**. Các route `MR` chỉ được triển khai sau khi chốt owner, permission, entity/migration/registry và ảnh hưởng HRS/backup. Notice/policy có thể dùng ConfigVersion nếu đủ requirement đã chốt.
+
+| ID | Method + endpoint | Ai gọi / scope | Input → kết quả và ý nghĩa | Phạm vi / ticket |
+|---|---|---|---|---|
+| API-PRV-01 | `GET /api/privacy/notice` | Người dùng portal; có thể public bản đã duyệt | Version/ngôn ngữ → mục đích, loại dữ liệu, người nhận và kênh liên hệ; xem notice không tự đồng nghĩa đã đồng ý xử lý. | HT; FR-1.5 |
+| API-PRV-02 | `POST /api/me/privacy-requests` | Người dùng đã xác minh, dữ liệu của mình | Loại yêu cầu xem/hiệu chỉnh/xóa, reason và phạm vi → hồ sơ tiếp nhận, không xóa dữ liệu ngay. | MR |
+| API-PRV-03 | `GET /api/me/privacy-requests` | Người sở hữu request | Filter/status → tiến độ và kết luận các yêu cầu cá nhân, không lộ thông tin điều tra nội bộ. | MR |
+| API-PRV-04 | `GET /api/privacy-requests` | HR/người tiếp nhận được phân quyền | Status/thời hạn/scope → hàng chờ xử lý, xác minh danh tính và người chịu trách nhiệm. | MR |
+| API-PRV-05 | `GET /api/privacy-requests/:requestId` | Chủ request hoặc người xử lý được cấp | RequestId → thông tin theo projection riêng cho người yêu cầu/người xử lý; ADM chỉ thấy phần cần thực thi. | MR |
+| API-PRV-06 | `POST /api/privacy-requests/:requestId/decisions` | Người có quyền quyết định theo policy TMC | ExpectedVersion, quyết định/lý do, policy/evidence refs → kết quả xét duyệt và phạm vi cần thực hiện; không tự vượt legal hold. | MR |
+| API-PRV-07 | `POST /api/privacy-requests/:requestId/executions` | ADM/worker có quyền thực thi quyết định đã duyệt | Decision/version/idempotency key → job có manifest, kiểm tra hold/retention/bản sao, audit và kết quả từng nơi; không DELETE trực tiếp lịch sử. | MR |
+| API-PRV-08 | `GET /api/retention-policies` | HR/ADM có quyền xem chính sách | Loại dữ liệu/phạm vi → policy version đã duyệt; cập nhật/kích hoạt qua ConfigVersion khi mô hình được chốt. | MR |
+
+### 19.13. API gọi ra TCS/HRS — tách khỏi route TMC
+
+Đây là **mẫu contract cho adapter/simulator**, không khẳng định nhà cung cấp có các URL bên dưới. `tcsBaseUrl`/`hrsBaseUrl` đến từ IntegrationEndpoint và snapshot cấu hình; browser/kiosk không tự chọn URL hay gọi các API này.
+
+| ID | Method + endpoint mẫu phía nhà cung cấp | Bên gọi | Input → kết quả và ý nghĩa | Phạm vi |
+|---|---|---|---|---|
+| API-EXT-01 | `POST {tcsBaseUrl}/commands` | Backend GATE qua TurnstileGateway | CommandId, turnstileId, kind OPEN/CLOSE, deadline → ACK hoặc kết quả thực thi theo contract; giữ commandId khi được phép tra/gửi lại, không coi ACK là passage. | NCC; mock cổng M2 |
+| API-EXT-02 | `GET {tcsBaseUrl}/commands/:commandId` | GATE worker/adapter nếu TCS hỗ trợ | CommandId → kết quả thiết bị/căn cứ đối soát; GET không phát OPEN mới. Nếu TCS không hỗ trợ thì chuyển SEC thay vì giả có status. | NCC; capability cần xác nhận |
+| API-EXT-03 | `POST {hrsBaseUrl}/attendance-batches` | Backend RPT qua HrExporter | BatchId, period/version/snapshot/schema/checksum/count và payload cố định → kết quả tiếp nhận/xử lý, reference và errors; cùng batch không cộng lặp theo contract. | NCC; triển khai đầy đủ TMC-041 |
+| API-EXT-04 | `GET {hrsBaseUrl}/attendance-batches/:batchId` | RPT worker/adapter nếu HRS hỗ trợ | BatchId → trạng thái xử lý và ACK đối chiếu period/version/checksum/count; mất phản hồi không tự tạo batch mới. | NCC; capability cần xác nhận |
+
+TCS/HRS thật có thể dùng URL, chữ ký, phương thức và mã phản hồi khác; adapter chuẩn hóa về port nghiệp vụ. [Port hiện tại](../api/src/modules/gate/application/ports/turnstile.gateway.ts) mới có `open`, chưa có `close`/status capability; HRS adapter, callbacks và [simulator](../api/simulators/README.md) chưa có implementation. Email có thể qua SMTP hoặc API nhà cung cấp, không tự thêm một HTTP route vendor cố định khi chưa chọn dịch vụ.
+
+### 19.14. Giải thích contract và trình tự các luồng quan trọng
+
+#### A. EMP lấy QR → kiosk quét → công được xác nhận
+
+1. `POST /api/auth/login` tạo phiên người dùng; `GET /api/me` trả quyền/hồ sơ liên kết; `GET /api/me/qr` trả QR ngắn hạn từ credential ACTIVE. Mã HRS/họ tên/lịch sử công không đưa vào QR.
+2. Kiosk tạo eventId trước lần gửi, gọi API-GATE-02 bằng danh tính trạm. Body v1 hiện có trong `SubmitQrScanRequest` là `{ eventId, token }`. `protocolVersion` đã được spec đề xuất nhưng **chưa có trong kiểu hiện tại**; cần quyết định thêm field hay cơ chế version tương đương trước khi triển khai.
+3. Backend tìm attempt cùng trạm/eventId trước khi tiêu thụ QR lần nữa; cùng payload trả trạng thái cũ, kể cả token hết hạn sau lần gửi đầu. Khác payload trả 409. Scan mới mới kiểm tra chữ ký/expiry/credential/employee/grant và redemption nguyên tử.
+4. Khi được phép, lưu attempt/OPEN PREPARED, claim DISPATCHING rồi commit trước I/O; gọi TCS ngoài transaction. Phản hồi kiosk phải phân biệt `decision`, `commandState` và `attendanceState`, không chỉ `allowed: true`.
+5. TCS xác nhận mở hoặc passage qua phản hồi/callback đã xác thực. Chỉ nguồn đủ evidence policy mới tạo ATT event/revision 1, ghi kết quả GATE và audit cùng transaction. M2 dùng mock passage; không khẳng định đã tích hợp cảm biến thật.
+
+Ví dụ **response đề xuất**, dùng field hiện có trong `GateAttemptResponse`; giá trị CONFIRMED của command ở đây biểu diễn lệnh OPEN đã xác nhận, chưa đủ chứng minh người đã đi qua:
+
+```json
+{
+  "data": {
+    "eventId": "9e5f01b9-226b-4df3-9b50-b62963b728d6",
+    "decision": "ALLOW",
+    "commandState": "CONFIRMED",
+    "attendanceState": "NOT_CREATED",
+    "reasonCode": null,
+    "correlationId": "61e046da-e10c-421b-9f8a-5018a15b9f04"
+  },
+  "traceId": "trace-example"
+}
+```
+
+Các mã `OPEN_CONFIRMED`, `OPEN_REJECTED`, `PASSAGE_CONFIRMED` mô tả kết quả/sự kiện adapter; `GateCommandState` hiện dùng `CONFIRMED`, `REJECTED`, `ACKNOWLEDGED`, `UNKNOWN`… Khi viết DTO phải chuẩn hóa phép ánh xạ, không tự trả lẫn enum kết quả thiết bị vào trường state.
+
+#### B. Mất mạng / mất ACK → tra cứu / đối soát
+
+Kiosk giữ eventId và metadata journal phù hợp, phục hồi bằng API-GATE-03. GET trả bản ghi cũ không mở lại và không bị từ chối chỉ vì token nay hết hạn; 404 không phải bằng chứng cổng chắc chắn chưa mở sau mọi loại sự cố. UNKNOWN/DISPATCHING được worker tra TCS nếu có capability hoặc tạo case cho SEC. Không tự chuyển UNKNOWN về PREPARED; không persist/resume mutation OPEN chung với CRUD khi mạng trở lại.
+
+API-GATE-19 nhận outcome `PASSED`, `NOT_PASSED` hoặc `INSUFFICIENT_EVIDENCE`, version, reason và evidence refs. Chỉ PASSED với đủ dữ kiện và quyền mới có thể xác nhận nguồn công; case RESOLVED không tự biến command thành CONFIRMED. Nếu đã có attempt, dùng nguồn GATE cũ; MANUAL chỉ khi đã đối chiếu không có nguồn tương ứng. Nhập bù tổng quát do HR xử lý, SEC không mặc nhiên có quyền sửa toàn bộ công.
+
+#### C. HR hiệu chỉnh → revision mới → báo cáo và batch mới
+
+HR đọc API-ATT-04/05, gửi API-ATT-08 với `{ eventId, expectedVersion, change, reason, evidenceRefs }` theo DTO cần định nghĩa. Backend CAS head, ghi correction/revision/audit cùng transaction; `sourceId` và employee gốc không bị viết lại. Tính lại interval bị ảnh hưởng; giữ thiếu lượt/qua đêm/qua tháng theo policy. Nếu nguồn đã nằm trong batch, tạo API-RPT-12 với version mới và `supersedesBatchId`, không sửa snapshot đã gửi.
+
+#### D. Xuất HRS và xác nhận sẵn sàng đối soát
+
+HR hoặc scheduler gọi use case tạo batch; API-RPT-06 tạo snapshot nhất quán, lưu nguồn revision, byte payload/checksum và job trước khi gửi. Worker gọi API-EXT-03 ngoài transaction. API-RPT-07 chỉ đọc tiến độ local; API-RPT-11 chủ động enqueue tra trạng thái ngoài. ACK tiếp nhận khác ACK xử lý; chỉ ACCEPTED sau đối chiếu đầy đủ và lưu acceptedAt/remoteReadyAt có nguồn tin cậy. Retry giữ batchId/payload; partial/mismatch phải đối soát, không chuyển thành thành công để đạt deadline.
+
+### 19.15. Truy vết API về ticket và khoảng trống cần xử lý
+
+| Nhóm catalogue | Ticket/đầu việc liên quan | Giới hạn trước khi giao triển khai |
+|---|---|---|
+| IAM-01…03, OPS-01 | [TMC-003](#tmc-003), [TMC-005](#tmc-005), [TMC-007](#tmc-007), [TMC-008](#tmc-008) | Bổ sung controller/DTO/guards, session và OpenAPI thực; health hay seed không chứng minh auth đã có. |
+| EQR-01/14, GATE-02 | [TMC-009](#tmc-009)…[TMC-017](#tmc-017) | Chốt response QR, protocol version, enum mapping, revoke và atomic redemption; không mở API redeem riêng cho FE. |
+| GATE-03/12/13/16…19, ATT-01…04 | [TMC-019](#tmc-019)…[TMC-025](#tmc-025) | Tách lookup trạm và lookup quản trị, case/attempt IDs, scope và quyền SEC/HR; giữ nguồn công duy nhất. |
+| GATE-21, EXT-01/02 | [TMC-013](#tmc-013), [TMC-016](#tmc-016), [TMC-024](#tmc-024), [TMC-026](#tmc-026) | Chốt mock events, capability close/status và contract tests; phần thật phụ thuộc vendor. |
+| RPT-01, CFG-01 | [TMC-028](#tmc-028) | Dashboard/filter tối thiểu P1; không kéo toàn bộ báo cáo tháng/HRS vào ticket frontend 2h. |
+| GATE-04 và health trạm mở rộng | [TMC-039](#tmc-039) | Đang hoãn; không đổi heartbeat thành yêu cầu P0 mới. |
+| ATT correction/pairing/review | [TMC-040](#tmc-040) và ticket bổ sung khi vượt scope | TMC-040 đang hoãn; xác định API tối thiểu trong 8h estimate, phần review/nhập bù tổng quát cần đánh giá riêng. |
+| RPT-02…13, EXT-03/04 | [TMC-041](#tmc-041) và query báo cáo liên quan | Đang hoãn; chốt HRS payload/ACK/status, window tháng, version và deadline trước code. |
+| IAM quản trị, EQR/CFG/GATE quản lý đầy đủ | FR-1/2/5; backend ticket mới, UI liên quan [TMC-043](#tmc-043) | Không gộp các API HT vào TMC-007 hoặc coi UI ticket đã bao hàm backend; thêm estimate/dependency riêng. |
+| PRV và khả năng chưa có schema | FR-1.5/5.4, NFR-4; ticket MR sau khi chốt | Thiếu workflow persistence/permission/hold/execution; cần migration/entity/registry và policy, không chỉ thêm controller. |
+
+Khoảng trống contract đã thấy trong source: mới có các kiểu [gate](../contracts/src/gate.ts), [attendance](../contracts/src/attendance.ts), [employee](../contracts/src/employee.ts), [reports](../contracts/src/reports.ts), [common](../contracts/src/common.ts); chưa có đầy đủ request/response IAM, QR, reconciliation, correction, CFG, privacy và DTO phân quyền theo projection. `MonthlyReportQuery` hiện chỉ nêu COMPANY/FACTORY, chưa mô tả query tổ cho SUP. Khi mở ticket phải bổ sung wire type trong `contracts/src/`, validation DTO tại presentation và bộ test hành vi; không đưa ORM entity vào wire contract.
+
+Các tính năng **chưa đưa thành route cam kết**: MFA và khôi phục danh tính cần policy/provider/challenge lifecycle; lịch ca/phép/tăng ca cần requirement và bảng hiệu lực riêng; thông báo in-app/read-state chưa có mô hình persistence tương ứng; R2 offline cần thiết kế edge. Các màn prototype không đủ căn cứ tự thêm `/shifts`, `/leave-requests`, `/payroll`, API visitor hoặc mở cổng offline vào baseline. Email QR của M1 được đáp ứng trong thiết kế M2 bằng liên kết portal; muốn giữ QR tĩnh song song cần quyết định chuyển đổi riêng.
+
+### 19.16. Checklist kiểm chứng catalogue và triển khai endpoint
+
+- [ ] Với mỗi route được chọn code: có operationId duy nhất, owner module, request/query/response DTO, mã HTTP, actor/permission/scope, lỗi và audit event trong OpenAPI.
+- [ ] Login/session/kiosk/callback có xác thực riêng; test EMP khác người, SUP khác tổ, SEC khác nhà máy, EXE xin chi tiết, ADM gọi correction và trạm gọi API HR.
+- [ ] Scan test same ID/same payload, same ID/different payload, token sai/hết hạn/revoked/replayed, hai trạm dùng cùng jti, DB lỗi trước OPEN và crash sau dispatch; kiểm tra số tác động cổng và số nguồn công.
+- [ ] Callback test sai danh tính/trạm/command, duplicate, out-of-order, ACK-only, passage muộn và CLOSE lỗi; không ghi công từ ACK nhận lệnh.
+- [ ] Case/correction test expectedVersion cũ, reason rỗng, bằng chứng thiếu, forged actor và nhập bù trùng nguồn đã phục hồi.
+- [ ] Query/report test phân trang, filter scope, khoảng nửa mở, nhiều cặp IN/OUT, qua đêm/qua tháng, projection và CSV audit; không vô tình tính lương.
+- [ ] Export test lost ACK, partial/mismatch, retry giữ byte payload/batchId, snapshot revision cũ và superseding batch; phân biệt HTTP thành công với HRS sẵn sàng trước hạn.
+- [ ] ORM/schema/seed không được đánh dấu endpoint implemented. Chỉ đổi trạng thái catalogue khi có controller đăng ký, handler/use case, guards/DTO và kiểm chứng route thực tế gắn commit.
+- [ ] Mọi phần việc triển khai tiếp theo tuân §4.4–4.9: nhận đúng ticket → nhánh đúng convention → commit → kiểm tra đạt → push → tiếp tục; catalogue này không tự tăng capacity hoặc nghiệm thu backlog.
+
+**Trạng thái kiểm chứng của lần cập nhật tài liệu:** chỉ kiểm tra nội dung, tính duy nhất method/path và mã API, liên kết nguồn, phân loại phạm vi và bảo toàn thay đổi có sẵn. Checklist trên là điều kiện triển khai sau này, chưa phải kết quả chạy API/test nghiệp vụ.
