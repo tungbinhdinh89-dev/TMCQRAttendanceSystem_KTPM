@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react"
+import { useState, type ReactNode, type ComponentPropsWithoutRef } from "react"
 import { IconButton, Avatar, Badge } from "@figma/astraui"
 import {
   Table,
@@ -19,6 +19,7 @@ import {
   Search,
   ArrowUpRight,
   ShieldCheck,
+  CheckCircle2, AlertTriangle, XCircle, Info, Clock3,
 } from "lucide-react"
 import { initials } from "../lib/date"
 
@@ -86,11 +87,9 @@ export function PageHeader({
 export function Card({
   children,
   className = "",
-}: {
-  children: ReactNode
-  className?: string
-}) {
-  return <section className={`surface-card ${className}`}>{children}</section>
+  ...props
+}: ComponentPropsWithoutRef<"section">) {
+  return <section {...props} className={`surface-card ${className}`}>{children}</section>
 }
 export function Empty({
   title = "Chưa có dữ liệu phù hợp",
@@ -133,6 +132,9 @@ export function Person({ name, code }: PersonProps) {
 }
 const statuses: Record<string, [string, "success" | "warning" | "danger" | "brand" | "default"]> =
   {
+    unknown: ["Chờ đối soát", "warning"],
+    ALLOW: ["Được cấp quyền", "success"],
+    ACKNOWLEDGED: ["Thiết bị đã nhận lệnh", "brand"],
     "on-time": ["Đúng giờ", "success"],
     late: ["Đi muộn", "warning"],
     absent: ["Vắng mặt", "danger"],
@@ -145,7 +147,9 @@ const statuses: Record<string, [string, "success" | "warning" | "danger" | "bran
   }
 export function Status({ value }: { value: string }) {
   const s = statuses[value] ?? [value, "default"]
-  return <Badge label={s[0]} variant={s[1]} />
+  const icons = { success: CheckCircle2, warning: AlertTriangle, danger: XCircle, brand: Info, default: Clock3 }
+  const Icon = icons[s[1]]
+  return <span className={`tmc-status tmc-status--${s[1]}`}><Icon size={14} aria-hidden="true" />{s[0]}</span>
 }
 export function StatCard({
   label,
