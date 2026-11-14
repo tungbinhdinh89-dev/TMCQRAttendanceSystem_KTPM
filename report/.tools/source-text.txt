@@ -1,0 +1,2387 @@
+=== PAGE 1 ===
+      ĐẠI HỌC QUỐC GIA THÀNH PHỐHỒCHÍ MINH
+
+           TRƯỜNG ĐẠI HỌC BÁCH KHOA
+
+                   Khoa Khoa học và Kỹthuật Máy tính
+
+
+
+
+
+           KIẾN TRÚC PHẦN MỀM
+
+               ASSIGNMENT 1 - MILESTONE M1
+
+
+
+HỆTHỐNG CHẤM CÔNG VÀ KIỂM SOÁT RA
+      VÀO BẰNG MÃ QR TẠI TMC
+
+
+
+
+                 Phân tích yêu cầu và thiết kếkiến trúc
+
+
+       Giảng viên:            Lê Đình Thuận
+
+      Học kỳ:             HK261
+
+      Danh sách thành viên: STT Họvà tên         MSSV
+
+                                    1 Trần Phúc Đức           2310807
+
+                                    2 Nguyễn Thanh Tùng      2449106
+
+                                    3 Nguyễn Hoàng Minh Hiếu 2252211
+
+                                    4 Thang Khiết Dương       2210623
+
+                                    5 Nguyễn Đức Huy         2311176
+
+                                    6 Đinh Tấn Hiếu           2310942
+
+                                    7 Đặng Minh Quân         2212775
+
+                                    8 Ngô Minh Triết           2313562
+
+                   Thành phốHồChí Minh, tháng 10/2026
+=== PAGE 2 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+Kếhoạch thực hiện và thuật ngữ
+
+Kếhoạch thực hiện.
+
+     Đềtài được thực hiện theo hai giai đoạn. Trong giai đoạn M1, nhóm tập trung phân tích
+bối cảnh nghiệp vụ, xác định các yêu cầu chức năng và phi chức năng, đồng thời thiết kếkiến
+trúc cho hệthống chấm công và kiểm soát ra vào bằng mã QR tại TMC Manufacturing. Các nội
+dung trọng tâm bao gồm phân tích ca sửdụng, lựa chọn phong cách kiến trúc, xây dựng kiến
+trúc logic và vật lý, tài liệu hóa các quyết định kiến trúc và vận dụng các nguyên lý thiết kếphần
+mềm.
+
+      Giai đoạn M2 kếthừa kết quảthiết kếcủa M1 đểhiện thực hóa các thành phần, tích hợp
+với hệthống liên quan và thực hiện kiểm thử. Những tiêu chí vềhiệu năng, độtin cậy và khả
+năng khôi phục được trình bày trong M1 là mục tiêu thiết kếhoặc giảđịnh cần kiểm chứng,
+không phải kết quảđo thực tế.
+
+    Nhóm phân công trách nhiệm theo các nhóm yêu cầu nghiệp vụvà nội dung thiết kếkiến
+trúc. Mỗi thành viên chịu trách nhiệm chính đối với các hạng mục trong Bảng 1, đồng thời phối
+hợp rà soát những phần có liên quan đểbảo đảm tính thống nhất giữa yêu cầu, mô hình dữliệu,
+các sơ đồvà quyết định kiến trúc. Nội dung phân công là kếhoạch dựkiến, cần được đối chiếu
+với đóng góp thực tếtrước khi nộp báo cáo.
+
+            Bảng 1: Phân công nhiệm vụdựkiến của nhóm trong giai đoạn M1
+
+
+STT Họvà tên       MSSV      Nội dung công việc phụtrách
+
+   1  Trần Phúc Đức     2310807    Phân tích, tổng hợp các quyết định kiến trúc (Mục 9); trình bày
+                                          việc áp dụng SOLID, nguyên tắc phân quyền và bảo vệdữliệu
+                               (Mục 10); điều phối rà soát tính nhất quán và chuẩn hóa báo
+                                         cáo.
+   2 Nguyễn Thanh     2449106    Phân tích bối cảnh, mục tiêu, phạm vi và các tác nhân (Mục 1);
+     Tùng                         đặc tảnhóm yêu cầu FR-1 và các ca sửdụng UC-02, UC-03 về
+                               hồsơ nhân viên, mã QR và quyền truy cập (Mục 2).
+   3 Nguyễn Hoàng     2252211    Phân tích FR-2 và các ca sửdụng UC-01, UC-04 (Mục 2); mô
+     Minh Hiếu                  tảquy trình quét QR, giao tiếp TCS, trạng thái UNKNOWN
+                                     và các tình huống ngoại lệtại cổng (Mục 7).
+   4 Thang Khiết       2210623    Phân tích FR-3 và UC-05 (Mục 2); xây dựng mô hình sựkiện
+     Dương                     chấm công, cơ chếghép IN/OUT, xửlý ca qua đêm, hiệu chỉnh
+                                    dữliệu và chống ghi trùng (Mục 6).
+   5 Nguyễn Đức Huy   2311176    Phân tích FR-4 và các ca sửdụng UC-06, UC-07 (Mục 2); thiết
+                               kếbáo cáo, lô xuất dữliệu tháng, giao tiếp HRS, xác nhận xử
+                                            lý (ACK), gửi lại và đối soát dữliệu (Mục 6–7).
+   6 Đinh Tấn Hiếu     2310942    Phân tích FR-5, các yêu cầu phi chức năng và đặc tính kiến
+                                        trúc (Mục 2–3); đánh giá tải cao điểm, ngân sách phản hồi 2
+                                        giây và các kịch bản chất lượng.
+   7 Đặng Minh Quân   2212775     So sánh các phong cách kiến trúc và phân tích đánh đổi (Mục
+                                              4); xác định mô-đun, trách nhiệm, giao diện, quan hệphụthuộc
+                                     và xây dựng kiến trúc logic (Mục 5).
+   8 Ngô Minh Triết    2313562     Thiết kếkiến trúc vật lý, nút triển khai, vùng mạng và phương
+                                  án sao lưu/khôi phục (Mục 8); tổng hợp truy vết yêu cầu, kế
+                                   hoạch kiểm chứng trong M2 và đánh giá rủi ro (Mục 11).
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                 Trang i
+=== PAGE 3 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+    Một sốgiá trịnhư thời gian phục hồi, lịch gửi lại dữliệu và quy mô kiosk thửnghiệm được
+lựa chọn làm giảđịnh cấu hình ban đầu; các thông sốnày sẽđược hiệu chỉnh theo kết quảkiểm
+thửcủa M2 và điều kiện vận hành thực tếtại TMC.
+
+
+Vai trò và các hệthống liên quan
+
+Các ký hiệu vềvai trò người dùng được sửdụng thống nhất trong báo cáo: EMP (Employee) –
+nhân viên; SUP (Production Supervisor) – giám sát sản xuất; HR (Human Resources) – nhân
+sự; SEC (Security Guard) – bảo vệ; ADM (System Administrator) – quản trịhệthống; và EXE
+(Executive Management) – ban điều hành.
+
+    TCS (Turnstile Control System) là hệthống điều khiển cổng xoay; HRS (HR/Payroll
+System) là hệthống quản lý nhân sựvà tiền lương hiện có. DB (Database) chỉcơ sởdữliệu
+của hệthống. Kiosk là trạm tiếp nhận mã QR và hiển thịkết quảxửlý yêu cầu ra/vào tại cổng.
+
+
+Các thuật ngữkỹthuật
+
+Các thuật ngữtrong Bảng 2 được sửdụng khi mô tảquy trình truy cập, ghi nhận sựkiện chấm
+công và trao đổi dữliệu với hệthống bên ngoài. Việc thống nhất cách hiểu các thuật ngữgiúp
+phân biệt quyết định cho phép truy cập, kết quảthực hiện lệnh cổng và bằng chứng chấm công
+hợp lệ.
+
+              Bảng 2: Các thuật ngữkỹthuật được sửdụng trong báo cáo
+
+
+ Thuật ngữ        Ý nghĩa trong phạm vi thiết kế
+
+ FR / NFR / UC      Yêu cầu chức năng, yêu cầu phi chức năng và ca sửdụng. Mã định danh liên
+                         kết các yêu cầu với kiến trúc và kếhoạch kiểm chứng.
+ Mô-đun (Module)    Đơn vịtổchức phần mềm gồm các trách nhiệm có liên quan; các mô-đun
+                      tương tác qua giao diện được xác định trước.
+ ADR              Bản ghi quyết định kiến trúc, nêu bối cảnh, phương án được chọn, lý do và
+                        các đánh đổi.
+ AccessAttempt       Yêu cầu quét QR hoặc xửlý ngoại lệtại cổng, có mã nhận diện đểtheo dõi
+                       và kiểm soát xửlý trùng lặp.
+ GateCommand       Lệnh điều khiển gửi đến TCS; trạng thái thực thi lệnh được phân biệt với
+                       quyết định cho phép truy cập.
+ AttendanceEvent     Sựkiện chấm công được xác nhận hợp lệ; không phải mọi lượt quét QR đều
+                        tạo thành một sựkiện chấm công thành công.
+  Transaction /         Giao dịch là đơn vịxửlý dữliệu có tính nguyên tử. Commit xác nhận hoàn
+ Commit                tất giao dịch và ghi nhận thay đổi theo cơ chếbảo đảm độbền của hệquản
+                     trịDB.
+ Adapter            Thành phần chuyển đổi lời gọi từgiao diện nghiệp vụsang giao thức hoặc
+                       định dạng API của hệthống bên ngoài, nhằm giảm sựphụthuộc trực tiếp.
+ Snapshot           Bản chụp dữliệu tại một thời điểm xác định, được giữổn định cho một
+                       phiên bản lô xuất.
+ ExportBatch         Lô dữliệu chấm công chuyển sang HRS, được nhận diện bằng mã và phiên
+                     bản đểhỗtrợtruy vết, gửi lại và đối soát.
+ Checksum            Giá trịkiểm tra được tính từnội dung dữliệu nhằm hỗtrợphát hiện sự
+                      khác biệt giữa các bản dữliệu.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang ii
+=== PAGE 4 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+ Thuật ngữ        Ý nghĩa trong phạm vi thiết kế
+
+ Retry             Cơ chếthực hiện lại yêu cầu sau lỗi hoặc khi chưa nhận được kết quảxác
+                     nhận theo quy tắc đã xác định.
+ Idempotency         Tính chất giúp việc thực hiện lặp lại cùng một yêu cầu không tạo thêm tác
+                     động nghiệp vụngoài kết quảđã quy định.
+ ACK              Phản hồi xác nhận từhệthống tiếp nhận; cần phân biệt việc tiếp nhận yêu
+                      cầu với việc đã thực thi lệnh hoặc hoàn tất xửlý dữliệu.
+ UNKNOWN          Trạng thái chưa đủthông tin đểkết luận kết quảthực tếcủa lệnh điều khiển
+                         cổng, cần được lưu vết và đối soát.
+ Latency Budget      Phân bổthời gian dựkiến cho các bước xửlý của luồng quét QR nhằm đánh
+                          giá khảnăng đáp ứng giới hạn phản hồi 2 giây.
+ RPO / RTO          Recovery Point Objective là khoảng mất dữliệu tối đa có thểchấp nhận
+                        được, tính theo thời gian; Recovery Time Objective là thời gian mục tiêu
+                     đểkhôi phục dịch vụsau sựcố.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang iii
+=== PAGE 5 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+Mục lục
+
+
+Kếhoạch thực hiện và thuật ngữ                                                                                           i
+
+
+1 Tổng quan đềtài                                                              1
+
+    1.1  Bối cảnh và bài toán  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   1
+
+    1.2  Mục tiêu và tiêu chí thành công .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   1
+
+    1.3  Phạm vi và ranh giới trách nhiệm .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   2
+
+    1.4  Giảđịnh thiết kếban đầu  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   2
+
+
+2 Yêu cầu chức năng và phi chức năng                                             3
+
+    2.1  Nguồn yêu cầu và ưu tiên   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   3
+
+    2.2  Yêu cầu phi chức năng  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   5
+
+    2.3  Các ca sửdụng chính .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   6
+
+
+3 Đặc tính kiến trúc và tiêu chí thành công                                        7
+
+    3.1  Tải hệthống và các đặc tính ưu tiên  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   7
+
+    3.2  Phân bổthời gian phản hồi tại kiosk  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   8
+
+    3.3  Đánh đổi kiến trúc  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   8
+
+
+4  So sánh và lựa chọn phong cách kiến trúc                                        8
+
+    4.1  Các phương án và điều kiện so sánh   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   8
+
+    4.2 Ma trận chấm điểm có trọng số.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   9
+
+    4.3  Phân tích độnhạy và quyết định  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   9
+
+
+5 Xây dựng kiến trúc logic theo từng bước                                        10
+
+    5.1  Bước 1: phân rã theo trách nhiệm nghiệp vụ.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  10
+
+    5.2  Bước 2: định nghĩa giao diện và chiều phụthuộc   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  10
+
+    5.3  Bước 3: tổchức giao dịch và kết nối ngoài  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  11
+
+    5.4  Bước 4: thểhiện cấu trúc và kiểm tra vòng phụthuộc   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  12
+
+    5.5  Bước 5: đối chiếu yêu cầu và hành vi  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  12
+
+
+6 Dữliệu và giao tiếp với hệthống ngoài                                         12
+
+    6.1 Mô hình dữliệu và ràng buộc  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  12
+
+    6.2  Giao tiếp với kiosk  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  14
+
+    6.3  Giao tiếp với TCS   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  14
+
+    6.4  Giao tiếp với HRS và dữliệu xuất   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  14
+
+    6.5  Ghép khoảng, ca qua đêm và ranh giới tháng   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  15
+
+
+7 Góc nhìn hành vi và xửlý lỗi                                                  15
+
+    7.1  Trạng thái của yêu cầu và lệnh mở.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  15
+
+    7.2  Trình tựquét QR thành công  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  16
+
+    7.3 Ma trận lỗi và hành vi phục hồi .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  16
+
+    7.4  Trình tựxuất tháng và hiệu chỉnh sau xuất  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  17
+
+
+8 Xây dựng kiến trúc vật lý theo từng bước                                       18
+
+    8.1  Bước 1: xác định nút triển khai  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  18
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang iv
+=== PAGE 6 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+    8.2  Bước 2: ánh xạmô-đun thành tiến trình  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  18
+
+    8.3  Bước 3: đặt vùng mạng và quy tắc kết nối  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  19
+
+    8.4  Bước 4: lưu trữvà phục hồi dữliệu  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  19
+
+    8.5  Bước 5: theo dõi vận hành .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  19
+
+    8.6  Bước 6: kiểm tra giới hạn sẵn sàng và an toàn .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  20
+
+
+9 Các quyết định kiến trúc                                                      20
+
+    9.1  ADR-01: Tổchức ứng dụng theo mô-đun nghiệp vụ.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  20
+
+    9.2  ADR-02: Dùng DB quan hệvà kiểm soát ghi trùng  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  20
+
+    9.3  ADR-03: Lưu yêu cầu trước khi mởvà đối soát UNKNOWN    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  21
+
+    9.4  ADR-04: Dùng QR tĩnh có chữký và khảnăng thu hồi .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  21
+
+    9.5  ADR-05: Ghi công theo nguồn xác nhận và ghép từng khoảng .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  21
+
+    9.6  ADR-06: Xuất bộdữliệu tháng đã chốt theo phiên bản   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  21
+
+    9.7  ADR-07: Tách bộchuyển đổi API và lưu tác vụnền trong DB    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  22
+
+    9.8  ADR-08: Kiểm tra vai trò, phạm vi và lưu nhật ký cùng thay đổi  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  22
+
+    9.9  ADR-09: Lưu giữvà xóa dữliệu theo chính sách   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  22
+
+   9.10 ADR-10: Vận hành trực tuyến và phục hồi khi sựcố.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  22
+
+
+10 SOLID, phân quyền và bảo vệdữliệu                                          23
+
+   10.1 Áp dụng SOLID vào thiết kế   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  23
+
+   10.2 Ma trận phân quyền và phạm vi   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  24
+
+   10.3 Nhật ký kiểm toán và bảo mật   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  25
+
+   10.4 Quyền riêng tư và chính sách lưu giữ.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  25
+
+
+11 Kiểm chứng, truy vết và rủi ro                                                26
+
+   11.1 Kếhoạch kiểm chứng M2   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  26
+
+   11.2 Đối chiếu yêu cầu, kiến trúc và kiểm thử.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  27
+
+   11.3 Rủi ro và các điểm cần làm rõ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  28
+
+   11.4 Lộtrình và kết luận thiết kế.  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  28
+
+
+Tài liệu tham khảo                                                              30
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang v
+=== PAGE 7 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+Danh sách hình vẽ
+
+   1   Hệthống TMC và các bên liên quan  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   1
+
+   2   Góc nhìn logic; mũi tên nghiệp vụhướng từbên dùng đến bên cung cấp  .  .  .  .  .  .  12
+
+   3   Quan hệgiữa dữliệu quét, lệnh cổng và chấm công .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  13
+
+   4   Trạng thái của yêu cầu mởcổng    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  15
+
+   5   Các bước xửlý một lượt quét thành công   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  16
+
+   6   Các bước xuất dữliệu tháng sang HRS    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  17
+
+   7    Triển khai cơ sởtại hai nhà máy và vùng trung tâm   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  18
+
+
+Danh sách bảng
+
+   1   Phân công nhiệm vụdựkiến của nhóm trong giai đoạn M1   .  .  .  .  .  .  .  .  .  .  .  .  .      i
+
+   2   Các thuật ngữkỹthuật được sửdụng trong báo cáo   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .     ii
+
+   3   Mục tiêu của hệthống  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   1
+
+   4   Tác nhân và nhu cầu  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   2
+
+   5   Quản lý người dùng và QR   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   3
+
+   6   Quản lý trạm cổng và quyết định truy cập .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   3
+
+   7   Ghi nhận và hiệu chỉnh chấm công  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   4
+
+   8   Báo cáo, xuất dữliệu và nhật ký kiểm toán  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   4
+
+   9   Quản trịhệthống   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   5
+
+   10  NFR và phạm vi bảo đảm  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   5
+
+   11  Các ca sửdụng và yêu cầu liên quan  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   6
+
+   12   Kịch bản đánh giá chất lượng  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   7
+
+   13  Phân bổngân sách 2 giây cho một lượt quét .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   8
+
+   14  Các cấu hình kiến trúc ứng viên    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   9
+
+   15  Điểm so sánh các cấu hình tại quy mô hiện tại   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .   9
+
+   16  Mô-đun và quyền sởhữu dữliệu   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  10
+
+   17   Giao diện lập trình giữa các mô-đun   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  11
+
+   18  Thực thểchính và ràng buộc dữliệu  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  13
+
+   19   Lỗi theo điểm xảy ra và kết quảquan sát được   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  16
+
+   20  Kết nối giữa các thành phần    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  19
+
+   21  Quyền ứng dụng; dấu – là không cấp mặc định   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  24
+
+   22  Kếhoạch kiểm thửM2 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  26
+
+   23  Truy vết các yêu cầu con vào thiết kế    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  27
+
+   24  Rủi ro còn lại và trách nhiệm xửlý  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  28
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang vi
+=== PAGE 8 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+1 Tổng quan đềtài
+
+1.1 Bối cảnh và bài toán
+
+Công ty cổphần sản xuất TMC có hai nhà máy tại Bình Dương và Long An, với khoảng 800 và
+600 nhân viên. Công ty cần kiểm soát nhân viên ra vào nơi làm việc, đồng thời ghi nhận dữliệu
+đểlập báo cáo chấm công hằng tháng. Nhân viên hiển thịmã QR trên điện thoại qua ứng dụng,
+cổng web hoặc email công ty, rồi đưa mã vào thiết bịquét khi đi qua cổng.
+
+     Hệthống mới kết nối với bộđiều khiển cổng xoay (TCS) và hệthống nhân sự, tiền lương
+(HRS) hiện có. TCS cung cấp API mở/đóng cổng; HRS nhận dữliệu chấm công qua API đểđối
+soát trước 12:00 ngày đầu mỗi tháng. Mỗi lượt vào/ra cần được liên kết với nhân viên, thời
+điểm, cổng và kết quảxửlý đểcó thểkiểm tra khi phát sinh sai lệch.
+
+     Vào giờđổi ca, mỗi nhà máy có khoảng 800 lượt ra vào trong 30 phút, trong khi kiosk phải
+phản hồi trong tối đa 2 giây. Vì vậy, thiết kếcần giữluồng xửlý tại cổng ngắn, lưu dữliệu đầy
+đủvà xửlý rõ các trường hợp mất kết nối hoặc chưa xác định được kết quảmởcổng. Việc tra
+cứu, hiệu chỉnh và xuất dữliệu cũng phải được phân quyền đểbảo vệthông tin nhân viên.
+
+
+                                                    TCS hiện có
+                                                        API mở/đóng cổng
+                                   Hệthống TMC          EMP, SUP, HR
+                         Web / kiosk  QR, kiểm soát cổng,
+          SEC, ADM, EXE
+                                       chấm công, báo
+          Sáu nhóm người dùng
+                                                    cáo, kiểm toán            HRS hiện có
+                                                           API nhận
+                                                                      công tháng
+
+                     Hình 1: Hệthống TMC và các bên liên quan
+
+
+1.2 Mục tiêu và tiêu chí thành công
+
+
+                         Bảng 3: Mục tiêu của hệthống
+
+
+   Mã     Mục tiêu                 Tiêu chí thành công
+
+   OBJ-1   Kiểm soát ra/vào        QR, trạng thái nhân viên và quyền tại cổng được kiểm
+                                            tra trước khi mở. Mỗi quyết định đều được lưu đểtra
+                                         cứu.
+
+   OBJ-2   Ghi công đầy đủ, dễđối   Mỗi lượt được xác nhận tạo một giao dịch công. Sựkiện
+              soát                     gốc được giữlại; lượt chưa rõ kết quảđược đưa vào danh
+                                        sách xửlý.
+
+   OBJ-3   Phản hồi nhanh tại cổng   Kiosk phản hồi trong tối đa 2 giây ởtải 800 giao dịch/30
+                                    phút/nhà máy theo điều kiện đo đã công bố.
+
+   OBJ-4   Cung cấp dữliệu HRS   HRS xác nhận dữliệu sẵn sàng trước 12:00 ngày 1. HR
+            đúng hạn                 theo dõi được tình trạng gửi, gửi lại và các lỗi cần xửlý.
+
+   OBJ-5   Theo dõi trách nhiệm    Máy chủkiểm tra quyền khi xửlý yêu cầu. Nhật ký ghi
+                                       người thực hiện, nội dung thay đổi và lý do đối với thao
+                                          tác cần giải trình.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 1
+=== PAGE 9 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+   Mã     Mục tiêu                 Tiêu chí thành công
+
+   OBJ-6   Bảo vệdữliệu, dễbảo trì  Chỉthu thập dữliệu cần thiết, giới hạn người truy cập
+                                      và có chính sách lưu giữ. TCS/HRS được kết nối qua bộ
+                                     chuyển đổi riêng đểdễthay thếvà kiểm thử.
+
+
+1.3 Phạm vi và ranh giới trách nhiệm
+
+Hệthống hỗtrợnăm nhóm chức năng: quản lý người dùng và QR, quản lý trạm cổng, ghi nhận
+chấm công, báo cáo và kiểm toán, quản trịhệthống. Nhân viên dùng trang web trên điện thoại
+đểxem QR và lịch sửcông. HR có thểthu hồi mã, hiệu chỉnh dữliệu và theo dõi lô xuất; các
+lượt quét trùng hoặc chưa rõ kết quảđược giữlại đểxửlý.
+
+    Quản lý khách và tính lương nằm ngoài phạm vi của đề. Hệthống cung cấp các lượt vào/ra
+và khoảng thời gian hiện diện đểHRS áp dụng quy tắc ca làm, nghỉphép, làm thêm và tính
+lương. Phần cứng cổng, cơ chếthoát hiểm, sinh trắc học và nhận diện khuôn mặt cũng nằm ngoài
+phần việc của nhóm. QR động, hoạt động ngoại tuyến và dựphòng nhiều vùng sẽđược xem xét
+nếu TMC có nhu cầu ởgiai đoạn sau.
+
+     Trong M1, nhóm phân tích yêu cầu và xây dựng các góc nhìn kiến trúc, luồng xửlý cùng
+quyết định thiết kế. Phần hiện thực và kiểm thửđược thực hiện ởM2.
+
+                         Bảng 4: Tác nhân và nhu cầu
+
+
+   Mã     Tác nhân            Nhu cầu và giới hạn
+
+   EMP   Nhân viên              Hiển thịQR, đi qua cổng, xem hồsơ và lịch sửcủa mình;
+                                        gửi yêu cầu kiểm tra sai lệch.
+
+   SUP    Giám sát sản xuất     Xem tình hình công của tổđược phân công; không sửa sự
+                                       kiện hoặc phân quyền.
+
+   HR     Nhân sự             Quản lý định danh nhân viên/QR, đối soát và hiệu chỉnh,
+                                    xuất dữliệu; không cấp quyền quản trịhệthống.
+
+   SEC    Bảo vệ             Xem nhật ký cổng trong nhà máy được giao; hỗtrợlượt
+                                      ngoại lệcó lý do và bằng chứng.
+
+  ADM   Quản trịhệthống      Quản lý tài khoản, vai trò, cổng, cấu hình, vận hành; không
+                              mặc nhiên được sửa công.
+
+   EXE    Ban điều hành        Xem sốliệu tổng hợp phục vụquản lý; không mặc định
+                             xem lịch sửchi tiết từng cá nhân.
+
+   TCS    Hệthống cổng ngoài    Nhận lệnh mở/đóng; cung cấp phản hồi theo khảnăng API
+                                    thực tế.
+
+   HRS    Nhân sự/tiền lương      Nhận, kiểm tra, xác nhận và đối soát dữliệu; tựáp dụng
+             ngoài                 quy tắc công/lương.
+
+
+1.4 Giảđịnh thiết kếban đầu
+
+ 1. Hệthống dùng múi giờAsia/Ho_Chi_Minh khi hiển thịvà chốt dữliệu tháng. Thời điểm
+    trong cơ sởdữliệu được lưu theo UTC. Máy chủđược đồng bộđồng hồ; giờtrên kiosk chỉ
+   dùng đểhỗtrợkiểm tra.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 2
+=== PAGE 10 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+ 2. Mỗi làn cổng được cấu hình chiều vào (IN) hoặc ra (OUT) trên máy chủ. Nhân viên được
+   vào nhà máy đã phân công; HR cấp thêm quyền khi cần làm việc ởnhà máy còn lại.
+
+ 3. Mã nhân viên dùng đểđối soát lấy theo HRS. Trong thiết kếM1, HR nhập và cập nhật ánh
+   xạmã; việc đồng bộhồsơ tựđộng sẽđược bổsung sau.
+
+ 4. Khi có cảm biến qua cổng, hệthống dùng tín hiệu này đểxác nhận lượt vào/ra. Nếu chỉxác
+   nhận được cổng đã mở, TMC cần thống nhất việc dùng kết quảđó làm đại diện cho một
+    lượt. Phản hồi chỉbáo đã nhận lệnh sẽtiếp tục được giữởtrạng thái chờxác nhận.
+
+Các giảđịnh vềAPI, thiết bịvà quy trình vận hành được tổng hợp cùng bên phụtrách tại
+Mục 11.
+
+
+2 Yêu cầu chức năng và phi chức năng
+
+2.1 Nguồn yêu cầu và ưu tiên
+
+Các yêu cầu được chia theo năm nhóm chức năng và bốn nhóm chất lượng trong đề. Nhóm cụ
+thểhóa từng yêu cầu bằng mã đểthuận tiện đối chiếu với thiết kếvà kiểm thử. Mức M là ưu
+tiên trong phiên bản cơ sở; mức S được thực hiện khi còn nguồn lực. Các lựa chọn bổsung, như
+MFA hoặc thời gian khôi phục, được ghi rõ trong phần mô tả.
+
+                       Bảng 5: Quản lý người dùng và QR
+
+
+   Mã       Yêu cầu có thểkiểm tra                                    Mức
+
+    FR-1.1   HR quản lý mã nhân viên, tên, nhà máy, tổ/bộphận, trạng thái và ánh  M
+             xạsang mã HRS; thay đổi có nhật ký kiểm toán.
+
+    FR-1.2   Cấp QR cho nhân viên đang làm việc. QR chứa mã định danh ngẫu    M
+               nhiên và thông tin kiểm tra toàn vẹn; tên và lịch sửcông được lưu riêng
+                trên máy chủ.
+
+    FR-1.3    Nhân viên xem QR qua web trên điện thoại hoặc nhận ảnh QR qua    M
+               email công ty. Sau khi thu hồi, QR cũ hết hiệu lực dù nhân viên vẫn giữ
+               ảnh.
+
+    FR-1.4   HR thu hồi hoặc cấp lại QR. Khi ngừng hoạt động một nhân viên, hệ   M
+              thống đồng thời vô hiệu hóa mã của người đó trong cùng giao dịch dữ
+                   liệu.
+
+    FR-1.5   EMP chỉxem hồsơ và công của mình; thông báo quyền riêng tư hiển thị M
+                rõ mục đích, dữliệu, phạm vi người nhận và kênh liên hệ.
+
+    FR-1.6   HR quản lý quyền vào từng nhà máy theo chính sách của TMC. Máy chủ M
+              kiểm tra quyền khi quét QR và lưu lịch sửcác lần thay đổi.
+
+
+
+                  Bảng 6: Quản lý trạm cổng và quyết định truy cập
+
+
+   Mã       Yêu cầu có thểkiểm tra                                    Mức
+
+    FR-2.1   ADM đăng ký nhà máy, chiều IN/OUT, turnstileId và thông tin xác thực M
+               cho từng trạm. Cổng đã có lịch sửđược chuyển sang ngừng sửdụng thay
+                  vì xóa.
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 3
+=== PAGE 11 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+   Mã       Yêu cầu có thểkiểm tra                                    Mức
+
+    FR-2.2    Khi quét, máy chủxác thực trạm, kiểm tra token, tình trạng thu hồi,   M
+               trạng thái nhân viên và quyền vào cổng. gateId và employeeId phải được
+              xác minh bằng dữliệu máy chủ.
+
+    FR-2.3    Lưu yêu cầu và lệnh mởtrước khi gọi TCS. Kết quảđược phân biệt    M
+              thành đã mở, bịtừchối hoặc chưa xác định được trạng thái cổng.
+
+    FR-2.4    Kiosk hiển thịkết quảtrong 2 giây. Với UNKNOWN, màn hình hướng  M
+             dẫn nhân viên nhờbảo vệkiểm tra đểtránh quét lại liên tục.
+
+    FR-2.5   SEC xửlý lượt ngoại lệtại nhà máy được giao, ghi rõ nhân viên, chiều đi M
+               và lý do. Lượt này vẫn được lưu và kiểm tra trùng như lượt quét thông
+               thường.
+
+    FR-2.6   Dùng tín hiệu định kỳcủa trạm đểtheo dõi kết nối và cảnh báo khi mất  S
+                  liên lạc. Làn đang có lệnh UNKNOWN tạm dừng phát lệnh mới đến khi
+              được kiểm tra.
+
+    FR-2.7   TCS đóng cổng theo cấu hình của nhà cung cấp. Nếu cần gọi API đóng  M
+                 riêng, bộchuyển đổi lưu lệnh đóng và theo dõi kết quả; lỗi đóng cổng
+              được báo cho SEC.
+
+
+
+                     Bảng 7: Ghi nhận và hiệu chỉnh chấm công
+
+
+   Mã       Yêu cầu có thểkiểm tra                                    Mức
+
+    FR-3.1    Mỗi yêu cầu quét được lưu với eventId, trạm/cổng, thời điểm, chiều đi,  M
+               quyết định và kết quả. employeeId đểtrống khi mã quét không xác định
+              được nhân viên.
+
+    FR-3.2    Khi nhận lại cùng eventId và nội dung, hệthống trảtrạng thái đã có.   M
+            Cùng mã nhưng khác nội dung được báo xung đột. Mỗi lệnh chỉcó một
+                 tiến trình nhận quyền gửi.
+
+    FR-3.3    Mỗi lượt được xác nhận tạo tối đa một AttendanceEvent. Lượt bịtừchối M
+              được giữtrong nhật ký; lượt UNKNOWN được đối soát trước khi ghi
+              công chính thức.
+
+    FR-3.4    Ghép các cặp IN/OUT hợp lệđểtạo khoảng hiện diện, hỗtrợnhiều    M
+              khoảng và qua nửa đêm; gắn cờthiếu, trùng chiều hoặc khoảng quá dài
+          đểHR kiểm tra.
+
+    FR-3.5    Hiệu chỉnh công tạo phiên bản mới, ghi giá trịtrước/sau, lý do, người   M
+               thực hiện và tài liệu liên quan. Sựkiện gốc được giữnguyên.
+
+    FR-3.6    Sau sựcố, yêu cầu/lệnh chưa kết thúc xuất hiện trong hàng chờđối soát; M
+              dữliệu nhập bù có nguồn MANUAL, giờsựkiện và giờnhập riêng.
+
+
+
+                  Bảng 8: Báo cáo, xuất dữliệu và nhật ký kiểm toán
+
+
+   Mã       Yêu cầu có thểkiểm tra                                    Mức
+
+    FR-4.1    Lập báo cáo tháng theo nhân viên, bộphận và nhà máy, gồm thời gian  M
+                hiện diện và các bất thường. SUP xem tổđược giao; EXE xem sốliệu
+               tổng hợp.
+
+    FR-4.2   SEC tra cứu nhật ký được phép, gồm quét hợp lệ, từchối, ngoại lệvà   M
+              chưa rõ; không được xem toàn bộhồsơ HR.
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 4
+=== PAGE 12 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+   Mã       Yêu cầu có thểkiểm tra                                    Mức
+
+    FR-4.3    Chốt bộdữliệu tháng trước, gửi qua API HRS và theo dõi đến khi sẵn  M
+               sàng đối soát trước 12:00 ngày 1. Cần phản hồi xác nhận xửlý dữliệu từ
+          HRS ngoài mã HTTP thành công.
+
+    FR-4.4    Mỗi lô có ID, kỳ, phiên bản, mã kiểm tra, sốbản ghi và trạng thái. Gửi  M
+                    lại cùng nội dung dùng cùng batchId; dữliệu đã sửa được gửi bằng phiên
+             bản mới.
+
+    FR-4.5    Hệthống gửi lại trong sốlần quy định khi gặp lỗi tạm thời, kiểm tra   M
+               trạng thái lô khi mất phản hồi và cảnh báo HR/ADM. HR có thểchạy
+                    lại lô và theo dõi thời gian còn lại trước hạn.
+
+    FR-4.6    Nhật ký kiểm toán ghi các lần đăng nhập, đổi quyền, sửa hồsơ, cấp/thu M
+                hồi QR, điều khiển cổng, hiệu chỉnh công, truy xuất dữliệu nhạy cảm,
+              xuất tháng và thay cấu hình.
+
+    FR-4.7    Người dùng xuất CSV trong phạm vi quyền của mình. Nhật ký ghi người  S
+                    tải, kỳvà bộlọc; nội dung chi tiết của báo cáo được lưu ởnơi có quyền
+               truy cập riêng.
+
+
+
+                          Bảng 9: Quản trịhệthống
+
+
+   Mã       Yêu cầu có thểkiểm tra                                    Mức
+
+    FR-5.1   ADM quản lý tài khoản, vai trò và phạm vi tổ/nhà máy. Mọi API đều   M
+              kiểm tra quyền trên máy chủ. Nhóm đềxuất dùng MFA cho ADM và
+            HR.
+
+    FR-5.2   Quản lý cơ cấu tổchức, tham sốxuất, địa chỉAPI, thông tin xác thực  M
+                 tích hợp và phiên bản khóa QR. Mật khẩu, khóa và token dịch vụđược
+             quản lý riêng với mã nguồn.
+
+    FR-5.3    Theo dõi dịch vụ, lỗi tích hợp, sao lưu/khôi phục và thời gian tồn đọng  M
+              của các lệnh UNKNOWN. Mỗi loại cảnh báo có người phụtrách tiếp
+               nhận.
+
+    FR-5.4    Dữliệu được lưu giữvà xóa theo chính sách đã duyệt. Trước khi xóa, hệ  M
+              thống kiểm tra yêu cầu giữlại làm chứng cứ, ghi nhật ký và xác định
+               cách xửlý các bản sao.
+
+
+2.2 Yêu cầu phi chức năng
+
+
+                       Bảng 10: NFR và phạm vi bảo đảm
+
+
+   Mã       Thuộc tính        Ràng buộc và phép đo
+
+   NFR-1    Hiệu năng (đềbài)  Kiosk phản hồi tối đa 2 giây tại tải 800 giao dịch/30 phút/nhà
+                                máy. Thời gian đo từlúc nhận đủQR đến lúc hiển thịkết
+                                   quả; thao tác đưa điện thoại và đi qua cổng được tính riêng.
+
+   NFR-2    Toàn vẹn (đềbài)   Không mất bản ghi công trong vận hành bình thường. Yêu
+                                 cầu được ghi bền vững trước khi gửi lệnh; kết quả, giao dịch
+                                 công và nhật ký liên quan được lưu cùng giao dịch. Gửi lại
+                                 yêu cầu không tạo thêm công.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 5
+=== PAGE 13 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+   Mã       Thuộc tính        Ràng buộc và phép đo
+
+   NFR-3   An ninh/kiểm toán  Phân quyền theo vai trò và phạm vi trên máy chủ, kèm nhật
+              (đềbài)           ký đầy đủ. Nhóm sửdụng TLS, xác thực riêng cho thiết bị,
+                                          giới hạn tần suất và quyền DB tối thiểu; MFA được đềxuất
+                                  cho tài khoản quan trọng.
+
+   NFR-4    Riêng tư (đềbài)   Bảo vệdữliệu cá nhân theo quy định áp dụng. Thiết kếcần
+                             hỗtrợthu thập tối thiểu, giới hạn truy cập, lưu giữ, hiệu
+                                     chỉnh, xóa dữliệu và xửlý sựcố.
+
+   NFR-5    Bảo trì/kiểm thử   Áp dụng SOLID; tách kết nối TCS/HRS qua giao diện lập
+                                      trình và có bản mô phỏng đểkiểm thử. Kiểm tra tựđộng các
+                              phụthuộc giữa mô-đun.
+
+   NFR-6    Khôi phục (bổ     Nhóm đềxuất RPO tối đa 15 phút và RTO tối đa 4 giờkhi
+               sung)            mất máy chủhoặc ổđĩa. Hai mục tiêu này cần được kiểm
+                                chứng bằng diễn tập phục hồi và thống nhất với ngân sách
+                                 của TMC.
+
+
+2.3 Các ca sửdụng chính
+
+
+                   Bảng 11: Các ca sửdụng và yêu cầu liên quan
+
+
+   Mã    Mục đích                Tác nhân                Yêu cầu
+
+   UC-01   Quét QR tại cổng       EMP, TCS                  FR-2.2–2.4, FR-3.1–3.3
+
+   UC-02  Xem QR/hồsơ/công cá   EMP                       FR-1.3, FR-1.5
+           nhân
+
+   UC-03  Quản lý nhân         HR                         FR-1.1, 1.2, 1.4, 1.6
+            viên/QR/quyền cổng
+
+   UC-04   Hỗtrợngoại lệ/đối soát   SEC, HR, TCS              FR-2.5–2.7, FR-3.6
+            cổng
+
+   UC-05   Hiệu chỉnh chấm công    HR                         FR-3.4, FR-3.5
+
+   UC-06   Xuất và đối soát dữliệu   HR, HRS; lịch nội bộ        FR-4.3–4.5
+            tháng
+
+   UC-07  Xem báo cáo/nhật ký     SUP, EXE, HR, SEC        FR-4.1, 4.2, 4.7
+
+   UC-08  Quản trịvà kiểm toán   ADM                       FR-4.6, FR-5.1–5.4
+
+
+
+     Với UC-01, trạm cổng phải được đăng ký trước khi tiếp nhận yêu cầu. Khi nhân viên đưa
+QR vào máy quét, hệthống kiểm tra mã và quyền, lưu yêu cầu cùng lệnh mởrồi gọi TCS. Sau
+khi nhận đủxác nhận, hệthống lưu kết quảvà tạo lượt công. QR sai được ghi là từchối; DB lỗi
+trước khi lưu thì không gửi lệnh. Nếu TCS hết thời gian chờ, yêu cầu chuyển sang UNKNOWN
+đểSEC kiểm tra.
+
+    ỞUC-04, SEC đăng nhập bằng tài khoản cá nhân, chọn nhân viên và ghi lý do xửlý ngoại
+lệ. Lượt trực tuyến dùng cùng quy trình lưu và chống trùng của UC-01. Khi mất kết nối trung
+tâm, bảo vệghi giờ, nhân viên và diễn biến vào sổsựcố; HR đối chiếu rồi nhập bù với nguồn
+MANUAL khi hệthống hoạt động lại.
+
+     UC-05 cho phép HR sửa công theo phiên bản, giữlại giá trịgốc và tính lại các khoảng bị
+ảnh hưởng. Nếu dữliệu đã xuất, lần sửa tạo một phiên bản lô mới. Với UC-06, HRS phải xác
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 6
+=== PAGE 14 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+nhận đúng kỳ, phiên bản, mã kiểm tra và sốbản ghi thì lô mới được đánh dấu hoàn tất. Lỗi định
+dạng hoặc quyền truy cập được chuyển cho người phụtrách sửa; lỗi tạm thời được gửi lại, còn
+trường hợp mất phản hồi cần tra cứu trạng thái trước.
+
+
+3 Đặc tính kiến trúc và tiêu chí thành công
+
+3.1  Tải hệthống và các đặc tính ưu tiên
+
+Tại mỗi nhà máy, 800 giao dịch trong 30 phút tương đương trung bình 800/(30 × 60) = 0,444
+giao dịch/giây. Nếu hai nhà máy cùng đổi ca, tổng trung bình là 0,889 giao dịch/giây. Tuy nhiên,
+nhân viên thường đến dồn vào một sốthời điểm nên tải tức thời có thểcao hơn. Nhóm cần xác
+định sốlàn cổng, mức đồng thời và độtrễmạng khi kiểm thửyêu cầu 2 giây.
+
+    Từyêu cầu của TMC, nhóm ưu tiên hiệu năng, toàn vẹn dữliệu, an ninh và khảnăng bảo
+trì. Hệthống cũng phải dễđối soát, có nhật ký đầy đủvà bảo vệdữliệu cá nhân. Khảnăng kết
+nối với API hiện có là điều kiện đểtriển khai. Ởquy mô hiện tại, sựđơn giản được ưu tiên để
+nhóm có thểxây dựng và kiểm thửđầy đủtrong M2; nhu cầu mởrộng và dựphòng sẽđược đánh
+giá theo kết quảvận hành.
+
+                      Bảng 12: Kịch bản đánh giá chất lượng
+
+
+   Mã      Kích thích, môi trường và phản ứng     Cách đánh giá và xửlý
+
+    QA-01  Nhân viên quét QR khi hai nhà máy    Mỗi phản hồi không quá 2 giây trong kịch
+              đổi ca; kiosk, ứng dụng, DB và TCS     bản tải cơ sở. Ghi thêm p50/p95/p99 để
+            cùng xửlý.                           tìm điểm chậm; giới hạn thời gian chờở
+                                                  từng bước.
+
+    QA-02   Kiosk gửi lại cùng eventId hoặc hai yêu  Chỉmột tiến trình được gửi lệnh; một lượt
+             cầu đến cùng lúc.                       có tối đa một giao dịch công. Kiểm tra
+                                               bằng UNIQUE, requestHash và cập nhật
+                                                     trạng thái có điều kiện.
+
+    QA-03  TCS xửlý xong nhưng phản hồi bị     Giữbản ghi và chuyển UNKNOWN đểđối
+             mất, hoặc ứng dụng dừng sau khi gửi.    soát. Chỉxác nhận kết quảhoặc gửi lại khi
+                                                     có căn cứtừTCS hay SEC.
+
+    QA-04   Người dùng hoặc kiosk gọi API vượt     Tất cảtrường hợp sai vai trò hoặc phạm vi
+             quyền, kểcảdùng employeeId/gateId    đều bịtừchối trên máy chủ; thao tác được
+             của đối tượng khác.                      ghi nhật ký theo chính sách.
+
+    QA-05  HRS lỗi tạm thời hoặc mất ACK khi    Cùng batchId không cộng công lặp; trạng
+             xuất tháng, trước hạn ngày 1.            thái ACCEPTED khớp checksum/số
+                                                        lượng; cảnh báo trước hạn nếu chưa xong.
+
+    QA-06  API của nhà cung cấp thay đổi hoặc    Bộchuyển đổi thật và bản mô phỏng cùng
+            môi trường thửchưa có thiết bịthật.    vượt qua các phép thửgiao tiếp. Thay API
+                                               chỉảnh hưởng bộchuyển đổi tương ứng.
+
+    QA-07  Mất ổđĩa DB hoặc phục hồi bản sao    Đo RPO/RTO theo mục tiêu 15 phút/4
+              trong buổi diễn tập.                         giờ. Dùng bản sao lưu và WAL ởmáy
+                                                      khác; kiểm tra thời điểm dữliệu cuối cùng
+                                                phục hồi được.
+
+    QA-08  HR tiếp nhận yêu cầu hiệu chỉnh hoặc   Kiểm tra quyền, lý do, yêu cầu giữchứng
+             xóa dữliệu hợp lệ.                  cứvà ảnh hưởng tới lô đã xuất. Sau khôi
+                                                     phục, rà lại dữliệu thuộc diện xóa.
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 7
+=== PAGE 15 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+3.2 Phân bổthời gian phản hồi tại kiosk
+
+Nhóm phân bổ2 giây cho các bước như Bảng 13. Đây là mốc dựkiến đểthiết kếphép thửM2.
+Các lời gọi dùng chung một hạn xửlý; nếu thời gian còn lại không đủ, hệthống dừng trước khi
+phát lệnh mới. Với lệnh đã gửi mà chưa nhận kết quả, trạng thái được giữlà UNKNOWN vì hết
+thời gian chờởphía ứng dụng chưa chắc đã dừng được thiết bị.
+
+                 Bảng 13: Phân bổngân sách 2 giây cho một lượt quét
+
+Đoạn xửlý                              Thời gian    Điều kiện cần đo/xác nhận
+
+Kiosk và mạng hai chiều                   300 ms      Mạng VPN ổn định; tính cảhiển thịkết
+                                                         quả.
+Xác thực thiết bị, QR và quyền             200 ms      Truy vấn có chỉmục; không dùng HRS trên
+                                                  đường quét.
+Lưu yêu cầu và quyền gửi lệnh             200 ms      Ghi DB/WAL bền vững; kết thúc giao dịch
+                                                          trước khi chờHTTP.
+TCS mởcổng                            900 ms     Gồm tuyến trung tâm–nhà máy; đối chiếu
+                                                               với thời gian đáp ứng của nhà cung cấp.
+Lưu kết quả, công và nhật ký              200 ms      Một giao dịch ngắn, kiểm tra nguồn để
+                                                        tránh ghi trùng.
+Dựphòng xửlý                           200 ms       Thời gian chờnội bộ, chuyển đổi dữliệu và
+                                                          biến động.
+Tổng                                        2.000 ms     Kiểm chứng với mạng và TCS trong điều
+                                                           kiện đã thống nhất.
+
+
+    Mốc 900 ms của TCS cần được đo trên tuyến kết nối thực tế. Nếu không đáp ứng, nhóm
+phải điều chỉnh phân bổthời gian hoặc cân nhắc đặt thành phần điều phối tại nhà máy. Kết quả
+kiểm thửsẽghi riêng thời gian phản hồi, tỷlệlỗi, tỷlệUNKNOWN và sốlượt mởcổng thành
+công đểđánh giá cảtốc độlẫn hiệu quảxửlý.
+
+
+3.3 Đánh đổi kiến trúc
+
+Việc lưu trước khi mởcổng làm tăng một lần ghi dữliệu, đổi lại mỗi lệnh đều có hồsơ đểđối
+soát khi gặp sựcố. Với API chưa hỗtrợgửi lại an toàn, nhóm chọn xửlý UNKNOWN qua bảo
+vệthay vì phát lệnh lần nữa. QR tĩnh thuận tiện khi gửi bằng email nhưng có nguy cơ bịchia sẻ.
+Một ứng dụng và một DB giúp quản lý giao dịch dễhơn, đồng thời tập trung rủi ro gián đoạn.
+Các lựa chọn này được giải thích trong ADR tại Mục 9.
+
+
+4 So sánh và lựa chọn phong cách kiến trúc
+
+4.1 Các phương án và điều kiện so sánh
+
+Nhóm xem xét bốn phương án cho hệthống hai nhà máy, khoảng 1.400 nhân viên và phạm vi
+hiện thực của M2. Các phong cách có thểkết hợp với nhau: chẳng hạn, modular monolith vẫn
+có cấu trúc phân lớp trong từng mô-đun và xửlý bất đồng bộkhi xuất dữliệu. Bảng 14 mô tả
+cách áp dụng từng phương án vào TMC.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 8
+=== PAGE 16 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+                     Bảng 14: Các cấu hình kiến trúc ứng viên
+
+
+    Phương án     Cấu hình cho TMC                 Lợi ích và chi phí
+
+    Phân lớp       Một ứng dụng gồm lớp giao diện,    Dễtriển khai, giao dịch cục bộ. Một
+     truyền thống     nghiệp vụvà dữliệu; dùng chung    thay đổi nghiệp vụcó thểliên quan
+              DB và có bộchuyển đổi API.       nhiều lớp; cần tổchức mã và kiểm thử
+                                                     cẩn thận.
+
+    Modular       Một ứng dụng chia theo mô-đun    Ranh giới nghiệp vụrõ, giao dịch đơn
+     monolith        nghiệp vụ; mỗi mô-đun có lớp riêng  giản. Cần giữquy tắc phụthuộc; các
+                     và sởhữu nhóm bảng trong DB     mô-đun vẫn mởrộng và có thểgián
+                      chung.                          đoạn cùng ứng dụng.
+
+     Microservices    Các dịch vụđịnh danh, cổng, công  Dễmởrộng hoặc phát hành từng dịch
+                     và báo cáo được triển khai riêng,    vụ. Phải xửlý lỗi từng phần, đồng
+                   quản lý dữliệu độc lập.            bộdữliệu, kiểm thửgiao tiếp và vận
+                                                 hành nhiều thành phần.
+
+    Hướng sựkiện   Các dịch vụtrao đổi qua hệthống  Phù hợp tác vụbất đồng bộ. Cần
+    phân tán        thông điệp lưu bền vững; đường    quản lý thông điệp trùng, thứtựxử
+                     quét vẫn có cơ chếtrảkết quảcho   lý và độtrễcủa cảluồng.
+                         kiosk.
+
+
+4.2 Ma trận chấm điểm có trọng số
+
+Mỗi phương án được chấm từ1 đến 5, từkhó đáp ứng đến thuận lợi nhất với điều kiện đang xét.
+Nhóm đặt trọng số3 cho hiệu năng, toàn vẹn, an ninh và bảo trì; trọng số2 cho tích hợp và mức
+đơn giản; trọng số1 cho mởrộng. Tổng trọng sốlà 17, tương ứng tối đa 85 điểm. Việc chấm điểm
+chỉthực hiện với những phương án có khảnăng đáp ứng các yêu cầu bắt buộc.
+
+                Bảng 15: Điểm so sánh các cấu hình tại quy mô hiện tại
+
+               Phương án         HN TV AN BT TH ĐG MR Tổng
+                Trọng số                 3    3    3   3    2    2    1   /85
+
+              Phân lớp                 4    4    4   3    4    5    2    65
+               Modular monolith         4    4    4   5    4    4    2    69
+                  Microservices             3    3    3   4    4    1    5    54
+              Hướng sựkiện phân tán    3    3    3   3    4    2    5    53
+
+     HN: hiệu năng; TV: toàn vẹn; AN: an ninh; BT: bảo trì; TH: tích hợp; ĐG: đơn giản; MR: mởrộng.
+
+
+    Điểm modular monolith được tính như sau: 4×3+4×3+4×3+5×3+4×2+4×2+2×1 = 69.
+Phương án phân lớp có cùng điểm vềgiao dịch và bảo mật vì cũng dùng được một DB, RBAC và
+bộchuyển đổi API. Modular monolith được đánh giá cao hơn ởkhảnăng bảo trì nhờchia theo
+nghiệp vụ, nhưng cần thêm công sức giữranh giới mô-đun. Hai phương án phân tán thuận lợi
+khi mởrộng độc lập, song tốn công hơn cho kết nối, theo dõi lỗi và triển khai.
+
+
+4.3 Phân tích độnhạy và quyết định
+
+Nhóm kiểm tra thêm mức ảnh hưởng của trọng số. Khi tăng trọng sốmởrộng từ1 lên 3, modular
+monolith đạt 73 điểm, microservices đạt 64 và hướng sựkiện đạt 63. Nếu nhóm đã có kinh nghiệm
+vận hành microservices, điểm đơn giản của phương án này có thểtăng và khoảng cách sẽthu
+
+
+Kiến trúc phần mềm - HK261                                                                Trang 9
+=== PAGE 17 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+hẹp. Do đó, kết quảphù hợp với quy mô và năng lực hiện tại; khi sốnhà máy hoặc cách tổchức
+nhóm thay đổi, các phương án cần được đánh giá lại.
+
+    Nhóm chọn modular monolith, phân lớp bên trong và dùng bộchuyển đổi cho
+TCS/HRS. Các mô-đun cùng một ứng dụng và DB nên dễquản lý giao dịch và dựng môi trường
+kiểm thử. Tác vụxuất công, đối soát và gửi thông báo được lưu trong cơ sởdữliệu đểtiếp tục
+xửlý sau khi khởi động lại. Với quy mô hiện tại, nhóm chưa cần bổsung hệthống môi giới thông
+điệp. Khi có nhu cầu triển khai độc lập, một mô-đun có thểđược xem xét tách thành dịch vụ
+riêng.
+
+
+5 Xây dựng kiến trúc logic theo từng bước
+
+5.1 Bước 1: phân rã theo trách nhiệm nghiệp vụ
+
+Từcác chức năng đã xác định, nhóm chia hệthống thành sáu mô-đun trong Bảng 16. IAM và
+CFG cung cấp chức năng dùng chung; EQR, GATE, ATT và RPT xửlý nghiệp vụchính. Tầng
+ứng dụng phối hợp các mô-đun đểphục vụtừng ca sửdụng. Ví dụ, khi nhân viên mởtrang hồ
+sơ và công, tầng này lấy thông tin từEQR và ATT rồi ghép kết quảtrảvề.
+
+                     Bảng 16: Mô-đun và quyền sởhữu dữliệu
+
+
+   Mã      Trách nhiệm                   Dữliệu sởhữu và ranh giới
+
+   IAM    Đăng nhập, phân quyền và kiểm   User, Role, RoleAssignment, AuditEntry. Cung
+              toán                           cấp Authorizer và AuditWriter cho các mô-đun
+                                          sửdụng.
+
+   EQR    Nhân viên, QR và quyền nhà      Employee, QrCredential, AccessGrant. Cung cấp
+           máy                               QrVerifier và EmployeeQuery đểkiểm tra mã,
+                                           quyền và tra cứu hồsơ.
+
+   GATE   Trạm cổng, yêu cầu quét và lệnh   GateStation, AccessAttempt, GateCommand.
+                thiết bị                       Kết nối TCS qua TurnstileGateway.
+
+   ATT    Sựkiện công, ghép khoảng và     AttendanceEvent, PresenceInterval, Correction.
+               hiệu chỉnh                   Nhận các lượt đã xác nhận đểtính thời gian
+                                                 hiện diện.
+
+   RPT    Báo cáo và xuất HRS            ExportBatch, ExportItem, ExportAttempt. Đọc
+                                             công qua ATT và gửi dữliệu qua HrExporter.
+
+   CFG    Cơ cấu tổchức và cấu hình        Factory, Department, Team, ConfigVersion.
+                                     Quản lý phiên bản cấu hình và tham chiếu đến
+                                          kho thông tin xác thực.
+
+
+5.2 Bước 2: định nghĩa giao diện và chiều phụthuộc
+
+GATE sửdụng EQR đểkiểm tra QR và quyền vào cổng, sau đó gọi ATT khi có đủxác nhận để
+ghi công. RPT lấy dữliệu báo cáo qua các giao diện truy vấn của ATT, EQR và CFG. ATT lưu
+mã tham chiếu của lượt vào/ra đểtra cứu, vì vậy không cần phụthuộc ngược vào GATE. Các
+đối tượng và bộchuyển đổi được khởi tạo tại một nơi khi ứng dụng chạy, rồi truyền cho mô-đun
+sửdụng.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 10
+=== PAGE 18 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+                    Bảng 17: Giao diện lập trình giữa các mô-đun
+
+
+    Giao diện         Cung cấp    Hoạt động và điều kiện
+
+     Authorizer       IAM          authorize(subject, permission, scope): kiểm tra vai trò và
+                                         đối tượng cụthể, không chỉrole có trong token.
+
+    AuditWriter      IAM          append(entry, tx): ghi cùng giao dịch của thay đổi nhạy
+                                    cảm; không cho gọi update/delete.
+
+     QrVerifier       EQR          verify(token, gateContext): trảreference, employeeId và lý
+                                   do cho phép/từchối; xác minh dữliệu máy chủ.
+
+    EmployeeQuery    EQR           get/list theo phạm vi; RPT dùng đểghép báo cáo; giữ
+                                        hiệu lực lịch sửcủa tổ/nhà máy khi cần.
+
+    AttendanceWriter   ATT          confirm(sourceId, employeeId, direction, time, evidence,
+                                              tx): ghi một lần theo sourceId khi đủxác nhận.
+
+    AttendanceQuery   ATT          events/intervals/anomalies theo khoảng thời gian, phiên
+                                  bản và phạm vi quyền.
+
+     CorrectionService   ATT          correct(recordId, expectedVersion, change, reason, tx):
+                                   kiểm soát xung đột và giữlịch sử.
+
+    ConfigReader     CFG          get(version)/scope: đọc cấu hình đã duyệt. Thay địa chỉ
+                               API hoặc khóa được lưu theo phiên bản và có nhật ký.
+
+     TurnstileGateway   GATE        open/close; truy vấn trạng thái nếu API hỗtrợ. Bộ
+                                     chuyển đổi diễn giải phản hồi của nhà cung cấp thành
+                                         kết quảnghiệp vụ.
+
+    HrExporter      RPT          submit/status: gửi hoặc tra cứu lô. batchId và checksum
+                                  giữnguyên khi gửi lại; xác nhận của HRS phải khớp kỳ
+                                      và phiên bản.
+
+
+5.3 Bước 3: tổchức giao dịch và kết nối ngoài
+
+Các mô-đun dùng chung một DB vật lý, nhưng mỗi mô-đun quản lý nhóm bảng của mình. Việc
+đọc hoặc ghi từmô-đun khác đi qua giao diện lập trình đã công bố. Khi hoàn tất lượt vào/ra,
+UnitOfWork ởtầng ứng dụng cho phép GATE, ATT và IAM cùng tham gia một giao dịch cục
+bộ. Nhờđó, kết quảcổng, giao dịch công và nhật ký được lưu nhất quán. Quy tắc truy cập bảng
+được kiểm tra tựđộng và rà soát khi tích hợp mã.
+
+     Giao dịch DB được kết thúc trước khi chờTCS hoặc HRS. Với cổng, hệthống lưu yêu cầu
+và trạng thái gửi, gọi TCS rồi mởmột giao dịch mới đểlưu kết quả. Nếu bước cuối gặp lỗi, yêu
+cầu đã lưu vẫn dùng được đểđối soát. Với xuất công, RPT tạo ExportBatch từbộdữliệu đã
+chốt rồi mới gửi, nên các lần gửi lại có cùng nội dung. Email và thông báo được xửlý bằng tác
+vụnền đểtránh kéo dài thời gian quét.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 11
+=== PAGE 19 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+5.4 Bước 4: thểhiện cấu trúc và kiểm tra vòng phụthuộc
+
+
+
+                        Kiosk / web di động / cổng quản trịvà báo cáo
+
+
+
+              Tầng ứng dụng: điều phối ca sửdụng, kiểm tra quyền, UnitOfWork
+
+
+                                                                     gọi giao diện
+
+         GATE                         ATT
+                       EQR                         RPT
+                quét,                                    công, hiệu
+                           nhân viên, QR                          báo cáo, xuất
+            trạm, lệnh                                   chỉnh
+
+
+
+
+                  IAM: xác thực, phân
+                                                   Hạtầng: lưu trữ, giao dịch,
+                        quyền, kiểm toán
+                                                             tác vụnền, kết nối TCS/HRS
+                 CFG: tổchức, cấu hình
+
+
+
+                 DB quan hệ: mỗi mô-đun quản lý nhóm bảng riêng
+
+        Hình 2: Góc nhìn logic; mũi tên nghiệp vụhướng từbên dùng đến bên cung cấp
+
+
+Hình 2 thểhiện các phụthuộc nghiệp vụchính. IAM và CFG được gom ởhàng dưới vì nhiều
+ca sửdụng cùng cần đến xác thực, phân quyền và cấu hình. Ởmức mã nguồn, giao diện kết nối
+được định nghĩa phía nghiệp vụ, còn bộchuyển đổi thực hiện giao diện đó. Mỗi mô-đun vẫn truy
+cập dữliệu qua phần chịu trách nhiệm quản lý bảng, kểcảkhi dùng chung UnitOfWork.
+
+
+5.5 Bước 5: đối chiếu yêu cầu và hành vi
+
+FR-1 được giao cho EQR; FR-2 cho GATE; FR-3 cho ATT phối hợp với GATE; FR-4 cho RPT
+và IAM; FR-5 cho IAM và CFG. Nhóm dùng các luồng ởMục 7 đểkiểm tra giao diện đã bao
+quát trường hợp thành công, bịtừchối, gửi trùng, hết thời gian chờvà hiệu chỉnh hay chưa. Bảng
+tại Mục 11 tổng hợp liên hệgiữa yêu cầu, mô-đun, ADR và phép thử.
+
+
+6 Dữliệu và giao tiếp với hệthống ngoài
+
+6.1 Mô hình dữliệu và ràng buộc
+
+Khi nhân viên quét QR, hệthống cần lưu cảquá trình xửlý và kết quảchấm công. AccessAttempt
+ghi lần quét, GateCommand theo dõi lệnh gửi tới cổng, còn AttendanceEvent ghi lượt công đã
+được xác nhận. Ba loại dữliệu này giúp HR và bảo vệkiểm tra một lượt bịtừchối, mởthành
+công hoặc chưa rõ kết quả.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 12
+=== PAGE 20 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+                   Bảng 18: Thực thểchính và ràng buộc dữliệu
+
+
+    Thực thể          Trường tiêu biểu               Ràng buộc
+
+    Employee /         employeeId, externalHrId,      Mã nhân viên ổn định. Mã đã thu
+     QrCredential         factoryId; credentialId,             hồi hết hiệu lực; thay hồsơ vẫn giữ
+                        tokenHash, keyId, revokedAt      được lịch sử.
+
+     GateStation /       gateId, stationId, direction,        Thiết bịchỉdùng cổng được gán;
+    AccessGrant         factoryId, turnstileId; phạm vi,    quyền kiểm tra bằng trạng thái máy
+                         hiệu lực                            chủ.
+
+    AccessAttempt      eventId, stationId, requestHash,    UNIQUE(stationId,eventId). Cùng
+                         employeeId?, receivedAt,        mã khác nội dung báo xung đột; lưu
+                            direction, decision, reason         dấu vân tay thay cho token đầy đủ.
+
+    GateCommand     commandId, accessAttemptId,     Mỗi lần quét có tối đa một lệnh
+                          kind, state, sentAt, confirmedAt,  OPEN cơ sở. CLOSE được liên kết
+                       vendorRef                            riêng; mỗi lần chuyển trạng thái có
+                                                            điều kiện và lịch sử.
+
+    AttendanceEvent     id, sourceId, employeeId,          UNIQUE(sourceId). Nguồn là xác
+                            direction, occurredAt,            nhận hợp lệhoặc hiệu chỉnh đã được
+                       evidenceType                    cấp quyền.
+
+     PresenceInterval      id, employeeId, inEventId,        Giờkết thúc phải từgiờbắt đầu trở
+                        outEventId, status, version           đi. Khoảng thiếu IN hoặc OUT được
+                                                   đánh dấu chưa hoàn chỉnh.
+
+     Correction             id, targetId, expectedVersion,      Dữliệu gốc bất biến; phiên bản tăng;
+                           before/after, reason, actor,        không chấp nhận lý do rỗng hoặc ghi
+                           effectiveAt                      đè phiên bản mới hơn.
+
+    ExportBatch /      batchId, period, version,         Bộdữliệu giữnguyên sau khi
+    ExportItem         snapshotAt, checksum, count,       gửi. Phiên bản thay thếcó
+                            status; itemId, sourceVersion       supersedesBatchId; gửi lại dùng nội
+                                                   dung cũ.
+
+    AuditEntry / Job    actor, action, objectRef,         Thay đổi quan trọng và nhật ký
+                            correlationId, timestamp; jobKey,  được lưu cùng giao dịch. Tác vụđược
+                             state, nextAttemptAt              lưu bền vững và kiểm soát chạy đồng
+                                                                     thời.
+
+
+
+               Employee               AccessAttempt
+                              nhân viên 0..1                mỗi lượt quét 0..nGateCommand
+               QrCredential                GateStation                                             OPEN / CLOSE
+             / AccessGrant             tham chiếu
+
+
+                                                            sourceId duy nhất
+
+              PresenceIntervaltham chiếu IN/OUTAttendanceEvent dữliệu chốt   ExportBatch
+                Correction              nguồn xác nhận              ExportItem
+
+                Hình 3: Quan hệgiữa dữliệu quét, lệnh cổng và chấm công
+
+
+     Mỗi AccessAttempt thành công tạo tối đa một AttendanceEvent; lượt bịtừchối chỉđược
+lưu trong nhật ký cổng. Lệnh đóng phục vụvận hành thiết bịvà không tạo thêm lượt công. Ràng
+buộc nguồn duy nhất ngăn ghi công trùng khi nhận lại yêu cầu hoặc thông báo từTCS [2, 3].
+Cách kiểm soát việc phát lệnh được trình bày ởMục 7.
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 13
+=== PAGE 21 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+6.2 Giao tiếp với kiosk
+
+Kiosk gửi eventId, token và phiên bản giao thức tới POST/api/kiosk/access-attempts. eventId
+được tạo trước lần gửi đầu và giữnguyên khi gửi lại. Máy chủxác định stationId, gateId từthông
+tin xác thực của trạm, rồi chuẩn hóa nội dung đểtính requestHash. Giá trịnày được tính từdấu
+vân tay token, trạm, chiều đi và các trường cốđịnh của yêu cầu; thời điểm gửi lại được loại ra.
+Phản hồi gồm eventId, decision, commandState, attendanceState, reasonCode và correlationId.
+
+     Kết quảtrảvềgồm DENIED, OPEN_CONFIRMED, PENDING hoặc UNKNOWN. Nếu cùng mã yêu
+cầu nhưng khác nội dung, máy chủtrảHTTP 409. Nếu lỗi xảy ra trước khi lưu, kiosk báo chưa
+ghi nhận và hệthống dừng trước bước gọi TCS. Chỉtrạm tạo yêu cầu hoặc người có quyền mới
+được tra cứu trạng thái theo eventId. Màn hình công cộng hiển thịlý do ngắn gọn; chi tiết nhạy
+cảm được giữtrong phần tra cứu có phân quyền. Nhóm đềxuất chặn quét liên tiếp cùng mã và
+cổng trong 5 giây, trảlại mã tham chiếu của lượt trước đểgiảm mởcổng nhiều lần.
+
+
+6.3 Giao tiếp với TCS
+
+Phương thức TurnstileGateway.open(commandId,turnstileId,deadline) trảmột trong ba
+kết quả: OPEN_CONFIRMED, OPEN_REJECTED hoặc UNKNOWN. OPEN_CONFIRMED có nghĩa TCS
+đã xác nhận thiết bịmở. Trường hợp chỉnhận được thông báo đã nhận lệnh vẫn phải chờthêm.
+Việc truy vấn trạng thái hoặc nhận thông báo ngược từTCS phụthuộc API nhà cung cấp. Lệnh
+đóng được theo dõi tương tự; lỗi đóng tạo cảnh báo cho bảo vệvà giữlại lượt vào/ra đã xác nhận.
+
+     Trước khi tích hợp, nhóm cần làm rõ cách xác thực, khóa chống trùng, thời gian lưu khóa,
+ý nghĩa phản hồi, khảnăng truy vấn theo commandId và thứtựthông báo của TCS. Các thông
+tin vềcảm biến, tựđóng cổng, độtrễvà chếđộmất điện/mạng cũng cần được kiểm tra. Với API
+thiếu cơ chếgửi lại an toàn và truy vấn trạng thái, lệnh đã bắt đầu gửi được chuyển cho bảo vệ
+đối soát khi mất phản hồi. Giao dịch DB chỉbảo vệphần dữliệu trong hệthống; việc cổng thực
+hiện đúng một lần còn phụthuộc cơ chếcủa TCS.
+
+    Nếu có cảm biến qua cổng, AttendanceEvent được tạo từtín hiệu xác nhận kèm chiều và
+thời điểm. Nếu TMC chấp thuận dùng xác nhận đã mởlàm đại diện, hệthống lưu evidenceType
+đểphân biệt nguồn này với cảm biến. Khi API chỉbáo đã nhận lệnh, SEC cần xác nhận thực tế
+hoặc nhóm phải bổsung kết nối sựkiện thiết bịtrước khi ghi công chính thức.
+
+
+6.4 Giao tiếp với HRS và dữliệu xuất
+
+Phương thức HrExporter.submit(batch) gửi kỳtháng, version, batchId, snapshotAt,
+schemaVersion, checksum và recordCount. Dữliệu chi tiết gồm externalHrId, các lượt IN/OUT
+có mã nguồn và thời điểm, khoảng hiện diện hợp lệ, cờthiếu lượt và correctionVersion. Nếu HRS
+chỉnhận tổng hợp, bộchuyển đổi ánh xạsang định dạng đã thống nhất với HRS. Các khoảng
+chưa hoàn chỉnh vẫn mang cờđểHR đối soát, còn quy tắc công và lương do HRS xửlý.
+
+     Đểgửi lại an toàn, hai bên cần thống nhất khóa lô hoặc cách cập nhật theo nguồn và phiên
+bản. Phản hồi xác nhận của HRS phải có kỳ, checksum, sốbản ghi được nhận/bịtừchối và mã
+tham chiếu đối soát. Với API có sẵn, nhóm có thểdùng khóa mà nhà cung cấp hỗtrợcùng bảng
+ánh xạcục bộ, rồi kiểm thửđểxác nhận cách chống trùng. Khi mất phản hồi, ưu tiên tra cứu
+trạng thái lô. Lỗi 4xx do định dạng hoặc quyền truy cập được chuyển đểsửa; lỗi 5xx và lỗi mạng
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 14
+=== PAGE 22 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+được gửi lại sau khoảng chờtăng dần, có thêm độlệch ngẫu nhiên đểtránh nhiều tác vụcùng
+gửi.
+
+
+6.5 Ghép khoảng, ca qua đêm và ranh giới tháng
+
+Hệthống sắp xếp các sựkiện theo nhân viên, thời điểm và thứtựnguồn ổn định, sau đó ghép IN
+với OUT hợp lệkếtiếp. Nếu xuất hiện hai IN liên tiếp hoặc OUT không có IN, dữliệu được gắn
+cờcho HR kiểm tra. Nhóm đềxuất mốc 18 giờđểphát hiện khoảng dài bất thường; khoảng này
+vẫn được giữlại đểđối soát. Các lượt liên quan nhiều nhà máy hoặc có thứtựthời gian không
+hợp lý cũng cần được kiểm tra trước khi ghép.
+
+     Ví dụ, nhân viên vào lúc 08:00, ra lúc 12:00, vào lại lúc 13:00 và ra lúc 17:00 thì có hai
+khoảng hiện diện, tổng cộng 8 giờ. Lấy giờvào đầu và giờra cuối sẽcho 9 giờnên chỉdùng
+hai mốc này đểtham khảo. Với lượt vào 22:00 ngày D và ra 06:00 ngày D+1, hệthống giữmột
+khoảng 8 giờqua đêm. Khi lập tổng hợp theo ngày lịch, thời gian được chia theo phần nằm trong
+từng ngày; HRS sẽáp dụng quy tắc ca đểxác định công được hưởng.
+
+    Kỳtháng được tính từ00:00 ngày 1 đến trước 00:00 ngày 1 tháng sau theo giờnghiệp vụ.
+Bộdữliệu xuất gồm các sựkiện trong kỳvà tham chiếu tới lượt ởtháng liền kềnếu cần giải
+thích một khoảng qua tháng. Lượt IN cuối tháng chưa có OUT được giữởtrạng thái mở. Nếu
+OUT đến trong ngày 1 trước hạn xuất, nhóm có thểcập nhật bằng phiên bản mới; nếu lô trước
+đã được HRS tiếp nhận, phiên bản sau phải liên kết thay thế. Chính sách này được thống nhất
+với HRS đểxửlý đủca qua tháng và tránh cộng lặp dữliệu.
+
+
+7 Góc nhìn hành vi và xửlý lỗi
+
+7.1 Trạng thái của yêu cầu và lệnh mở
+
+Kết quảkiểm tra quyền và kết quảđiều khiển cổng được lưu riêng. Chẳng hạn, decision=ALLOW
+cho biết nhân viên có quyền, còn commandState=UNKNOWN cho biết ứng dụng chưa rõ cổng
+đã mởhay chưa. Trạng thái công được theo dõi bằng NOT_CREATED, PROVISIONAL hoặc
+CONFIRMED, tùy xác nhận đã nhận được.
+
+
+                                               DISPATCHING
+          RECEIVED  xác thực đạt PREPARED  CAS + lưu
+                                                            đã nhận
+            đã lưu yêu cầu            đã cho phép             trìnhquyền gửi
+                                                                     tiến
+            không đạt                                  dừng
+                                                                                          kết quảchắc chắn                                                 giờchờ/
+                                              hết
+           DENIED         UNKNOWN
+                                           CONFIRMED
+                không                cần đối soát
+                                                                 hoặc
+               phát lệnh
+                                             REJECTED
+
+
+                                                                tra cứu / SEC xác nhận
+
+                      Hình 4: Trạng thái của yêu cầu mởcổng
+
+
+     Sau khi kiểm tra, hệthống có thểlưu RECEIVED, quyết định, PREPARED và nhật
+ký trong cùng giao dịch. Yêu cầu sai cũng được lưu khi DB hoạt động. Trước khi gọi TCS,
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 15
+=== PAGE 23 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+một tiến trình nhận quyền gửi bằng thao tác compare-and-set (CAS), chuyển PREPARED sang
+DISPATCHING rồi hoàn tất giao dịch. Các yêu cầu trùng đọc lại trạng thái đã có. Nếu tiến trình
+dừng ởDISPATCHING, hệthống chuyển sang đối soát vì chưa biết lệnh đã tới thiết bịhay chưa.
+
+     Với lệnh còn PREPARED, tiến trình xửlý có thểtiếp tục sau khi kiểm tra lại thời hạn,
+trạng thái nhân viên và quyền vào cổng. Lệnh quá hạn được kết thúc đểtránh mởmuộn khi nhân
+viên đã rời kiosk. Nếu TCS hỗtrợhạn hiệu lực của lệnh, bộchuyển đổi gửi kèm thời hạn này.
+Riêng lệnh đã gửi cần theo dõi kết quảthực tếdù phía kiosk đã hết thời gian chờ.
+
+
+7.2 Trình tựquét QR thành công
+
+
+                                                        ATT
+          Kiosk        GATE       DB nội bộ        TCS
+                                                  + IAM
+                     eventId, token
+
+
+                            kiểm tra EQR; lưu yêu cầu và lệnh
+
+
+                        PREPARED / kết quảcũ
+
+
+                         CAS DISPATCHING; lưu
+
+
+                                        open(commandId, deadline)
+
+
+                                                xác nhận đã mở
+
+
+                                                     xác nhận nguồn, ghi nhật ký
+
+
+                                                                   lưu kết quả, công và nhật ký
+
+
+                                         lưu thành công
+
+     OPEN_CONFIRMED; trạng thái công
+
+
+
+                   Hình 5: Các bước xửlý một lượt quét thành công
+
+
+Trong Hình 5, bước kiểm tra QR và quyền diễn ra nội bộqua EQR/IAM trước khi lưu lệnh. Khi
+TCS có cảm biến, công chỉđược xác nhận sau tín hiệu qua cổng; kiosk có thểtrảtrạng thái chờ
+mà không đợi nhân viên đi qua. Khi hoàn tất, UnitOfWork cập nhật kết quảởGATE, ghi sự
+kiện ATT và nhật ký IAM trong cùng giao dịch.
+
+
+7.3 Ma trận lỗi và hành vi phục hồi
+
+
+                Bảng 19: Lỗi theo điểm xảy ra và kết quảquan sát được
+
+
+    Tình huống               Dữliệu/trạng thái          Hành vi
+
+   QR sai, đã thu hồi hoặc    Attempt DENIED và lý do    Dừng trước bước gửi lệnh mở
+     thiếu quyền              nếu DB ghi được              và lưu nhật ký từchối; lượt này
+                                                       không tạo công.
+
+   DB lỗi trước khi lưu yêu   Chưa có hồsơ bền vững      Dừng trước khi gửi lệnh; kiosk
+    cầu                                                 báo chưa ghi nhận đểnhân viên
+                                                 nhờbảo vệhỗtrợ.
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 16
+=== PAGE 24 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+    Tình huống               Dữliệu/trạng thái          Hành vi
+
+    Hai yêu cầu cùng mã,     Một attempt và trạng thái    CAS chỉcho một tiến trình nhận
+    cùng nội dung              hiện tại                     quyền gửi; yêu cầu còn lại nhận
+                                                              trạng thái đã có.
+
+    Cùng mã nhưng khác nội   Attempt gốc được giữ; có    TrảHTTP 409; cảnh báo nếu
+    dung                     nhật ký xung đột               tình trạng lặp bất thường.
+
+    Tiến trình dừng sau       Yêu cầu đã lưu, chưa        Kiểm tra hạn và quyền trước khi
+   PREPARED           DISPATCHING                 tiếp tục; lệnh quá hạn được kết
+                                                                  thúc.
+
+   TCS mởnhưng phản hồi  DISPATCHING/UNKNOWN  Truy vấn theo commandId nếu
+    bịmất                                        API hỗtrợ, hoặc đểSEC kiểm tra
+                                                           và xác nhận.
+
+    Ứng dụng dừng sau khi    Có yêu cầu gốc, chưa có công  Đối soát rồi ghi theo sourceId duy
+    mở, trước khi lưu kết quả   chính thức                   nhất đểtránh công lặp.
+
+    Thông báo TCS trùng    Có mã sựkiện nhà cung cấp   Bỏtrùng, kiểm tra điều kiện
+    hoặc sai thứtự            và lịch sử                    chuyển trạng thái; kết quảđã đối
+                                                                 soát chỉđược sửa qua quy trình
+                                                             có quyền.
+
+    Chưa xác nhận đóng cổng  Giữlượt vào/ra đã xác nhận   Báo SEC và tạm khóa làn
+                                                              trong phần mềm khi phù hợp.
+                                          TCS/TMC phụtrách an toàn
+                                                                      thiết bị.
+
+    Mất mạng trung tâm      Kiosk chưa hoàn thành lượt   Bảo vệghi sựcố, HR đối soát và
+                                 trực tuyến                  nhập MANUAL khi kết nối trở
+                                                                                      lại.
+
+
+7.4 Trình tựxuất tháng và hiệu chỉnh sau xuất
+
+
+           Lịch                                           Kết nối                   RPT       ATT + DB                    HRS
+        hoặc HR                                 HRS
+                     start(period)
+
+
+                            khóa tác vụ; chốt dữliệu và tạo lô
+
+                                    batchId, version, checksum
+
+                                                 submit(snapshot)
+
+
+                                                       POST cùng batchId
+
+                                                   ACK / timeout / lỗi
+
+
+                                                            mất ACK: tra cứu trạng thái nếu có
+
+                                                  kết quảđã chuẩn hóa
+
+                                  lưu ACK / gửi lại / cảnh báo
+
+
+
+                    Hình 6: Các bước xuất dữliệu tháng sang HRS
+
+
+Nhóm đềxuất bắt đầu xuất lúc 01:00 ngày 1. Lỗi tạm thời được gửi lại sau các khoảng 1, 5, 15
+và 30 phút; khi hết sốlần tựđộng, HR và ADM nhận cảnh báo đểxửlý. Nếu đến 09:00 và 11:00
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 17
+=== PAGE 25 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+vẫn chưa có xác nhận, mức cảnh báo được tăng lên. Mốc hoàn thành nội bộlà trước 11:30 để
+còn thời gian xửlý trước hạn 12:00. Lô bịHRS từchối một phần vẫn được theo dõi cho đến khi
+đối chiếu xong danh sách lỗi, sốlượng và checksum.
+
+     Mỗi kỳvà phiên bản dùng một jobKey cùng khóa có thời hạn đểhạn chếhai bộlập lịch
+chạy cùng lô. Sau khi khởi động lại, tác vụđọc ExportBatch đã lưu và tiếp tục theo trạng thái
+hiện tại. Hiệu chỉnh sau thời điểm chốt tạo phiên bản mới với supersedesBatchId; HRS cập nhật
+hoặc thay thếtheo thỏa thuận, còn lô cũ được giữđểtra cứu. Nếu HRS ngừng hoạt động kéo
+dài, hệthống báo nguy cơ trễhạn và chuyển HR/ADM xửlý.
+
+
+8 Xây dựng kiến trúc vật lý theo từng bước
+
+8.1 Bước 1: xác định nút triển khai
+
+Mỗi nhà máy bốtrí máy quét, kiosk, cổng xoay/TCS và máy làm việc cho bảo vệ. Tại trung tâm,
+hệthống gồm máy chủtiếp nhận HTTPS, ứng dụng TMC, PostgreSQL và kho sao lưu. HRS
+nằm ởvùng kết nối riêng vì là hệthống đã có. Nhóm chọn PostgreSQL cho thiết kếnày; khi triển
+khai sẽdùng phiên bản còn được hỗtrợ. Nhân viên truy cập web trên điện thoại đểxem QR, còn
+email được gửi qua dịch vụtích hợp.
+
+
+8.2 Bước 2: ánh xạmô-đun thành tiến trình
+
+Sáu mô-đun chạy trong cùng ứng dụng. Bộlập lịch và tiến trình xửlý tác vụnền dùng chung mã
+nguồn với ứng dụng; cấu hình ban đầu cho phép chạy cùng tiến trình với giới hạn sốtác vụđồng
+thời. Nếu kết quảđo cho thấy báo cáo làm chậm quét cổng, nhóm sẽtách tiến trình nền ra chạy
+riêng và vẫn dùng hàng đợi trong DB. Cách bốtrí này giữviệc triển khai gọn ởquy mô hiện tại.
+
+
+      Nhà máy Bình Dương
+       máy quét – kiosk                                             PostgreSQL
+                                                         mạng riêng, TLS       TCS – cổng xoay HTTPS                               qua    Reverse proxy HTTPS  TLS DB          máy SEC          VPN
+                                  Ứng dụng TMC                            sao lưu/WAL
+                           + tác vụnền
+                            IAM / EQR / GATE            Sao lưu + WAL
+                         VPN ATT / RPT / CFG              ngoài máy DB       Nhà máy Long An      qua
+                     HTTPS                         HTTPS       máy quét – kiosk
+                                                          API
+       TCS – cổng xoay                    HTTPS 443
+          máy SEC                                     HRS hiện có
+                                                          API công tháng
+                                       Điện thoại EMP
+                                                 trình duyệt
+                            HR/SUP/EXE/ADM
+
+               Hình 7: Triển khai cơ sởtại hai nhà máy và vùng trung tâm
+
+
+     Trong Hình 7, yêu cầu quét đi từkiosk tới trung tâm; ứng dụng gửi lệnh mở/đóng vềTCS
+qua VPN. Kiosk chỉgiao tiếp với ứng dụng. Máy quét nối USB với kiosk, còn TCS điều khiển
+thiết bịtheo giao thức của nhà cung cấp. Từng kết nối được xác thực và giới hạn quyền phù hợp
+với chức năng.
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 18
+=== PAGE 26 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+8.3 Bước 3: đặt vùng mạng và quy tắc kết nối
+
+
+                      Bảng 20: Kết nối giữa các thành phần
+
+
+    Nguồn – đích          Giao thức         Quy tắc
+
+   Máy quét – kiosk     USB kiểu nhập liệu  Kiểm tra độdài và ký tựđầu vào; chuỗi QR
+                                            được xửlý như dữliệu, không tựthực thi hoặc
+                                  mởURL.
+
+    Kiosk/SEC – ứng    HTTPS qua VPN   Trạm có thông tin xác thực riêng và tập API
+    dụng                                                giới hạn. SEC dùng tài khoản cá nhân cho lượt
+                                                 ngoại lệ.
+
+    Ứng dụng – TCS từng  API qua VPN       Chỉkết nối địa chỉvà turnstileId đã đăng ký;
+    nhà máy                                    theo dõi commandId, thời gian chờvà kết quả.
+
+    Điện thoại/trình     HTTPS 443         Phiên đăng nhập có hạn; kiểm tra quyền trên
+    duyệt – proxy                        máy chủ, giới hạn tần suất và dùng MFA theo
+                                                chính sách.
+
+    Ứng dụng – DB       Giao thức DB qua   DB ởmạng riêng, chỉcho ứng dụng và tài
+                    TLS               khoản vận hành được phép kết nối. Tài khoản
+                                                 sao lưu và cập nhật cấu trúc được tách riêng.
+
+    Ứng dụng –        HTTPS / SMTP    Dùng tài khoản dịch vụriêng và lưu khóa ngoài
+    HRS/email         TLS            mã nguồn. Nhật ký lỗi được lọc QR/token đầy
+                                                 đủ.
+
+   DB – kho sao        Kênh mã hóa       Kho nằm ngoài máy DB, giới hạn quyền xóa và
+    lưu/WAL                                được kiểm tra bằng phục hồi thử.
+
+
+8.4 Bước 4: lưu trữvà phục hồi dữliệu
+
+Dữliệu công được lưu bằng giao dịch ACID và WAL. Khi hoàn tất giao dịch, cấu hình DB phải
+bảo đảm nhật ký đã được ghi xuống lưu trữbền vững [1]. Nhóm đềxuất sao lưu toàn bộhằng
+ngày, chuyển WAL liên tục sang máy khác và thửphục hồi theo thời điểm đểđáp ứng NFR-6.
+Độtrễchuyển WAL cần được theo dõi đểkiểm tra mục tiêu RPO 15 phút. Phương án này xửlý
+sựcốmáy chủhoặc ổđĩa; mất toàn bộvùng và cảkho sao lưu cần phương án dựphòng riêng.
+
+    Quá trình phục hồi được thực hiện trong môi trường cách ly. Nhóm kiểm tra dữliệu và
+nhật ký, đối chiếu lệnh chưa rõ với TCS, kiểm tra ExportBatch với HRS, rồi rà các yêu cầu xóa
+hoặc thu hồi phát sinh sau bản sao theo nguồn được phép sửdụng. Các lệnh DISPATCHING
+được đối soát trước khi quyết định tiếp theo. Khi diễn tập, nhóm ghi thời điểm bản ghi mới nhất
+phục hồi được và thời gian dịch vụhoạt động trởlại.
+
+
+8.5 Bước 5: theo dõi vận hành
+
+Các chỉsốvận hành gồm thời gian phản hồi toàn luồng và từng bước, tỷlệtừchối/lỗi/UNKNOWN,
+thời gian tồn đọng của lệnh, sốsựkiện công so với nguồn xác nhận, trạng thái lô xuất và thời
+gian còn lại trước hạn. Bộphận vận hành cũng theo dõi sao lưu, độtrễchuyển WAL và lần phục
+hồi thửgần nhất. correlationId liên kết lần quét, lệnh, công, nhật ký và bản ghi xuất đểtra cứu
+khi cần.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 19
+=== PAGE 27 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+    Nhóm đềxuất cảnh báo khi trạm hoặc tuyến TCS mất phản hồi liên tục; lệnh UNKNOWN
+còn tồn đọng sau 1 phút được đưa lên màn hình SEC. Truy vấn báo cáo được phân trang và giới
+hạn tài nguyên, kèm chỉmục theo nhân viên, thời gian và nhà máy đểgiữkết nối DB cho xửlý
+cổng. Cấu hình CPU/RAM sẽđược chọn sau các phép đo M2.
+
+
+8.6 Bước 6: kiểm tra giới hạn sẵn sàng và an toàn
+
+Với một ứng dụng và một DB, sựcốtrung tâm có thểlàm gián đoạn quét tựđộng. Phương án
+ban đầu là khôi phục dịch vụvà đểbảo vệghi nhận sựcốtrong thời gian chờ. Nếu TMC yêu
+cầu tiếp tục tựđộng khi mất WAN, nhóm cần bổsung chương trình tại nhà máy có lưu cục bộ,
+đồng bộvà kiểm tra quyền ngoại tuyến.
+
+     Phân quyền theo nguyên tắc mặc định từchối chỉáp dụng cho truy cập thông thường. Khi
+thoát hiểm, cháy, mất điện hoặc mởcơ khẩn cấp, cổng tuân theo cơ chếan toàn của nhà máy và
+TCS. Dữliệu những lượt này được đối soát sau đểbảo đảm phần mềm chấm công không cản trở
+việc sơ tán.
+
+
+9 Các quyết định kiến trúc
+
+Phần này ghi lại những lựa chọn chính, lý do chọn và ảnh hưởng của chúng tới hệthống. Nhóm
+dùng các quyết định này làm cơ sởcho M2. Các điểm phụthuộc API, chính sách nhân sựvà điều
+kiện vận hành được tổng hợp trong sổrủi ro ởMục 11.
+
+
+9.1 ADR-01: Tổchức ứng dụng theo mô-đun nghiệp vụ
+
+Bối cảnh. TMC có hai nhà máy với khoảng 1.400 nhân viên. Nhóm cần một cấu trúc dễphân
+công, kiểm thửvà triển khai trong M2 (NFR-1, NFR-5).
+
+    Quyết định. Sáu mô-đun được triển khai trong một ứng dụng. Mỗi mô-đun có giao diện
+lập trình riêng, chia lớp bên trong và quản lý các bảng thuộc trách nhiệm của mình. Phần khởi
+tạo đối tượng được tập trung tại một nơi.
+
+   Hệquảvà phương án khác. Cách này giữgiao dịch và triển khai đơn giản, nhưng sự
+cốtiến trình có thểảnh hưởng toàn ứng dụng. Phương án phân lớp truyền thống vẫn phù hợp ở
+mức cơ bản; tách thành microservices sẽđược xem xét khi có nhu cầu phát hành, mởrộng hoặc
+vận hành độc lập rõ hơn.
+
+
+9.2 ADR-02: Dùng DB quan hệvà kiểm soát ghi trùng
+
+Bối cảnh. Yêu cầu từkiosk hoặc thông báo từTCS có thểđược gửi nhiều lần. Dữliệu công và
+nhật ký cần được lưu nhất quán (FR-3.1–3.3, NFR-2).
+
+    Quyết định. Nhóm chọn PostgreSQL, phân bảng theo mô-đun. Yêu cầu và nhật ký được
+lưu cùng giao dịch; khi hoàn tất, kết quảvà công cũng được lưu nguyên tử. Cơ chếchống trùng
+kết hợp khóa UNIQUE, requestHash, CAS và trảlại trạng thái đã có. DB được cấu hình WAL,
+ghi bền vững và sao lưu đểphục hồi.
+
+   Hệquảvà phương án khác. Một DB giúp các mô-đun chia sẻgiao dịch cục bộ. Tuy
+nhiên, khóa duy nhất trong DB chỉngăn bản ghi trùng; việc ngăn phát lệnh mởlặp còn cần quy
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 20
+=== PAGE 28 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+trình ởADR-03. Mỗi mô-đun có DB riêng sẽlàm giao dịch và báo cáo phức tạp hơn ởquy mô
+hiện tại.
+
+
+9.3 ADR-03: Lưu yêu cầu trước khi mởvà đối soát UNKNOWN
+
+Bối cảnh. Lệnh có thểđã đến cổng dù ứng dụng không nhận được phản hồi. DB và TCS cũng
+không cùng tham gia một giao dịch (FR-2.3, FR-3.6).
+
+    Quyết định. Hệthống lưu yêu cầu, nhận quyền gửi bằng CAS và chuyển sang
+DISPATCHING trước khi gọi TCS. Kết quảchưa rõ được giữởUNKNOWN. Chỉtruy vấn hoặc
+gửi lại cùng commandId khi API có cơ chếan toàn; trường hợp còn lại do SEC kiểm tra và đối
+soát.
+
+    Hệquảvà phương án khác. Nhóm chấp nhận thêm bước xửlý của bảo vệđểhạn chế
+mởlặp. Mởcổng trước rồi mới lưu có nguy cơ mất dấu vết; gửi lại mọi lệnh hết thời gian chờcó
+nguy cơ tạo tác động lần hai. Mức bảo đảm ởthiết bịphụthuộc đặc tảcủa TCS.
+
+
+9.4 ADR-04: Dùng QR tĩnh có chữký và khảnăng thu hồi
+
+Bối cảnh. QR tĩnh thuận tiện khi nhân viên nhận ảnh qua email hoặc lưu trên điện thoại, nhưng
+ảnh có thểbịsao chép (FR-1.2–1.4).
+
+    Quyết định. Mỗi mã gắn với một định danh ngẫu nhiên. Token được ký theo keyId và
+kiểm tra trực tuyến cùng trạng thái nhân viên, quyền và thông tin thu hồi. Tên, lịch sửcông
+được lưu riêng; hạn dùng được cấu hình theo chính sách.
+
+    Hệquảvà phương án khác. Chữký giúp phát hiện sửa đổi mã, còn việc chia sẻảnh cần
+kết hợp quy trình kiểm tra của SEC và theo dõi quét lặp. TMC cần chấp nhận rủi ro này hoặc
+chọn QR động ởgiai đoạn sau. Khi dùng QR động, email có thểchứa liên kết tới trang hiển thị
+mã.
+
+
+9.5 ADR-05: Ghi công theo nguồn xác nhận và ghép từng khoảng
+
+Bối cảnh. Một lần mởcổng chưa luôn chứng minh nhân viên đã đi qua. Tính từgiờvào đầu
+đến giờra cuối cũng có thểcộng cảthời gian vắng mặt giữa ngày (FR-3.3–3.5).
+
+    Quyết định. Hệthống ưu tiên tín hiệu cảm biến. Nếu TMC đồng ý dùng xác nhận đã
+mởlàm đại diện, evidenceType ghi rõ nguồn này. Thời gian hiện diện được ghép từtừng cặp
+IN/OUT, kểcảqua ngày; dữliệu thiếu hoặc bất thường được giữđểHR kiểm tra.
+
+    Hệquảvà phương án khác. Chất lượng dữliệu công phụthuộc nguồn xác nhận. Scan
+bịtừchối và phản hồi chỉbáo nhận lệnh không tạo công chính thức. Sau hiệu chỉnh, các khoảng
+liên quan được tính lại theo phiên bản; quy tắc công và lương vẫn do HRS xửlý.
+
+
+9.6 ADR-06: Xuất bộdữliệu tháng đã chốt theo phiên bản
+
+Bối cảnh. Dữliệu phải sẵn sàng tại HRS trước 12:00 ngày 1. Việc gửi lại hoặc sửa công sau
+xuất có thểkhiến HRS nhận trùng hoặc dùng hai bộsốliệu khác nhau (FR-4.3–4.5).
+
+    Quyết định. Mỗi lô lưu kỳ, batchId, version, checksum và bộdữliệu cốđịnh. Hệthống
+theo dõi xác nhận xửlý, tra cứu khi mất phản hồi và giữnguyên ID khi gửi lại. Lần sửa tạo phiên
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 21
+=== PAGE 29 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+bản mới, liên kết với lô cũ bằng supersedesBatchId. Tác vụxuất được lưu trong DB và có lịch
+cảnh báo.
+
+    Hệquảvà phương án khác. HRS cần hỗtrợcập nhật hoặc thay thếtheo khóa và phiên
+bản đã thống nhất. Gửi lại toàn tháng bằng một ID mới tùy ý dễlàm cộng lặp, còn chỉxuất thủ
+công phụthuộc người vận hành. Cách nhận lô và xác nhận hoàn tất phải được kiểm thửvới HRS.
+
+
+9.7 ADR-07: Tách bộchuyển đổi API và lưu tác vụnền trong DB
+
+Bối cảnh. API chi tiết của TCS/HRS chưa có trong đề. Nhóm vẫn cần xây dựng và kiểm thử
+nghiệp vụtrước khi kết nối hệthống thật (NFR-5).
+
+    Quyết định. TurnstileGateway và HrExporter định nghĩa giao tiếp cần dùng. Bộchuyển
+đổi thật và bản mô phỏng cùng tuân theo giao tiếp này. Tác vụxuất, đối soát và thông báo được
+lưu bền vững trong DB, kèm khóa kiểm soát chạy đồng thời.
+
+   Hệquảvà phương án khác. Nhóm giảm được sốthành phần phải triển khai, đổi lại
+phải theo dõi trạng thái, thời gian chờvà sốlần chạy của tác vụ. Hệthống môi giới thông điệp
+có thểđược bổsung khi tải hoặc sốluồng bất đồng bộtăng.
+
+
+9.8 ADR-08: Kiểm tra vai trò, phạm vi và lưu nhật ký cùng thay đổi
+
+Bối cảnh. Hai người có cùng vai trò có thểchỉđược làm việc với các tổhoặc nhà máy khác
+nhau. Thay đổi công và quyền cần xác định được người chịu trách nhiệm (NFR-3).
+
+    Quyết định. Mọi API kiểm tra cảquyền thao tác lẫn phạm vi đối tượng. Thay đổi quan
+trọng và nhật ký được lưu trong cùng giao dịch. SEC dùng tài khoản cá nhân; kiosk có quyền
+thiết bịriêng. ADM quản trịhệthống, còn HR phụtrách hiệu chỉnh công.
+
+    Hệquảvà phương án khác. Máy chủchịu trách nhiệm thực thi quyền, kểcảkhi giao
+diện đã ẩn chức năng. Người có nhiều vai trò cần được rà soát đểgiữnguyên tắc tách nhiệm vụ.
+Phạm vi cụthểđược TMC phê duyệt theo tổchức thực tế.
+
+
+9.9 ADR-09: Lưu giữvà xóa dữliệu theo chính sách
+
+Bối cảnh. Dữliệu cá nhân nằm trong hồsơ, nhật ký, lô xuất và bản sao lưu. Mỗi loại có mục
+đích sửdụng và yêu cầu lưu giữkhác nhau (NFR-4).
+
+    Quyết định. TMC xác định mục đích, căn cứxửlý và thời hạn theo từng loại dữliệu.
+Hệthống kiểm tra yêu cầu giữchứng cứtrước khi xóa, phân quyền thao tác và ghi nhật ký. Sau
+khôi phục, các yêu cầu xóa còn hiệu lực được rà soát lại. Mức bảo vệđược đánh giá theo dữliệu
+và cách sửdụng thực tế.
+
+    Hệquảvà phương án khác. Nhóm cần chính sách được phê duyệt đểđặt thời hạn cụ
+thể. Việc nghỉviệc làm hết quyền truy cập ngay, còn xóa lịch sửphải xét nghĩa vụlưu giữ. Thao
+tác xóa được thực hiện qua quy trình có kiểm soát thay vì sửa DB trực tiếp ngoài nhật ký.
+
+
+9.10 ADR-10: Vận hành trực tuyến và phục hồi khi sựcố
+
+Bối cảnh. Yêu cầu của đềtập trung vào vận hành bình thường. Thiết kếcơ sởsửdụng máy chủ
+trung tâm nên cần quy trình khi mất WAN hoặc DB.
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 22
+=== PAGE 30 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+    Quyết định. Kiosk hoạt động trực tuyến và chỉgửi lệnh sau khi lưu yêu cầu. Khi mất kết
+nối, SEC ghi sựcốđểHR đối soát và nhập bù. Nhóm đềxuất RPO 15 phút, RTO 4 giờvà kiểm
+chứng bằng phục hồi thử.
+
+    Hệquảvà phương án khác. Quét tựđộng có thểgián đoạn trong thời gian sựcố. Nếu
+TMC cần tiếp tục tại nhà máy, phải bổsung lưu cục bộ, đồng bộvà chính sách quyền ngoại
+tuyến. Cơ chếan toàn thoát hiểm của TCS luôn được ưu tiên trong tình huống khẩn cấp.
+
+
+10 SOLID, phân quyền và bảo vệdữliệu
+
+
+10.1 Áp dụng SOLID vào thiết kế
+
+10.1.1 S - Single Responsibility
+
+Trong luồng quét, QrVerifier kiểm tra QR và quyền vào cổng, AccessRepository lưu trạng thái,
+TurnstileGateway giao tiếp thiết bịvà AttendanceWriter ghi lượt công. ScanUseCase phối hợp
+các bước này. Khi đổi định dạng token, nhóm sửa phần kiểm tra QR; khi đổi API cổng, nhóm
+sửa bộchuyển đổi TCS. Thuật toán ghép khoảng công được đặt riêng trong ATT.
+
+
+10.1.2 O - Open/Closed
+
+ExportUseCase sửdụng HrExporter đểgửi dữliệu. Khi HRS đổi phiên bản API, nhóm có thể
+bổsung bộchuyển đổi mới và giữlại quy trình chốt dữliệu, gửi lại và ghi nhật ký. Bộchuyển đổi
+được chọn ởphần khởi tạo ứng dụng; các lớp nghiệp vụchỉlàm việc với giao diện đã thống nhất.
+
+
+10.1.3 L - Liskov Substitution
+
+Bộchuyển đổi thật và bản mô phỏng phải trảkết quảcó cùng ý nghĩa. Ví dụ, bản mô phỏng trả
+UNKNOWN khi mất phản hồi sau khi mởvà chỉtrảOPEN_CONFIRMED khi có xác nhận đã
+mở. Hai bản cùng tuân theo hạn chờcục bộ; việc ứng dụng ngừng chờkhông đồng nghĩa thiết bị
+đã hủy lệnh. Nhóm dùng cùng bộkiểm thửgiao tiếp đểkiểm tra các điều kiện này.
+
+
+10.1.4  I - Interface Segregation
+
+Kiosk cần chức năng quét và xem trạng thái yêu cầu của trạm. SEC cần xửlý ngoại lệvà đối
+soát; HR cần hiệu chỉnh và xuất dữliệu; ADM cần tài khoản và cấu hình. Giao diện lập trình
+được tách theo các nhu cầu này đểmỗi bên chỉphụthuộc vào thao tác cần dùng. Máy chủvẫn
+kiểm tra quyền và phạm vi tại từng chức năng.
+
+
+10.1.5 D - Dependency Inversion
+
+Các ca sửdụng phụthuộc giao diện do tầng nghiệp vụđịnh nghĩa. Lớp làm việc với SQL hoặc
+HTTP thực hiện các giao diện đó và được truyền qua hàm khởi tạo. Đoạn TypeScript dưới đây
+minh họa cách kết hợp AccessRepository và TurnstileGateway trong bước gửi lệnh.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 23
+=== PAGE 31 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+
+                          Listing 1: Ví dụgiao diện và lớp gửi lệnh cổng
+
+ type OpenResult =
+   | { kind: "OPEN_CONFIRMED"; vendorRef: string }
+   | { kind: "OPEN_REJECTED"; reason: string }
+   | { kind: "UNKNOWN"; reason: string };
+
+
+ interface TurnstileGateway {
+   open(cmd: OpenCommand, deadlineMs: number): Promise<OpenResult>;
+ }
+ interface CommandStatusReader {
+   status(commandId: string): Promise<OpenResult>;
+ }
+ interface AccessRepository {
+   claimPrepared(commandId: string): Promise<boolean>;
+   complete(commandId: string, result: OpenResult): Promise<void>;
+ }
+ class DispatchOpen {
+   constructor(private repo: AccessRepository,
+               private gateway: TurnstileGateway) {}
+   async execute(cmd: OpenCommand, deadline: number) {
+     if (!(await this.repo.claimPrepared(cmd.commandId))) return;
+     // claimPrepared commits DISPATCHING before external I/O.
+     // Adapter maps ambiguous transport errors to UNKNOWN.
+     const result = await this.gateway.open(cmd, deadline);
+     await this.repo.complete(cmd.commandId, result);
+     // If process stops here, durable state drives reconciliation.
+   }
+ }
+
+     CommandStatusReader được tách riêng đểứng dụng chỉsửdụng khi TCS hỗtrợtra cứu.
+Trong phần hiện thực, complete cần dùng UnitOfWork đểlưu kết quả, công và nhật ký cùng
+nhau. Trước claimPrepared, ứng dụng kiểm tra thời hạn và quyền hiện tại. Nếu lời gọi lỗi hoặc
+tiến trình dừng, DISPATCHING đã lưu sẽđưa yêu cầu vào quy trình đối soát khi phục hồi.
+
+
+10.2 Ma trận phân quyền và phạm vi
+
+
+                Bảng 21: Quyền ứng dụng; dấu – là không cấp mặc định
+
+
+Chức năng                           EMP    SUP    HR      SEC    ADM    EXE
+
+Xem QR/hồsơ/công của mình                   Có      Có      Có       Có       Có      Có
+Quản lý nhân viên/QR/quyền nhà máy               –        –      Phạm vi   –          –         –
+Ngoại lệ, đối soát vật lý tại cổng                      –        –        –        Nhà máy   –         –
+Xem nhật ký cổng                                  –        –       Cần thiết  Nhà máy  Kỹthuật  –
+Hiệu chỉnh công                                    –        –      Phạm vi   –          –         –
+Báo cáo công                                Cá nhân  Tổ     Phạm vi   –          –        Tổng hợp
+Xuất/chạy lại HRS                                 –        –      Phạm vi   –          –         –
+Quản lý tài khoản/vai trò/cấu hình                   –        –        –          –        Có       –
+Tra cứu kiểm toán                                  –        –         Liên quan  Liên quan  Kỹthuật  –
+Yêu cầu xóa theo chính sách                     Cá nhân  Cá nhân  Tiếp nhận  Cá nhân   Thực thi  Cá nhân
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 24
+=== PAGE 32 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+Phạm vi tổhoặc nhà máy được gắn vào lần phân vai trò. EXE chỉxem tổng hợp theo quyền đã
+cấp; ADM chủyếu xem thông tin phục vụvận hành. Quyền khẩn cấp có thời hạn, lý do, phê
+duyệt và được rà soát sau sửdụng. Tài khoản DB và sao lưu được quản lý riêng với tài khoản
+người dùng; người có quyền hạtầng vẫn cần được kiểm soát bằng quy trình vận hành.
+
+
+10.3 Nhật ký kiểm toán và bảo mật
+
+Nhật ký kiểm toán ghi người thực hiện, thao tác, đối tượng, thời gian, lý do và correlationId.
+Các giá trịtrước/sau được chọn theo nhu cầu đối soát đểhạn chếsao chép dữliệu cá nhân. Tài
+khoản ứng dụng chỉđược thêm nhật ký; tác vụxóa theo thời hạn dùng quyền riêng và cần phê
+duyệt. Với báo cáo, nhật ký lưu người tải và phạm vi đã xem. Nhóm cũng đềxuất lưu bản nhật
+ký hạn chếsửa đổi và theo dõi truy cập trực tiếp từhạtầng.
+
+    TLS được dùng trên đường truyền, còn dữliệu lưu trữvà sao lưu được mã hóa theo cấu
+hình nền tảng. Khóa ký QR có keyId đểhỗtrợluân chuyển; nếu lộkhóa, các mã liên quan phải
+được thu hồi. Mỗi kiosk có thông tin xác thực riêng, giới hạn theo trạm và được thu hồi khi mất
+thiết bị. Giao diện web cần kiểm tra dữliệu đầu vào, phiên đăng nhập, CSRF khi dùng cookie
+và giới hạn tần suất. QR dùng đểnhận diện ởcổng; việc xem hồsơ cá nhân vẫn yêu cầu đăng
+nhập.
+
+
+10.4 Quyền riêng tư và chính sách lưu giữ
+
+Luật Bảo vệdữliệu cá nhân số91/2025/QH15 và Nghịđịnh 356/2025/NĐ-CP có hiệu lực từ
+01/01/2026 theo thông tin công bốcủa Chính phủ[4, 5]. Khi triển khai, TMC cần đối chiếu quy
+trình thực tếđểxác định căn cứxửlý, phân loại dữliệu, thời hạn lưu và nghĩa vụliên quan. Dữ
+liệu nhân viên gắn với giờvà cổng được đánh giá theo mục đích sửdụng cùng khảnăng liên kết
+thông tin.
+
+    Từyêu cầu bảo vệdữliệu, nhóm đưa ra các biện pháp sau:
+
+ • Lập danh mục hồsơ, QR, thời gian/cổng/chiều, phân quyền, nhật ký, lô xuất và bản sao
+    lưu. Mỗi loại cần có mục đích và nhóm người được truy cập. Thiết kếQR hiện tại không thu
+   GPS, danh bạhoặc sinh trắc học.
+
+ • Thông báo cho nhân viên vềdữliệu được ghi, mục đích, người nhận, thời hạn lưu và kênh
+    liên hệHR. Việc ghi nhận đã đọc thông báo được tách với việc xác định căn cứxửlý và yêu
+   cầu đồng ý khi áp dụng.
+
+ • TMC phê duyệt thời hạn theo loại dữliệu và nghĩa vụlưu giữ. Dữliệu cần làm chứng cứ
+   được tạm giữtheo chính sách. Khi nhân viên nghỉviệc, quyền truy cập được thu hồi ngay;
+    lịch sửđược xửlý theo thời hạn đã duyệt.
+
+ • Yêu cầu xem, hiệu chỉnh hoặc xóa được xác minh danh tính, giao người xửlý, theo dõi thời
+   hạn và lưu nhật ký. Với dữliệu đã chuyển sang HRS, TMC phối hợp xửlý cảbản sao tại hệ
+   thống nhận.
+
+ • Bản sao lưu có thời hạn và quyền truy cập riêng. Sau phục hồi, bộphận vận hành kiểm tra
+    các yêu cầu xóa còn hiệu lực trước khi đưa dữliệu vào sửdụng. Phần được giữvì nghĩa vụ
+   hợp lệcó lý do và phạm vi truy cập rõ ràng.
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 25
+=== PAGE 33 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+TMC tổchức nhân sựphụtrách bảo vệdữliệu, đánh giá tác động, quản lý đối tác, nơi lưu trữvà
+quy trình sựcốtheo quy định áp dụng. Phần mềm hỗtrợbằng danh mục dữliệu, phân quyền,
+nhật ký và chức năng xuất thông tin phục vụxửlý yêu cầu.
+
+
+11 Kiểm chứng, truy vết và rủi ro
+
+11.1 Kếhoạch kiểm chứng M2
+
+Nhóm lập các kịch bản dưới đây đểkiểm tra thiết kếtrong M2. Kiểm thửnghiệp vụdùng dữliệu
+tổng hợp; bản mô phỏng TCS phải tạo được cảtình huống thiết bịxửlý xong nhưng phản hồi
+bịmất. Kết quảđo sẽđược ghi lại sau khi có bản hiện thực và môi trường thử.
+
+                        Bảng 22: Kếhoạch kiểm thửM2
+
+
+   Mã     Cách thực hiện                            Tiêu chí chấp nhận
+
+    VT-01   Tạo 800 yêu cầu/30 phút tại mỗi nhà máy,   Mỗi phản hồi trong kịch bản cơ sở
+              hai nơi chạy đồng thời. Ban đầu dùng 4      không quá 2 giây. Báo cáo thêm các
+             kiosk/nhà máy, phân bốđều; chạy lại cùng   phân vị, lỗi, UNKNOWN và sốlượt
+            báo cáo và xuất công. Ghi cấu hình máy,     mởthành công.
+            mạng, DB và dữliệu.
+
+    VT-02   Giữtổng tải cửa sổnhưng dồn 80 yêu        Ghi độtrễvà tài nguyên khi dồn tải.
+             cầu/10 giây/nhà máy; phần còn lại rải đều.   Nếu vượt ngưỡng, điều chỉnh thiết
+          Thửthêm 4 kiosk bắt đầu cùng lúc.         kếhoặc đối chiếu lại giảđịnh tải với
+                                         TMC.
+
+    VT-03   Gửi đồng thời nhiều yêu cầu cùng eventId,   Một quyền gửi OPEN, tối đa một
+            cùng nội dung; đổi nội dung nhưng giữmã;    lượt công; trảtrạng thái cũ hoặc
+             quét mới trong thời gian chặn liên tiếp.     HTTP 409 đúng trường hợp.
+
+    VT-04  Dừng ứng dụng trước/sau khi lưu yêu cầu,    Yêu cầu luôn được lưu trước lệnh.
+             sau nhận quyền gửi, sau TCS mởvà trước   DISPATCHING được đối soát khi
+              khi lưu kết quả; khởi động lại.               chưa rõ; việc phục hồi không tạo công
+                                                             trùng.
+
+    VT-05  Mô phỏng TCS mởrồi mất phản hồi, chỉbáo  Trạng thái UNKNOWN/PENDING
+            nhận lệnh, gửi thông báo trùng/sai thứtựvà  phản ánh đúng tình huống; có cảnh
+            đóng thất bại.                            báo và chỉghi công khi đủxác nhận.
+
+    VT-06  Thửnhiều IN/OUT, thiếu lượt, hai IN, qua   Hai khoảng 08–12, 13–17 cho 8 giờ;
+            đêm, qua tháng, sai thứtựvà hai HR sửa     ca 22–06 giữđủlượt. Dữliệu thiếu
+            đồng thời.                                  có cờ; phiên bản ngăn ghi đè thay đổi
+                                                      của người khác.
+
+    VT-07  Cho HRS nhận rồi mất phản hồi, nhận một   Cùng lô không cộng lặp.
+             phần, báo 4xx/5xx; khởi động lại tiến trình   Checksum/sốlượng khớp; phiên bản
+            nền và chạy lại bằng HR.                    thay thếđúng; hoàn tất sau xác nhận
+                                                 xửlý của HRS.
+
+    VT-08   Gọi API bằng sáu vai trò, dùng đối tượng    Mọi trường hợp vượt quyền bịtừchối
+             khác tổ/nhà máy, thay gateId và cho kiosk    trên máy chủvà được ghi nhật ký
+               gọi API HR.                                theo chính sách.
+
+    VT-09  Thửhiệu chỉnh, thu hồi QR, đổi quyền, tải   Nhật ký đủngười, lý do và liên kết.
+            báo cáo, thay cấu hình và xóa theo chính     Thay đổi quan trọng được lưu cùng
+               sách.                                     nhật ký; token đầy đủkhông xuất
+                                                           hiện trong log.
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 26
+=== PAGE 34 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+   Mã     Cách thực hiện                            Tiêu chí chấp nhận
+
+    VT-10   Phục hồi từbản sao lưu và WAL trong môi   Đo RPO/RTO so với mục tiêu 15
+             trường cách ly; đối soát TCS/HRS cùng yêu   phút/4 giờ. Lệnh cũ được kiểm tra
+             cầu xóa dữliệu.                              trước xửlý tiếp; dữliệu phục hồi
+                                                      tuân theo chính sách lưu giữ.
+
+    VT-11  Chạy cùng phép thửgiao tiếp cho bộchuyển  Kết quảvà thời gian chờcó cùng ý
+              đổi thật và mô phỏng; kiểm tra phụthuộc     nghĩa; mô-đun dùng đúng giao diện
+          mã nguồn.                                 và không tạo vòng phụthuộc.
+
+    VT-12   Diễn tập đổi ca khi mất WAN/DB: SEC ghi  Có người nhận việc, giờsựkiện và giờ
+             sựcố, HR nhập bù. Diễn tập xuất tháng gần  nhập riêng, nhật ký đầy đủ. Theo dõi
+              hạn.                            HRS sẵn sàng trước hạn trong điều
+                                                            kiện hai bên thống nhất.
+
+
+
+     Sốlượng 4 làn và kiểu dồn tải là giảđịnh ban đầu cho phép thử. Nhóm sẽcập nhật theo
+sốlàn và lưu lượng thực tếcủa TMC. Với ngưỡng ≤2 giây, báo cáo phải ghi giá trịlớn nhất bên
+cạnh các phân vị. Mỗi lần thửcần lưu phiên bản phần mềm, cấu hình máy, mạng, chương trình
+tạo tải và dữliệu đểcó thểchạy lại.
+
+
+11.2 Đối chiếu yêu cầu, kiến trúc và kiểm thử
+
+
+                   Bảng 23: Truy vết các yêu cầu con vào thiết kế
+
+
+   Yêu cầu          Mô-đun       ADR / góc nhìn         Kiểm chứng
+
+    FR-1.1–1.6       EQR, IAM, CFG  ADR-04, 08, 09; dữliệu   VT-03, 08, 09
+
+    FR-2.1, 2.2       GATE, EQR,     ADR-03, 04, 08; logic/vật  VT-01, 02, 08
+                IAM                lý
+
+    FR-2.3–2.5, 2.7    GATE, ATT,     ADR-03, 05; trạng        VT-03–05, 12
+                IAM               thái/trình tự
+
+    FR-2.6          GATE, job nền   ADR-03, 07, 10; quan sát  VT-05, 12
+
+    FR-3.1–3.3       GATE, ATT,     ADR-02, 03, 05; dữliệu   VT-03–05, 09
+                IAM
+
+    FR-3.4–3.6        ATT, GATE     ADR-05, 10; ghép khoảng  VT-04, 06, 12
+
+    FR-4.1, 4.2, 4.7    RPT, ATT, IAM  ADR-08, 09; phạm vi     VT-01, 06, 08, 09
+
+    FR-4.3–4.5        RPT, ATT       ADR-06, 07; trình tự      VT-07, 12
+                                        xuất
+
+    FR-4.6           IAM, mọi ca sử   ADR-02, 08; UnitOfWork  VT-08, 09
+                     dụng
+
+    FR-5.1–5.4        IAM, CFG, vận   ADR-08–10; triển khai    VT-08–10, 12
+                     hành
+
+   NFR-1          GATE, DB, TCS  ADR-01, 03; QA-01       VT-01, 02, 05
+
+   NFR-2          GATE, ATT, DB ADR-02, 03, 05; QA-02,   VT-03–07
+                                       03
+
+   NFR-3, NFR-4     IAM, mọi mô-    ADR-08, 09; QA-04, 08    VT-08–10
+                    đun
+
+   NFR-5           Mọi mô-đun      ADR-01, 07; QA-06,      VT-11
+                                SOLID
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 27
+=== PAGE 35 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+   Yêu cầu          Mô-đun       ADR / góc nhìn         Kiểm chứng
+
+   NFR-6           DB, backup, vận  ADR-02, 10; QA-07       VT-10, 12
+                     hành
+
+
+
+     Bảng 23 nối các yêu cầu với phần thiết kếvà phép thửtương ứng. Bối cảnh nằm ởMục 1;
+đặc tính kiến trúc và lựa chọn phong cách ởMục 3–4; kiến trúc logic và vật lý ởMục 5, 8; ADR
+và nguyên tắc thiết kếởMục 9–10.
+
+
+11.3 Rủi ro và các điểm cần làm rõ
+
+
+                    Bảng 24: Rủi ro còn lại và trách nhiệm xửlý
+
+
+   Mã    Rủi ro / mức                   Biện pháp và điều kiện đóng         Bên xác
+                                                                       nhận
+
+   R-01  TCS thiếu chống trùng/tra cứu,  Thống nhất API, giữUNKNOWN và  Nhà cung
+          phản hồi chỉbáo nhận lệnh; cao  đểSEC đối soát. Xác định nguồn đủ    cấp TCS,
+                                                   tin cậy đểghi công trước khi nghiệm  TMC
+                                               thu.
+
+   R-02  QR tĩnh bịchia sẻ; cao         Thu hồi, theo dõi quét liên tiếp và     HR, an ninh
+                                        kiểm tra của SEC. TMC quyết định
+                                         chấp nhận rủi ro hoặc bổsung QR
+                                          động/biện pháp nhận diện.
+
+   R-03  HRS chưa xửlý trùng/thay      Thống nhất khóa, định dạng, xác     Nhà cung
+           phiên bản; cao                nhận lô và chạy thử; giữcùng ID cho   cấp HRS,
+                                        cùng dữliệu gửi lại.            HR
+
+   R-04  WAN/TCS chậm hơn phân bổ;   Đo tuyến thật, sốlàn và tải dồn; xem   IT, nhà
+           cao                               xét điều phối tại nhà máy nếu khó đạt  cung cấp
+                                         2 giây.
+
+   R-05   Sựcốứng dụng/DB dừng quét   Sao lưu, WAL, phục hồi thửvà quy     IT, vận
+          tựđộng; trung bình–cao           trình SEC. Bổsung dựphòng hoặc     hành
+                                            ngoại tuyến nếu TMC cần liên tục.
+
+   R-06   Ca qua tháng hoặc sửa muộn    Thống nhất thời điểm chốt, phiên     HR, HRS
+          làm HRS lệch; cao               bản, cờthiếu và cách thay thế. Thử
+                                               tình huống biên trước nghiệm thu.
+
+   R-07   Chưa duyệt chính sách dữ       Hoàn thành danh mục, căn cứxửlý,   TMC, phụ
+             liệu/lưu giữ; cao                   thời hạn, giữchứng cứvà quy trình     trách dữliệu
+                                          yêu cầu; kiểm tra nơi lưu và đối tác.
+
+   R-08   Vi phạm ranh giới mô-đun, báo  Kiểm tra phụthuộc, rà soát mã, giới   Nhóm phát
+           cáo chiếm DB; trung bình       hạn tác vụ/truy vấn và đo tải đồng      triển
+                                                    thời.
+
+
+11.4 Lộtrình và kết luận thiết kế
+
+Trước M2, nhóm làm rõ API TCS/HRS, quy tắc ca và hiệu chỉnh, phạm vi quyền và tải tại cổng.
+Phần hiện thực bắt đầu từmột luồng đầy đủ: quét QR, lưu yêu cầu, gọi TCS mô phỏng, ghi công
+và nhật ký. Sau khi thửcác tình huống lỗi và đối soát, nhóm hoàn thành xuất dữliệu, báo cáo
+và phục hồi. Bản tích hợp được kiểm tra lại trên tuyến thật trước nghiệm thu.
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 28
+=== PAGE 36 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+
+     Với hai nhà máy hiện tại, nhóm chọn modular monolith đểgiữviệc triển khai và quản lý
+giao dịch gọn hơn. Các mô-đun có trách nhiệm rõ, kết nối thiết bịqua bộchuyển đổi và lưu đủ
+thông tin đểxửlý sựcố. Các phép thửM2 sẽcho biết thiết kếđáp ứng đến đâu và phần nào cần
+điều chỉnh trước khi đưa vào vận hành.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 29
+=== PAGE 37 ===
+       Trường Đại học Bách Khoa - ĐHQG TP.HCM
+       Khoa Khoa học và Kỹthuật Máy tính
+
+Tài liệu tham khảo
+
+[1] PostgreSQL Global Development Group, Write-Ahead Logging (WAL). https://www.postgr
+   esql.org/docs/current/wal-intro.html. Truy cập 24/10/2026.
+
+[2] PostgreSQL Global Development Group, Constraints. https://www.postgresql.org/docs/
+   current/ddl-constraints.html. Truy cập 24/10/2026.
+
+[3] Amazon Builders’ Library, Making retries safe with idempotent APIs. https://aws.amaz
+   on.com/builders-library/making-retries-safe-with-idempotent-APIs/. Truy cập
+   24/10/2026.
+
+[4] Quốc hội, Luật Bảo vệdữliệu cá nhân số91/2025/QH15; thông tin văn bản chính thức trên
+   Cổng thông tin điện tửChính phủ. https://vanban.chinhphu.vn/?pageid=27160&docid
+   =214590. Truy cập 24/10/2026.
+
+[5] Chính phủ, Nghịđịnh 356/2025/NĐ-CP quy định chi tiết một sốđiều và biện pháp thi hành
+   Luật Bảo vệdữliệu cá nhân; thông tin văn bản chính thức. https://vanban.chinhphu.vn
+   /?pageid=27160&docid=216387. Truy cập 24/10/2026.
+
+
+
+
+
+Kiến trúc phần mềm - HK261                                                               Trang 30
