@@ -10,14 +10,14 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "Building API for TypeORM migrations..."
-pnpm --filter @tmc/api build
+pnpm.cmd --filter @tmc/api build
 if ($LASTEXITCODE -ne 0) {
   throw "API build failed."
 }
 
 $env:DB_ACTION = "status"
 Write-Host "Running pending TypeORM migrations..."
-pnpm --filter @tmc/api exec typeorm migration:run -d dist/platform/infrastructure/database/data-source.js
+pnpm.cmd --filter @tmc/api exec typeorm migration:run -d dist/platform/infrastructure/database/data-source.js
 if ($LASTEXITCODE -ne 0) {
   throw "TypeORM migration failed."
 }

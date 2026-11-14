@@ -384,6 +384,7 @@ export default function Kiosk() {
                   </Title>
                   <div className="text-label-sm text-text-secondary">
                     {result.reason}
+                    {result.allowed && <p className="mt-lg">Kết quả mô phỏng cấp quyền, chưa xác nhận người đã qua cổng. Chỉ ghi công khi có bằng chứng qua cổng hợp lệ.</p>}
                   </div>
                   {result.employee && (
                     <Person

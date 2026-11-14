@@ -1,0 +1,70 @@
+/* TMC reference F01–F05: semantic bridge shared by Astra and MUI. */
+:root:not(.dark) {
+  --brand-primary: #1e3a5f;
+  --brand-hover: #152c49;
+  --brand-dark: #0f2139;
+  --brand-secondary: #ccfbf1;
+  --brand-tertiary: #f8fafc;
+  --brand-muted: #e2e8f0;
+  --on-brand: #fff;
+  --surface-bg: #fff;
+  --surface-secondary-bg: #f1f5f9;
+  --bg-faint: #f1f5f9;
+  --input-bg: #fff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --border-secondary: #e2e8f0;
+  --border-primary: #64748b;
+  --success: #dcfce7;
+  --danger: #991b1b;
+  --tmc-positive: #166534;
+}
+:root { --corner-md: 8px; --corner-lg: 12px; --tmc-accent: #0f766e; --tmc-focus: #2563eb; }
+.dark { --tmc-accent: #5eead4; --tmc-focus: #93c5fd; }
+body { font-size: 14px; line-height: 1.57; }
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--tmc-focus); outline-offset: 2px;
+}
+.text-title { font-size: 28px; line-height: 36px; font-weight: 700; letter-spacing: -.025em; }
+.text-heading { font-size: 20px; line-height: 28px; font-weight: 600; }
+.text-label-sm { font-size: 14px; line-height: 22px; }
+.text-video-title { font-size: 12px; line-height: 18px; }
+.app-navigation { width: 240px; border-right: 1px solid var(--border-secondary); }
+.app-content { width: 100%; max-width: 1440px; margin-inline: auto; padding: 32px; }
+.app-topbar, .app-footer { border-color: var(--border-secondary); }
+.surface-card { border: 1px solid var(--border-secondary); border-radius: 12px; padding: 24px; box-shadow: none; }
+.page-header { gap: 24px; margin-bottom: 24px; }
+.stat-value { font-size: 32px; line-height: 40px; font-variant-numeric: tabular-nums; }
+.stat-icon { color: var(--tmc-accent); background: var(--surface-secondary-bg); border-radius: 8px; }
+.data-table { max-width: 100%; overflow-x: auto; border-radius: 8px; }
+.data-table td { font-variant-numeric: tabular-nums; }
+.table-footer { gap: 16px; flex-wrap: wrap; padding-block: 16px; }
+.tmc-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 8px; font-size: 12px; line-height: 18px; font-weight: 600; white-space: nowrap; }
+.tmc-status svg { flex-shrink: 0; }
+.tmc-status--success { color: #166534; background: #f0fdf4; }
+.tmc-status--warning { color: #92400e; background: #fffbeb; }
+.tmc-status--danger { color: #991b1b; background: #fef2f2; }
+.tmc-status--brand { color: #1e40af; background: #eff6ff; }
+.tmc-status--default { color: #475569; background: #f1f5f9; }
+.dark .tmc-status { background: var(--surface-secondary-bg); color: var(--text-primary); border: 1px solid currentColor; }
+.skip-link { position: fixed; top: 8px; left: 8px; z-index: 1800; padding: 12px 16px; background: var(--surface-bg); color: var(--text-primary); transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+.app-content:focus { outline: none; }
+.menu-backdrop { display: none; }
+@media (max-width: 1199px) { .app-content { padding: 24px; } }
+@media (max-width: 767px) {
+  .menu-backdrop { display: block; position: fixed; inset: 0; z-index: 35; background: #0f172a80; border: 0; }
+  .app-navigation { overflow-y: auto; max-width: calc(100vw - 48px); }
+}
+@media (max-width: 599px) {
+  .app-content { padding: 16px; }
+  .surface-card { padding: 16px; }
+  .page-header .text-title { font-size: 24px; line-height: 32px; }
+  .app-topbar .text-label-sm, .stat-card .text-label-sm { font-size: 14px; }
+  .filters-row > * { min-width: 0; max-width: 100%; }
+  button, [role=button] { min-height: 44px; }
+  .table-footer button { min-width: 44px; }
+}
+.kiosk-main button { min-height: 48px; }
+button { border-radius: 8px; }

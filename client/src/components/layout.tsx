@@ -116,6 +116,8 @@ export default function DesktopLayout() {
   const pending = db.adjustments.filter((a) => a.status === "pending").length
   return (
     <div className="desktop-app">
+      <a className="skip-link" href="#main-content">Đến nội dung chính</a>
+      {menu && <button className="menu-backdrop" aria-label="Đóng điều hướng" onClick={() => setMenu(false)} />}
       <div className="app-rail">
         <SidebarNavigation
           footer={
@@ -149,7 +151,7 @@ export default function DesktopLayout() {
           ))}
         </SidebarNavigation>
       </div>
-      <aside className={`app-navigation ${menu ? "is-open" : ""}`}>
+      <aside id="app-navigation" aria-label="Điều hướng chính" onKeyDown={(event) => { if (event.key === "Escape") { setMenu(false); document.getElementById("navigation-toggle")?.focus() } }} className={`app-navigation ${menu ? "is-open" : ""}`}>
         <div className="nav-brand">
           <Brand />
         </div>
@@ -251,7 +253,10 @@ export default function DesktopLayout() {
             <span className="mobile-menu">
               <IconButton
                 variant="subtle"
-                aria-label="Mở điều hướng"
+                id="navigation-toggle"
+                aria-label={menu ? "Đóng điều hướng" : "Mở điều hướng"}
+                aria-expanded={menu}
+                aria-controls="app-navigation"
                 icon={<Menu size={16} />}
                 onClick={() => setMenu(!menu)}
               />
@@ -300,7 +305,7 @@ export default function DesktopLayout() {
             </Button>
           </div>
         )}
-        <main className="app-content">
+        <main id="main-content" tabIndex={-1} className="app-content">
           <Outlet />
         </main>
         <footer className="app-footer">
