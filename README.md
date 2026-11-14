@@ -57,10 +57,24 @@ Chạy cả backend và frontend:
 $env:DEMO_PASSWORD = "mat-khau-demo"
 $env:DEMO_STATION_SECRET = "station-secret-demo"
 pnpm --dir api seed:demo
-pnpm dev:full
+pnpm.cmd dev:full
 ```
 
-`pnpm dev` chỉ chạy frontend; `pnpm dev:full` chạy API PostgreSQL và frontend cùng lúc.
+`run.ps1` đọc cấu hình PostgreSQL local từ `api/env-variable.txt` và tạo `DATABASE_URL` chỉ trong process chạy.
+Các chế độ chạy:
+
+```powershell
+# Mặc định: kiểm tra database, build/chạy API và chạy Vite client
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1
+
+# Chỉ frontend; API phải chạy sẵn tại VITE_API_URL
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1 --frontend
+
+# Chỉ backend; kiểm tra database và build API trước
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1 --backend
+```
+
+`pnpm.cmd dev` chỉ chạy frontend; `pnpm.cmd dev:full` chạy API và frontend cùng lúc.
 
 Ảnh minh họa: Sam Moghadam / Unsplash, được lưu cục bộ để preview ổn định. Font Instrument Sans được lưu cục bộ; giấy phép ở `public/fonts/OFL.txt`.
 

@@ -3,12 +3,13 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "packageManager": "pnpm@10.34.3",
   "scripts": {
-    "dev": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",
-    "dev:client": "pnpm --dir client dev",
-    "dev:full": "powershell -ExecutionPolicy Bypass -File scripts/dev.ps1",
-    "build": "pnpm --dir client build",
-    "preview": "pnpm --dir client preview",
+    "dev": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1 --frontend",
+    "dev:client": "pnpm.cmd --dir client dev",
+    "dev:full": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1",
+    "build": "pnpm.cmd --dir client build",
+    "preview": "pnpm.cmd --dir client preview",
     "format": "oxfmt"
   },
   "dependencies": {
