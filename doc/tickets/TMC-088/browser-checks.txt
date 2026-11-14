@@ -1,0 +1,7 @@
+﻿["tmc-access-session:v1","astra-theme"]
+desktop {"width":1440,"scroll":1440,"brand":"#1e3a5f"}
+tablet {"width":768,"scroll":768,"brand":"#1e3a5f"}
+phone {"width":390,"scroll":390,"brand":"#1e3a5f"}
+kiosk {"width":1024,"scroll":1009,"brand":"#1e3a5f"}
+PASS: four viewports, rendered cards, no page overflow, menu toggle and Escape focus restoration (mock bootstrap).
+PASS: dark/light theme and real shared status chip text + icon rendering (mock bootstrap).
