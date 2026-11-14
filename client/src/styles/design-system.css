@@ -68,3 +68,4 @@ body { font-size: 14px; line-height: 1.57; }
 }
 .kiosk-main button { min-height: 48px; }
 button { border-radius: 8px; }
+.auth-card { width: min(100%, 440px); max-width: 440px; text-align: left; }

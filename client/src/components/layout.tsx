@@ -165,7 +165,7 @@ export default function DesktopLayout() {
               Không gian doanh nghiệp
             </div>
           </div>
-          <Badge label="Demo" variant="brand" />
+          <Badge label="Máy chủ" variant="brand" />
         </div>
         <div className="text-video-title text-text-secondary nav-caption">
           QUẢN LÝ VẬN HÀNH
@@ -196,13 +196,13 @@ export default function DesktopLayout() {
           )}
         </SecondaryNav>
         <div className="nav-bottom">
-          <div className="nav-demo">
+          <div className="nav-kiosk">
             <ScanLine size={24} className="text-brand-primary" />
             <div className="text-label-sm font-semibold mt-lg">
               Trải nghiệm tại cổng
             </div>
             <div className="text-video-title text-text-secondary mt-xs mb-lg">
-              Quét mã và xem dữ liệu cập nhật ngay.
+              Kết nối trạm qua API khi được triển khai.
             </div>
             {hasAccess(account.role, "kiosk") ? (
               <Button
@@ -239,9 +239,8 @@ export default function DesktopLayout() {
               variant="subtle"
               icon={<LogOut size={16} />}
               aria-label="Đăng xuất"
-              onClick={() => {
-                logout()
-                navigate("/dang-nhap")
+              onClick={async () => {
+                if (await logout()) navigate("/dang-nhap")
               }}
             />
           </div>
@@ -275,7 +274,7 @@ export default function DesktopLayout() {
             </span>
             <span className="system-live">
               <span />
-              Hệ thống ổn định
+              Phiên đã xác thực
             </span>
             <ThemeToggle />
             <IconButton
@@ -310,7 +309,7 @@ export default function DesktopLayout() {
         </main>
         <footer className="app-footer">
           <span>TMC Access · Không gian vận hành thông minh</span>
-          <span>Dữ liệu mô phỏng · Chỉ lưu trên trình duyệt này</span>
+          <span>Dữ liệu từ máy chủ · Theo phạm vi được cấp</span>
         </footer>
       </div>
     </div>

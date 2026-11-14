@@ -26,18 +26,14 @@ const Kiosk = lazy(() => import("../features/kiosk/Kiosk"))
 function Guard({
   module,
   children,
-  publicDemo = false,
 }: {
   module?: string
   children: ReactNode
-  publicDemo?: boolean
 }) {
   const { account } = useApp(),
     location = useLocation()
   if (!account)
-    return publicDemo ? (
-      children
-    ) : (
+    return (
       <Navigate
         to={`/dang-nhap?returnTo=${encodeURIComponent(location.pathname + location.search)}`}
         replace
@@ -139,7 +135,7 @@ export default function Router() {
         <Route
           path="/kiosk"
           element={
-            <Guard module="kiosk" publicDemo>
+            <Guard module="kiosk">
               <Kiosk />
             </Guard>
           }

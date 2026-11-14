@@ -30,3 +30,4 @@ env-variable.txt
 /.codex
 /.github
 /plans
+!.env.example

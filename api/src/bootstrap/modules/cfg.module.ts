@@ -1,9 +1,10 @@
+import { IamModule } from "./iam.module"
 import { Module } from "@nestjs/common"
 import { DatabaseModule } from "./database.module"
-import { DemoBootstrapController } from "../../modules/cfg/presentation/demo-bootstrap.controller"
+import { WorkspaceController } from "../../modules/cfg/presentation/workspace.controller"
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [DemoBootstrapController],
+  imports: [DatabaseModule, IamModule],
+  controllers: [WorkspaceController],
 })
 export class CfgModule {}

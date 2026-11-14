@@ -1,8 +1,0 @@
-{
-  "crossFactoryEmployeeCode": "TMC0001",
-  "revokedEmployeeCode": "TMC0003",
-  "inactiveEmployeeCode": "TMC0004",
-  "requiredRoles": ["EMP", "HR", "SUP", "SEC", "ADM", "EXE"],
-  "requiredDirections": ["IN", "OUT"],
-  "requiredFactories": ["BD", "LA"]
-}

@@ -44,7 +44,7 @@ const schema = z.object({
   code: z.string().regex(/^TMC\d{4,6}$/, "Mã theo định dạng TMC0001"),
   title: z.string().trim().min(2, "Nhập chức danh"),
   department: z.string().min(1),
-  site: z.enum(["bd", "la"]),
+  site: z.enum(["bd", "la", "unknown"]),
   shiftId: z.string().min(1),
   status: z.enum(["active", "inactive"]),
 })

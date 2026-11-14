@@ -298,7 +298,7 @@ export default function Access() {
                         Nhà máy {sites[g.site]}
                       </div>
                       <div className="text-video-title text-text-secondary mt-xl">
-                        Thiết bị QR · {g.id.toUpperCase()} · Trạng thái demo
+                        Thiết bị QR · {g.id.toUpperCase()} · Cấu hình máy chủ
                       </div>
                       {canManage(account.role, "gates") && (
                         <div className="mt-xl">
