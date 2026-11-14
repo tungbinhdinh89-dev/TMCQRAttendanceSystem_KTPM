@@ -1,0 +1,20 @@
+% Bố cục cố định theo tọa độ của bản gốc, đơn vị PDF point (bp).
+% Chữ, bảng và sơ đồ được dựng bằng LaTeX/TikZ; chỉ logo dùng ảnh gốc.
+\usepackage[paperwidth=595.276bp,paperheight=841.890bp,margin=0pt]{geometry}
+\usepackage{fix-cm}
+\usepackage{fontspec}
+\newfontfamily\ReportRoman{cmunrm.otf}
+\newfontfamily\ReportBold{cmunbx.otf}
+\newfontfamily\ReportItalic{cmunti.otf}
+\newfontfamily\ReportMono{cmuntt.otf}
+\usepackage{graphicx,tikz}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\newcommand{\ReportText}[5]{%
+  \resizebox{#1bp}{!}{{#3\fontsize{#2bp}{#2bp}\selectfont\color[rgb]{#4}#5}}}
+\newenvironment{ReportPage}{%
+  \noindent\begin{tikzpicture}[remember picture,overlay,x=1bp,y=-1bp]
+  \begin{scope}[shift={(current page.north west)}]
+}{%
+  \end{scope}\end{tikzpicture}\null\clearpage
+}

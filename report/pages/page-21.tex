@@ -1,0 +1,81 @@
+% Trang 21 của Report.pdf. Chữ UTF-8 và nét vẽ TikZ có thể chỉnh sửa.
+\begin{ReportPage}
+\path[line width=0.398bp,line cap=butt,line join=miter,draw={rgb,1:red,0;green,0;blue,0},draw opacity=1] (70.866,73.90002) -- (530.07898,73.90002);
+\path[line width=0.299bp,line cap=butt,line join=miter,draw={rgb,1:red,0;green,0;blue,0},draw opacity=1] (70.866,791.62) -- (530.07898,791.62);
+\node[anchor=north west,inner sep=0pt] at (70.866,46.7751) {\includegraphics[width=26.66104bp,height=26.92589bp]{figures/original/image-263.png}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (109.902,57.68604) {\ReportText{203.72517}{9.9626}{\ReportRoman}{0,0,0}{Trường Đại học Bách Khoa - ĐHQG TP.HCM}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (109.902,69.64203) {\ReportText{167.93946}{9.9626}{\ReportRoman}{0,0,0}{Khoa Khoa học và Kỹ thuật Máy tính}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,99.10199) {\ReportText{137.28163}{11.9552}{\ReportBold}{0.11765,0.16078,0.23137}{6.2 Giao tiếp với kiosk}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,122.31799) {\ReportText{242.31296}{10.9091}{\ReportRoman}{0,0,0}{Kiosk gửi eventId, token và phiên bản giao thức tới}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (313.17896,122.31799) {\ReportText{175.52701}{10.9091}{\ReportMono}{0,0,0}{ POST/api/kiosk/access-attempts}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (488.70596,122.31799) {\ReportText{41.38907}{10.9091}{\ReportRoman}{0,0,0}{. eventId}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,137.89996) {\ReportText{459.18588}{10.9091}{\ReportRoman}{0,0,0}{được tạo trước lần gửi đầu và giữ nguyên khi gửi lại. Máy chủ xác định stationId, gateId từ thông}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,153.48096) {\ReportText{459.1749}{10.9091}{\ReportRoman}{0,0,0}{tin xác thực của trạm, rồi chuẩn hóa nội dung để tính requestHash. Giá trị này được tính từ dấu}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,169.06293) {\ReportText{459.20761}{10.9091}{\ReportRoman}{0,0,0}{vân tay token, trạm, chiều đi và các trường cố định của yêu cầu; thời điểm gửi lại được loại ra.}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,184.64392) {\ReportText{454.45132}{10.9091}{\ReportRoman}{0,0,0}{Phản hồi gồm eventId, decision, commandState, attendanceState, reasonCode và correlationId.}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (99.213,203.49792) {\ReportText{94.82188}{10.9091}{\ReportRoman}{0,0,0}{Kết quả trả về gồm}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (194.03488,203.49792) {\ReportText{38.68365}{10.9091}{\ReportMono}{0,0,0}{ DENIED}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (232.71854,203.49792) {\ReportText{3.03273}{10.9091}{\ReportRoman}{0,0,0}{,}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (235.75127,203.49792) {\ReportText{85.26534}{10.9091}{\ReportMono}{0,0,0}{ OPEN\_CONFIRMED}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (321.0166,203.49792) {\ReportText{3.03271}{10.9091}{\ReportRoman}{0,0,0}{,}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (324.04932,203.49792) {\ReportText{44.60718}{10.9091}{\ReportMono}{0,0,0}{ PENDING}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (368.65649,203.49792) {\ReportText{25.72366}{10.9091}{\ReportRoman}{0,0,0}{ hoặc}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (394.38016,203.49792) {\ReportText{44.60718}{10.9091}{\ReportMono}{0,0,0}{ UNKNOWN}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (438.98734,203.49792) {\ReportText{91.12369}{10.9091}{\ReportRoman}{0,0,0}{. Nếu cùng mã yêu}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,219.07892) {\ReportText{459.19669}{10.9091}{\ReportRoman}{0,0,0}{cầu nhưng khác nội dung, máy chủ trả HTTP 409. Nếu lỗi xảy ra trước khi lưu, kiosk báo chưa}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,234.66089) {\ReportText{459.16397}{10.9091}{\ReportRoman}{0,0,0}{ghi nhận và hệ thống dừng trước bước gọi TCS. Chỉ trạm tạo yêu cầu hoặc người có quyền mới}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,250.24188) {\ReportText{459.15323}{10.9091}{\ReportRoman}{0,0,0}{được tra cứu trạng thái theo eventId. Màn hình công cộng hiển thị lý do ngắn gọn; chi tiết nhạy}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,265.82288) {\ReportText{459.14236}{10.9091}{\ReportRoman}{0,0,0}{cảm được giữ trong phần tra cứu có phân quyền. Nhóm đề xuất chặn quét liên tiếp cùng mã và}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,281.40485) {\ReportText{399.67667}{10.9091}{\ReportRoman}{0,0,0}{cổng trong 5 giây, trả lại mã tham chiếu của lượt trước để giảm mở cổng nhiều lần.}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,311.62286) {\ReportText{133.85048}{11.9552}{\ReportBold}{0.11765,0.16078,0.23137}{6.3 Giao tiếp với TCS}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,334.83887) {\ReportText{61.56006}{10.9091}{\ReportRoman}{0,0,0}{Phương thức}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (132.42606,334.83887) {\ReportText{312.43631}{10.9091}{\ReportMono}{0,0,0}{ TurnstileGateway.open(commandId,turnstileId,deadline)}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (444.86237,334.83887) {\ReportText{85.26562}{10.9091}{\ReportRoman}{0,0,0}{ trả một trong ba}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,350.42087) {\ReportText{38.56366}{10.9091}{\ReportRoman}{0,0,0}{kết quả:}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (109.42966,350.42087) {\ReportText{84.22922}{10.9091}{\ReportMono}{0,0,0}{ OPEN\_CONFIRMED}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (193.65887,350.42087) {\ReportText{3.03273}{10.9091}{\ReportRoman}{0,0,0}{,}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (196.6916,350.42087) {\ReportText{78.50185}{10.9091}{\ReportMono}{0,0,0}{ OPEN\_REJECTED}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (275.19345,350.42087) {\ReportText{25.51639}{10.9091}{\ReportRoman}{0,0,0}{ hoặc}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (300.70984,350.42087) {\ReportText{43.97446}{10.9091}{\ReportMono}{0,0,0}{ UNKNOWN}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (344.6843,350.42087) {\ReportText{185.4437}{10.9091}{\ReportRoman}{0,0,0}{. OPEN\_CONFIRMED có nghĩa TCS}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,366.00186) {\ReportText{459.12045}{10.9091}{\ReportRoman}{0,0,0}{đã xác nhận thiết bị mở. Trường hợp chỉ nhận được thông báo đã nhận lệnh vẫn phải chờ thêm.}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,381.58386) {\ReportText{459.13132}{10.9091}{\ReportRoman}{0,0,0}{Việc truy vấn trạng thái hoặc nhận thông báo ngược từ TCS phụ thuộc API nhà cung cấp. Lệnh}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,397.16486) {\ReportText{459.19681}{10.9091}{\ReportRoman}{0,0,0}{đóng được theo dõi tương tự; lỗi đóng tạo cảnh báo cho bảo vệ và giữ lại lượt vào/ra đã xác nhận.}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (99.213,416.01785) {\ReportText{430.83308}{10.9091}{\ReportRoman}{0,0,0}{Trước khi tích hợp, nhóm cần làm rõ cách xác thực, khóa chống trùng, thời gian lưu khóa,}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,431.59985) {\ReportText{459.16397}{10.9091}{\ReportRoman}{0,0,0}{ý nghĩa phản hồi, khả năng truy vấn theo commandId và thứ tự thông báo của TCS. Các thông}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,447.18085) {\ReportText{459.16409}{10.9091}{\ReportRoman}{0,0,0}{tin về cảm biến, tự đóng cổng, độ trễ và chế độ mất điện/mạng cũng cần được kiểm tra. Với API}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,462.76285) {\ReportText{459.16415}{10.9091}{\ReportRoman}{0,0,0}{thiếu cơ chế gửi lại an toàn và truy vấn trạng thái, lệnh đã bắt đầu gửi được chuyển cho bảo vệ}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,478.34384) {\ReportText{459.16397}{10.9091}{\ReportRoman}{0,0,0}{đối soát khi mất phản hồi. Giao dịch DB chỉ bảo vệ phần dữ liệu trong hệ thống; việc cổng thực}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,493.92584) {\ReportText{241.08017}{10.9091}{\ReportRoman}{0,0,0}{hiện đúng một lần còn phụ thuộc cơ chế của TCS.}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (99.213,512.77881) {\ReportText{430.78951}{10.9091}{\ReportRoman}{0,0,0}{Nếu có cảm biến qua cổng, AttendanceEvent được tạo từ tín hiệu xác nhận kèm chiều và}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,528.36084) {\ReportText{459.12045}{10.9091}{\ReportRoman}{0,0,0}{thời điểm. Nếu TMC chấp thuận dùng xác nhận đã mở làm đại diện, hệ thống lưu evidenceType}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,543.94183) {\ReportText{459.12045}{10.9091}{\ReportRoman}{0,0,0}{để phân biệt nguồn này với cảm biến. Khi API chỉ báo đã nhận lệnh, SEC cần xác nhận thực tế}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,559.5238) {\ReportText{377.88028}{10.9091}{\ReportRoman}{0,0,0}{hoặc nhóm phải bổ sung kết nối sự kiện thiết bị trước khi ghi công chính thức.}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,589.74182) {\ReportText{228.49979}{11.9552}{\ReportBold}{0.11765,0.16078,0.23137}{6.4 Giao tiếp với HRS và dữ liệu xuất}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,612.95782) {\ReportText{64.44005}{10.9091}{\ReportRoman}{0,0,0}{Phương thức}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (135.30605,612.95782) {\ReportText{164.98915}{10.9091}{\ReportMono}{0,0,0}{ HrExporter.submit(batch)}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (300.2952,612.95782) {\ReportText{229.77835}{10.9091}{\ReportRoman}{0,0,0}{ gửi kỳ tháng, version, batchId, snapshotAt,}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,628.53882) {\ReportText{459.19662}{10.9091}{\ReportRoman}{0,0,0}{schemaVersion, checksum và recordCount. Dữ liệu chi tiết gồm externalHrId, các lượt IN/OUT}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,644.12085) {\ReportText{459.1749}{10.9091}{\ReportRoman}{0,0,0}{có mã nguồn và thời điểm, khoảng hiện diện hợp lệ, cờ thiếu lượt và correctionVersion. Nếu HRS}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,659.70184) {\ReportText{459.14212}{10.9091}{\ReportRoman}{0,0,0}{chỉ nhận tổng hợp, bộ chuyển đổi ánh xạ sang định dạng đã thống nhất với HRS. Các khoảng}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,675.28381) {\ReportText{420.52396}{10.9091}{\ReportRoman}{0,0,0}{chưa hoàn chỉnh vẫn mang cờ để HR đối soát, còn quy tắc công và lương do HRS xử lý.}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (99.213,694.13684) {\ReportText{430.80037}{10.9091}{\ReportRoman}{0,0,0}{Để gửi lại an toàn, hai bên cần thống nhất khóa lô hoặc cách cập nhật theo nguồn và phiên}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,709.71881) {\ReportText{459.1312}{10.9091}{\ReportRoman}{0,0,0}{bản. Phản hồi xác nhận của HRS phải có kỳ, checksum, số bản ghi được nhận/bị từ chối và mã}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,725.2998) {\ReportText{459.14212}{10.9091}{\ReportRoman}{0,0,0}{tham chiếu đối soát. Với API có sẵn, nhóm có thể dùng khóa mà nhà cung cấp hỗ trợ cùng bảng}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,740.88184) {\ReportText{459.15311}{10.9091}{\ReportRoman}{0,0,0}{ánh xạ cục bộ, rồi kiểm thử để xác nhận cách chống trùng. Khi mất phản hồi, ưu tiên tra cứu}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,756.46283) {\ReportText{459.20761}{10.9091}{\ReportRoman}{0,0,0}{trạng thái lô. Lỗi 4xx do định dạng hoặc quyền truy cập được chuyển để sửa; lỗi 5xx và lỗi mạng}};
+% --- Khối văn bản ---
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (70.866,803.74701) {\ReportText{121.10019}{8.9664}{\ReportRoman}{0,0,0}{Kiến trúc phần mềm - HK261}};
+\node[anchor=base west,inner sep=0pt,outer sep=0pt] at (493.97299,803.74701) {\ReportText{36.11661}{8.9664}{\ReportRoman}{0,0,0}{Trang 14}};
+\end{ReportPage}
