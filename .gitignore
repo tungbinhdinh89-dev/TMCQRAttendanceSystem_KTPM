@@ -24,3 +24,10 @@ logs/
 /plans
 /skills/stephen-skills/
 env-variable.txt
+/.agents
+/.codex
+/.github
+/design
+/plans
+/skills
+/stephen-skills
