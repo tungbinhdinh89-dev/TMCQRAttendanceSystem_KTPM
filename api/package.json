@@ -5,9 +5,9 @@
   "scripts": {
     "start:dev": "nest start --watch",
     "build": "nest build",
-    "start": "node dist/main.js",
+    "start": "node scripts/start.mjs",
     "seed:demo": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js",
-    "test": "node --test test/**/*.test.mjs",
+    "test": "pnpm run build && node --test test/auth.service.test.mjs test/bootstrap.test.mjs test/runtime-env.test.mjs",
     "test:integration": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js && node --test test/integration/**/*.test.mjs"
   },
   "dependencies": {

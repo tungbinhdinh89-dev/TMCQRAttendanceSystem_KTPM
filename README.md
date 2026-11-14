@@ -45,11 +45,20 @@ React, TypeScript, Vite; Astra UI là nguồn component/token; MUI bổ sung b�
 
 ```sh
 pnpm install
-pnpm install
 pnpm build
 pnpm --dir api build
+pnpm --dir api test
 pnpm --dir api test:integration
 ```
+
+Chạy riêng backend sau khi build:
+
+```powershell
+pnpm.cmd --dir api build
+pnpm.cmd --dir api start
+```
+
+Lệnh `api start` ưu tiên `DATABASE_URL` của terminal, sau đó nạp `api/.env` nếu có. Khi vẫn chưa có `DATABASE_URL`, lệnh đọc host/port/username/pass từ `env-variable.txt` ở root, dùng `DATABASE_NAME` hoặc mặc định `tmc`. Không cần chép thông tin kết nối vào source; thiếu cấu hình sẽ báo lỗi rõ thay vì thử PostgreSQL mặc định ở localhost.
 
 Chạy cả backend và frontend:
 
@@ -64,4 +73,12 @@ pnpm dev:full
 
 Ảnh minh họa: Sam Moghadam / Unsplash, được lưu cục bộ để preview ổn định. Font Instrument Sans được lưu cục bộ; giấy phép ở `public/fonts/OFL.txt`.
 
-**Giới hạn:** Backend hiện có bootstrap API cho dữ liệu demo; auth, scan, attendance và các API ghi nghiệp vụ đầy đủ vẫn đang triển khai theo các ticket tiếp theo. Không dùng hệ thống hiện tại để kiểm soát ra vào thực tế.
+Backend NestJS hiện cung cấp session auth tối thiểu:
+
+- `POST /api/auth/login` nhận username/password và trả cookie `HttpOnly` opaque.
+- `GET /api/me` kiểm tra session, trạng thái tài khoản và trả role/scope/permission hiện hành.
+- `POST /api/auth/logout` thu hồi session hiện tại.
+
+Chạy kiểm thử auth bằng `pnpm --dir api test`; seed và kiểm thử PostgreSQL chạy riêng bằng `pnpm --dir api seed:demo` và `pnpm --dir api test:integration`.
+
+**Giới hạn:** Backend có bootstrap API cho dữ liệu demo và session auth tối thiểu. Frontend vẫn dùng phiên prototype; các API nghiệp vụ QR, kiosk, attendance và việc tích hợp session vào frontend chưa hoàn chỉnh. Không dùng hệ thống hiện tại để kiểm soát ra vào thực tế.
