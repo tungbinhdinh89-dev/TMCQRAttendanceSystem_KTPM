@@ -49,3 +49,5 @@ Commands on committed application code:
 - Edge/CDP checks: PASS nine fixture-backed checks; four viewports 1440/768/390/1024. See browser-results-mocked.json and screenshots/*.png. Coordinator visually inspected the phone screenshot.
 
 No schema migration, database seed/reset or deployment. No physical PostgreSQL verification: automatic-seed integration script deliberately not run; no authorized disposable target/PG runtime was available. Browser fixtures do not prove real server/session/database integration. The legacy demo portal remains unchanged; /audit has its own real cookie-session login. User review/approval required; neither #102 nor #92 is closed/marked Done.
+
+PR: https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/pull/110 — OPEN targeting main, awaiting user review/approval. No auto-close or Done. Application checks verified at fc85773; subsequent commits contain evidence/documentation only.
