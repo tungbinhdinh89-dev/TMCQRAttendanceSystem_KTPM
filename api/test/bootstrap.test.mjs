@@ -3,11 +3,14 @@ import test from "node:test"
 import { Test } from "@nestjs/testing"
 import { DataSource } from "typeorm"
 import { AppModule } from "../dist/app.module.js"
+import { AuditService } from "../dist/modules/iam/application/audit.service.js"
 
 test("auth and demo routes bootstrap with the shared database provider", async (t) => {
   const module = await Test.createTestingModule({ imports: [AppModule] })
     .overrideProvider(DataSource)
     .useValue({ query: async () => [] })
+    .overrideProvider(AuditService)
+    .useValue({ write: async () => undefined, search: async () => ({ items: [], total: 0, page: 1, pageSize: 25 }) })
     .compile()
   const app = module.createNestApplication()
   t.after(() => app.close())
