@@ -1,0 +1,4308 @@
+{
+  "fields": [
+    {
+      "name": "abortQueuedMigrations",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AbortQueuedMigrationsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "abortRepositoryMigration",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AbortRepositoryMigrationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "acceptEnterpriseAdministratorInvitation",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AcceptEnterpriseAdministratorInvitationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "acceptEnterpriseMemberInvitation",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AcceptEnterpriseMemberInvitationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "acceptTopicSuggestion",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AcceptTopicSuggestionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "accessUserNamespaceRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AccessUserNamespaceRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addAssigneesToAssignable",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddAssigneesToAssignableInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addBlockedBy",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddBlockedByInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addCloseIssueReferences",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddCloseIssueReferencesInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addDiscussionComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddDiscussionCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addDiscussionPollVote",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddDiscussionPollVoteInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addEnterpriseOrganizationMember",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddEnterpriseOrganizationMemberInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addEnterpriseSupportEntitlement",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddEnterpriseSupportEntitlementInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addLabelsToLabelable",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddLabelsToLabelableInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addProjectV2DraftIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddProjectV2DraftIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addProjectV2ItemById",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddProjectV2ItemByIdInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addPullRequestCreationCapBypassUsers",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddPullRequestCreationCapBypassUsersInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addPullRequestReview",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddPullRequestReviewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addPullRequestReviewComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddPullRequestReviewCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addPullRequestReviewThread",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddPullRequestReviewThreadInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addPullRequestReviewThreadReply",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddPullRequestReviewThreadReplyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addReaction",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddReactionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addRelatesTo",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddRelatesToInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addStar",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddStarInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addSubIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddSubIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addUpvote",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddUpvoteInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "addVerifiableDomain",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "AddVerifiableDomainInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "applyPendingIssueSuggestions",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ApplyPendingIssueSuggestionsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "approveDeployments",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ApproveDeploymentsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "approveVerifiableDomain",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ApproveVerifiableDomainInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "archiveProjectV2Item",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ArchiveProjectV2ItemInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "archivePullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ArchivePullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "archiveRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ArchiveRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cancelEnterpriseAdminInvitation",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CancelEnterpriseAdminInvitationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cancelEnterpriseMemberInvitation",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CancelEnterpriseMemberInvitationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cancelSponsorship",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CancelSponsorshipInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "changeUserStatus",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ChangeUserStatusInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "clearLabelsFromLabelable",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ClearLabelsFromLabelableInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "clearProjectV2ItemFieldValue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ClearProjectV2ItemFieldValueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloneTemplateRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CloneTemplateRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "closeDiscussion",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CloseDiscussionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "closeIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CloseIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "closePullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ClosePullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "convertProjectV2DraftIssueItemToIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ConvertProjectV2DraftIssueItemToIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "convertPullRequestToDraft",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ConvertPullRequestToDraftInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "copyProjectV2",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CopyProjectV2Input"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createAttributionInvitation",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateAttributionInvitationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createBranchProtectionRule",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateBranchProtectionRuleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createCheckRun",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateCheckRunInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createCheckSuite",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateCheckSuiteInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createCommitOnBranch",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateCommitOnBranchInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createDeployment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateDeploymentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createDeploymentStatus",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateDeploymentStatusInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createDiscussion",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateDiscussionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createEnterpriseOrganization",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateEnterpriseOrganizationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createEnvironment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateEnvironmentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createIpAllowListEntry",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateIpAllowListEntryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createIssueField",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateIssueFieldInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createIssueFieldValue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateIssueFieldValueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createIssueType",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateIssueTypeInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createLabel",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateLabelInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createLinkedBranch",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateLinkedBranchInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createMigrationSource",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateMigrationSourceInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createProjectV2",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateProjectV2Input"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createProjectV2Field",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateProjectV2FieldInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createProjectV2IssueField",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateProjectV2IssueFieldInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createProjectV2StatusUpdate",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateProjectV2StatusUpdateInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createProjectV2View",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateProjectV2ViewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createPullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreatePullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createRef",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateRefInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createRepositoryCustomProperty",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateRepositoryCustomPropertyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createRepositoryRuleset",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateRepositoryRulesetInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createSponsorsListing",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateSponsorsListingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createSponsorsTier",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateSponsorsTierInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createSponsorship",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateSponsorshipInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createSponsorships",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateSponsorshipsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "createUserList",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "CreateUserListInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "declineTopicSuggestion",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeclineTopicSuggestionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteBranchProtectionRule",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteBranchProtectionRuleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteDeployment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteDeploymentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteDiscussion",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteDiscussionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteDiscussionComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteDiscussionCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteEnvironment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteEnvironmentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteIpAllowListEntry",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteIpAllowListEntryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteIssueComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteIssueCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteIssueField",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteIssueFieldInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteIssueFieldValue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteIssueFieldValueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteIssueType",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteIssueTypeInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteLabel",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteLabelInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteLinkedBranch",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteLinkedBranchInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deletePackageVersion",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeletePackageVersionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteProjectV2",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteProjectV2Input"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteProjectV2Field",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteProjectV2FieldInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteProjectV2Item",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteProjectV2ItemInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteProjectV2StatusUpdate",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteProjectV2StatusUpdateInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteProjectV2View",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteProjectV2ViewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteProjectV2Workflow",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteProjectV2WorkflowInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deletePullRequestReview",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeletePullRequestReviewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deletePullRequestReviewComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeletePullRequestReviewCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteRef",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteRefInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteRepositoryCustomProperty",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteRepositoryCustomPropertyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteRepositoryRuleset",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteRepositoryRulesetInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteUserList",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteUserListInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "deleteVerifiableDomain",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DeleteVerifiableDomainInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "dequeuePullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DequeuePullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "disablePullRequestAutoMerge",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DisablePullRequestAutoMergeInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "dismissPullRequestReview",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DismissPullRequestReviewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "dismissRepositoryVulnerabilityAlert",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "DismissRepositoryVulnerabilityAlertInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "enablePullRequestAutoMerge",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "EnablePullRequestAutoMergeInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "enqueuePullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "EnqueuePullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "followOrganization",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "FollowOrganizationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "followUser",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "FollowUserInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "grantEnterpriseOrganizationsMigratorRole",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "GrantEnterpriseOrganizationsMigratorRoleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "grantMigratorRole",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "GrantMigratorRoleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "inviteEnterpriseAdmin",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "InviteEnterpriseAdminInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "inviteEnterpriseMember",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "InviteEnterpriseMemberInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "linkProjectV2ToRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "LinkProjectV2ToRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "linkProjectV2ToTeam",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "LinkProjectV2ToTeamInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "lockLockable",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "LockLockableInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "markDiscussionCommentAsAnswer",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "MarkDiscussionCommentAsAnswerInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "markFileAsViewed",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "MarkFileAsViewedInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "markProjectV2AsTemplate",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "MarkProjectV2AsTemplateInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "markPullRequestReadyForReview",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "MarkPullRequestReadyForReviewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mergeBranch",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "MergeBranchInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mergePullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "MergePullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "minimizeComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "MinimizeCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pinEnvironment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "PinEnvironmentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pinIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "PinIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "pinIssueComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "PinIssueCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "promoteRepositoryCustomProperty",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "PromoteRepositoryCustomPropertyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "publishSponsorsTier",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "PublishSponsorsTierInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "regenerateEnterpriseIdentityProviderRecoveryCodes",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RegenerateEnterpriseIdentityProviderRecoveryCodesInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "regenerateVerifiableDomainToken",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RegenerateVerifiableDomainTokenInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rejectDeployments",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RejectDeploymentsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rejectPendingIssueSuggestions",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RejectPendingIssueSuggestionsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeAssigneesFromAssignable",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveAssigneesFromAssignableInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeBlockedBy",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveBlockedByInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeCloseIssueReferences",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveCloseIssueReferencesInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeEnterpriseAdmin",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveEnterpriseAdminInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeEnterpriseIdentityProvider",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveEnterpriseIdentityProviderInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeEnterpriseMember",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveEnterpriseMemberInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeEnterpriseOrganization",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveEnterpriseOrganizationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeEnterpriseSupportEntitlement",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveEnterpriseSupportEntitlementInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeLabelsFromLabelable",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveLabelsFromLabelableInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeOutsideCollaborator",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveOutsideCollaboratorInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removePullRequestCreationCapBypassUsers",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemovePullRequestCreationCapBypassUsersInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeReaction",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveReactionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeRelatesTo",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveRelatesToInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeStar",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveStarInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeSubIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveSubIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "removeUpvote",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RemoveUpvoteInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "reopenDiscussion",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ReopenDiscussionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "reopenIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ReopenIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "reopenPullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ReopenPullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "reorderEnvironment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ReorderEnvironmentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "replaceActorsForAssignable",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ReplaceActorsForAssignableInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "reprioritizeSubIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ReprioritizeSubIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "requestCopilotCodeReview",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RequestCopilotCodeReviewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "requestReviews",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RequestReviewsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "requestReviewsByLogin",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RequestReviewsByLoginInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rerequestCheckSuite",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RerequestCheckSuiteInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rerequestReviews",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RerequestReviewsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "resolveReviewThread",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "ResolveReviewThreadInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "retireSponsorsTier",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RetireSponsorsTierInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "revertPullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RevertPullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "revokeEnterpriseOrganizationsMigratorRole",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RevokeEnterpriseOrganizationsMigratorRoleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "revokeMigratorRole",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "RevokeMigratorRoleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "setEnterpriseIdentityProvider",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "SetEnterpriseIdentityProviderInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "setIssueFieldValue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "SetIssueFieldValueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "setIssueStatus",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "SetIssueStatusInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "setOrganizationInteractionLimit",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "SetOrganizationInteractionLimitInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "setRepositoryCustomPropertyValues",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "SetRepositoryCustomPropertyValuesInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "setRepositoryInteractionLimit",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "SetRepositoryInteractionLimitInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "setUserInteractionLimit",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "SetUserInteractionLimitInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "startOrganizationMigration",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "StartOrganizationMigrationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "startRepositoryMigration",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "StartRepositoryMigrationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "submitPullRequestReview",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "SubmitPullRequestReviewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "transferEnterpriseOrganization",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "TransferEnterpriseOrganizationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "transferIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "TransferIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unarchiveProjectV2Item",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnarchiveProjectV2ItemInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unarchivePullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnarchivePullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unarchiveRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnarchiveRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unfollowOrganization",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnfollowOrganizationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unfollowUser",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnfollowUserInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unlinkProjectV2FromRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnlinkProjectV2FromRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unlinkProjectV2FromTeam",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnlinkProjectV2FromTeamInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unlockLockable",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnlockLockableInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unmarkDiscussionCommentAsAnswer",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnmarkDiscussionCommentAsAnswerInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unmarkFileAsViewed",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnmarkFileAsViewedInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unmarkIssueAsDuplicate",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnmarkIssueAsDuplicateInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unmarkProjectV2AsTemplate",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnmarkProjectV2AsTemplateInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unminimizeComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnminimizeCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unpinIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnpinIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unpinIssueComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnpinIssueCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "unresolveReviewThread",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UnresolveReviewThreadInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateBranchProtectionRule",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateBranchProtectionRuleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateCheckRun",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateCheckRunInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateCheckSuitePreferences",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateCheckSuitePreferencesInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateDiscussion",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateDiscussionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateDiscussionComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateDiscussionCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseAdministratorRole",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseAdministratorRoleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseAllowPrivateRepositoryForkingSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseAllowPrivateRepositoryForkingSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseCopilotCodeReviewPolicy",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseCopilotCodeReviewPolicyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseDefaultRepositoryPermissionSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseDefaultRepositoryPermissionSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseDeployKeySetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseDeployKeySettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseMembersCanChangeRepositoryVisibilitySetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseMembersCanChangeRepositoryVisibilitySettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseMembersCanCreateRepositoriesSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseMembersCanCreateRepositoriesSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseMembersCanDeleteIssuesSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseMembersCanDeleteIssuesSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseMembersCanDeleteRepositoriesSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseMembersCanDeleteRepositoriesSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseMembersCanInviteCollaboratorsSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseMembersCanInviteCollaboratorsSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseMembersCanMakePurchasesSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseMembersCanMakePurchasesSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseMembersCanUpdateProtectedBranchesSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseMembersCanUpdateProtectedBranchesSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseMembersCanViewDependencyInsightsSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseMembersCanViewDependencyInsightsSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseOrganizationProjectsSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseOrganizationProjectsSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseOwnerOrganizationRole",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseOwnerOrganizationRoleInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseProfile",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseProfileInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseRepositoryProjectsSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseRepositoryProjectsSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseTwoFactorAuthenticationDisallowedMethodsSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseTwoFactorAuthenticationDisallowedMethodsSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnterpriseTwoFactorAuthenticationRequiredSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnterpriseTwoFactorAuthenticationRequiredSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateEnvironment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateEnvironmentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIpAllowListEnabledSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIpAllowListEnabledSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIpAllowListEntry",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIpAllowListEntryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIpAllowListForInstalledAppsEnabledSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIpAllowListForInstalledAppsEnabledSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIpAllowListUserLevelEnforcementEnabledSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIpAllowListUserLevelEnforcementEnabledSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIssueComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIssueCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIssueField",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIssueFieldInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIssueFieldValue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIssueFieldValueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIssueIssueType",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIssueIssueTypeInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateIssueType",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateIssueTypeInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateLabel",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateLabelInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateNotificationRestrictionSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateNotificationRestrictionSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateOrganizationAllowPrivateRepositoryForkingSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateOrganizationAllowPrivateRepositoryForkingSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateOrganizationCopilotCodeReviewPolicy",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateOrganizationCopilotCodeReviewPolicyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateOrganizationCopilotCodeReviewRunnerConfiguration",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateOrganizationCopilotCodeReviewRunnerConfigurationInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateOrganizationCopilotCodeReviewSettings",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateOrganizationCopilotCodeReviewSettingsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateOrganizationWebCommitSignoffSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateOrganizationWebCommitSignoffSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updatePatreonSponsorability",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdatePatreonSponsorabilityInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateProjectV2",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateProjectV2Input"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateProjectV2Collaborators",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateProjectV2CollaboratorsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateProjectV2DraftIssue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateProjectV2DraftIssueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateProjectV2Field",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateProjectV2FieldInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateProjectV2ItemFieldValue",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateProjectV2ItemFieldValueInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateProjectV2ItemPosition",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateProjectV2ItemPositionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateProjectV2StatusUpdate",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateProjectV2StatusUpdateInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateProjectV2View",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateProjectV2ViewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updatePullRequest",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdatePullRequestInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updatePullRequestBranch",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdatePullRequestBranchInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updatePullRequestReview",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdatePullRequestReviewInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updatePullRequestReviewComment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdatePullRequestReviewCommentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateRef",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateRefInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateRefs",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateRefsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateRepositoryCopilotCodeReviewSettings",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateRepositoryCopilotCodeReviewSettingsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateRepositoryCustomProperty",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateRepositoryCustomPropertyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateRepositoryRuleset",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateRepositoryRulesetInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateRepositoryWebCommitSignoffSetting",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateRepositoryWebCommitSignoffSettingInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateSponsorshipPreferences",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateSponsorshipPreferencesInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateSubscription",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateSubscriptionInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateTeamReviewAssignment",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateTeamReviewAssignmentInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateTeamsRepository",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateTeamsRepositoryInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateTopics",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateTopicsInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateUserList",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateUserListInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateUserListsForItem",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "UpdateUserListsForItemInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "verifyVerifiableDomain",
+      "args": [
+        {
+          "name": "input",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "INPUT_OBJECT",
+              "name": "VerifyVerifiableDomainInput"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

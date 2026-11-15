@@ -1,0 +1,947 @@
+{
+  "I_kwDOVTAnWM8AAAABcVUbpQ": {
+    "Status": "Done",
+    "Task ID": "TMC-001",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-044",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUeWg": {
+    "Status": "Done",
+    "Task ID": "TMC-003",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-002",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUiDg": {
+    "Status": "Done",
+    "Task ID": "TMC-005",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-003, TMC-004",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUjjQ": {
+    "Status": "Done",
+    "Task ID": "TMC-006",
+    "Task": "TMC-092 | Gate & Factory Configuration",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-004",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUlEA": {
+    "Status": "Done",
+    "Task ID": "TMC-007",
+    "Task": "TMC-089 | Authorization & session RBAC",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-005, TMC-006",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUmeQ": {
+    "Status": "Done",
+    "Task ID": "TMC-008",
+    "Task": "TMC-089 | Authorization & session RBAC",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-007, TMC-002",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUn6g": {
+    "Status": "Done",
+    "Task ID": "TMC-009",
+    "Task": "TMC-091 | QR Credential Management",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-004, TMC-006",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUpIg": {
+    "Status": "Done",
+    "Task ID": "TMC-010",
+    "Task": "TMC-091 | QR Credential Management",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-009, TMC-007",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUqoQ": {
+    "Status": "Done",
+    "Task ID": "TMC-011",
+    "Task": "TMC-091 | QR Credential Management",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-010",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUr-w": {
+    "Status": "Done",
+    "Task ID": "TMC-012",
+    "Task": "TMC-093 | Gate Scan & Access Processing",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-006, TMC-011",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUtFw": {
+    "Status": "Done",
+    "Task ID": "TMC-013",
+    "Task": "TMC-093 | Gate Scan & Access Processing",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-003, TMC-005",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUuYA": {
+    "Status": "Done",
+    "Task ID": "TMC-014",
+    "Task": "TMC-093 | Gate Scan & Access Processing",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-004, TMC-011, TMC-012, TMC-013",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUv3w": {
+    "Status": "Done",
+    "Task ID": "TMC-015",
+    "Task": "TMC-091 | QR Credential Management",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-014, TMC-010",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUxMg": {
+    "Status": "Done",
+    "Task ID": "TMC-016",
+    "Task": "TMC-093 | Gate Scan & Access Processing",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-013, TMC-014, TMC-015",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUy2g": {
+    "Status": "Done",
+    "Task ID": "TMC-017",
+    "Task": "TMC-091 | QR Credential Management",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-010, TMC-008",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU0Mg": {
+    "Status": "Done",
+    "Task ID": "TMC-018",
+    "Task": "TMC-093 | Gate Scan & Access Processing",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-016, TMC-017",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU1iw": {
+    "Status": "Done",
+    "Task ID": "TMC-019",
+    "Task": "TMC-094 | Attendance Event Recording",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-016",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU3FQ": {
+    "Status": "Done",
+    "Task ID": "TMC-020",
+    "Task": "TMC-094 | Attendance Event Recording",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-019, TMC-007",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU4cA": {
+    "Status": "Done",
+    "Task ID": "TMC-021",
+    "Task": "TMC-094 | Attendance Event Recording",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-020, TMC-008",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU5xg": {
+    "Status": "Done",
+    "Task ID": "TMC-022",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-016",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU7QA": {
+    "Status": "Done",
+    "Task ID": "TMC-023",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-018, TMC-020, TMC-022",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU8hQ": {
+    "Status": "Done",
+    "Task ID": "TMC-024",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-019, TMC-022, TMC-026",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU90w": {
+    "Status": "Done",
+    "Task ID": "TMC-025",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-024, TMC-007, TMC-020",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVU_Vw": {
+    "Status": "Done",
+    "Task ID": "TMC-026",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-013, TMC-016, TMC-022",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVBzA": {
+    "Status": "Done",
+    "Task ID": "TMC-027",
+    "Task": "TMC-093 | Gate Scan & Access Processing",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-018",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABcVVDIg": {
+    "Status": "Done",
+    "Task ID": "TMC-028",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-020, TMC-021, TMC-025",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABcVVEhw": {
+    "Status": "Done",
+    "Task ID": "TMC-029",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-019, TMC-020, TMC-015",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVF2g": {
+    "Status": "Done",
+    "Task ID": "TMC-030",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-023, TMC-024, TMC-025, TMC-026, TMC-029",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVHNA": {
+    "Status": "Done",
+    "Task ID": "TMC-031",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-007, TMC-030, TMC-051, TMC-052, TMC-053",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVIwg": {
+    "Status": "Done",
+    "Task ID": "TMC-032",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-021, TMC-023, TMC-030, TMC-031, TMC-085",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVKMg": {
+    "Status": "Done",
+    "Task ID": "TMC-033",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-019, TMC-024, TMC-085",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVLoA": {
+    "Status": "Done",
+    "Task ID": "TMC-034",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-033, TMC-030",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVNHg": {
+    "Status": "Done",
+    "Task ID": "TMC-035",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-001, TMC-022, TMC-033, TMC-034, TMC-031",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVOpQ": {
+    "Status": "Done",
+    "Task ID": "TMC-036",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-005, TMC-032",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVP5g": {
+    "Status": "Done",
+    "Task ID": "TMC-037",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-034, TMC-035, TMC-036, TMC-038",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVRig": {
+    "Status": "Done",
+    "Task ID": "TMC-038",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-029, TMC-030, TMC-031, TMC-032, TMC-035, TMC-036",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVVTKg": {
+    "Status": "Done",
+    "Task ID": "TMC-039",
+    "Task": "TMC-092 | Gate & Factory Configuration",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-028, TMC-024",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABcVVUzA": {
+    "Status": "Done",
+    "Task ID": "TMC-040",
+    "Task": "TMC-099 | Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-007, TMC-019, TMC-020, TMC-062, TMC-063, TMC-064",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABcVVWgw": {
+    "Status": "Done",
+    "Task ID": "TMC-041",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-019, TMC-024, TMC-040, TMC-065, TMC-066, TMC-067, TMC-068",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABcVVYQQ": {
+    "Status": "Done",
+    "Task ID": "TMC-042",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-022, TMC-024, TMC-030, TMC-069, TMC-070, TMC-071",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABcVX9FA": {
+    "Status": "Done",
+    "Task ID": "TMC-043",
+    "Task": "TMC-098 | Administration: Accounts & Role Assignments",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-007, TMC-008, TMC-060, TMC-061",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfKKUEQ": {
+    "Status": "Done",
+    "Task ID": "TMC-088",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "None",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABfQMPiA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-044",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMQOg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-045",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-044, TMC-001",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMRPg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-046",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-045",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMR8w": {
+    "Status": "Backlog",
+    "Task ID": "TMC-047",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-046",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMSdg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-048",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-044, TMC-045",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMTIQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-049",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-046, TMC-047, TMC-048",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMUXw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-050",
+    "Task": "TMC-089 | Authorization & session RBAC",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-007, TMC-008",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMVBA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-051",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-030, TMC-018, TMC-019",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMVwQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-052",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-030, TMC-007, TMC-050",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMWPA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-053",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-030, TMC-050, TMC-021",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMW0Q": {
+    "Status": "Backlog",
+    "Task ID": "TMC-054",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-004, TMC-078",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMXcw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-055",
+    "Task": "TMC-090 | Employee Management",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-007, TMC-004",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMZZQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-057",
+    "Task": "TMC-090 | Employee Management",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-055, TMC-056, TMC-008",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMYVQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-056",
+    "Task": "TMC-090 | Employee Management",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-055, TMC-072",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMaDA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-058",
+    "Task": "TMC-098 | Administration: Accounts & Role Assignments",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-007, TMC-087",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMasg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-059",
+    "Task": "TMC-098 | Administration: Accounts & Role Assignments",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-058, TMC-072",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMbew": {
+    "Status": "Backlog",
+    "Task ID": "TMC-060",
+    "Task": "TMC-098 | Administration: Accounts & Role Assignments",
+    "Work Type": "Sub-ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-058, TMC-008",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMb-g": {
+    "Status": "Backlog",
+    "Task ID": "TMC-061",
+    "Task": "TMC-098 | Administration: Accounts & Role Assignments",
+    "Work Type": "Sub-ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-059, TMC-060",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMcqA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-062",
+    "Task": "TMC-099 | Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-019, TMC-020",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMdhw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-063",
+    "Task": "TMC-099 | Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-062, TMC-007",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMeSA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-064",
+    "Task": "TMC-099 | Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "Work Type": "Sub-ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-063, TMC-021",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMgcA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-067",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-066, TMC-024",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMe9w": {
+    "Status": "Backlog",
+    "Task ID": "TMC-065",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-040, TMC-024",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMhKg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-068",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-065, TMC-066, TMC-067",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMfsw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-066",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-065",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMh3w": {
+    "Status": "Backlog",
+    "Task ID": "TMC-069",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-022, TMC-024, TMC-030",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMijQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-070",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-069",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMjTw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-071",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Sub-ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-070",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMj3g": {
+    "Status": "Backlog",
+    "Task ID": "TMC-072",
+    "Task": "TMC-092 | Gate & Factory Configuration",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-007, TMC-004",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMkoQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-073",
+    "Task": "TMC-092 | Gate & Factory Configuration",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-072, TMC-012",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMleQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-074",
+    "Task": "TMC-092 | Gate & Factory Configuration",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-072, TMC-073, TMC-008",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMmQA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-075",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-062, TMC-020, TMC-007",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMnNg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-076",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-075, TMC-008",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMonA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-077",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-075, TMC-076",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABfQMpQg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-078",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-001",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMq_Q": {
+    "Status": "Backlog",
+    "Task ID": "TMC-080",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-078, TMC-004",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMqQg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-079",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-078, TMC-080, TMC-007",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMsBg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-081",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-079, TMC-080, TMC-024",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMtbg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-082",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "architecture",
+    "Dependencies": "TMC-079, TMC-081, TMC-054",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMuBA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-083",
+    "Task": "TMC-092 | Gate & Factory Configuration",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-072, TMC-009",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMuvw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-084",
+    "Task": "TMC-092 | Gate & Factory Configuration",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-039, TMC-024, TMC-007",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMwNQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-086",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-008, TMC-020, TMC-001",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMvrw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-085",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-029, TMC-087, TMC-013",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMwuA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-087",
+    "Task": "TMC-089 | Authorization & session RBAC",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-007",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABfQMyUw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-104",
+    "Task": "TMC-099 | Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "Work Type": "Ticket",
+    "Area": "backend",
+    "Dependencies": "TMC-004, TMC-007, TMC-055, TMC-056",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQMxlg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-103",
+    "Task": "TMC-096 | Audit & Traceability",
+    "Work Type": "Ticket",
+    "Area": "security",
+    "Dependencies": "TMC-007, TMC-004",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQMzEQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-105",
+    "Task": "TMC-099 | Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-104, TMC-057",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQM0HQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-089",
+    "Task": "TMC-089 | Authorization & session RBAC",
+    "Work Type": "Task",
+    "Area": "security",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM07A": {
+    "Status": "Backlog",
+    "Task ID": "TMC-090",
+    "Task": "TMC-090 | Employee Management",
+    "Work Type": "Task",
+    "Area": "backend",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM1iw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-091",
+    "Task": "TMC-091 | QR Credential Management",
+    "Work Type": "Task",
+    "Area": "security",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM2Rg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-092",
+    "Task": "TMC-092 | Gate & Factory Configuration",
+    "Work Type": "Task",
+    "Area": "backend",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM3Jw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-093",
+    "Task": "TMC-093 | Gate Scan & Access Processing",
+    "Work Type": "Task",
+    "Area": "backend",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM3sg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-094",
+    "Task": "TMC-094 | Attendance Event Recording",
+    "Work Type": "Task",
+    "Area": "backend",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM5Og": {
+    "Status": "Backlog",
+    "Task ID": "TMC-095",
+    "Task": "TMC-095 | Reliability, Recovery & Offline Policy",
+    "Work Type": "Task",
+    "Area": "backend",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM58w": {
+    "Status": "Backlog",
+    "Task ID": "TMC-096",
+    "Task": "TMC-096 | Audit & Traceability",
+    "Work Type": "Task",
+    "Area": "security",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM7AA": {
+    "Status": "Backlog",
+    "Task ID": "TMC-097",
+    "Task": "TMC-097 | Reporting & HRS Integration",
+    "Work Type": "Task",
+    "Area": "backend",
+    "Dependencies": "None",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABfQM8cQ": {
+    "Status": "Backlog",
+    "Task ID": "TMC-098",
+    "Task": "TMC-098 | Administration: Accounts & Role Assignments",
+    "Work Type": "Task",
+    "Area": "security",
+    "Dependencies": "None",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABfQM9Iw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-099",
+    "Task": "TMC-099 | Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "Work Type": "Task",
+    "Area": "backend",
+    "Dependencies": "None",
+    "Priority": "P2"
+  },
+  "I_kwDOVTAnWM8AAAABfQM-4w": {
+    "Status": "Backlog",
+    "Task ID": "TMC-100",
+    "Task": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+    "Work Type": "Task",
+    "Area": "architecture",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABfQM_hg": {
+    "Status": "Backlog",
+    "Task ID": "TMC-101",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Task",
+    "Area": "devops",
+    "Dependencies": "None",
+    "Priority": "P1"
+  },
+  "I_kwDOVTAnWM8AAAABfQNAAw": {
+    "Status": "Backlog",
+    "Task ID": "TMC-102",
+    "Task": "TMC-102 | Verification: API, DB, E2E & NFR",
+    "Work Type": "Task",
+    "Area": "backend",
+    "Dependencies": "None",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUc5w": {
+    "Status": "Done",
+    "Task ID": "TMC-002",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "frontend",
+    "Dependencies": "TMC-001",
+    "Priority": "P0"
+  },
+  "I_kwDOVTAnWM8AAAABcVUf6Q": {
+    "Status": "Done",
+    "Task ID": "TMC-004",
+    "Task": "TMC-101 | Foundation, Delivery & Operations",
+    "Work Type": "Ticket",
+    "Area": "devops",
+    "Dependencies": "TMC-003",
+    "Priority": "P0"
+  }
+}

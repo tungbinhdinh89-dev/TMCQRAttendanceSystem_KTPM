@@ -1,0 +1,66 @@
+{
+  "ProjectV2ViewConfigurationInput": {
+    "__type": {
+      "inputFields": [
+        {
+          "name": "visibleFieldIds",
+          "type": {
+            "kind": "LIST",
+            "name": null,
+            "ofType": {
+              "kind": "NON_NULL",
+              "name": null
+            }
+          }
+        }
+      ]
+    }
+  },
+  "ProjectV2SingleSelectFieldOptionInput": {
+    "__type": {
+      "inputFields": [
+        {
+          "name": "id",
+          "type": {
+            "kind": "SCALAR",
+            "name": "String",
+            "ofType": null
+          }
+        },
+        {
+          "name": "name",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String"
+            }
+          }
+        },
+        {
+          "name": "color",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "ENUM",
+              "name": "ProjectV2SingleSelectFieldOptionColor"
+            }
+          }
+        },
+        {
+          "name": "description",
+          "type": {
+            "kind": "NON_NULL",
+            "name": null,
+            "ofType": {
+              "kind": "SCALAR",
+              "name": "String"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

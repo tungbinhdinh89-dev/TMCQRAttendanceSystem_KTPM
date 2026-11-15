@@ -1,0 +1,346 @@
+{
+  "Title": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofP_Q",
+    "name": "Title",
+    "dataType": "TITLE"
+  },
+  "Assignees": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofP_U",
+    "name": "Assignees",
+    "dataType": "ASSIGNEES"
+  },
+  "Status": {
+    "id": "PVTSSF_lAHODenJ1c4BqGquzhofP_Y",
+    "name": "Status",
+    "options": [
+      {
+        "id": "f75ad846",
+        "name": "Todo",
+        "color": "GREEN",
+        "description": "This item hasn't been started"
+      },
+      {
+        "id": "47fc9ee4",
+        "name": "In Progress",
+        "color": "YELLOW",
+        "description": "This is actively being worked on"
+      },
+      {
+        "id": "98236657",
+        "name": "Done",
+        "color": "PURPLE",
+        "description": "This has been completed"
+      },
+      {
+        "id": "849cce20",
+        "name": "Ready",
+        "color": "BLUE",
+        "description": "Dependencies and acceptance refined; ready to assign"
+      },
+      {
+        "id": "596af227",
+        "name": "In Review",
+        "color": "PURPLE",
+        "description": "PR/evidence waiting for human review"
+      },
+      {
+        "id": "1d5e6899",
+        "name": "Blocked",
+        "color": "RED",
+        "description": "Record blocker, owner and next action"
+      }
+    ]
+  },
+  "Labels": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofP_c",
+    "name": "Labels",
+    "dataType": "LABELS"
+  },
+  "Linked pull requests": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofP_g",
+    "name": "Linked pull requests",
+    "dataType": "LINKED_PULL_REQUESTS"
+  },
+  "Milestone": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofP_k",
+    "name": "Milestone",
+    "dataType": "MILESTONE"
+  },
+  "Repository": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofP_o",
+    "name": "Repository",
+    "dataType": "REPOSITORY"
+  },
+  "Reviewers": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofP_4",
+    "name": "Reviewers",
+    "dataType": "REVIEWERS"
+  },
+  "Parent issue": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofQAA",
+    "name": "Parent issue",
+    "dataType": "PARENT_ISSUE"
+  },
+  "Sub-issues progress": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofQAE",
+    "name": "Sub-issues progress",
+    "dataType": "SUB_ISSUES_PROGRESS"
+  },
+  "Created": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofQAM",
+    "name": "Created",
+    "dataType": "CREATED"
+  },
+  "Updated": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofQAU",
+    "name": "Updated",
+    "dataType": "UPDATED"
+  },
+  "Closed": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofQAc",
+    "name": "Closed",
+    "dataType": "CLOSED"
+  },
+  "Priority": {
+    "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBA",
+    "name": "Priority",
+    "options": [
+      {
+        "id": "2a0e5407",
+        "name": "P0",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "d9318991",
+        "name": "P1",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "adfc8158",
+        "name": "P2",
+        "color": "GRAY",
+        "description": ""
+      }
+    ]
+  },
+  "Sprint": {
+    "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBE",
+    "name": "Sprint",
+    "options": [
+      {
+        "id": "d667dffd",
+        "name": "S1",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "cbdebde7",
+        "name": "S2",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "3d40e14a",
+        "name": "S3",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "a711c8c9",
+        "name": "S4",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "eaf2ae8e",
+        "name": "Deferred",
+        "color": "GRAY",
+        "description": ""
+      }
+    ]
+  },
+  "Area": {
+    "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBI",
+    "name": "Area",
+    "options": [
+      {
+        "id": "eef4d06e",
+        "name": "Frontend",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "e36c1ef4",
+        "name": "Backend",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "c8d2ac20",
+        "name": "Database",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "f979c73f",
+        "name": "Architecture",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "3de87ea4",
+        "name": "DevOps",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "b3f2cb5d",
+        "name": "Security",
+        "color": "GRAY",
+        "description": ""
+      },
+      {
+        "id": "a4764bd8",
+        "name": "UI/UX",
+        "color": "GRAY",
+        "description": ""
+      }
+    ]
+  },
+  "Estimate Hours": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhofQBM",
+    "name": "Estimate Hours",
+    "dataType": "NUMBER"
+  },
+  "Task ID": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhp47X8",
+    "name": "Task ID",
+    "dataType": "TEXT"
+  },
+  "Feature": {
+    "id": "PVTSSF_lAHODenJ1c4BqGquzhp47ZE",
+    "name": "Feature",
+    "options": [
+      {
+        "id": "66070fe6",
+        "name": "authorization",
+        "color": "PURPLE",
+        "description": "Authorization & session RBAC"
+      },
+      {
+        "id": "a21eaf03",
+        "name": "employee",
+        "color": "PURPLE",
+        "description": "Employee Management"
+      },
+      {
+        "id": "985e2bc4",
+        "name": "qr",
+        "color": "PURPLE",
+        "description": "QR Credential Management"
+      },
+      {
+        "id": "45a7f0de",
+        "name": "gate-config",
+        "color": "PURPLE",
+        "description": "Gate & Factory Configuration"
+      },
+      {
+        "id": "2125b59e",
+        "name": "gate-processing",
+        "color": "PURPLE",
+        "description": "Gate Scan & Access Processing"
+      },
+      {
+        "id": "bffa82f9",
+        "name": "attendance",
+        "color": "PURPLE",
+        "description": "Attendance Event Recording"
+      },
+      {
+        "id": "54c4bb22",
+        "name": "reliability",
+        "color": "PURPLE",
+        "description": "Reliability, Recovery & Offline Policy"
+      },
+      {
+        "id": "68593433",
+        "name": "audit",
+        "color": "PURPLE",
+        "description": "Audit & Traceability"
+      },
+      {
+        "id": "f909d1a7",
+        "name": "reporting",
+        "color": "PURPLE",
+        "description": "Reporting & HRS Integration"
+      },
+      {
+        "id": "cb24f599",
+        "name": "administration",
+        "color": "PURPLE",
+        "description": "Administration: Accounts & Role Assignments"
+      },
+      {
+        "id": "51dfbe1a",
+        "name": "extended-business",
+        "color": "PURPLE",
+        "description": "Nghiệp vụ mở rộng: ca làm & hiệu chỉnh"
+      },
+      {
+        "id": "d0d97ca5",
+        "name": "architecture",
+        "color": "PURPLE",
+        "description": "Architecture, Privacy & Assignment Deliverables"
+      },
+      {
+        "id": "eefff167",
+        "name": "foundation",
+        "color": "PURPLE",
+        "description": "Foundation, Delivery & Operations"
+      },
+      {
+        "id": "c157e6f5",
+        "name": "verification",
+        "color": "PURPLE",
+        "description": "Verification: API, DB, E2E & NFR"
+      }
+    ]
+  },
+  "Work Type": {
+    "id": "PVTSSF_lAHODenJ1c4BqGquzhp47Zs",
+    "name": "Work Type",
+    "options": [
+      {
+        "id": "0ac9be25",
+        "name": "Epic",
+        "color": "PURPLE",
+        "description": "Epic"
+      },
+      {
+        "id": "05cfc7d0",
+        "name": "Ticket",
+        "color": "BLUE",
+        "description": "Ticket"
+      },
+      {
+        "id": "d61b2aa8",
+        "name": "Sub-ticket",
+        "color": "GRAY",
+        "description": "Sub-ticket"
+      }
+    ]
+  },
+  "Target Date": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhp47as",
+    "name": "Target Date",
+    "dataType": "DATE"
+  },
+  "Dependencies": {
+    "id": "PVTF_lAHODenJ1c4BqGquzhp47bY",
+    "name": "Dependencies",
+    "dataType": "TEXT"
+  }
+}

@@ -89,3 +89,10 @@ pnpm.cmd --dir api test:integration
 ```
 
 Unit tests tách biệt DB. Integration kiểm tra thật sáu role, mật khẩu sai, cookie, me/logout, scope và không lộ dữ liệu chi tiết cho EXE; không tự reset database hay seed dữ liệu trong test.
+
+## Swagger / OpenAPI
+
+Khi backend chạy, mở http://localhost:3000/api/docs (đổi port theo PORT).
+OpenAPI JSON: http://localhost:3000/api/openapi.json.
+
+Trong Swagger, chạy POST /api/auth/login bằng tài khoản ở bảng trên trước. Cookie HttpOnly được trình duyệt giữ và gửi cho các lệnh Try it out cùng origin; không nhập hoặc sao chép cookie thủ công. Nếu gọi từ origin khác, cần cấu hình CORS_ORIGINS phù hợp. API_DOCS_ENABLED=false tắt giao diện và endpoint tài liệu khi triển khai cần hạn chế truy cập.

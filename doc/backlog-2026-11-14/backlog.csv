@@ -1,0 +1,106 @@
+﻿Task ID,GitHub Issue,Name,Feature,Type,Priority,Parent,Dependencies,URL
+TMC-001,1,Confirm M2 scope and requirement traceability,architecture,DOCS,P0,TMC-100,TMC-044,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/1
+TMC-002,2,Verify the client workspace and preview baseline,foundation,BUILD,P0,TMC-101,TMC-001,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/2
+TMC-003,3,Complete backend ports and shared wire contracts,foundation,BUILD,P0,TMC-101,TMC-002,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/3
+TMC-004,4,Verify PostgreSQL migrations and core constraints,foundation,BUILD,P0,TMC-101,TMC-003,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/4
+TMC-005,5,Complete Node test runners and CI contracts,foundation,CI,P0,TMC-101,"TMC-003, TMC-004",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/5
+TMC-006,6,"Verify identity, scope and station fixtures",gate-config,TASK,P0,TMC-092,TMC-004,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/6
+TMC-007,7,Complete server session authorization and scope checks,authorization,ENHANCEMENT,P0,TMC-089,"TMC-005, TMC-006",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/7
+TMC-008,8,Verify session login and protected navigation,authorization,UI,P0,TMC-089,"TMC-007, TMC-002",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/8
+TMC-009,9,Implement QR credential and signing-key metadata,qr,FEATURE,P0,TMC-091,"TMC-004, TMC-006",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/9
+TMC-010,10,Issue short-lived QR tokens and revoke credentials,qr,FEATURE,P0,TMC-091,"TMC-009, TMC-007",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/10
+TMC-011,11,Validate QR signatures and token claims,qr,FEATURE,P0,TMC-091,TMC-010,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/11
+TMC-012,12,Evaluate access policies using server-owned data,gate-processing,FEATURE,P0,TMC-093,"TMC-006, TMC-011",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/12
+TMC-013,13,Implement a fault-capable turnstile simulator,gate-processing,FEATURE,P0,TMC-093,"TMC-003, TMC-005",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/13
+TMC-014,14,Persist idempotent attempts before gate dispatch,gate-processing,FEATURE,P0,TMC-093,"TMC-004, TMC-011, TMC-012, TMC-013",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/14
+TMC-015,15,Prevent QR replay with atomic redemption,qr,FEATURE,P0,TMC-091,"TMC-014, TMC-010",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/15
+TMC-016,16,Claim and reconcile gate commands with CAS,gate-processing,FEATURE,P0,TMC-093,"TMC-013, TMC-014, TMC-015",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/16
+TMC-017,17,Display server-issued QR codes in the employee portal,qr,UI,P0,TMC-091,"TMC-010, TMC-008",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/17
+TMC-018,18,Connect the virtual kiosk to real attempt states,gate-processing,UI,P0,TMC-093,"TMC-016, TMC-017",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/18
+TMC-019,19,Write attendance revisions from verified passage evidence,attendance,FEATURE,P0,TMC-094,TMC-016,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/19
+TMC-020,20,Expose scoped attempt status and attendance history,attendance,FEATURE,P0,TMC-094,"TMC-019, TMC-007",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/20
+TMC-021,21,Connect personal history and attempt details,attendance,UI,P0,TMC-094,"TMC-020, TMC-008",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/21
+TMC-022,22,Finalize network failure architecture decisions,reliability,DOCS,P0,TMC-095,TMC-016,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/22
+TMC-023,23,Recover kiosk requests with a metadata journal,reliability,ENHANCEMENT,P0,TMC-095,"TMC-018, TMC-020, TMC-022",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/23
+TMC-024,24,Reconcile unknown commands using durable fenced jobs,reliability,FEATURE,P0,TMC-095,"TMC-019, TMC-022, TMC-026",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/24
+TMC-025,25,Implement scoped security reconciliation cases,reliability,FEATURE,P0,TMC-095,"TMC-024, TMC-007, TMC-020",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/25
+TMC-026,26,Exercise lost responses and process crash scenarios,reliability,TEST,P0,TMC-095,"TMC-013, TMC-016, TMC-022",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/26
+TMC-027,27,Connect camera scans to the server contract,gate-processing,UI,P1,TMC-093,TMC-018,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/27
+TMC-028,28,Connect scoped dashboard data and factory filters,reporting,UI,P1,TMC-097,"TMC-020, TMC-021, TMC-025",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/28
+TMC-029,29,Verify the main module against PostgreSQL,verification,TEST,P0,TMC-102,"TMC-019, TMC-020, TMC-015",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/29
+TMC-030,30,Verify concurrent replay and crash recovery,verification,TEST,P0,TMC-102,"TMC-023, TMC-024, TMC-025, TMC-026, TMC-029",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/30
+TMC-031,31,Coordinate kiosk performance and data-access verification,verification,TEST,P0,TMC-102,"TMC-007, TMC-030, TMC-051, TMC-052, TMC-053",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/31
+TMC-032,32,Verify the complete user journey and UI states,verification,TEST,P0,TMC-102,"TMC-021, TMC-023, TMC-030, TMC-031, TMC-085",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/32
+TMC-033,33,Document SOLID evidence from implementation,architecture,DOCS,P0,TMC-100,"TMC-019, TMC-024, TMC-085",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/33
+TMC-034,34,Write the implementation-based SOLID reflection,architecture,DOCS,P0,TMC-100,"TMC-033, TMC-030",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/34
+TMC-035,35,Align architecture decisions and three required views,architecture,DOCS,P0,TMC-100,"TMC-001, TMC-022, TMC-033, TMC-034, TMC-031",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/35
+TMC-036,36,Verify setup instructions and the reproducible demo,architecture,DOCS,P0,TMC-100,"TMC-005, TMC-032",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/36
+TMC-037,37,Package the M2 report and submission evidence,architecture,DOCS,P0,TMC-100,"TMC-034, TMC-035, TMC-036, TMC-038",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/37
+TMC-038,38,Verify the release candidate and triage blockers,verification,TEST,P0,TMC-102,"TMC-029, TMC-030, TMC-031, TMC-032, TMC-035, TMC-036",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/38
+TMC-039,39,Monitor station heartbeat and pending work,gate-config,ENHANCEMENT,P1,TMC-092,"TMC-028, TMC-024",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/39
+TMC-040,40,Deliver versioned HR attendance corrections,extended-business,FEATURE,P2,TMC-099,"TMC-007, TMC-019, TMC-020, TMC-062, TMC-063, TMC-064",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/40
+TMC-041,41,Deliver versioned monthly HRS exports,reporting,FEATURE,P1,TMC-097,"TMC-019, TMC-024, TMC-040, TMC-065, TMC-066, TMC-067, TMC-068",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/41
+TMC-042,42,Evaluate and prototype autonomous offline edge operation,reliability,SPIKE,P2,TMC-095,"TMC-022, TMC-024, TMC-030, TMC-069, TMC-070, TMC-071",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/42
+TMC-043,43,Deliver the IAM administration interface,administration,UI,P2,TMC-098,"TMC-007, TMC-008, TMC-060, TMC-061",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/43
+TMC-044,48,Audit current acceptance evidence and replan capacity,foundation,TASK,P0,TMC-101,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/48
+TMC-045,49,Define issue templates and label taxonomy,foundation,DOCS,P0,TMC-101,"TMC-044, TMC-001",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/49
+TMC-046,50,Prepare the GitHub Project field schema,foundation,CHORE,P0,TMC-101,TMC-045,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/50
+TMC-047,51,Configure saved views and safe project automations,foundation,CHORE,P0,TMC-101,TMC-046,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/51
+TMC-048,52,Define protected-branch checks and human review ownership,foundation,DOCS,P0,TMC-101,"TMC-044, TMC-045",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/52
+TMC-049,53,Import verified ticket metadata without duplicate issues,foundation,TASK,P0,TMC-101,"TMC-046, TMC-047, TMC-048",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/53
+TMC-050,54,Restrict demo bootstrap data to authorized scopes,authorization,BUG,P0,TMC-089,"TMC-007, TMC-008",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/54
+TMC-051,55,Measure kiosk response latency under shift-change load,verification,TEST,P0,TMC-031,"TMC-030, TMC-018, TMC-019",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/55
+TMC-052,56,"Verify role, object and factory authorization boundaries",verification,TEST,P0,TMC-031,"TMC-030, TMC-007, TMC-050",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/56
+TMC-053,57,Verify payload redaction and session data isolation,verification,TEST,P0,TMC-031,"TMC-030, TMC-050, TMC-021",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/57
+TMC-054,58,Exercise PostgreSQL backup and point-in-time recovery,foundation,TEST,P2,TMC-101,"TMC-004, TMC-078",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/58
+TMC-055,59,Manage employee profiles with audited updates,employee,FEATURE,P0,TMC-090,"TMC-007, TMC-004",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/59
+TMC-056,60,Manage effective employee assignments and factory grants,employee,FEATURE,P0,TMC-090,"TMC-055, TMC-072",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/60
+TMC-057,61,Connect HR employee and access-grant screens,employee,UI,P0,TMC-090,"TMC-055, TMC-056, TMC-008",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/61
+TMC-058,62,Administer accounts and session revocation APIs,administration,FEATURE,P2,TMC-098,"TMC-007, TMC-087",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/62
+TMC-059,63,Manage scoped role assignments without privilege escalation,administration,FEATURE,P2,TMC-098,"TMC-058, TMC-072",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/63
+TMC-060,64,Build account administration screens,administration,UI,P2,TMC-043,"TMC-058, TMC-008",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/64
+TMC-061,65,Build scoped role-assignment administration screens,administration,UI,P2,TMC-043,"TMC-059, TMC-060",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/65
+TMC-062,66,Pair attendance intervals and classify anomalies,extended-business,FEATURE,P2,TMC-040,"TMC-019, TMC-020",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/66
+TMC-063,67,Apply audited attendance corrections with version checks,extended-business,FEATURE,P2,TMC-040,"TMC-062, TMC-007",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/67
+TMC-064,68,Connect attendance review and correction workflows,extended-business,UI,P2,TMC-040,"TMC-063, TMC-021",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/68
+TMC-065,69,Create immutable monthly export snapshots,reporting,FEATURE,P2,TMC-041,"TMC-040, TMC-024",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/69
+TMC-066,70,Implement HRS delivery and acknowledgment reconciliation,reporting,FEATURE,P2,TMC-041,TMC-065,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/70
+TMC-067,71,Schedule durable exports and deadline alerts,reporting,FEATURE,P2,TMC-041,"TMC-066, TMC-024",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/71
+TMC-068,72,Verify monthly HRS version and deadline behavior,reporting,TEST,P2,TMC-041,"TMC-065, TMC-066, TMC-067",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/72
+TMC-069,73,Decide the offline edge authorization threat model,reliability,SPIKE,P2,TMC-042,"TMC-022, TMC-024, TMC-030",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/73
+TMC-070,74,Prototype durable offline journals and synchronization,reliability,FEATURE,P2,TMC-042,TMC-069,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/74
+TMC-071,75,Verify edge partition and replay limitations,reliability,TEST,P2,TMC-042,TMC-070,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/75
+TMC-072,76,Administer effective factory organization data,gate-config,FEATURE,P0,TMC-092,"TMC-007, TMC-004",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/76
+TMC-073,77,Provision and retire authenticated gate stations,gate-config,FEATURE,P0,TMC-092,"TMC-072, TMC-012",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/77
+TMC-074,78,Connect station and organization administration screens,gate-config,UI,P0,TMC-092,"TMC-072, TMC-073, TMC-008",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/78
+TMC-075,79,Query monthly reports with role-specific projections,reporting,FEATURE,P2,TMC-097,"TMC-062, TMC-020, TMC-007",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/79
+TMC-076,80,Connect scoped monthly reports and anomaly views,reporting,UI,P2,TMC-097,"TMC-075, TMC-008",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/80
+TMC-077,81,Export scoped CSV reports with download auditing,reporting,ENHANCEMENT,P1,TMC-097,"TMC-075, TMC-076",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/81
+TMC-078,82,"Decide privacy notice, retention and evidence-hold policies",architecture,DOCS,P2,TMC-100,TMC-001,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/82
+TMC-079,83,Implement authorized privacy request lifecycle APIs,architecture,FEATURE,P2,TMC-100,"TMC-078, TMC-080, TMC-007",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/83
+TMC-080,84,Add privacy workflow and retention-hold persistence,architecture,BUILD,P2,TMC-100,"TMC-078, TMC-004",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/84
+TMC-081,85,Execute policy-based retention without erasing held evidence,architecture,FEATURE,P2,TMC-100,"TMC-079, TMC-080, TMC-024",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/85
+TMC-082,86,"Verify privacy requests, retention and evidence holds",architecture,TEST,P2,TMC-100,"TMC-079, TMC-081, TMC-054",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/86
+TMC-083,87,Version integration settings and secret references,gate-config,FEATURE,P2,TMC-092,"TMC-072, TMC-009",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/87
+TMC-084,88,Expose scoped service readiness and integration alerts,gate-config,ENHANCEMENT,P2,TMC-092,"TMC-039, TMC-024, TMC-007",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/88
+TMC-085,89,Verify module boundaries and replaceable integration ports,verification,TEST,P0,TMC-102,"TMC-029, TMC-087, TMC-013",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/89
+TMC-086,90,Show privacy purpose and scoped personal-profile states,architecture,UI,P0,TMC-100,"TMC-008, TMC-020, TMC-001",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/90
+TMC-087,91,Isolate session use cases from persistence and HTTP adapters,authorization,REFACTOR,P1,TMC-089,TMC-007,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/91
+TMC-088,46,UI foundations and component alignment,foundation,FEATURE,P1,TMC-101,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/46
+TMC-089,95,Authorization & session RBAC,authorization,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/95
+TMC-090,96,Employee Management,employee,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/96
+TMC-091,97,QR Credential Management,qr,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/97
+TMC-092,98,Gate & Factory Configuration,gate-config,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/98
+TMC-093,99,Gate Scan & Access Processing,gate-processing,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/99
+TMC-094,100,Attendance Event Recording,attendance,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/100
+TMC-095,101,"Reliability, Recovery & Offline Policy",reliability,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/101
+TMC-096,102,Audit & Traceability,audit,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/102
+TMC-097,103,Reporting & HRS Integration,reporting,EPIC,P1,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/103
+TMC-098,104,Administration: Accounts & Role Assignments,administration,EPIC,P1,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/104
+TMC-099,105,Nghiệp vụ mở rộng: ca làm & hiệu chỉnh,extended-business,EPIC,P2,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/105
+TMC-100,106,"Architecture, Privacy & Assignment Deliverables",architecture,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/106
+TMC-101,107,"Foundation, Delivery & Operations",foundation,EPIC,P1,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/107
+TMC-102,108,"Verification: API, DB, E2E & NFR",verification,EPIC,P0,,,https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/108
+TMC-103,92,Implement durable audit writes and scoped audit search,audit,FEATURE,P0,TMC-096,"TMC-007, TMC-004",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/92
+TMC-104,93,Implement shift definitions and effective employee schedules,extended-business,FEATURE,P2,TMC-099,"TMC-004, TMC-007, TMC-055, TMC-056",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/93
+TMC-105,94,Connect shift and schedule screens to persisted APIs,extended-business,UI,P2,TMC-099,"TMC-104, TMC-057",https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/94

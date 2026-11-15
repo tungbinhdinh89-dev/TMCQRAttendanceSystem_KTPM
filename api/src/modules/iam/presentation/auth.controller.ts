@@ -1,13 +1,20 @@
+import { ApiTags, ApiOperation, ApiBody, ApiResponse, ApiCookieAuth } from "@nestjs/swagger"
 import { BadRequestException, Body, Controller, Get, HttpCode, ForbiddenException, Post, Req, Res } from "@nestjs/common"
 import { AuthService, SESSION_COOKIE } from "../application/auth.service"
 
 type RequestLike = { headers: { cookie?: string; origin?: string } }
 type ResponseLike = { setHeader(name: string, value: string): void }
 
+@ApiTags("Authentication")
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiOperation({ summary: "Đăng nhập bằng username/password" })
+  @ApiBody({ schema: { type: "object", required: ["username", "password"], properties: { username: { type: "string" }, password: { type: "string", format: "password" } } } })
+  @ApiResponse({ status: 201, description: "Identity và expiresAt; session được đặt bằng Set-Cookie HttpOnly." })
+  @ApiResponse({ status: 401, description: "Sai thông tin đăng nhập hoặc tài khoản không hoạt động." })
+  @ApiResponse({ status: 400, description: "Thiếu username/password." })
   @Post("auth/login")
   async login(
     @Req() request: RequestLike,
@@ -23,6 +30,9 @@ export class AuthController {
     return { user: result.identity, expiresAt: result.expiresAt }
   }
 
+  @ApiCookieAuth("session")
+  @ApiOperation({ summary: "Đăng xuất và thu hồi session" })
+  @ApiResponse({ status: 204, description: "Session đã được thu hồi, cookie đã xóa." })
   @Post("auth/logout")
   @HttpCode(204)
   async logout(@Req() request: RequestLike, @Res({ passthrough: true }) response: ResponseLike) {
@@ -31,6 +41,9 @@ export class AuthController {
     clearSessionCookie(response)
   }
 
+  @ApiCookieAuth("session")
+  @ApiOperation({ summary: "Lấy danh tính, role và scope của phiên hiện tại" })
+  @ApiResponse({ status: 401, description: "Session thiếu, hết hạn hoặc bị thu hồi." })
   @Get("me")
   async me(@Req() request: RequestLike) {
     return this.authService.me(readCookie(request, SESSION_COOKIE))

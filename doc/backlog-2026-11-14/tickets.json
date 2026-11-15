@@ -1,0 +1,4345 @@
+[
+  {
+    "id": 1,
+    "title": "Confirm M2 scope and requirement traceability",
+    "type": "DOCS",
+    "feature": "I01",
+    "priority": "P0",
+    "deps": [
+      44
+    ],
+    "parent": 100,
+    "req": [
+      "M2-DESIGN",
+      "M2-SOLID",
+      "M2-CODE"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "doc/summary-assigment.md",
+      "doc/structure-architecture.md",
+      "doc/schema-database.md",
+      "doc/user-flow.md",
+      "doc/work-flow.md"
+    ],
+    "problem": "Đối chiếu M1 đã hoàn thành với đề M2; giữ NestJS, modular monolith và scope Gate Access & Attendance. Xác định ranh giới đo NFR, mock và các phần chỉ thiết kế.",
+    "tasks": [
+      "Lập mapping FR/NFR → use case → ticket → evidence cho hai vấn đề mới của M2.",
+      "Ghi ADR baseline: online R1, token ngắn hạn, sensor mock, station direction cố định và scope dữ liệu.",
+      "Chốt 37 bảng migration nhưng chỉ triển khai API/UI của vertical slice; đánh dấu HRS/HR correction mở rộng.",
+      "Ghi giả định deadline LMS, Figma nguồn, hợp đồng TCS và cách đo phản hồi ≤2 giây."
+    ],
+    "ac": [
+      "Không bỏ thiếu Task 1, SOLID reflection, Task 2 và GitHub URL trong ma trận.",
+      "Phân biệt yêu cầu PDF với lựa chọn nội bộ, mock và chức năng chưa hiện thực.",
+      "Mỗi quyết định có nguồn M1/M2 hoặc giả định rõ ràng."
+    ],
+    "cases": [
+      "Đối chiếu từng dòng Task 1/2 với PDF M2 trang 2–3.",
+      "Kiểm tra liên kết, mã requirement và scope không mâu thuẫn schema/user-flow.",
+      "Solo Developer đọc và chốt baseline trước khi mở ticket phụ thuộc."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 2,
+    "title": "Verify the client workspace and preview baseline",
+    "type": "BUILD",
+    "feature": "A01",
+    "priority": "P0",
+    "deps": [
+      1
+    ],
+    "parent": 101,
+    "req": [
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "client/vite.config.ts",
+      "client/.figma",
+      "pnpm-workspace.yaml",
+      "package.json"
+    ],
+    "problem": "Client đã ở client/src, có React/Vite/Tailwind/Astra/MUI. Kiểm chứng cấu hình/build/preview hiện tại; không di chuyển source lần nữa.",
+    "tasks": [
+      "Lập mapping di chuyển và giữ root scripts tương thích preview Figma; chuyển frontend vào client/.",
+      "Sửa Vite root, alias, static assets, Router basename và script workspace.",
+      "Kiểm tra nguồn cấp @figma/astraui và kit đang thiếu trong manifest/môi trường; pin dependency có thể cài hợp lệ.",
+      "Giữ token CSS, font, MUI bridge và chụp baseline các màn QR/kiosk/lịch sử."
+    ],
+    "ac": [
+      "client build/typecheck được với đường dẫn assets đúng.",
+      "Preview hiện hữu và entry dev không bị mất sau chuyển thư mục.",
+      "Có nguồn dependency Astra tái lập được; nếu chưa có thì ticket Blocked với lý do, không ghi build đã pass."
+    ],
+    "cases": [
+      "Chạy typecheck/build client từ workspace mới.",
+      "Smoke test landing, login, mobile QR và kiosk trên preview.",
+      "So light/dark, font và ảnh với baseline; thử refresh deep link."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "frontend"
+  },
+  {
+    "id": 3,
+    "title": "Complete backend ports and shared wire contracts",
+    "type": "BUILD",
+    "feature": "A02",
+    "priority": "P0",
+    "deps": [
+      2
+    ],
+    "parent": 101,
+    "req": [
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "api/src/bootstrap/modules",
+      "api/src/platform/application",
+      "contracts/src"
+    ],
+    "problem": "NestJS và contracts đã có. Hoàn thiện wiring, application ports và DTO cho nghiệp vụ còn thiếu; không dựng lại scaffold.",
+    "tasks": [
+      "Dựng Nest bootstrap, health endpoint và config validation không lộ secret.",
+      "Định nghĩa Clock, IdGenerator, UnitOfWork/TransactionContext, QrValidator, TurnstileGateway, AttendanceWriter và AuditWriter.",
+      "Định nghĩa DTO/error codes/correlationId; tách decision, commandState và attendanceState.",
+      "Đăng ký provider ở composition root; thêm script build/typecheck/test và ghi API schema."
+    ],
+    "ac": [
+      "Health endpoint chạy, core không import Nest/TypeORM/HTTP types.",
+      "Use case nhận port qua constructor; không có singleton mutable transaction manager.",
+      "Scan/lookup contract giữ eventId và mô tả 409 payload conflict."
+    ],
+    "cases": [
+      "Build/typecheck api.",
+      "Unit smoke test khởi tạo use case với fake ports.",
+      "Kiểm tra dependency/import của domain và application."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 4,
+    "title": "Verify PostgreSQL migrations and core constraints",
+    "type": "BUILD",
+    "feature": "A03",
+    "priority": "P0",
+    "deps": [
+      3
+    ],
+    "parent": 101,
+    "req": [
+      "FR-3.1",
+      "FR-3.3",
+      "NFR-2"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "api/src/platform/infrastructure/database/migrations",
+      "api/src/platform/infrastructure/database/entities.ts",
+      "api/src/modules"
+    ],
+    "problem": "ORM entities/registry/migration đã có. Kiểm chứng constraints và bổ sung migration cho gap thật trên DB test được chỉ định; không reset DB hiện tại.",
+    "tasks": [
+      "Viết manifest 37 bảng, mapping property/type, PK/UK/FK và tách vòng tham chiếu bằng ALTER TABLE.",
+      "Thêm partial UNIQUE station/event, OPEN/attempt, redemption, sourceId và FK deferred ledger/correction.",
+      "Triển khai TypeORM UnitOfWork, transaction context riêng và repository dùng đúng transactional manager.",
+      "Tạo PostgreSQL dev/test riêng, synchronize:false, env mẫu và migration run/revert trên DB tạm."
+    ],
+    "ac": [
+      "Migration chạy từ DB rỗng; mọi FK có bảng/khóa đích đúng kiểu.",
+      "Insert Event+revision 1 commit được; thiếu revision và vi phạm unique bị chặn.",
+      "Rollback UnitOfWork không để audit/command/attendance lưu một phần."
+    ],
+    "cases": [
+      "Chạy migration trên PostgreSQL test rỗng; so catalog với 37 bảng schema.",
+      "Thử vi phạm PK/FK/UK/partial unique và deferred head.",
+      "Thử hai transaction song song và lỗi giữa transaction; không dùng SQLite thay tính năng PG."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 5,
+    "title": "Complete Node test runners and CI contracts",
+    "type": "CI",
+    "feature": "A04",
+    "priority": "P0",
+    "deps": [
+      3,
+      4
+    ],
+    "parent": 101,
+    "req": [
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "api/package.json",
+      "api/test",
+      "client/test",
+      ".github/workflows (proposed)"
+    ],
+    "problem": "Đã có Node test runner và thay đổi OpenAPI/CI trong workspace. Đối chiếu manifest/revision khi nhận ticket; bổ sung check còn thiếu, không ghi đè thay đổi chưa commit.",
+    "tasks": [
+      "Tạo unit runner và integration runner dùng PostgreSQL test; thêm fixture/reset có kiểm soát.",
+      "Thêm scripts typecheck, test, test:integration cho api và test:e2e cho client.",
+      "Tạo CI install bằng lockfile, build hai app, migration/test với PG service và artifact kết quả.",
+      "Xuất OpenAPI/contract check và ghi danh mục script ở README kỹ thuật."
+    ],
+    "ac": [
+      "Một integration test thực sự kết nối PG và rollback fixture.",
+      "CI/script fail khi assertion fail, không bỏ qua lỗi bằng catch hoặc continue-on-error.",
+      "Không commit secrets và không chạy reset vào DB vận hành."
+    ],
+    "cases": [
+      "Chạy pipeline local tương ứng; tạo test fail tạm rồi khôi phục để kiểm tra exit code.",
+      "Xác minh env test độc lập và migrations dùng đúng DB.",
+      "Validate OpenAPI và health response."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 6,
+    "title": "Verify identity, scope and station fixtures",
+    "type": "TASK",
+    "feature": "B01",
+    "priority": "P0",
+    "deps": [
+      4
+    ],
+    "parent": 92,
+    "req": [
+      "FR-1.1",
+      "FR-1.6",
+      "FR-2.1",
+      "FR-5.1"
+    ],
+    "uc": "UC-08 / UF-00, UF-09",
+    "api": "API-IAM-01…03; quyền server cho các API nghiệp vụ",
+    "paths": [
+      "api/src/modules/iam",
+      "api/src/platform/infrastructure/database/seeds",
+      "api/test/auth.service.test.mjs"
+    ],
+    "problem": "Đã có seed tài khoản local có chủ đích. Kiểm chứng role/scope và chuẩn bị station fixtures trên DB test riêng; không tạo dữ liệu vận hành giả hoặc tự xoay mật khẩu DB hiện tại.",
+    "tasks": [
+      "Đối chiếu seed tài khoản với sáu role và scope; không tự tạo lịch sử công/QR/lượt quét.",
+      "Chuẩn bị factory/station IN/OUT fixtures có chủ đích trên DB test, bao gồm credential hết hạn/thu hồi và nhân viên inactive."
+    ],
+    "ac": [
+      "Trạm quyết định direction tại server, client không được sửa nhà máy/hướng."
+    ],
+    "cases": [
+      "Đăng nhập sáu role và gọi API theo scope trên DB test; xác nhận không lộ dữ liệu nhà máy khác.",
+      "Kiểm tra direction/device ID và station credential của fixtures; chứng minh script không reset DB hoặc chạy seed khi API khởi động."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-config",
+    "area": "backend"
+  },
+  {
+    "id": 7,
+    "title": "Complete server session authorization and scope checks",
+    "type": "ENHANCEMENT",
+    "feature": "B01",
+    "priority": "P0",
+    "deps": [
+      5,
+      6
+    ],
+    "parent": 89,
+    "req": [
+      "FR-5.1",
+      "FR-4.6",
+      "NFR-3"
+    ],
+    "uc": "UC-08 / UF-00, UF-09",
+    "api": "API-IAM-01…03; quyền server cho các API nghiệp vụ",
+    "paths": [
+      "api/src/modules/iam",
+      "api/src/platform/infrastructure/database/seeds",
+      "api/test/auth.service.test.mjs"
+    ],
+    "problem": "Login/me/logout cookie session đã có. Bổ sung permission guard/policy và scope theo từng operation; giữ session authentication, đề không yêu cầu JWT.",
+    "tasks": [
+      "Tách xác thực session và kiểm tra permission/scope thành guard/policy tái sử dụng; mặc định từ chối.",
+      "Áp dụng ở API nghiệp vụ ngay khi tạo; kiểm tra object thuộc factory/department/team/self từ dữ liệu server.",
+      "Chốt semantics nhiều role assignment; không ghép scope của role này với permission của role khác."
+    ],
+    "ac": [
+      "Sửa localStorage/role/filter không nâng quyền gọi API.",
+      "ADM không tự có quyền HR correction; SUP không truy cập nhân viên ngoài tổ.",
+      "Session hết hạn/thu hồi trả 401; thiếu quyền trả 403 theo contract.",
+      "Request hợp lệ nhưng thiếu permission hoặc ngoài scope bị 403 khi gọi API trực tiếp.",
+      "Nhiều assignment được xử lý theo policy đã chốt, không mất scope hợp lệ hoặc tự mở rộng quyền."
+    ],
+    "cases": [
+      "Thử login sai, hết hạn, logout rồi dùng lại token.",
+      "API tests IDOR hai nhân viên/hai nhà máy; station gọi API portal và ngược lại.",
+      "Xác minh cookie/CSRF và log không chứa session secret/password."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "authorization",
+    "area": "security"
+  },
+  {
+    "id": 8,
+    "title": "Verify session login and protected navigation",
+    "type": "UI",
+    "feature": "B02",
+    "priority": "P0",
+    "deps": [
+      7,
+      2
+    ],
+    "parent": 89,
+    "req": [
+      "FR-1.5",
+      "FR-5.1",
+      "NFR-3"
+    ],
+    "uc": "UC-02 / UF-00",
+    "api": "API-IAM-01…03",
+    "paths": [
+      "client/src/data/auth.ts",
+      "client/src/lib/session.ts",
+      "client/src/app/context.tsx",
+      "client/src/app/router.tsx"
+    ],
+    "problem": "Đăng nhập thật và route/menu theo role đã có. Kiểm chứng expired session, logout/đổi user và cập nhật quyền; không coi frontend là biên bảo mật.",
+    "tasks": [
+      "Thêm HTTP adapter có credentials, DTO mapping và thống nhất 401/403.",
+      "Thay login(id) bằng form gọi login/me/logout, bỏ tin cậy session localStorage cũ.",
+      "Thêm protected route và permission UI theo server; map role prototype về actor chuẩn.",
+      "Clear TanStack cache khi logout/đổi user; tách query keys theo identity và demo/server mode."
+    ],
+    "ac": [
+      "EMP không thể mở route người khác bằng URL hoặc data cache cũ.",
+      "Reload giữ phiên hợp lệ; hết phiên hiển thị đăng nhập rõ ràng.",
+      "Không dùng getDatabase toàn bộ dữ liệu nhân sự cho mọi account server."
+    ],
+    "cases": [
+      "Manual login/logout/reload và đổi EMP-A sang EMP-B.",
+      "Test redirect returnTo và trang 403.",
+      "Kiểm tra cache và Network panel không trả dữ liệu ngoài scope."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "authorization",
+    "area": "frontend"
+  },
+  {
+    "id": 9,
+    "title": "Implement QR credential and signing-key metadata",
+    "type": "FEATURE",
+    "feature": "C01",
+    "priority": "P0",
+    "deps": [
+      4,
+      6
+    ],
+    "parent": 91,
+    "req": [
+      "FR-1.2",
+      "FR-1.4",
+      "FR-5.2"
+    ],
+    "uc": "UC-03 / UF-01, UF-04",
+    "api": "API-EQR-01/14; catalog §19.6",
+    "paths": [
+      "api/src/modules/eqr",
+      "contracts/src/employee.ts",
+      "api/src/modules/iam"
+    ],
+    "problem": "Hiện thực model credential và key metadata theo schema; key material chỉ ở env/secret provider. Chưa tạo màn quản lý khóa đầy đủ.",
+    "tasks": [
+      "Tạo QrCredential aggregate, repository, signing-key registry và mapper.",
+      "Cấu hình kid, algorithm allowlist, public JWK và private secret reference.",
+      "Seed một key hoạt động, một verify-only/revoked để test rotation.",
+      "Thêm command cấp credential có actor HR/scope và audit trong UnitOfWork."
+    ],
+    "ac": [
+      "Chỉ một credential ACTIVE cho mỗi employee theo policy/schema.",
+      "Private key không nằm trong DB payload, client bundle hay logs.",
+      "Key không biết hoặc REVOKED không được dùng xác minh token mới."
+    ],
+    "cases": [
+      "Unit test vòng đời credential và key status.",
+      "Integration test partial unique active credential.",
+      "Quét secret trong fixture/log và kiểm tra metadata không chứa private JWK parameters."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "qr",
+    "area": "security"
+  },
+  {
+    "id": 10,
+    "title": "Issue short-lived QR tokens and revoke credentials",
+    "type": "FEATURE",
+    "feature": "C01",
+    "priority": "P0",
+    "deps": [
+      9,
+      7
+    ],
+    "parent": 91,
+    "req": [
+      "FR-1.2",
+      "FR-1.3",
+      "FR-1.4",
+      "M2-QR"
+    ],
+    "uc": "UC-03 / UF-01, UF-04",
+    "api": "API-EQR-01/14; catalog §19.6",
+    "paths": [
+      "api/src/modules/eqr",
+      "contracts/src/employee.ts",
+      "api/src/modules/iam"
+    ],
+    "problem": "Cấp token ký bất đối xứng với jti gắn qr_tokens.id. TTL 60 giây là cấu hình demo, không phải mức bắt buộc của đề.",
+    "tasks": [
+      "Tạo GET/POST self QR endpoint theo OpenAPI, lấy employee từ session và quyền hiện hành.",
+      "Ký token có kid/iss/aud/sub/jti/iat/exp theo contract, lưu token hash/expiry; không lưu raw payload.",
+      "Tạo HR revoke credential endpoint có reason/audit; refresh tạo jti mới, không kéo dài mã cũ.",
+      "Giới hạn tần suất cấp token và trả serverTime/expiresAt cho UI countdown."
+    ],
+    "ac": [
+      "Client không phát hành token cho employeeId tùy ý.",
+      "Token sinh từ credential revoked/inactive bị từ chối; thu hồi tác dụng ở lần check server sau.",
+      "Refresh cho token mới có expiry hợp lệ và traceable, không ghi token vào log."
+    ],
+    "cases": [
+      "API self-only và HR scope/reason.",
+      "Test expiry/refresh bằng clock giả, không chờ sleep.",
+      "Test revoke rồi dùng token còn hạn và giới hạn request cấp mã."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "qr",
+    "area": "security"
+  },
+  {
+    "id": 11,
+    "title": "Validate QR signatures and token claims",
+    "type": "FEATURE",
+    "feature": "C02",
+    "priority": "P0",
+    "deps": [
+      10
+    ],
+    "parent": 91,
+    "req": [
+      "FR-2.2",
+      "M2-QR"
+    ],
+    "uc": "UC-01 / UF-02",
+    "api": "API-GATE-02; kiểm tra QR nội bộ, không expose redeem riêng",
+    "paths": [
+      "api/src/modules/eqr",
+      "api/src/modules/gate",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "Tạo QrValidator port với adapter ký/xác minh và validation đồng nhất; phân biệt chữ ký hợp lệ với quyền truy cập nhà máy.",
+    "tasks": [
+      "Validate format/kích thước, kid, algorithm allowlist và chữ ký trước tin claims.",
+      "Kiểm tra issuer/audience/expiry/iat/nbf nếu sử dụng và clock skew đã công bố.",
+      "Đọc token/credential/key/employee hiện hành; đối chiếu jti/token fingerprint.",
+      "Trả typed result/reasonCode, audit có redaction; không kết luận ALLOW ở validator."
+    ],
+    "ac": [
+      "Token hợp lệ xác thực được; sửa sub/exp, sai chữ ký, unknown kid và wrong audience đều bị từ chối.",
+      "Expiry đúng biên và revoked credential/key được kiểm tra bằng server clock.",
+      "Lỗi không gây OPEN hay attendance và không làm lộ QR đầy đủ."
+    ],
+    "cases": [
+      "Unit tests valid, malformed, oversized, expired, future và tampered claims.",
+      "Key rotation và token hash/jti mismatch.",
+      "Contract test validator không phụ thuộc React/Nest request hoặc gọi TCS."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "qr",
+    "area": "security"
+  },
+  {
+    "id": 12,
+    "title": "Evaluate access policies using server-owned data",
+    "type": "FEATURE",
+    "feature": "D01",
+    "priority": "P0",
+    "deps": [
+      6,
+      11
+    ],
+    "parent": 93,
+    "req": [
+      "FR-1.6",
+      "FR-2.2"
+    ],
+    "uc": "UC-01 / UF-02",
+    "api": "API-GATE-02",
+    "paths": [
+      "api/src/modules/gate",
+      "api/src/modules/eqr",
+      "api/src/modules/cfg"
+    ],
+    "problem": "AccessPolicy thuần kiểm tra grant tách khỏi phân công tổ chức. Quyền EXIT theo chính sách baseline; phần mềm không thay cơ chế thoát hiểm.",
+    "tasks": [
+      "Lấy station/factory/direction từ station credential và cấu hình server.",
+      "Kiểm tra station active, employee active, credential hợp lệ và access grant [from,to).",
+      "Ghi typed ALLOW/DENIED reason; kiểm tra lại điều kiện quan trọng lúc claim trước gửi.",
+      "Chặn client giả factory/direction; ghi snapshot config/time và quy tắc EXIT/SEC exception."
+    ],
+    "ac": [
+      "Grant LA cho employee tổ chức BD được xử lý theo grant, không theo employee.site.",
+      "Denied attempt không gửi OPEN hoặc tạo attendance.",
+      "Client payload không ghi đè station/factory/direction phía server."
+    ],
+    "cases": [
+      "Unit tests grant đúng/sai factory, revoked, boundary validTo, station maintenance.",
+      "API test station spoof và inactive employee.",
+      "Test policy EXIT đã ghi trong ADR, không dùng demo auto-toggle direction."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-processing",
+    "area": "backend"
+  },
+  {
+    "id": 13,
+    "title": "Implement a fault-capable turnstile simulator",
+    "type": "FEATURE",
+    "feature": "D02",
+    "priority": "P0",
+    "deps": [
+      3,
+      5
+    ],
+    "parent": 93,
+    "req": [
+      "FR-2.3",
+      "FR-2.7",
+      "INT-02",
+      "NFR-5"
+    ],
+    "uc": "UC-01, UC-04 / UF-02, UF-05",
+    "api": "API-GATE-02/21 và EXT-01/02",
+    "paths": [
+      "api/src/modules/gate/application/ports/turnstile.gateway.ts",
+      "api/simulators",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "Mock gateway là tiến trình/adapter có state độc lập với database app. Nó minh họa hợp đồng, không chứng minh turnstile thật hoạt động.",
+    "tasks": [
+      "Định nghĩa open/close/status theo commandId/turnstileId/deadline và kết quả typed.",
+      "Mock các mode rejected, accepted-only, opened, passage, delay và lost-response-after-open.",
+      "Lưu ledger vật lý mock riêng, đếm thực thi OPEN; hỗ trợ callback duplicate/out-of-order và không hỗ trợ status ở mode giới hạn.",
+      "Đặt fault-control chỉ cho test/demo có xác thực, không public production."
+    ],
+    "ac": [
+      "ACK nhận lệnh không bị map thành passage/attendance.",
+      "Lost response có thể đi cùng physicalOpenCount=1, để test không dựa mỗi DB.",
+      "Lệnh quá deadline không được mock mở muộn; CLOSE không tạo lượt công."
+    ],
+    "cases": [
+      "Contract tests cho fake và adapter mock cùng interface.",
+      "Kiểm tra commandId idempotency được bật/tắt theo từng mode contract.",
+      "Gửi callback trùng/sai thứ tự, xác minh raw payload redaction."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-processing",
+    "area": "backend"
+  },
+  {
+    "id": 14,
+    "title": "Persist idempotent attempts before gate dispatch",
+    "type": "FEATURE",
+    "feature": "E01",
+    "priority": "P0",
+    "deps": [
+      4,
+      11,
+      12,
+      13
+    ],
+    "parent": 93,
+    "req": [
+      "FR-2.3",
+      "FR-3.1",
+      "FR-3.2",
+      "NFR-2"
+    ],
+    "uc": "UC-01 / UF-02",
+    "api": "API-GATE-02/21, API-ATT-01…04",
+    "paths": [
+      "api/src/modules/gate",
+      "api/src/modules/att",
+      "api/src/platform/application",
+      "contracts/src/attendance.ts"
+    ],
+    "problem": "Tạo transaction chuẩn bị bền vững trước HTTP tới TCS. Duplicate lookup xảy ra trước replay redemption; requestHash bỏ trường thay đổi theo lần retry.",
+    "tasks": [
+      "Chuẩn hóa request và hash; tìm UNIQUE(stationId,eventId) trước xác thực token lại của request cũ đã tiếp nhận.",
+      "Cùng ID/hash trả trạng thái cũ, cùng ID khác hash trả 409; station khác không đọc được request.",
+      "Trong một UnitOfWork lưu AccessAttempt, PREPARED OPEN, audit và hook redemption cho ticket 015.",
+      "Đảm bảo lỗi persistence dừng trước gateway; lưu denied attempts có reason và không command OPEN."
+    ],
+    "ac": [
+      "Hai POST đồng thời cùng station/event tạo đúng một attempt và một OPEN cơ sở.",
+      "Payload khác cùng ID trả 409, không đổi dữ liệu đã lưu.",
+      "DB unavailable/rollback không có physical OPEN."
+    ],
+    "cases": [
+      "Integration race cùng key và collision khác payload.",
+      "Test duplicate sau token hết hạn trả trạng thái đã có, không tạo request mới.",
+      "Inject DB fault trước commit, so mock gateway execution counter=0."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-processing",
+    "area": "backend"
+  },
+  {
+    "id": 15,
+    "title": "Prevent QR replay with atomic redemption",
+    "type": "FEATURE",
+    "feature": "C02",
+    "priority": "P0",
+    "deps": [
+      14,
+      10
+    ],
+    "parent": 91,
+    "req": [
+      "FR-3.2",
+      "NFR-3",
+      "M2-QR"
+    ],
+    "uc": "UC-01 / UF-02",
+    "api": "API-GATE-02; kiểm tra QR nội bộ, không expose redeem riêng",
+    "paths": [
+      "api/src/modules/eqr",
+      "api/src/modules/gate",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "Ticket riêng cho cải tiến QR exposure/replay M2: kết hợp token ngắn hạn, chữ ký, quyền online và atomic redemption. Không tuyên bố chống chia sẻ thời gian thực tuyệt đối.",
+    "tasks": [
+      "Ghi qr_redemptions với PK tokenId/UK attemptId trong cùng transaction PREPARED.",
+      "Tách replay khác event khỏi duplicate cùng event đã nhận; không dùng cooldown 30 giây thay DB uniqueness.",
+      "Kiểm tra online revocation/grant lúc chuẩn bị và claim; thu hồi token không đảo ngược tác động vật lý đã xảy ra.",
+      "Ghi ADR trade-off: token bị chặn sau redeem nhưng OPEN fail thì EMP lấy token mới; residual live-sharing risk."
+    ],
+    "ac": [
+      "Hai trạm quét cùng jti đồng thời: tối đa một redemption và một OPEN cơ sở được phép.",
+      "Retry cùng eventId không bị báo replay và không tiêu thụ lần hai.",
+      "Không tự mở offline khi không kiểm tra được quyền/revocation."
+    ],
+    "cases": [
+      "PG race jti khác event và khác station.",
+      "Rollback attempt thì redemption cũng rollback.",
+      "Revoke giữa issue/scan và giữa PREPARED/claim; test giới hạn chia sẻ được ghi rõ."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "qr",
+    "area": "security"
+  },
+  {
+    "id": 16,
+    "title": "Claim and reconcile gate commands with CAS",
+    "type": "FEATURE",
+    "feature": "D02",
+    "priority": "P0",
+    "deps": [
+      13,
+      14,
+      15
+    ],
+    "parent": 93,
+    "req": [
+      "FR-2.3",
+      "FR-2.7",
+      "FR-3.2",
+      "INT-02"
+    ],
+    "uc": "UC-01, UC-04 / UF-02, UF-05",
+    "api": "API-GATE-02/21 và EXT-01/02",
+    "paths": [
+      "api/src/modules/gate/application/ports/turnstile.gateway.ts",
+      "api/simulators",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "Triển khai state machine command; commit quyền gửi trước external HTTP. Kết quả gateway và ghi công là hai bước riêng; đến ticket 019 mới nối AttendanceWriter.",
+    "tasks": [
+      "CAS PREPARED→DISPATCHING cùng history/audit, deadline và điều kiện hiện hành; commit rồi mới gọi gateway.",
+      "Map ACKNOWLEDGED/CONFIRMED/REJECTED/UNKNOWN; không bắt HTTP transaction DB chờ cả lượt người đi qua.",
+      "Nhận kết quả/callback có dedupe, kiểm tra transition; CLOSE liên kết OPEN và lỗi đóng tạo cảnh báo.",
+      "Trả response decision/commandState/attendanceState rõ ràng; crash DISPATCHING đi đối soát, không phát OPEN lại."
+    ],
+    "ac": [
+      "Hai dispatcher cạnh tranh chỉ một thắng claim; không gọi HTTP khi claim rollback.",
+      "ACK-only không hiện đã ghi công; UNKNOWN không đổi thành DENIED hoặc retry OPEN mù.",
+      "Kiểm soát OPEN lẫn CLOSE, lệnh quá deadline không gửi mở muộn."
+    ],
+    "cases": [
+      "Unit table mọi transition hợp lệ/bị cấm.",
+      "PG CAS race, crash sau claim/trước gửi và sau gửi/mất response.",
+      "Callback trùng/sai thứ tự và lỗi CLOSE không xóa kết quả đã xác nhận."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-processing",
+    "area": "backend"
+  },
+  {
+    "id": 17,
+    "title": "Display server-issued QR codes in the employee portal",
+    "type": "UI",
+    "feature": "C03",
+    "priority": "P0",
+    "deps": [
+      10,
+      8
+    ],
+    "parent": 91,
+    "req": [
+      "FR-1.3",
+      "M2-QR"
+    ],
+    "uc": "UC-02 / UF-01",
+    "api": "API-EQR-14; API-ATT-01…04 khi dùng công cá nhân",
+    "paths": [
+      "client/src/features/employee-mobile/Mobile.tsx",
+      "client/src/lib/qr.ts",
+      "client/src/data/auth.ts"
+    ],
+    "problem": "Tái sử dụng trang mobile hiện có, thay makeQr phía client bằng endpoint self. UI chỉ trình bày QR, không giữ signing key hay quyết định quyền.",
+    "tasks": [
+      "Hiển thị token server bằng QR component hiện hữu, countdown từ expiresAt/serverTime.",
+      "Refresh có loading/error, hạn chế request; hết hạn/thu hồi không hiển thị như mã còn dùng.",
+      "Xóa payload khi logout/đổi user; không đưa QR vào localStorage journal hoặc telemetry.",
+      "Giữ layout/tokens Figma và kiểm tra mobile 360px, light/dark."
+    ],
+    "ac": [
+      "Token UI được server validator chấp nhận, không còn tự sinh tmc-access:v1 cho server mode.",
+      "Mất mạng cấp mã báo lỗi, không gia hạn QR cũ ở client.",
+      "EMP không chọn employeeId khác để phát QR."
+    ],
+    "cases": [
+      "Manual QR countdown/refresh bằng API clock fixture.",
+      "Test logout/đổi tài khoản không giữ mã cũ.",
+      "Responsive/contrast và lỗi 401/expired/revoked."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "qr",
+    "area": "frontend"
+  },
+  {
+    "id": 18,
+    "title": "Connect the virtual kiosk to real attempt states",
+    "type": "UI",
+    "feature": "D03",
+    "priority": "P0",
+    "deps": [
+      16,
+      17
+    ],
+    "parent": 93,
+    "req": [
+      "FR-2.4",
+      "UC-01",
+      "NFR-1"
+    ],
+    "uc": "UC-01 / UF-02, UF-03",
+    "api": "API-GATE-02/03",
+    "paths": [
+      "client/src/features/kiosk/Kiosk.tsx",
+      "client/src/data/api.ts",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "Giữ Virtual Scanner làm đường demo P0 độc lập camera. Public kiosk trải nghiệm hiện tại không được mặc định gọi API trạm có đặc quyền.",
+    "tasks": [
+      "Sinh eventId trước gửi đầu; giữ cùng ID/payload khi lookup/retry, tách debounce UI khỏi idempotency server.",
+      "Kết nối station đã provision; mode demo public cô lập dữ liệu và không nhúng long-lived station secret trong source.",
+      "Hiển thị DENIED/PENDING/UNKNOWN/OPEN_CONFIRMED và attendanceState riêng, reason ngắn gọn.",
+      "Bỏ auto-toggle IN/OUT và employee.site access check ở client; lấy cấu hình/decision server."
+    ],
+    "ac": [
+      "Virtual scan đi qua API thật, mock TCS và PG; không gọi local api.scan ở server mode.",
+      "Không hiển thị đã ghi công khi chỉ ALLOW/ACK.",
+      "Đổi dropdown không nâng quyền station; chưa provision thì không gọi scan đặc quyền."
+    ],
+    "cases": [
+      "Happy path, expired QR, wrong grant, inactive và payload malformed.",
+      "Mở kiosk công khai và xác minh không có server credential hoặc dữ liệu HR.",
+      "Kiểm tra UI retry không sinh eventId mới ngoài ý muốn."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "gate-processing",
+    "area": "frontend"
+  },
+  {
+    "id": 19,
+    "title": "Write attendance revisions from verified passage evidence",
+    "type": "FEATURE",
+    "feature": "E01",
+    "priority": "P0",
+    "deps": [
+      16
+    ],
+    "parent": 94,
+    "req": [
+      "FR-3.3",
+      "NFR-2"
+    ],
+    "uc": "UC-01 / UF-02",
+    "api": "API-GATE-02/21, API-ATT-01…04",
+    "paths": [
+      "api/src/modules/gate",
+      "api/src/modules/att",
+      "api/src/platform/application",
+      "contracts/src/attendance.ts"
+    ],
+    "problem": "Nối GATE với ATT qua public AttendanceWriter. Dùng PASSAGE_SENSOR từ mock; OPEN_PROXY chỉ khi baseline phê duyệt, luôn ghi evidenceType.",
+    "tasks": [
+      "Dedupe gate_device_events theo endpoint/vendor event và xác thực event source.",
+      "Ghi command result/history, AttendanceEvent, revision 1 và audit cùng transactional context.",
+      "Dùng sourceId ổn định ACCESS:attempt UUID; deferred head FK và UNIQUE attempt/source chống ghi lặp.",
+      "Giữ dữ liệu gốc bất biến, tách event history khỏi báo cáo tính ca/tính lương; không lấy first-in/last-out làm giờ công."
+    ],
+    "ac": [
+      "PASSAGE_CONFIRMED tạo một event+revision 1; denied/ACK-only/UNKNOWN không tạo công chính thức.",
+      "Callback/result lặp không thêm event, DB rollback không để attendance/audit lệch.",
+      "Restart app vẫn truy vấn được nguồn và evidence, không dựa localStorage."
+    ],
+    "cases": [
+      "PG atomic rollback giữa command/event/audit.",
+      "Duplicate/out-of-order passage, sensor không khớp command và CLOSE event.",
+      "Check head deferred, unique source, timestamp UTC và direction server."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "attendance",
+    "area": "backend"
+  },
+  {
+    "id": 20,
+    "title": "Expose scoped attempt status and attendance history",
+    "type": "FEATURE",
+    "feature": "E02",
+    "priority": "P0",
+    "deps": [
+      19,
+      7
+    ],
+    "parent": 94,
+    "req": [
+      "FR-1.5",
+      "FR-3.6",
+      "FR-4.2",
+      "NFR-3"
+    ],
+    "uc": "UC-02, UC-07 / UF-01, UF-08",
+    "api": "API-GATE-03/12/13; API-ATT-01…04",
+    "paths": [
+      "api/src/modules/att",
+      "api/src/modules/gate",
+      "client/src/features/employee-mobile/Mobile.tsx",
+      "contracts/src/attendance.ts"
+    ],
+    "problem": "Tạo read models/DTO nhỏ cho status, access history và attendance history. Không cung cấp getDatabase tổng hợp toàn bộ dữ liệu như prototype.",
+    "tasks": [
+      "Tạo lookup theo eventId cho chính trạm hoặc user đủ quyền.",
+      "Tạo history/detail có pagination, filter thời gian, station/factory và predicate scope ở query.",
+      "Trả command/evidence/current revision và correlationId; redaction thông tin cá nhân theo actor.",
+      "Đặt giới hạn page size/range và index query cần dùng; bỏ voided khỏi report hiệu lực theo policy."
+    ],
+    "ac": [
+      "EMP chỉ đọc self, SEC đúng factory, SUP đúng team, EXE chỉ aggregate.",
+      "Không truy cập chéo bằng đoán UUID hoặc sửa query filter.",
+      "Retry lookup sau QR hết hạn vẫn đọc kết quả request đã nhận."
+    ],
+    "cases": [
+      "API tests 401/403/404 policy và IDOR đa factory.",
+      "Pagination/filter ổn định khi nhiều event cùng timestamp.",
+      "Query plan cơ bản và contract response không chứa QR/session/secret."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "attendance",
+    "area": "backend"
+  },
+  {
+    "id": 21,
+    "title": "Connect personal history and attempt details",
+    "type": "UI",
+    "feature": "E02",
+    "priority": "P0",
+    "deps": [
+      20,
+      8
+    ],
+    "parent": 94,
+    "req": [
+      "FR-1.5",
+      "UC-02"
+    ],
+    "uc": "UC-02, UC-07 / UF-01, UF-08",
+    "api": "API-GATE-03/12/13; API-ATT-01…04",
+    "paths": [
+      "api/src/modules/att",
+      "api/src/modules/gate",
+      "client/src/features/employee-mobile/Mobile.tsx",
+      "contracts/src/attendance.ts"
+    ],
+    "problem": "Tái sử dụng UI lịch sử mobile và bảng access để đọc API theo role. Giữ các màn HR/ca làm ngoài scope ở mode mock có nhãn.",
+    "tasks": [
+      "Thay query getDatabase bằng history/detail APIs và query keys scoped theo identity/filter.",
+      "Hiển thị thời điểm giờ VN, station direction, evidence và trạng thái dữ liệu.",
+      "Thêm pagination/loading/empty/error và 403; phân biệt nhật ký denied với attendance ledger.",
+      "Link detail từ eventId/correlationId; bỏ action sửa công chưa có API ở server mode."
+    ],
+    "ac": [
+      "Cùng dữ liệu PG được nhìn thấy từ hai trình duyệt theo quyền, không dựa storage event.",
+      "Denied/UNKNOWN không hiển thị như công đã xác nhận.",
+      "Đăng xuất/đổi user xóa cache nhạy cảm, filter không vượt scope."
+    ],
+    "cases": [
+      "Manual EMP-A/EMP-B và SEC-BD/SEC-LA.",
+      "Mất mạng query và reload deep link detail.",
+      "Kiểm tra mobile, bảng và timestamp quanh 00:00 VN."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "attendance",
+    "area": "backend"
+  },
+  {
+    "id": 22,
+    "title": "Finalize network failure architecture decisions",
+    "type": "DOCS",
+    "feature": "F01",
+    "priority": "P0",
+    "deps": [
+      16
+    ],
+    "parent": 95,
+    "req": [
+      "M2-NETWORK",
+      "NFR-6"
+    ],
+    "uc": "UC-01, UC-04 / UF-03",
+    "api": "API-GATE-02/03",
+    "paths": [
+      "client/src/features/kiosk/Kiosk.tsx",
+      "doc/tech-stack.md",
+      "doc/user-flow.md",
+      "doc/structure-architecture.md"
+    ],
+    "problem": "Ticket riêng cho Network Failure Architecture M2. Cụ thể hóa R1 online/recover thay vì hứa mở offline; phương án edge chỉ so sánh và để P2.",
+    "tasks": [
+      "Vẽ sequence mất kết nối trước gửi, sau DB commit, sau claim, sau TCS thực thi và mất response.",
+      "Quy định journal eventId/request fingerprint không raw token; lookup trước, không tự replay stale OPEN.",
+      "Định nghĩa status lookup, durable jobs, backoff/jitter/budget và SEC reconciliation không có status API.",
+      "So sánh R1 với edge local DB/quyền offline, nêu residual risk và điểm tích hợp module/physical deployment."
+    ],
+    "ac": [
+      "Mỗi failure window có state lưu bền vững, cách recovery và hạn chế rõ.",
+      "Không đồng nhất PENDING/UNKNOWN với công thành công hoặc gate chưa mở.",
+      "Giải thích được cơ chế giảm mất/trùng dữ liệu và vì sao DB transaction không đảm bảo exactly-once vật lý."
+    ],
+    "cases": [
+      "Walk-through sơ đồ bằng fault modes từ 013/026.",
+      "So ADR với schema GateCommand/Job và kiosk eventId.",
+      "Review từng câu tuyên bố độ tin cậy với bằng chứng dự kiến, không ghi test đã pass."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "reliability",
+    "area": "frontend"
+  },
+  {
+    "id": 23,
+    "title": "Recover kiosk requests with a metadata journal",
+    "type": "ENHANCEMENT",
+    "feature": "F01",
+    "priority": "P0",
+    "deps": [
+      18,
+      20,
+      22
+    ],
+    "parent": 95,
+    "req": [
+      "FR-3.2",
+      "FR-3.6",
+      "M2-NETWORK"
+    ],
+    "uc": "UC-01, UC-04 / UF-03",
+    "api": "API-GATE-02/03",
+    "paths": [
+      "client/src/features/kiosk/Kiosk.tsx",
+      "doc/tech-stack.md",
+      "doc/user-flow.md",
+      "doc/structure-architecture.md"
+    ],
+    "problem": "Journal client chỉ lưu metadata cần phục hồi, không phải offline attendance database. Không lưu token/PII hoặc tự mở offline.",
+    "tasks": [
+      "Persist journal eventId/station reference/request fingerprint/time/status trước gửi; payload QR chỉ ở memory.",
+      "Khi timeout/reload, lookup cùng eventId; NOT_FOUND chưa chứng minh request cũ không tới. Chỉ quét lại sau deadline cũ và kiểm tra không còn khả năng dispatch; UNKNOWN chuyển SEC.",
+      "Áp backoff cho lookup đọc an toàn, giới hạn backlog/TTL và retry budget; không retry OPEN đã DISPATCHING.",
+      "Hiển thị pending/synced/failed của journal như trạng thái đồng bộ request, không thay command/attendance state."
+    ],
+    "ac": [
+      "Mất response sau commit vẫn lookup đúng attempt, không tạo eventId mới tự động.",
+      "Reload không gửi QR cũ đã hết hạn để mở muộn.",
+      "Journal không chứa raw token, employee name hoặc secret; quota lỗi có thông báo và không báo đã lưu."
+    ],
+    "cases": [
+      "Browser offline trước gửi, sau commit và reload khi pending.",
+      "Test quota/storage failure và backlog đạt giới hạn.",
+      "Kiểm tra request log không lặp OPEN, clock expiry và lookup hết budget."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reliability",
+    "area": "frontend"
+  },
+  {
+    "id": 24,
+    "title": "Reconcile unknown commands using durable fenced jobs",
+    "type": "FEATURE",
+    "feature": "F02",
+    "priority": "P0",
+    "deps": [
+      19,
+      22,
+      26
+    ],
+    "parent": 95,
+    "req": [
+      "FR-3.6",
+      "NFR-2",
+      "M2-NETWORK"
+    ],
+    "uc": "UC-04 / UF-05",
+    "api": "API-GATE-12/13/16…19",
+    "paths": [
+      "api/src/modules/gate",
+      "api/src/modules/rpt",
+      "client/src/features/access-control/Access.tsx"
+    ],
+    "problem": "DB worker xử lý GATE_RECONCILIATION; chỉ status lookup/cập nhật kết quả có bằng chứng. Chưa triển khai HRS outbox consumer.",
+    "tasks": [
+      "Tạo job cùng transaction ghi UNKNOWN; claim có lease/version/fencing và nextRunAt.",
+      "Đối soát theo commandId qua gateway status; status thiếu thì tạo case SEC, không auto-reopen.",
+      "Backoff tăng dần có jitter/maxAttempts, lỗi permanent→FAILED, hết budget giữ case và audit.",
+      "Chỉ update khi còn claim version; nhận callback/worker đồng thời qua idempotent ledger writer."
+    ],
+    "ac": [
+      "Restart worker không làm mất backlog; hai worker không ghi đè claim nhau.",
+      "Lease hết hạn không được coi là TCS chưa thực thi; không retry OPEN mù.",
+      "Một passage được báo lại từ status/callback vẫn chỉ có một attendance."
+    ],
+    "cases": [
+      "Claim race, lease expiry và stale worker completion.",
+      "Status UNKNOWN/unsupported, transient/permanent và max attempts.",
+      "Callback đồng thời với status kết quả; so physicalOpenCount không tăng do recovery."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reliability",
+    "area": "backend"
+  },
+  {
+    "id": 25,
+    "title": "Implement scoped security reconciliation cases",
+    "type": "FEATURE",
+    "feature": "F02",
+    "priority": "P0",
+    "deps": [
+      24,
+      7,
+      20
+    ],
+    "parent": 95,
+    "req": [
+      "FR-2.5",
+      "FR-3.6",
+      "FR-4.2"
+    ],
+    "uc": "UC-04 / UF-05",
+    "api": "API-GATE-12/13/16…19",
+    "paths": [
+      "api/src/modules/gate",
+      "api/src/modules/rpt",
+      "client/src/features/access-control/Access.tsx"
+    ],
+    "problem": "Phạm vi P0 là màn list/detail/form resolution nhỏ và API tương ứng, không phải console vận hành hoàn chỉnh. Không dùng overrideReason như bypass mọi policy.",
+    "tasks": [
+      "Tạo list/detail case theo factory; nhận resolved outcome PASSED/NOT_PASSED/INSUFFICIENT_EVIDENCE, reason và evidence refs.",
+      "Kiểm tra permission hiện hành và optimistic version; không nhận actor tự khai.",
+      "PASSED có đủ bằng chứng thì xác nhận nguồn attempt cũ; MANUAL chỉ khi không có nguồn đã nhận, kiểm tra chống trùng vật lý.",
+      "Ghi case/result/attendance/audit nguyên tử, giữ dấu vết người xử lý và không tự phát OPEN."
+    ],
+    "ac": [
+      "SEC-LA không giải quyết case BD; ADM thiếu quyền SEC không được bypass.",
+      "Hai người xử lý cùng version chỉ một thắng; nguồn đã có không tạo công lần hai.",
+      "INSUFFICIENT_EVIDENCE không thành attendance CONFIRMED."
+    ],
+    "cases": [
+      "API cross-factory/forged actor/reason rỗng và concurrent resolve.",
+      "Case đã có event rồi resolve lại; manual trùng attempt.",
+      "Manual UI list/detail và evidence redaction."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reliability",
+    "area": "backend"
+  },
+  {
+    "id": 26,
+    "title": "Exercise lost responses and process crash scenarios",
+    "type": "TEST",
+    "feature": "F02",
+    "priority": "P0",
+    "deps": [
+      13,
+      16,
+      22
+    ],
+    "parent": 95,
+    "req": [
+      "M2-NETWORK",
+      "FR-2.7"
+    ],
+    "uc": "UC-04 / UF-05",
+    "api": "API-GATE-12/13/16…19",
+    "paths": [
+      "api/src/modules/gate",
+      "api/src/modules/rpt",
+      "client/src/features/access-control/Access.tsx"
+    ],
+    "problem": "Tạo harness điều khiển lỗi có thể lặp lại và quan sát cả app DB lẫn mock TCS. Không gọi test demo mode là bằng chứng môi trường sản xuất.",
+    "tasks": [
+      "Thêm test hooks trước DB commit, sau claim commit, sau TCS execute và trước gửi response.",
+      "Cho phép mô phỏng API↔DB, kiosk↔API và API↔TCS độc lập.",
+      "Thu execution ledger mock, DB counts và correlationId để so sánh trước/sau restart.",
+      "Khóa fault-control dưới env test/demo, không public hoặc luôn bật."
+    ],
+    "ac": [
+      "Mỗi fault mode có trigger/expected state/cleanup tái lập được.",
+      "Mất ACK sau OPEN có physical execution dù client timeout.",
+      "Restart app không xóa ledger mock trong bài test nhằm che duplicate."
+    ],
+    "cases": [
+      "Smoke từng fault switch và reset môi trường test riêng.",
+      "Kiểm tra disable fault hooks ở config ngoài demo/test.",
+      "So log và DB snapshot không chứa secret/raw QR."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reliability",
+    "area": "backend"
+  },
+  {
+    "id": 27,
+    "title": "Connect camera scans to the server contract",
+    "type": "UI",
+    "feature": "D03",
+    "priority": "P1",
+    "deps": [
+      18
+    ],
+    "parent": 93,
+    "req": [
+      "FR-2.4",
+      "UC-01"
+    ],
+    "uc": "UC-01 / UF-02, UF-03",
+    "api": "API-GATE-02/03",
+    "paths": [
+      "client/src/features/kiosk/Kiosk.tsx",
+      "client/src/data/api.ts",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "P1: reuse html5-qrcode/ScanCamera hiện có, nối cùng application scan adapter của Virtual Scanner; không xây scanner riêng.",
+    "tasks": [
+      "Đưa callback camera vào cùng eventId/scan flow với ticket 018.",
+      "Giữ debounce/in-flight, dừng stream khi unmount/đổi station/mode.",
+      "Xử lý permission denied, camera busy và iframe/HTTPS constraints.",
+      "Đặt Virtual Scanner luôn dùng được khi camera unavailable; UI theo token có sẵn."
+    ],
+    "ac": [
+      "Camera đọc QR server đi qua cùng validation/replay/idempotency pipeline.",
+      "Không gửi nhiều request mới khi callback đọc lặp một ảnh.",
+      "Từ chối quyền không làm kiosk lỗi hoặc mất đường demo virtual."
+    ],
+    "cases": [
+      "Manual camera thật trên HTTPS/localhost nếu có thiết bị.",
+      "Permission denied/busy/unmount và fallback virtual.",
+      "Kiểm tra không còn camera indicator sau rời màn."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "gate-processing",
+    "area": "frontend"
+  },
+  {
+    "id": 28,
+    "title": "Connect scoped dashboard data and factory filters",
+    "type": "UI",
+    "feature": "G01",
+    "priority": "P1",
+    "deps": [
+      20,
+      21,
+      25
+    ],
+    "parent": 97,
+    "req": [
+      "FR-4.1",
+      "UC-07"
+    ],
+    "uc": "UC-07 / UF-08",
+    "api": "API-RPT-01, API-CFG-01, API-GATE-04",
+    "paths": [
+      "client/src/features/dashboard/Dashboard.tsx",
+      "api/src/modules/gate",
+      "api/src/modules/rpt"
+    ],
+    "problem": "P1: chỉ thay nguồn số liệu chính của dashboard hiện có, không xây analytics. Nếu cắt ticket, list/history/case P0 vẫn đủ quan sát.",
+    "tasks": [
+      "Tổng hợp counts allowed/denied/unknown/case từ server query scoped, không từ KPI seed 1.400.",
+      "Hiển thị recent events và thời điểm dữ liệu cập nhật; trạng thái gate dựa evidence/lastSeen, chưa biết phải ghi rõ.",
+      "Áp factory filter trong quyền, không cho SEC đổi sang factory khác.",
+      "Giữ biểu đồ/khối ngoài module ở mock mode có nhãn, không trộn totals."
+    ],
+    "ac": [
+      "Số liệu dashboard khớp query/fixture, không tuyên bố heartbeat thật nếu chưa có.",
+      "Filter không làm rò scope; không trả danh sách HR toàn hệ thống.",
+      "Trạng thái loading/error/stale có thông báo."
+    ],
+    "cases": [
+      "Compare API count với fixture PG theo factory.",
+      "Manual 403 và không dữ liệu/mạng lỗi.",
+      "UI light/dark/responsive với nguồn real/mock phân biệt."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "reporting",
+    "area": "frontend"
+  },
+  {
+    "id": 29,
+    "title": "Verify the main module against PostgreSQL",
+    "type": "TEST",
+    "feature": "H01",
+    "priority": "P0",
+    "deps": [
+      19,
+      20,
+      15
+    ],
+    "parent": 102,
+    "req": [
+      "FR-3.1",
+      "FR-3.2",
+      "FR-3.3",
+      "NFR-2"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "api/test",
+      "api/package.json",
+      "api/src/modules/gate",
+      "api/src/modules/att"
+    ],
+    "problem": "Củng cố unit/integration/API tests đã viết trong từng ticket; không đợi tới tuần 4 mới bắt đầu test. Đây là ticket chất lượng độc lập cho module chính.",
+    "tasks": [
+      "Tạo matrix valid/invalid/expired/revoked QR, access grant và station policy.",
+      "Chạy PG transaction/unique/deferred head tests và kiểm tra nguồn attendance.",
+      "Chạy API tests auth/station/status/history theo contract.",
+      "Lưu command, commit hash, môi trường, số test và kết quả thực tế; ghi failure còn lại."
+    ],
+    "ac": [
+      "Happy path EMP QR→kiosk→mock passage→PG history tái lập được.",
+      "Denied/ACK-only/UNKNOWN không tạo công; dữ liệu tồn tại sau restart.",
+      "Test không dùng SQLite hoặc mock repository để tuyên bố PG constraints đúng."
+    ],
+    "cases": [
+      "Unit suite và PG integration suite trên DB sạch.",
+      "API regression với các role đại diện.",
+      "Review assertions về state, DB count, audit và mock execution counter."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "verification",
+    "area": "backend"
+  },
+  {
+    "id": 30,
+    "title": "Verify concurrent replay and crash recovery",
+    "type": "TEST",
+    "feature": "H02",
+    "priority": "P0",
+    "deps": [
+      23,
+      24,
+      25,
+      26,
+      29
+    ],
+    "parent": 102,
+    "req": [
+      "NFR-2",
+      "M2-QR",
+      "M2-NETWORK"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "api/test",
+      "api/simulators",
+      "client/src/features/kiosk/Kiosk.tsx"
+    ],
+    "problem": "Ticket riêng xác minh hai cải tiến M2 bằng fault harness và concurrent PG transactions. Không coi một demo tuần tự là chứng minh race an toàn.",
+    "tasks": [
+      "Chạy race cùng eventId, khác payload, cùng jti khác trạm và hai dispatcher.",
+      "Kill/restart tại các fault windows, thử lost-response-after-open và status unavailable.",
+      "Chạy callback lặp/sai thứ tự, worker stale lease, SEC resolve lặp.",
+      "Đối chiếu attempt/redemption/command/attendance/audit và physicalOpenCount của mock."
+    ],
+    "ac": [
+      "Duplicate request và redemption không tạo thêm OPEN/attendance.",
+      "DISPATCHING/UNKNOWN recovery không gửi OPEN lại khi contract không cho phép.",
+      "Mỗi failure window có expected/actual/evidence; giới hạn bảo đảm vật lý được công bố."
+    ],
+    "cases": [
+      "Lặp race có điều phối barrier thay vì chỉ Promise tuần tự.",
+      "Kiểm tra crash/restart giữ DB và mock ledger riêng.",
+      "Regression QR expired khi lookup request cũ và out-of-scope case."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "verification",
+    "area": "backend"
+  },
+  {
+    "id": 31,
+    "title": "Coordinate kiosk performance and data-access verification",
+    "type": "TEST",
+    "feature": "H03",
+    "priority": "P0",
+    "deps": [
+      7,
+      30,
+      51,
+      52,
+      53
+    ],
+    "parent": 102,
+    "req": [
+      "NFR-1",
+      "NFR-3",
+      "NFR-4"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "api/test",
+      "client/test",
+      "api/src/modules/iam",
+      "api/src/modules/gate"
+    ],
+    "problem": "Đo hiệu năng kiosk với tải 800 giao dịch/30 phút/nhà máy và đợt burst có giả định rõ. Chỉ kết luận trong môi trường mock/PG đã thử, không tự chứng nhận compliance pháp lý.",
+    "tasks": [
+      "Tạo workload 800/30 phút cho từng factory, đo thêm burst và hai factory; giữ tách lỗi chủ ý khỏi happy path.",
+      "Đo từ kiosk bắt đầu submit đến hiển thị response và API latency riêng, ghi p50/p95/p99/max, errors và timeout.",
+      "So số nguồn xác nhận với attendance sau tải; test IDOR/RBAC và truy vết audit.",
+      "Rà log/browser bundle/cookie/storage không chứa secret/raw QR; lập mục giới hạn privacy cần hoàn thiện."
+    ],
+    "ac": [
+      "Báo cáo có boundary đo, concurrency/arrival rate, cấu hình máy/DB/TCS mock, duration và kết quả thô.",
+      "Không dùng p95≤2 giây để tự thay yêu cầu ≤2 giây; ghi mọi mẫu vượt ngưỡng và điều kiện.",
+      "Không mất nguồn đã xác nhận trong tập dữ liệu test; chưa đo hoặc fail phải ghi rõ."
+    ],
+    "cases": [
+      "Chạy tải đủ 30 phút cho kịch bản cơ sở; burst script riêng.",
+      "Security API tests 401/403/IDOR và redaction scan.",
+      "Đối chiếu counts, CPU/DB latency và error reasons; không tính denied chủ ý như lỗi ngẫu nhiên."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [
+      51,
+      52,
+      53
+    ],
+    "feature_slug": "verification",
+    "area": "backend"
+  },
+  {
+    "id": 32,
+    "title": "Verify the complete user journey and UI states",
+    "type": "TEST",
+    "feature": "H04",
+    "priority": "P0",
+    "deps": [
+      21,
+      23,
+      30,
+      31,
+      85
+    ],
+    "parent": 102,
+    "req": [
+      "UC-01",
+      "UC-02",
+      "UC-04",
+      "NFR-1"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "client/src/features/kiosk/Kiosk.tsx",
+      "client/src/features/employee-mobile/Mobile.tsx",
+      "api/test",
+      "report"
+    ],
+    "problem": "Chạy E2E P0 từ portal→virtual kiosk→history→recovery. Webcam/dashboard chỉ kiểm tra bổ sung nếu P1 được chọn; không để P0 phụ thuộc chúng.",
+    "tasks": [
+      "Tự động hóa login EMP, lấy QR, scan virtual, mock passage và kiểm tra history API/UI.",
+      "Chạy denied/expired/replay/UNKNOWN và journal reload bằng backend fixtures.",
+      "Đối chiếu mobile 360/tablet/desktop, keyboard, focus, chữ/icon trạng thái, light/dark với baseline.",
+      "Ghi ảnh/video, URL/môi trường và Figma source nếu được cung cấp; chưa có Figma URL phải ghi giới hạn."
+    ],
+    "ac": [
+      "E2E P0 pass không cần camera vật lý hoặc dashboard P1.",
+      "Không có dữ liệu real/mock trộn mà không nhãn, không xuất hiện đã ghi công ở ACK-only.",
+      "Browser refresh và session switch không làm rò cache."
+    ],
+    "cases": [
+      "Chạy E2E trên ít nhất browser demo được chọn.",
+      "Manual negative camera nếu đã làm 027; dashboard count nếu đã làm 028.",
+      "Kiểm tra console errors, assets và responsive baseline."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "verification",
+    "area": "frontend"
+  },
+  {
+    "id": 33,
+    "title": "Document SOLID evidence from implementation",
+    "type": "DOCS",
+    "feature": "I02",
+    "priority": "P0",
+    "deps": [
+      19,
+      24,
+      85
+    ],
+    "parent": 100,
+    "req": [
+      "NFR-5",
+      "M2-SOLID"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "api/src/modules",
+      "api/test",
+      "report/sections/content.tex"
+    ],
+    "problem": "Ticket riêng cho SOLID Implementation Examples. Đánh giá code module đã có, chỉ refactor nhỏ khi có vi phạm cụ thể và bảo toàn behavior.",
+    "tasks": [
+      "Map SRP cho validator/policy/dispatcher/writer; DIP cho use case/ports và bootstrap providers.",
+      "Map OCP cho mock/HTTP adapter và ISP cho interface tách open/status/query.",
+      "Chứng minh LSP qua contract tests, giữ UNKNOWN semantics giống nhau giữa adapter.",
+      "Ghi file/symbol/commit, lợi ích và trade-off; sửa import/framework leakage nếu tìm thấy."
+    ],
+    "ac": [
+      "Có ví dụ cụ thể cho S/O/L/I/D, link source và assertion/contract test.",
+      "Không thêm interface/lớp trống chỉ để đủ danh sách SOLID.",
+      "Refactor nếu có không làm thay đổi policy hoặc bỏ concurrency constraints."
+    ],
+    "cases": [
+      "Review import boundary và dùng cùng contract test cho adapters.",
+      "Chạy suite bị ảnh hưởng bởi refactor.",
+      "Kiểm tra link source theo commit và so code thật với mô tả."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 34,
+    "title": "Write the implementation-based SOLID reflection",
+    "type": "DOCS",
+    "feature": "I02",
+    "priority": "P0",
+    "deps": [
+      33,
+      30
+    ],
+    "parent": 100,
+    "req": [
+      "M2-SOLID"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "api/src/modules",
+      "api/test",
+      "report/sections/content.tex"
+    ],
+    "problem": "Viết reflection ngắn theo M2 về lợi ích, khó khăn, modularity, maintainability và extensibility, dựa trên code/review/rework đã xảy ra.",
+    "tasks": [
+      "Chọn ít nhất hai tình huống thực tế như thay gateway hoặc lỗi transaction context.",
+      "Mô tả trước/sau và nguyên tắc giúp giải quyết; nêu chi phí abstraction/DI.",
+      "Liên kết ví dụ033 và kết quả030, ghi rõ giới hạn/chưa làm.",
+      "Viết bằng giọng phản ánh của nhóm, Solo Developer kiểm tra tính xác thực trước nộp."
+    ],
+    "ac": [
+      "Trả lời đầy đủ lợi ích, khó khăn và ảnh hưởng SOLID theo đề.",
+      "Không bịa kinh nghiệm, số liệu hoặc test chưa chạy.",
+      "Nội dung nhất quán với code và architecture cuối cùng."
+    ],
+    "cases": [
+      "Cross-review reflection với issue/review log và evidence thực tế.",
+      "Kiểm tra trích dẫn code/diagram còn đúng.",
+      "So yêu cầu reflection ở PDF M2 trang3."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 35,
+    "title": "Align architecture decisions and three required views",
+    "type": "DOCS",
+    "feature": "I01",
+    "priority": "P0",
+    "deps": [
+      1,
+      22,
+      33,
+      34,
+      31
+    ],
+    "parent": 100,
+    "req": [
+      "M2-DESIGN",
+      "M2-QR",
+      "M2-NETWORK",
+      "NFR-6"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "doc/summary-assigment.md",
+      "doc/structure-architecture.md",
+      "doc/schema-database.md",
+      "doc/user-flow.md",
+      "doc/work-flow.md"
+    ],
+    "problem": "Hợp nhất M1 và thay đổi M2 thành Software Architecture Design cuối cùng. Không chỉ thêm diagram vào báo cáo cũ mà bỏ các phần characteristic/style/trade-off.",
+    "tasks": [
+      "Cập nhật FR/NFR, measurable scenarios và architecture characteristics; so modular monolith/layered/microservices theo tiêu chí cụ thể.",
+      "Trình bày từng bước logical→physical, module/dependency view, C&C runtime/sequence và allocation/deployment.",
+      "Ghi ADR thay đổi QR static→short-lived, R1 recovery, evidence/UNKNOWN, transaction context và dependency Figma.",
+      "Gắn triển khai thực tế, mock, chưa triển khai, số đo và trade-offs; đối chiếu schema 37 với module code subset."
+    ],
+    "ac": [
+      "Đủ mọi mục Task1 cùng cả ba architectural views, không nhầm sơ đồ thư mục với runtime view.",
+      "Hai vấn đề M2 có mitigation, vị trí tích hợp và residual risks rõ.",
+      "HRS trước noon ngày 1 được giữ ở thiết kế; không tuyên bố đã tích hợp khi 041 chưa làm."
+    ],
+    "cases": [
+      "Cross-check diagram node/connector với source/config cuối.",
+      "Review mapping requirement→design→ticket→test/evidence.",
+      "Kiểm tra link, caption, readable export và thuật ngữ giữa các tài liệu."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 36,
+    "title": "Verify setup instructions and the reproducible demo",
+    "type": "DOCS",
+    "feature": "I03",
+    "priority": "P0",
+    "deps": [
+      5,
+      32
+    ],
+    "parent": 100,
+    "req": [
+      "NFR-5",
+      "M2-CODE"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "README.md",
+      "doc/demo-accounts.md",
+      "scripts",
+      "report"
+    ],
+    "problem": "Viết setup/runbook chính xác cho client/api/PG/mock. Phân biệt preview Figma đang chạy với standalone build; không giả định package private có sẵn.",
+    "tasks": [
+      "Ghi toolchain đã pin, dependency Astra hợp lệ, env, DB migration/seed, start API/worker/client.",
+      "Liệt kê accounts/station provision và cách tách public demo với server mode.",
+      "Viết kịch bản happy/denied/replay/timeout/recovery và reset chỉ DB demo.",
+      "Ghi verification commands, môi trường đã chạy, giới hạn simulator và xử lý lỗi cài đặt."
+    ],
+    "ac": [
+      "Clean checkout đi theo README có thể chạy slice đã chọn.",
+      "Không cần secret cá nhân hardcode; step nào cần quyền/package phải ghi nguồn cấp.",
+      "GitHub URL đúng và mọi giới hạn mock/camera/HRS hiện rõ."
+    ],
+    "cases": [
+      "Clean setup smoke test trong thư mục/môi trường tạm được phép.",
+      "Chạy theo demo steps và đối chiếu expected state.",
+      "Kiểm tra assets/fonts và dependency install tái lập từ lockfile."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 37,
+    "title": "Package the M2 report and submission evidence",
+    "type": "DOCS",
+    "feature": "I03",
+    "priority": "P0",
+    "deps": [
+      34,
+      35,
+      36,
+      38
+    ],
+    "parent": 100,
+    "req": [
+      "M2-SUBMIT"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "README.md",
+      "doc/demo-accounts.md",
+      "scripts",
+      "report"
+    ],
+    "problem": "Đóng gói report PDF và release candidate với URL GitHub thực. Nộp LMS là thao tác của Solo Developer trong kế hoạch; ticket không tự đăng/push/nộp từ nhiệm vụ lập kế hoạch này.",
+    "tasks": [
+      "Ghép Architecture Design, hai cải tiến M2, SOLID/reflection và module implementation/testing evidence.",
+      "Ghi URL https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM và commit/release candidate đã kiểm tra quyền đọc.",
+      "So checklist đề, format PDF, link, hình và hạn LMS chính thức; không coi 01/12 là deadline giảng viên đã xác nhận.",
+      "Solo Developer chuẩn bị/nộp trên LMS, lưu receipt khi có; cập nhật trạng thái chỉ sau bằng chứng."
+    ],
+    "ac": [
+      "Báo cáo có URL GitHub chứa source đúng commit và truy cập được theo quyền môn học.",
+      "Không thiếu Task1/2, reflection hoặc hai vấn đề M2.",
+      "File/receipt thực tế mới được đánh dấu Submitted; không lấy tạo PDF làm bằng chứng nộp LMS."
+    ],
+    "cases": [
+      "Mở PDF và tất cả link quan trọng từ tài khoản kiểm tra phù hợp.",
+      "Re-run demo release candidate đã khóa.",
+      "Đối chiếu tên file/dung lượng/deadline LMS và lưu xác nhận sau khi nộp."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 38,
+    "title": "Verify the release candidate and triage blockers",
+    "type": "TEST",
+    "feature": "H04",
+    "priority": "P0",
+    "deps": [
+      29,
+      30,
+      31,
+      32,
+      35,
+      36
+    ],
+    "parent": 102,
+    "req": [
+      "M2-CODE",
+      "M2-SUBMIT"
+    ],
+    "uc": "Hỗ trợ xuyên UC; xem FR/NFR và milestone",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "client/src/features/kiosk/Kiosk.tsx",
+      "client/src/features/employee-mobile/Mobile.tsx",
+      "api/test",
+      "report"
+    ],
+    "problem": "Timebox ổn định 3 giờ đã tính vào plan, khác buffer38 giờ chưa phân công. Nếu phát hiện lỗi lớn thì dùng buffer và cập nhật estimate, không ẩn failure.",
+    "tasks": [
+      "Triage lỗi029–032 theo severity, ghi repro/expected/actual và fix nhỏ.",
+      "Giữ policy/constraints/secret handling; nếu thay contract thì cập nhật source/docs/test cùng nhau.",
+      "Re-run regression bị ảnh hưởng và build hai app.",
+      "Khóa candidate commit, ghi known limitations và bàn giao037."
+    ],
+    "ac": [
+      "Không còn blocker/critical về mở lặp, mất nguồn, rò scope hoặc không chạy demo.",
+      "Mọi bug fix có repro và regression assertion phù hợp.",
+      "Known P1/P2 chưa làm được ghi rõ, không gọi chúng là completed."
+    ],
+    "cases": [
+      "Chạy core/reliability/E2E suites liên quan thay đổi.",
+      "Build/typecheck hai app.",
+      "Smoke restart/recovery và chạy demo từ đầu theo runbook."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "verification",
+    "area": "frontend"
+  },
+  {
+    "id": 39,
+    "title": "Monitor station heartbeat and pending work",
+    "type": "ENHANCEMENT",
+    "feature": "G01",
+    "priority": "P1",
+    "deps": [
+      28,
+      24
+    ],
+    "parent": 92,
+    "req": [
+      "FR-2.6",
+      "FR-5.3"
+    ],
+    "uc": "UC-07 / UF-08",
+    "api": "API-RPT-01, API-CFG-01, API-GATE-04",
+    "paths": [
+      "client/src/features/dashboard/Dashboard.tsx",
+      "api/src/modules/gate",
+      "api/src/modules/rpt"
+    ],
+    "problem": "P1 hoãn sau M2 baseline. Mở rộng dashboard bằng heartbeat/authenticated station health và số liệu worker; không triển khai observability platform.",
+    "tasks": [
+      "Thêm heartbeat endpoint từ trạm đã xác thực và lưu lastSeen.",
+      "Định nghĩa stale threshold cấu hình, phân biệt station connectivity với TCS/device physical health.",
+      "Tổng hợp pending/failed jobs, case age, UNKNOWN và latency từ dữ liệu thật.",
+      "Hiển thị timestamp/chất lượng dữ liệu và factory-scoped metrics."
+    ],
+    "ac": [
+      "Không đồng nhất heartbeat app với cổng vật lý hoạt động.",
+      "Scope của metrics giống API nghiệp vụ.",
+      "Backlog tăng có thể quan sát và stale heartbeat hiển thị UNKNOWN/OFFLINE rõ."
+    ],
+    "cases": [
+      "Fake clock cho stale threshold và trạm revoked.",
+      "Cross-factory metrics và API rate limit.",
+      "So counts với jobs/cases fixture."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-config",
+    "area": "frontend"
+  },
+  {
+    "id": 40,
+    "title": "Deliver versioned HR attendance corrections",
+    "type": "FEATURE",
+    "feature": "E03",
+    "priority": "P2",
+    "deps": [
+      7,
+      19,
+      20,
+      62,
+      63,
+      64
+    ],
+    "parent": 99,
+    "req": [
+      "FR-3.4",
+      "FR-3.5"
+    ],
+    "uc": "UC-05 / UF-06",
+    "api": "catalog ATT §19.8",
+    "paths": [
+      "api/src/modules/att",
+      "client/src/features/attendance/Attendance.tsx",
+      "contracts/src/attendance.ts"
+    ],
+    "problem": "P2 ngoài module nộp baseline. Schema đã dự trù correction/revision; hiện thực full workflow cần thêm giờ, không dùng prototype decideAdjustment ghi đè làm sản phẩm thật.",
+    "tasks": [
+      "Thêm correction use case CAS expectedVersion và audit; void/revision không UPDATE payload gốc.",
+      "Kiểm tra HR permission/scope/reason/evidence; ADM/SUP không tự có quyền sửa.",
+      "Thêm review request UI tối thiểu, conflict flow và effective history.",
+      "Rebuild pairing đúng nhiều IN/OUT/overnight; không ghi đè snapshot cũ."
+    ],
+    "ac": [
+      "Hai HR sửa cùng version: một thành công, một conflict không lưu một phần.",
+      "Revision 1 không đổi; nguồn correction liên kết đúng before/after versions.",
+      "Nhiều khoảng trong ngày không tính cả thời gian vắng như first-in/last-out."
+    ],
+    "cases": [
+      "Deferred FK/CAS race và rollback correction/revision/audit.",
+      "API permissions, reason rỗng, void và nhầm employee.",
+      "Pairing overnight/missing/duplicate IN và boundary month."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [
+      62,
+      63,
+      64
+    ],
+    "feature_slug": "extended-business",
+    "area": "backend"
+  },
+  {
+    "id": 41,
+    "title": "Deliver versioned monthly HRS exports",
+    "type": "FEATURE",
+    "feature": "G02",
+    "priority": "P1",
+    "deps": [
+      19,
+      24,
+      40,
+      65,
+      66,
+      67,
+      68
+    ],
+    "parent": 97,
+    "req": [
+      "FR-4.3",
+      "FR-4.4",
+      "FR-4.5",
+      "INT-01"
+    ],
+    "uc": "UC-06 / UF-07",
+    "api": "catalog RPT §19.9 + EXT-03/04",
+    "paths": [
+      "api/src/modules/rpt",
+      "contracts/src/reports.ts",
+      "api/src/modules/att"
+    ],
+    "problem": "P2 implementation ngoài module baseline; yêu cầu/tích hợp HRS vẫn phải có trong kiến trúc P0. Chỉ triển khai khi đã có contract mock/real được chốt.",
+    "tasks": [
+      "Tạo snapshot Batch/Items/ItemSources với payloadText/checksum/count và source revisions bất biến.",
+      "Tạo Outbox+Job cùng transaction; adapter HRS submit/status và ExportAttempt mỗi lần.",
+      "Retry đúng batch ID/content, ACK xác minh kỳ/version/checksum/count/partial; hỗ trợ supersedes khi correction.",
+      "Lập lịch/alert theo timezone và mốc trước 12:00 ngày 1; tách acceptedAt với remoteReadyAt."
+    ],
+    "ac": [
+      "Mất response rồi retry không tạo dữ liệu lô khác; partial/mismatch không thành ACCEPTED.",
+      "Snapshot cũ không đổi khi công live được hiệu chỉnh.",
+      "Không tính lương; chưa có HRS thật thì chỉ kết luận contract mock."
+    ],
+    "cases": [
+      "Snapshot consistency và FK source revisions.",
+      "Lost ACK/idempotency/status không hỗ trợ/permanent errors.",
+      "Boundary month/overnight, dueAt và đúng12:00 không là trước hạn."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [
+      65,
+      66,
+      67,
+      68
+    ],
+    "feature_slug": "reporting",
+    "area": "backend"
+  },
+  {
+    "id": 42,
+    "title": "Evaluate and prototype autonomous offline edge operation",
+    "type": "SPIKE",
+    "feature": "F03",
+    "priority": "P2",
+    "deps": [
+      22,
+      24,
+      30,
+      69,
+      70,
+      71
+    ],
+    "parent": 95,
+    "req": [
+      "M2-NETWORK"
+    ],
+    "uc": "UC-04 / UF-03",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "doc/tech-stack.md",
+      "doc/structure-architecture.md",
+      "api/simulators"
+    ],
+    "problem": "P2 nghiên cứu/prototype edge, không phải bật offline OPEN cho kiosk hiện tại. Cần chốt threat model, grant cache, khóa và giới hạn consistency trước làm.",
+    "tasks": [
+      "So central R1 với edge local durable DB, sync outbox/inbox, key provisioning và clock.",
+      "Chốt offline authorization freshness/revocation, replay liên trạm/liên nhà máy và physical safety boundary.",
+      "Prototype local journal/sync idempotent cùng conflict policy và mô phỏng WAN partition.",
+      "Đo lưu bền vững/reconcile và ghi điều kiện cho phép/từ chối tự động; không dùng prototype như production."
+    ],
+    "ac": [
+      "Nêu rõ quyền có thể stale và không hứa one-time token toàn hệ thống khi partition.",
+      "Offline OPEN chỉ khi policy được chốt; trạng thái chưa xác minh không thành công giả.",
+      "Có trade-off deploy/ops/key protection và bằng chứng sync."
+    ],
+    "cases": [
+      "Partition hai edge dùng cùng QR và revoke khi offline.",
+      "Crash local persistence, clock drift và reconnect duplicate.",
+      "Thử conflict/reconciliation và giới hạn lưu trữ."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [
+      69,
+      70,
+      71
+    ],
+    "feature_slug": "reliability",
+    "area": "backend"
+  },
+  {
+    "id": 43,
+    "title": "Deliver the IAM administration interface",
+    "type": "UI",
+    "feature": "B03",
+    "priority": "P2",
+    "deps": [
+      7,
+      8,
+      60,
+      61
+    ],
+    "parent": 98,
+    "req": [
+      "FR-5.1"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "Không thêm endpoint riêng; trace theo ticket/requirements",
+    "paths": [
+      "client/src/features/settings/Settings.tsx",
+      "client/src/lib/rbac.ts",
+      "contracts/src/auth.ts"
+    ],
+    "problem": "P2: mở rộng IAM management screens. Auth/RBAC tối thiểu P0 dùng seed và APIs đã kiểm tra, không chờ full console.",
+    "tasks": [
+      "Tạo user/role/scope assignment APIs có permission quản trị và audit.",
+      "Tạo UI danh sách/form với scope shape SELF/GLOBAL/FACTORY/DEPARTMENT/TEAM.",
+      "Thu hồi sessions khi disable/revoke theo policy; giữ lịch sử assignments.",
+      "Chặn tự cấp đặc quyền không được phép, không tạo implicit HR correction quyền ADM."
+    ],
+    "ac": [
+      "Role/scope persistence đúng unique/shape constraints.",
+      "ADM quản trị được IAM theo quyền nhưng không tự sửa công HR.",
+      "Mọi thay đổi có actor/reason/audit và cross-scope negative tests."
+    ],
+    "cases": [
+      "Scope NULL uniqueness, revoke và stale sessions.",
+      "Self escalation/IDOR/invalid scope references.",
+      "UI conflict/error/empty và permission guards."
+    ],
+    "validation": "V-CLIENT",
+    "children": [
+      60,
+      61
+    ],
+    "feature_slug": "administration",
+    "area": "frontend"
+  },
+  {
+    "id": 44,
+    "title": "Audit current acceptance evidence and replan capacity",
+    "type": "TASK",
+    "feature": "A06",
+    "priority": "P0",
+    "deps": [],
+    "parent": 101,
+    "req": [
+      "M2-DESIGN",
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "doc/backlog.md",
+      "doc/work-flow.md",
+      "README.md",
+      "api/test",
+      "client/test"
+    ],
+    "problem": "Đối chiếu 001…043 với source/tests/PR/acceptance hiện có; không làm lại scaffold đã có; chốt remaining effort, giờ/ngày, deadline LMS và tập Ready cùng user.",
+    "tasks": [
+      "Đối chiếu 001…043 với source/tests/PR/acceptance hiện có",
+      "không làm lại scaffold đã có",
+      "chốt remaining effort, giờ/ngày, deadline LMS và tập Ready cùng user."
+    ],
+    "ac": [
+      "Mỗi ticket có source-inspected/verified/gap rõ, không nâng Done chỉ từ tên commit.",
+      "Lập remaining estimate và lịch/capacity được user chốt; ghi khác biệt với baseline lịch sử.",
+      "Tạo tập pull candidates có input/AC/dependency, không tự assign/implement."
+    ],
+    "cases": [
+      "Rà workspace/migrations/auth/tests so với inventory §1; đọc evidence do owner cung cấp.",
+      "Tổng effort cha/con và lịch đúng; không reset progress hoặc tạo issue trùng."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 45,
+    "title": "Define issue templates and label taxonomy",
+    "type": "DOCS",
+    "feature": "A05",
+    "priority": "P0",
+    "deps": [
+      44,
+      1
+    ],
+    "parent": 101,
+    "req": [
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "doc/backlog.md",
+      ".github/ISSUE_TEMPLATE (proposed)",
+      ".github/pull_request_template.md (proposed)"
+    ],
+    "problem": "Chuẩn hóa template ticket/bug/PR, title ID/type/Feature và label dictionary; mapping type:documentation cũ sang type:docs có kế hoạch, không đổi ID; chuẩn bị files tooling nếu được giao.",
+    "tasks": [
+      "Chuẩn hóa template ticket/bug/PR, title ID/type/Feature và label dictionary",
+      "mapping type:documentation cũ sang type:docs có kế hoạch, không đổi ID",
+      "chuẩn bị files tooling nếu được giao."
+    ],
+    "ac": [
+      "Mỗi label có description/color/rule/exclusivity; đúng một work type và mapping Feature.",
+      "Template đủ AC/verification/parent và human-review gate, không placeholder trong issue sẵn import."
+    ],
+    "cases": [
+      "Walkthrough một FEATURE, BUG, UI, ENHANCEMENT và cross-cutting; title/body/labels khớp.",
+      "Kiểm tra Markdown/YAML khi file template được tạo; chưa tạo remote thì Not created."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 46,
+    "title": "Prepare the GitHub Project field schema",
+    "type": "CHORE",
+    "feature": "A05",
+    "priority": "P0",
+    "deps": [
+      45
+    ],
+    "parent": 101,
+    "req": [
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "doc/backlog.md"
+    ],
+    "problem": "Khảo sát owner/repo/Project hiện có và quyền; tạo hoặc tái sử dụng Project khi được giao thực thi; cấu hình Status/Priority/Rank/Estimate/Start/Target/Iteration và Feature mapping.",
+    "tasks": [
+      "Khảo sát owner/repo/Project hiện có và quyền",
+      "tạo hoặc tái sử dụng Project khi được giao thực thi",
+      "cấu hình Status/Priority/Rank/Estimate/Start/Target/Iteration và Feature mapping."
+    ],
+    "ac": [
+      "Owner/audience/Project URL/ID lấy từ phản hồi thật, không tự thay quyền hoặc tạo Project trùng.",
+      "Fields/options/types đúng schema §8, một nguồn Status/Priority; dates/estimate map ticket đúng."
+    ],
+    "cases": [
+      "Walkthrough field của issue thật hoặc dry configuration review; ghi mức xác minh.",
+      "Không tự giả custom people-picker/organization issue type hoặc mirror tự động."
+    ],
+    "validation": "V-GH",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 47,
+    "title": "Configure saved views and safe project automations",
+    "type": "CHORE",
+    "feature": "A05",
+    "priority": "P0",
+    "deps": [
+      46
+    ],
+    "parent": 101,
+    "req": [
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "doc/backlog.md"
+    ],
+    "problem": "Tạo năm saved views theo schema; kiểm tra auto-add/closed/merged workflows; giữ user approval gate và không Done cho closed-unmerged.",
+    "tasks": [
+      "Tạo năm saved views theo schema",
+      "kiểm tra auto-add/closed/merged workflows",
+      "giữ user approval gate và không Done cho closed-unmerged."
+    ],
+    "ac": [
+      "Prioritized Backlog, Status Board, Roadmap, Bugs, In Review có filter/layout/sort/group/date đúng và được save.",
+      "Workflow closed-unmerged/not-planned không tự Done; issue/PR không cộng estimate hai lần."
+    ],
+    "cases": [
+      "Dùng issue có/không date, BUG/FIX, In Review và PR closed-unmerged để đối chiếu filter/automation.",
+      "Thiếu quyền hoặc chưa thao tác thì record Proposed/Not verified, không báo pass."
+    ],
+    "validation": "V-GH",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 48,
+    "title": "Define protected-branch checks and human review ownership",
+    "type": "DOCS",
+    "feature": "A05",
+    "priority": "P0",
+    "deps": [
+      44,
+      45
+    ],
+    "parent": 101,
+    "req": [
+      "NFR-3",
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "doc/backlog.md",
+      "doc/work-flow.md",
+      ".github/workflows (proposed)"
+    ],
+    "problem": "Xác định check names thực, author/reviewer identities và main ruleset mục tiêu; ghi proposal hoặc cấu hình khi được giao, không tự bật auto-merge.",
+    "tasks": [
+      "Xác định check names thực, author/reviewer identities và main ruleset mục tiêu",
+      "ghi proposal hoặc cấu hình khi được giao, không tự bật auto-merge."
+    ],
+    "ac": [
+      "Quy trình main → branch → checks → PR → user approve/merge rõ; rule khả dụng theo quyền/account.",
+      "Nếu author/reviewer cùng account, ghi không thể native self-approve và phương án reviewer được owner chọn."
+    ],
+    "cases": [
+      "Đối chiếu required checks với CI thực; không đăng ký check không bao giờ chạy.",
+      "Review latest-push/stale approvals và PR-only CI draft flow; không bypass protection."
+    ],
+    "validation": "V-GH",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 49,
+    "title": "Import verified ticket metadata without duplicate issues",
+    "type": "TASK",
+    "feature": "A05",
+    "priority": "P0",
+    "deps": [
+      46,
+      47,
+      48
+    ],
+    "parent": 101,
+    "req": [
+      "NFR-5"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "doc/backlog.md"
+    ],
+    "problem": "Chuẩn bị import batches theo dependency/milestone; tra issue/ID trước khi create/update/reuse; lưu mapping internal ID → issue → Project item sau từng batch được giao.",
+    "tasks": [
+      "Chuẩn bị import batches theo dependency/milestone",
+      "tra issue/ID trước khi create/update/reuse",
+      "lưu mapping internal ID → issue → Project item sau từng batch được giao."
+    ],
+    "ac": [
+      "Giữ toàn bộ ID/parent/type/Feature, milestone/dates đúng; legacy remote mapping chưa biết ghi Unverified.",
+      "Retry phần chưa tạo, không nhân đôi; Ready chỉ khi DoR và user chọn, không từ việc import."
+    ],
+    "cases": [
+      "Dry-run bảng import trước mutation; so count/duplicates/parent và titles.",
+      "Đối chiếu remote response/URL sau batch khi được phép, không fabricate issue numbers."
+    ],
+    "validation": "V-GH",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 50,
+    "title": "Restrict demo bootstrap data to authorized scopes",
+    "type": "BUG",
+    "feature": "B01",
+    "priority": "P0",
+    "deps": [
+      7,
+      8
+    ],
+    "parent": 89,
+    "req": [
+      "FR-1.5",
+      "FR-5.1",
+      "NFR-3",
+      "NFR-4"
+    ],
+    "uc": "UC-08 / UF-00, UF-09",
+    "api": "API-IAM-01…03; quyền server cho các API nghiệp vụ",
+    "paths": [
+      "api/src/modules/cfg/presentation/demo-bootstrap.controller.ts",
+      "api/test/bootstrap.test.mjs",
+      "client/src/data/api.ts",
+      "client/src/app/context.tsx"
+    ],
+    "problem": "Bootstrap hiện yêu cầu session và lọc scope. Kiểm chứng hồi quy, sửa gap có bằng chứng; xem xét hợp nhất nhiều role assignment thay vì chọn role đầu tiên.",
+    "tasks": [
+      "Controller demo/bootstrap hiện không đọc session và query toàn bộ employee/account/grants/stations",
+      "bootstrap test mock kỳ vọng 200 công khai",
+      "giới hạn projection/role/scope và vẫn cho login UI khởi động an toàn."
+    ],
+    "ac": [
+      "Anonymous không lấy employee/account dataset; 401 hoặc route chỉ bật trong demo có ranh giới dữ liệu được chốt.",
+      "EMP/self, SUP/team, SEC/factory, EXE aggregate theo policy; không expose accounts hoặc raw SQL errors.",
+      "Client login không phụ thuộc endpoint public trả toàn DB; vẫn có loading/error/empty rõ."
+    ],
+    "cases": [
+      "Source repro: đọc controller không có auth/guard và bootstrap.test expectation công khai; runtime repro trên DB synthetic khi được giao.",
+      "Test anonymous, EMP, cross-factory và EXE; xác minh không trả account list hoặc error SQL."
+    ],
+    "validation": "V-API+V-CLIENT",
+    "children": [],
+    "feature_slug": "authorization",
+    "area": "security"
+  },
+  {
+    "id": 51,
+    "title": "Measure kiosk response latency under shift-change load",
+    "type": "TEST",
+    "feature": "H03",
+    "priority": "P0",
+    "deps": [
+      30,
+      18,
+      19
+    ],
+    "parent": 31,
+    "req": [
+      "FR-2.4",
+      "NFR-1"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "api/test",
+      "client/src/features/kiosk/Kiosk.tsx",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "Thiết kế workload 800 giao dịch/30 phút/mỗi nhà máy với burst assumption tách rõ; đo từ nhận đủ QR tới hiển thị, phân biệt API latency và passage time.",
+    "tasks": [
+      "Thiết kế workload 800 giao dịch/30 phút/mỗi nhà máy với burst assumption tách rõ",
+      "đo từ nhận đủ QR tới hiển thị, phân biệt API latency và passage time."
+    ],
+    "ac": [
+      "Harness/config dữ liệu và timestamp/UI boundary tái lập, không dùng trung bình để chứng minh peak.",
+      "Báo distribution/max/error/timeout/correctness tại tải và so ≤2s; môi trường/giới hạn có nguồn."
+    ],
+    "cases": [
+      "Baseline và burst do owner chốt; fail khi thiếu UI measurement hoặc mất dữ liệu dù API nhanh.",
+      "Ghi raw timing không chứa token; chưa chạy ghi Not run, không tự đặt percentile SLA."
+    ],
+    "validation": "V-LOAD",
+    "children": [],
+    "feature_slug": "verification",
+    "area": "backend"
+  },
+  {
+    "id": 52,
+    "title": "Verify role, object and factory authorization boundaries",
+    "type": "TEST",
+    "feature": "H03",
+    "priority": "P0",
+    "deps": [
+      30,
+      7,
+      50
+    ],
+    "parent": 31,
+    "req": [
+      "FR-1.5",
+      "FR-4.6",
+      "FR-5.1",
+      "NFR-3"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "api/test",
+      "api/src/modules/iam",
+      "client/test/rbac.test.mjs"
+    ],
+    "problem": "Tạo ma trận role × operation × factory/team/self cho HTTP thật; sửa localStorage/body/filter không thay quyền server; kiểm tra audit trong transaction.",
+    "tasks": [
+      "Tạo ma trận role × operation × factory/team/self cho HTTP thật",
+      "sửa localStorage/body/filter không thay quyền server",
+      "kiểm tra audit trong transaction."
+    ],
+    "ac": [
+      "EMP/SUP/SEC/EXE/ADM/HR có positive và negative cases, expired/revoked/inactive bị từ chối.",
+      "IDOR/cross-factory/body actor spoof bị chặn, audit failure rollback đúng invariant."
+    ],
+    "cases": [
+      "Dùng fixture hai nhà máy và identity riêng; trả 401/403/404 theo policy công bố.",
+      "Không chỉ test hasAccess ở client; so audit actor/action/result và redaction."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "verification",
+    "area": "backend"
+  },
+  {
+    "id": 53,
+    "title": "Verify payload redaction and session data isolation",
+    "type": "TEST",
+    "feature": "H03",
+    "priority": "P0",
+    "deps": [
+      30,
+      50,
+      21
+    ],
+    "parent": 31,
+    "req": [
+      "FR-1.5",
+      "NFR-4"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "api/src/modules/iam",
+      "api/src/modules/cfg/presentation/demo-bootstrap.controller.ts",
+      "client/src/app/context.tsx",
+      "client/src/data/api.ts"
+    ],
+    "problem": "Kiểm tra JSON/log/cache/QR payload không lộ secrets hoặc dữ liệu ngoài scope; logout/đổi user không giữ dữ liệu identity trước.",
+    "tasks": [
+      "Kiểm tra JSON/log/cache/QR payload không lộ secrets hoặc dữ liệu ngoài scope",
+      "logout/đổi user không giữ dữ liệu identity trước."
+    ],
+    "ac": [
+      "QR/token/session/hash/secret không đi vào log hoặc response không được phép.",
+      "Bootstrap/history/report projection và client cache theo identity, EXE chỉ aggregate."
+    ],
+    "cases": [
+      "Thu safe response/log mẫu của anonymous/EMP/EXE và so field allowlist.",
+      "Logout rồi đăng nhập tài khoản khác, kiểm tra cache/URL/reload; lưu screenshot đã loại PII."
+    ],
+    "validation": "V-API+V-CLIENT",
+    "children": [],
+    "feature_slug": "verification",
+    "area": "backend"
+  },
+  {
+    "id": 54,
+    "title": "Exercise PostgreSQL backup and point-in-time recovery",
+    "type": "TEST",
+    "feature": "A07",
+    "priority": "P2",
+    "deps": [
+      4,
+      78
+    ],
+    "parent": 101,
+    "req": [
+      "FR-5.3",
+      "NFR-6"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "catalog OPS §19.11",
+    "paths": [
+      "doc/schema-database.md",
+      "scripts/db.ps1",
+      "api/src/platform/infrastructure/database"
+    ],
+    "problem": "Viết và diễn tập backup/restore/PITR trên database test được chỉ định; đo RPO/RTO và backlog reconciliation, không restore DB live từ HTTP.",
+    "tasks": [
+      "Viết và diễn tập backup/restore/PITR trên database test được chỉ định",
+      "đo RPO/RTO và backlog reconciliation, không restore DB live từ HTTP."
+    ],
+    "ac": [
+      "Đối chiếu target đề xuất RPO≤15 phút/RTO≤4 giờ của spec, không biến thành yêu cầu đề gốc.",
+      "Restore isolation, key/config/backup ownership và integrity/replay constraints được kiểm tra."
+    ],
+    "cases": [
+      "Injected failure trên test instance, ghi backup/WAL/restore timeline và record counts.",
+      "Không có env/quyền thì Blocked; không chạy reset/restore trên DB người dùng."
+    ],
+    "validation": "V-RESTORE",
+    "children": [],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 55,
+    "title": "Manage employee profiles with audited updates",
+    "type": "FEATURE",
+    "feature": "C04",
+    "priority": "P0",
+    "deps": [
+      7,
+      4
+    ],
+    "parent": 90,
+    "req": [
+      "FR-1.1",
+      "FR-4.6"
+    ],
+    "uc": "UC-03 / UF-04",
+    "api": "catalog EQR §19.6",
+    "paths": [
+      "api/src/modules/eqr",
+      "contracts/src/employee.ts"
+    ],
+    "problem": "Thêm HR employee query/create/update/status use cases và DTO validation; giữ employeeCode/HRS mapping, không làm payroll.",
+    "tasks": [
+      "Xây query/create/update/deactivate/reactivate employee API và DTO validation.",
+      "Bảo vệ unique employeeCode, optimistic conflict và mapping HRS; không xóa cứng lịch sử.",
+      "Deactivate vô hiệu hóa truy cập/session/QR theo policy trong transaction hoặc workflow phục hồi đã chứng minh; reactivate không hồi sinh token đã thu hồi."
+    ],
+    "ac": [
+      "HR đúng factory được thao tác, duplicate code/conflict không ghi một phần.",
+      "Deactivate nhân viên phối hợp credential revocation nguyên tử qua public application API.",
+      "Tạo/sửa/trạng thái tồn tại sau reload; dữ liệu sai/duplicate/stale update không ghi một phần.",
+      "Reactivate tuân policy cấp quyền mới, không khôi phục QR/session đã revoke."
+    ],
+    "cases": [
+      "Create/update/deactivate và cross-factory/duplicate/invalid HRS code; audit cùng transaction.",
+      "EMP/SUP/ADM không tự có quyền HR ghi hồ sơ."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "employee",
+    "area": "backend"
+  },
+  {
+    "id": 56,
+    "title": "Manage effective employee assignments and factory grants",
+    "type": "FEATURE",
+    "feature": "C04",
+    "priority": "P0",
+    "deps": [
+      55,
+      72
+    ],
+    "parent": 90,
+    "req": [
+      "FR-1.6",
+      "FR-1.1"
+    ],
+    "uc": "UC-03 / UF-04",
+    "api": "catalog EQR §19.6",
+    "paths": [
+      "api/src/modules/eqr",
+      "api/src/modules/cfg",
+      "contracts/src/employee.ts"
+    ],
+    "problem": "Quản lý lịch sử assignment và quyền vào nhà máy với effective intervals; phân biệt tổ công tác và access grant; không hồi tố đổi dữ liệu công cũ.",
+    "tasks": [
+      "Quản lý lịch sử assignment và quyền vào nhà máy với effective intervals",
+      "phân biệt tổ công tác và access grant",
+      "không hồi tố đổi dữ liệu công cũ."
+    ],
+    "ac": [
+      "Valid interval/overlap/org hierarchy checks và audit có nguồn, revoked grant bị access policy từ chối.",
+      "History query dùng assignment/grant đúng thời điểm, không chỉ current department."
+    ],
+    "cases": [
+      "Transfer BD→LA, future assignment, revoke và boundary validFrom/validTo.",
+      "Sai team/factory/overlap rollback, không dùng client factoryId làm authority."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "employee",
+    "area": "backend"
+  },
+  {
+    "id": 57,
+    "title": "Connect HR employee and access-grant screens",
+    "type": "UI",
+    "feature": "C04",
+    "priority": "P0",
+    "deps": [
+      55,
+      56,
+      8
+    ],
+    "parent": 90,
+    "req": [
+      "FR-1.1",
+      "FR-1.4",
+      "FR-1.6"
+    ],
+    "uc": "UC-03 / UF-04",
+    "api": "catalog EQR §19.6",
+    "paths": [
+      "client/src/features/employees/Employees.tsx",
+      "client/src/data/api.ts",
+      "contracts/src/employee.ts"
+    ],
+    "problem": "Nối Employees UI tới API scoped profiles/grants/revoke; giữ Astra/MUI/tokens và trạng thái loading/error/conflict.",
+    "tasks": [
+      "Nối Employees UI tới API scoped profiles/grants/revoke",
+      "giữ Astra/MUI/tokens và trạng thái loading/error/conflict."
+    ],
+    "ac": [
+      "Bộ lọc/query/pagination chỉ lấy scope cho phép, ghi server và reload phản ánh dữ liệu thật.",
+      "HR revoke/deactivate có lý do/audit; role không được phép không có action và server vẫn từ chối.",
+      "Form lưu qua API và reload đọc đúng dữ liệu; bỏ badge Dữ liệu mẫu trên màn dùng dữ liệu thật; không thông báo thành công khi API lỗi."
+    ],
+    "cases": [
+      "Thử hai factory, validation/409/403/empty/network failure và reload sau ghi.",
+      "Visual/responsive đối chiếu UI guidelines, không localStorage fallback báo thành công giả."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "employee",
+    "area": "frontend"
+  },
+  {
+    "id": 58,
+    "title": "Administer accounts and session revocation APIs",
+    "type": "FEATURE",
+    "feature": "B04",
+    "priority": "P2",
+    "deps": [
+      7,
+      87
+    ],
+    "parent": 98,
+    "req": [
+      "FR-5.1",
+      "FR-4.6"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "catalog IAM §19.5",
+    "paths": [
+      "api/src/modules/iam",
+      "contracts/src/auth.ts"
+    ],
+    "problem": "Thêm ADM user/account queries, lifecycle và revoke sessions; phân quyền riêng, không trả password/session hashes.",
+    "tasks": [
+      "Thêm ADM user/account queries, lifecycle và revoke sessions",
+      "phân quyền riêng, không trả password/session hashes."
+    ],
+    "ac": [
+      "Unique username/employee binding/status có validation và audit.",
+      "Disable/revoke session có hiệu lực server; không cấp implicit HR correction cho ADM."
+    ],
+    "cases": [
+      "ADM allowed, EMP/HR denied khi không có permission; self/last-admin policy phải được chốt.",
+      "Replay revoked cookie và invalid accountId không bypass scope."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "administration",
+    "area": "security"
+  },
+  {
+    "id": 59,
+    "title": "Manage scoped role assignments without privilege escalation",
+    "type": "FEATURE",
+    "feature": "B04",
+    "priority": "P2",
+    "deps": [
+      58,
+      72
+    ],
+    "parent": 98,
+    "req": [
+      "FR-5.1",
+      "NFR-3"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "catalog IAM §19.5",
+    "paths": [
+      "api/src/modules/iam",
+      "api/src/modules/cfg",
+      "contracts/src/auth.ts"
+    ],
+    "problem": "Thêm role/permission/scope assignment use cases; policy cho phép cấp quyền phải được chốt, valid interval và revocation giữ lịch sử.",
+    "tasks": [
+      "Thêm role/permission/scope assignment use cases",
+      "policy cho phép cấp quyền phải được chốt, valid interval và revocation giữ lịch sử."
+    ],
+    "ac": [
+      "Không nhận arbitrary role/permission body làm quyền actor; scope hierarchy hợp lệ.",
+      "Duplicate/global-null uniqueness và concurrent assignment không làm self-escalation."
+    ],
+    "cases": [
+      "ADM theo policy, tự nâng quyền/invalid scope/expired role/cross-factory bị từ chối.",
+      "Audit và assignment cập nhật nguyên tử, rollback lỗi."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "administration",
+    "area": "security"
+  },
+  {
+    "id": 60,
+    "title": "Build account administration screens",
+    "type": "UI",
+    "feature": "B03",
+    "priority": "P2",
+    "deps": [
+      58,
+      8
+    ],
+    "parent": 43,
+    "req": [
+      "FR-5.1"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "client/src/features/settings/Settings.tsx",
+      "client/src/lib/rbac.ts",
+      "contracts/src/auth.ts"
+    ],
+    "problem": "Nối Settings user list/status/session revoke với API, không viết backend quản trị trong ticket UI.",
+    "tasks": [
+      "Nối Settings user list/status/session revoke với API, không viết backend quản trị trong ticket UI."
+    ],
+    "ac": [
+      "UI list/detail/filter/action hoạt động theo permission, không expose secret.",
+      "Loading/empty/403/409/reload và xác nhận thao tác có tác động rõ."
+    ],
+    "cases": [
+      "ADM flow và user không đủ quyền qua URL trực tiếp; stale session sau revoke.",
+      "Visual/responsive theo client guidelines."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "administration",
+    "area": "frontend"
+  },
+  {
+    "id": 61,
+    "title": "Build scoped role-assignment administration screens",
+    "type": "UI",
+    "feature": "B03",
+    "priority": "P2",
+    "deps": [
+      59,
+      60
+    ],
+    "parent": 43,
+    "req": [
+      "FR-5.1"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "client/src/features/settings/Settings.tsx",
+      "contracts/src/auth.ts"
+    ],
+    "problem": "Thêm UI chọn role và scope từ dữ liệu server cho phép; hiển thị hiệu lực/thu hồi và lỗi conflict, không hardcode quyền rộng.",
+    "tasks": [
+      "Thêm UI chọn role và scope từ dữ liệu server cho phép",
+      "hiển thị hiệu lực/thu hồi và lỗi conflict, không hardcode quyền rộng."
+    ],
+    "ac": [
+      "Dropdown org hierarchy hợp lệ, assignment/revoke reload đúng, quyền sửa do server quyết định.",
+      "Lỗi self-escalation/stale version có thông điệp an toàn; không âm thầm lưu local."
+    ],
+    "cases": [
+      "GLOBAL/FACTORY/TEAM và invalid combinations; actor không được cấp quyền tương ứng bị server chặn.",
+      "Keyboard/responsive/error/empty states được kiểm tra."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "administration",
+    "area": "frontend"
+  },
+  {
+    "id": 62,
+    "title": "Pair attendance intervals and classify anomalies",
+    "type": "FEATURE",
+    "feature": "E03",
+    "priority": "P2",
+    "deps": [
+      19,
+      20
+    ],
+    "parent": 40,
+    "req": [
+      "FR-3.4"
+    ],
+    "uc": "UC-05 / UF-06",
+    "api": "catalog ATT §19.8",
+    "paths": [
+      "api/src/modules/att",
+      "contracts/src/attendance.ts"
+    ],
+    "problem": "Tạo pairing/projection nhiều cặp IN/OUT, overnight và anomaly flags; không lấy first-in/last-out làm toàn bộ hiện diện.",
+    "tasks": [
+      "Tạo pairing/projection nhiều cặp IN/OUT, overnight và anomaly flags",
+      "không lấy first-in/last-out làm toàn bộ hiện diện."
+    ],
+    "ac": [
+      "Nhiều khoảng và boundary ngày/tháng đúng timezone business; thiếu/duplicate direction không tự thành ca đủ.",
+      "Kết quả dẫn tới event revisions nguồn, không sửa raw event."
+    ],
+    "cases": [
+      "IN08/OUT12/IN13/OUT17 = 8h theo đơn vị/làm tròn công bố; missing OUT phải flagged.",
+      "Overnight/month boundary/revision update rebuild idempotent."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "extended-business",
+    "area": "backend"
+  },
+  {
+    "id": 63,
+    "title": "Apply audited attendance corrections with version checks",
+    "type": "FEATURE",
+    "feature": "E03",
+    "priority": "P2",
+    "deps": [
+      62,
+      7
+    ],
+    "parent": 40,
+    "req": [
+      "FR-3.5",
+      "NFR-2",
+      "NFR-3"
+    ],
+    "uc": "UC-05 / UF-06",
+    "api": "catalog ATT §19.8",
+    "paths": [
+      "api/src/modules/att",
+      "contracts/src/attendance.ts"
+    ],
+    "problem": "Hiệu chỉnh bằng revision mới và expectedVersion CAS, reason/evidence/audit cùng transaction; giữ revision 1/snapshot cũ.",
+    "tasks": [
+      "Hiệu chỉnh bằng revision mới và expectedVersion CAS, reason/evidence/audit cùng transaction",
+      "giữ revision 1/snapshot cũ."
+    ],
+    "ac": [
+      "Hai HR sửa cùng version chỉ một thành công, một conflict; không partial save.",
+      "Chỉ HR trong scope được correction; void/revision/source linkage và actor rõ."
+    ],
+    "cases": [
+      "Concurrent CAS, FK deferred và rollback khi audit lỗi.",
+      "ADM/SUP/EMP/cross-factory không sửa công; original event/snapshot không thay đổi."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "extended-business",
+    "area": "backend"
+  },
+  {
+    "id": 64,
+    "title": "Connect attendance review and correction workflows",
+    "type": "UI",
+    "feature": "E03",
+    "priority": "P2",
+    "deps": [
+      63,
+      21
+    ],
+    "parent": 40,
+    "req": [
+      "FR-3.5",
+      "FR-1.5",
+      "UC-05"
+    ],
+    "uc": "UC-05 / UF-06",
+    "api": "catalog ATT §19.8",
+    "paths": [
+      "client/src/features/attendance/Attendance.tsx",
+      "client/src/features/employee-mobile/Mobile.tsx",
+      "api/src/modules/att"
+    ],
+    "problem": "EMP gửi request kiểm tra sai lệch theo self scope và HR correction UI; đây là yêu cầu nghiệp vụ, không phải issue GitHub.",
+    "tasks": [
+      "EMP gửi request kiểm tra sai lệch theo self scope và HR correction UI",
+      "đây là yêu cầu nghiệp vụ, không phải issue GitHub."
+    ],
+    "ac": [
+      "EMP không sửa event trực tiếp; HR nhập reason/evidence và expectedVersion.",
+      "UI conflict/retry/read-effective-history rõ, không ghi đè event gốc hoặc snapshot."
+    ],
+    "cases": [
+      "EMP request riêng, HR scoped process, 409 stale editor và reload.",
+      "So UI effective intervals với revision/pairing backend."
+    ],
+    "validation": "V-CLIENT+V-DB",
+    "children": [],
+    "feature_slug": "extended-business",
+    "area": "frontend"
+  },
+  {
+    "id": 65,
+    "title": "Create immutable monthly export snapshots",
+    "type": "FEATURE",
+    "feature": "G02",
+    "priority": "P2",
+    "deps": [
+      40,
+      24
+    ],
+    "parent": 41,
+    "req": [
+      "FR-4.3",
+      "FR-4.4",
+      "INT-01"
+    ],
+    "uc": "UC-06 / UF-07",
+    "api": "catalog RPT §19.9 + EXT-03/04",
+    "paths": [
+      "api/src/modules/rpt",
+      "contracts/src/reports.ts",
+      "api/src/modules/att"
+    ],
+    "problem": "Tạo ExportBatch/Item/ItemSource snapshot kỳ/version/checksum/count và source revisions; chốt contract HRS mock trước serialize.",
+    "tasks": [
+      "Tạo ExportBatch/Item/ItemSource snapshot kỳ/version/checksum/count và source revisions",
+      "chốt contract HRS mock trước serialize."
+    ],
+    "ac": [
+      "Snapshot nhất quán, bất biến dù live attendance sửa, source lineage đầy đủ.",
+      "Cùng nội dung dùng batchId/checksum cũ; correction tạo version/supersedes mới."
+    ],
+    "cases": [
+      "Concurrent month-close/correction, transaction rollback/FK source revisions.",
+      "Kỳ trước/noon/timezone/overnight được định nghĩa, không bao gồm payroll."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reporting",
+    "area": "backend"
+  },
+  {
+    "id": 66,
+    "title": "Implement HRS delivery and acknowledgment reconciliation",
+    "type": "FEATURE",
+    "feature": "G02",
+    "priority": "P2",
+    "deps": [
+      65
+    ],
+    "parent": 41,
+    "req": [
+      "FR-4.3",
+      "FR-4.4",
+      "FR-4.5",
+      "INT-01"
+    ],
+    "uc": "UC-06 / UF-07",
+    "api": "catalog RPT §19.9 + EXT-03/04",
+    "paths": [
+      "api/src/modules/rpt",
+      "api/simulators",
+      "contracts/src/reports.ts"
+    ],
+    "problem": "Tạo HrExporter port/adapter và fake HRS submit/status; HTTP accepted khác remoteReady, ACK phải match kỳ/version/checksum/count.",
+    "tasks": [
+      "Tạo HrExporter port/adapter và fake HRS submit/status",
+      "HTTP accepted khác remoteReady, ACK phải match kỳ/version/checksum/count."
+    ],
+    "ac": [
+      "Lost response tra cứu/retry cùng batch payload, không tạo version mới chỉ do timeout.",
+      "Partial/mismatch/permanent error không ACCEPTED; mỗi attempt có trạng thái có audit."
+    ],
+    "cases": [
+      "ACK hợp lệ, lost ACK, partial/mismatch/status unsupported; ghi giới hạn vendor capability.",
+      "Không gửi dataset thật tới HRS; fake contract không được coi là HRS đã tích hợp thật."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reporting",
+    "area": "backend"
+  },
+  {
+    "id": 67,
+    "title": "Schedule durable exports and deadline alerts",
+    "type": "FEATURE",
+    "feature": "G02",
+    "priority": "P2",
+    "deps": [
+      66,
+      24
+    ],
+    "parent": 41,
+    "req": [
+      "FR-4.5",
+      "FR-4.3",
+      "INT-01"
+    ],
+    "uc": "UC-06 / UF-07",
+    "api": "catalog RPT §19.9 + EXT-03/04",
+    "paths": [
+      "api/src/modules/rpt",
+      "api/src/modules/cfg",
+      "contracts/src/reports.ts"
+    ],
+    "problem": "Outbox/jobs + bounded retry/status lookup + alert HR/ADM, lịch theo kỳ/múi giờ và hạn trước 12:00 ngày 1.",
+    "tasks": [
+      "Outbox/jobs + bounded retry/status lookup + alert HR/ADM, lịch theo kỳ/múi giờ và hạn trước 12:00 ngày 1."
+    ],
+    "ac": [
+      "Retry policy/backoff/budget có nguồn và không sửa snapshot; manual retry có quyền.",
+      "acceptedAt/remoteReadyAt/dueAt riêng, đúng 12:00 không thỏa trước hạn."
+    ],
+    "cases": [
+      "Fake clock qua tháng, deadline alert, worker lease/race và duplicate scheduler.",
+      "Restart worker không mất jobs hoặc gửi batch content khác."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reporting",
+    "area": "backend"
+  },
+  {
+    "id": 68,
+    "title": "Verify monthly HRS version and deadline behavior",
+    "type": "TEST",
+    "feature": "G02",
+    "priority": "P2",
+    "deps": [
+      65,
+      66,
+      67
+    ],
+    "parent": 41,
+    "req": [
+      "FR-4.3",
+      "FR-4.4",
+      "FR-4.5",
+      "NFR-2"
+    ],
+    "uc": "UC-06 / UF-07",
+    "api": "catalog RPT §19.9 + EXT-03/04",
+    "paths": [
+      "api/test",
+      "api/simulators",
+      "api/src/modules/rpt"
+    ],
+    "problem": "Test độc lập snapshot/version/lineage, submit/status/ACK và deadline/retry evidence với fake HRS và DB test.",
+    "tasks": [
+      "Test độc lập snapshot/version/lineage, submit/status/ACK và deadline/retry evidence với fake HRS và DB test."
+    ],
+    "ac": [
+      "Replay cùng batch idempotent, correction tạo phiên bản mới, partial ACK bị chặn.",
+      "Kịch bản failure và mốc trước noon có kết quả thực, không suy SLA hằng tháng từ một demo."
+    ],
+    "cases": [
+      "Lost ACK sau commit, restart, two exporters, month/year/overnight boundary.",
+      "So input/output checksum/count/source revisions và delivery attempts."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reporting",
+    "area": "backend"
+  },
+  {
+    "id": 69,
+    "title": "Decide the offline edge authorization threat model",
+    "type": "SPIKE",
+    "feature": "F03",
+    "priority": "P2",
+    "deps": [
+      22,
+      24,
+      30
+    ],
+    "parent": 42,
+    "req": [
+      "M2-NETWORK",
+      "M2-QR"
+    ],
+    "uc": "UC-04 / UF-03",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "doc/tech-stack.md",
+      "doc/user-flow.md",
+      "doc/structure-architecture.md"
+    ],
+    "problem": "Timebox nghiên cứu freshness/revocation/replay khi partition, key provisioning/clock và safety boundary; owner chọn có prototype autonomous OPEN hay không.",
+    "tasks": [
+      "Timebox nghiên cứu freshness/revocation/replay khi partition, key provisioning/clock và safety boundary",
+      "owner chọn có prototype autonomous OPEN hay không."
+    ],
+    "ac": [
+      "ADR nêu stale permissions/cross-edge replay và điều kiện deny/allow, không hứa one-time toàn hệ thống khi WAN partition.",
+      "Có go/no-go và budget/env cho prototype; R1 trung tâm vẫn baseline."
+    ],
+    "cases": [
+      "Review threat/failure matrix hai edge và offline revoke/clock drift.",
+      "Không bật offline OPEN thật từ spike hoặc viết lại safety controller."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "reliability",
+    "area": "backend"
+  },
+  {
+    "id": 70,
+    "title": "Prototype durable offline journals and synchronization",
+    "type": "FEATURE",
+    "feature": "F03",
+    "priority": "P2",
+    "deps": [
+      69
+    ],
+    "parent": 42,
+    "req": [
+      "M2-NETWORK"
+    ],
+    "uc": "UC-04 / UF-03",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "api/simulators",
+      "doc/structure-architecture.md"
+    ],
+    "problem": "Chỉ sau go decision, prototype local persistence/outbox/sync với conflict policy và identity/version rõ; không thay production gate behavior.",
+    "tasks": [
+      "Chỉ sau go decision, prototype local persistence/outbox/sync với conflict policy và identity/version rõ",
+      "không thay production gate behavior."
+    ],
+    "ac": [
+      "Crash/restart journal bền vững và reconnect idempotent trong ranh giới prototype.",
+      "Offline outcomes và stale authorization được hiển thị đúng, không merge công không evidence."
+    ],
+    "cases": [
+      "Partition hai edge, duplicate sync, local storage full/corrupt và clock drift.",
+      "Đo count/checksum/lineage trước sau sync; no-go thì không code và ghi decision."
+    ],
+    "validation": "V-EDGE",
+    "children": [],
+    "feature_slug": "reliability",
+    "area": "backend"
+  },
+  {
+    "id": 71,
+    "title": "Verify edge partition and replay limitations",
+    "type": "TEST",
+    "feature": "F03",
+    "priority": "P2",
+    "deps": [
+      70
+    ],
+    "parent": 42,
+    "req": [
+      "M2-NETWORK",
+      "M2-QR",
+      "NFR-2"
+    ],
+    "uc": "UC-04 / UF-03",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "api/simulators",
+      "api/test",
+      "doc/structure-architecture.md"
+    ],
+    "problem": "Tạo failure matrix/evidence cho prototype edge, bao gồm giới hạn chống replay/revoke và reconciliation khi reconnect.",
+    "tasks": [
+      "Tạo failure matrix/evidence cho prototype edge, bao gồm giới hạn chống replay/revoke và reconciliation khi reconnect."
+    ],
+    "ac": [
+      "Kết luận chỉ trong môi trường/assumptions đã thử, không gọi là production hoặc SLA.",
+      "Case cùng QR hai edge và revoke khi WAN down có outcome/policy/evidence rõ."
+    ],
+    "cases": [
+      "Fault injection clock/restart/duplicate journal/sync order.",
+      "Không làm hỏng ledger trung tâm, conflict có owner/next action."
+    ],
+    "validation": "V-EDGE",
+    "children": [],
+    "feature_slug": "reliability",
+    "area": "backend"
+  },
+  {
+    "id": 72,
+    "title": "Administer effective factory organization data",
+    "type": "FEATURE",
+    "feature": "D04",
+    "priority": "P0",
+    "deps": [
+      7,
+      4
+    ],
+    "parent": 92,
+    "req": [
+      "FR-5.2",
+      "FR-1.1"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "catalog CFG §19.10 và GATE §19.7",
+    "paths": [
+      "api/src/modules/cfg",
+      "contracts/src/common.ts",
+      "contracts/src/employee.ts"
+    ],
+    "problem": "CFG API factory/department/team với hierarchy/scopes và effective lifecycle theo schema; không xóa entity có history.",
+    "tasks": [
+      "CFG API factory/department/team với hierarchy/scopes và effective lifecycle theo schema",
+      "không xóa entity có history."
+    ],
+    "ac": [
+      "Hierarchy/uniqueness/status validation và audit, role/scope đúng.",
+      "Lookup dùng trong HR/admin cấp scope, không để client chọn org trái quyền."
+    ],
+    "cases": [
+      "Invalid parent/cross-factory/duplicate code/history reference; rollback audit failure.",
+      "Factory BD/LA và team fixture được query đúng scope."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-config",
+    "area": "backend"
+  },
+  {
+    "id": 73,
+    "title": "Provision and retire authenticated gate stations",
+    "type": "FEATURE",
+    "feature": "D04",
+    "priority": "P0",
+    "deps": [
+      72,
+      12
+    ],
+    "parent": 92,
+    "req": [
+      "FR-2.1",
+      "FR-2.7",
+      "NFR-3"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "catalog CFG §19.10 và GATE §19.7",
+    "paths": [
+      "api/src/modules/gate",
+      "api/src/modules/cfg",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "ADM cấu hình station/factory/direction/turnstile và provision/rotate/revoke credential server-side; retire thay delete lịch sử.",
+    "tasks": [
+      "ADM cấu hình station/factory/direction/turnstile và provision/rotate/revoke credential server-side",
+      "retire thay delete lịch sử."
+    ],
+    "ac": [
+      "Credential hash/reference không về public bundle, station identity lấy từ credential chứ body.",
+      "Retire/revoke từ chối request mới nhưng giữ attempt/command history; không tự xác nhận physical state."
+    ],
+    "cases": [
+      "Rotation/revocation/auth mismatch/direction spoof và wrong factory.",
+      "Existing references/history được giữ khi retire; audit policy đúng."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-config",
+    "area": "backend"
+  },
+  {
+    "id": 74,
+    "title": "Connect station and organization administration screens",
+    "type": "UI",
+    "feature": "D04",
+    "priority": "P0",
+    "deps": [
+      72,
+      73,
+      8
+    ],
+    "parent": 92,
+    "req": [
+      "FR-2.1",
+      "FR-5.2"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "catalog CFG §19.10 và GATE §19.7",
+    "paths": [
+      "client/src/features/settings/Settings.tsx",
+      "client/src/features/access-control/Access.tsx",
+      "contracts/src/gate.ts"
+    ],
+    "problem": "Nối Settings/Access cấu hình trạm/organization tới API, tránh show long-lived credential; controls quyền tách SEC và ADM.",
+    "tasks": [
+      "Nối Settings/Access cấu hình trạm/organization tới API, tránh show long-lived credential",
+      "controls quyền tách SEC và ADM."
+    ],
+    "ac": [
+      "ADM thao tác đúng scope, SEC không tự cấu hình/rotate key.",
+      "UI validation/conflict/loading/offline/retired states bám server, không ghi local giả."
+    ],
+    "cases": [
+      "Direct URL và action denied; reload sau cấu hình, invalid hierarchy/turnstile.",
+      "Responsive/table/keyboard theo tokens và Guidelines."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "gate-config",
+    "area": "frontend"
+  },
+  {
+    "id": 75,
+    "title": "Query monthly reports with role-specific projections",
+    "type": "FEATURE",
+    "feature": "G03",
+    "priority": "P2",
+    "deps": [
+      62,
+      20,
+      7
+    ],
+    "parent": 97,
+    "req": [
+      "FR-4.1",
+      "FR-4.2",
+      "NFR-3",
+      "NFR-4"
+    ],
+    "uc": "UC-07 / UF-08",
+    "api": "catalog RPT §19.9",
+    "paths": [
+      "api/src/modules/rpt",
+      "api/src/modules/gate",
+      "contracts/src/reports.ts"
+    ],
+    "problem": "RPT query tháng/person/org/factory và GATE nhật ký có pagination/projection; SUP team và EXE aggregate theo spec.",
+    "tasks": [
+      "RPT query tháng/person/org/factory và GATE nhật ký có pagination/projection",
+      "SUP team và EXE aggregate theo spec."
+    ],
+    "ac": [
+      "Scope lấy từ actor; EXE không drill-down cá nhân, SEC không hồ sơ HR.",
+      "Report dùng effective revisions/intervals, anomalies và timezone/period rõ."
+    ],
+    "cases": [
+      "Cross-factory/team/body filter spoof, empty and month boundary.",
+      "So aggregate vs fixture, nhật ký giữ DENIED/UNKNOWN và không lộ token."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reporting",
+    "area": "backend"
+  },
+  {
+    "id": 76,
+    "title": "Connect scoped monthly reports and anomaly views",
+    "type": "UI",
+    "feature": "G03",
+    "priority": "P2",
+    "deps": [
+      75,
+      8
+    ],
+    "parent": 97,
+    "req": [
+      "FR-4.1",
+      "FR-4.2"
+    ],
+    "uc": "UC-07 / UF-08",
+    "api": "catalog RPT §19.9",
+    "paths": [
+      "client/src/features/reports/Reports.tsx",
+      "client/src/features/reports/ExecutiveOverview.tsx",
+      "client/src/features/attendance/Attendance.tsx"
+    ],
+    "problem": "Nối Reports/ExecutiveOverview/Attendance tới query/projection thật, bộ lọc quyền theo responsecontract.",
+    "tasks": [
+      "Nối Reports/ExecutiveOverview/Attendance tới query/projection thật, bộ lọc quyền theo responsecontract."
+    ],
+    "ac": [
+      "Không đổi filter để thấy data ngoài scope, EXE chỉ summary, SUP đúng team.",
+      "Loading/error/empty/pagination/data freshness và anomaly semantics rõ."
+    ],
+    "cases": [
+      "Đối chiếu từng role với fixture, directURL, cache đổi identity và month rollover.",
+      "Visual/responsive đồng nhất design system hiện có."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "reporting",
+    "area": "frontend"
+  },
+  {
+    "id": 77,
+    "title": "Export scoped CSV reports with download auditing",
+    "type": "ENHANCEMENT",
+    "feature": "G03",
+    "priority": "P1",
+    "deps": [
+      75,
+      76
+    ],
+    "parent": 97,
+    "req": [
+      "FR-4.7",
+      "FR-4.6",
+      "NFR-4"
+    ],
+    "uc": "UC-07 / UF-08",
+    "api": "catalog RPT §19.9",
+    "paths": [
+      "client/src/lib/csv.ts",
+      "client/src/features/reports/Reports.tsx",
+      "api/src/modules/rpt"
+    ],
+    "problem": "Nâng CSV prototype thành export dữ liệu server-scoped, audit actor/kỳ/filter và hạn chế lưu snapshot/PII ngoài quyền.",
+    "tasks": [
+      "Nâng CSV prototype thành export dữ liệu server-scoped, audit actor/kỳ/filter và hạn chế lưu snapshot/PII ngoài quyền."
+    ],
+    "ac": [
+      "CSV chỉ có trường/record theo permission/projection, download được audit.",
+      "CSV injection/encoding/timezone/large dataset và error behavior được xử lý theo contract."
+    ],
+    "cases": [
+      "EMP/SUP/SEC/EXE queries/export negative scope, giá trị bắt đầu formula được kiểm tra.",
+      "So CSV với report fixture và audit, không bỏ qua filters/permissions ở backend."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "reporting",
+    "area": "frontend"
+  },
+  {
+    "id": 78,
+    "title": "Decide privacy notice, retention and evidence-hold policies",
+    "type": "DOCS",
+    "feature": "J01",
+    "priority": "P2",
+    "deps": [
+      1
+    ],
+    "parent": 100,
+    "req": [
+      "FR-1.5",
+      "FR-5.4",
+      "NFR-4"
+    ],
+    "uc": "UC-02, UC-08 / UF-01, UF-09",
+    "api": "catalog PRV §19.12",
+    "paths": [
+      "doc/domain-know-how.md",
+      "doc/schema-database.md",
+      "doc/user-flow.md"
+    ],
+    "problem": "Owner chốt mục đích/dữ liệu/người nhận/contact, retention từng nhóm, evidence hold và xử lý backup/HRS; không tự đặt thời hạn hay kết luận legal compliance.",
+    "tasks": [
+      "Owner chốt mục đích/dữ liệu/người nhận/contact, retention từng nhóm, evidence hold và xử lý backup/HRS",
+      "không tự đặt thời hạn hay kết luận legal compliance."
+    ],
+    "ac": [
+      "Decision register/policy version có owner và unresolved items; privacy notice theo policy đã duyệt.",
+      "Mapping data categories/storage/retention/hold/erasure có nguồn, còn thiếu thì ticket phụ thuộc chưa Ready."
+    ],
+    "cases": [
+      "Review policy với owner và nguồn spec; test cases cho hold/delete/backup được định nghĩa.",
+      "Không thu thập dữ liệu thật hoặc diễn giải luật như kết luận pháp lý."
+    ],
+    "validation": "V-DOC",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 79,
+    "title": "Implement authorized privacy request lifecycle APIs",
+    "type": "FEATURE",
+    "feature": "J01",
+    "priority": "P2",
+    "deps": [
+      78,
+      80,
+      7
+    ],
+    "parent": 100,
+    "req": [
+      "FR-1.5",
+      "FR-5.4",
+      "NFR-4"
+    ],
+    "uc": "UC-02, UC-08 / UF-01, UF-09",
+    "api": "catalog PRV §19.12",
+    "paths": [
+      "api/src/modules/eqr",
+      "api/src/modules/iam",
+      "contracts/src (privacy types proposed)"
+    ],
+    "problem": "Workflow nhận/duyệt/theo dõi privacy request theo policy, permission và minimal projection; không dùng issue GitHub chứa PII.",
+    "tasks": [
+      "Workflow nhận/duyệt/theo dõi privacy request theo policy, permission và minimal projection",
+      "không dùng issue GitHub chứa PII."
+    ],
+    "ac": [
+      "EMP self và authorized processors đúng scope, trạng thái/decision/audit có lý do.",
+      "Request chưa duyệt không tự xóa; duplicate/invalid transition và disclosure được chặn."
+    ],
+    "cases": [
+      "Self/other employee IDOR, policyversion/hold state, audit rollback.",
+      "Thông báo/log không chứa raw personal dataset."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 80,
+    "title": "Add privacy workflow and retention-hold persistence",
+    "type": "BUILD",
+    "feature": "J01",
+    "priority": "P2",
+    "deps": [
+      78,
+      4
+    ],
+    "parent": 100,
+    "req": [
+      "FR-5.4",
+      "NFR-4"
+    ],
+    "uc": "UC-02, UC-08 / UF-01, UF-09",
+    "api": "catalog PRV §19.12",
+    "paths": [
+      "api/src/modules/eqr/infrastructure/persistence/entities",
+      "api/src/platform/infrastructure/database/entities.ts",
+      "api/src/platform/infrastructure/database/migrations"
+    ],
+    "problem": "Chốt entity ownership và thêm schema/migration/registry cho request/hold/execution khi schema hiện có chưa đủ; contracts thuần, không synchronize.",
+    "tasks": [
+      "Chốt entity ownership và thêm schema/migration/registry cho request/hold/execution khi schema hiện có chưa đủ",
+      "contracts thuần, không synchronize."
+    ],
+    "ac": [
+      "Một ORM entity/file thuộc context, FK/state/policyversion constraints và migration/backfill plan rõ.",
+      "Hold/reference/audit không bị cascade xóa do worker, schema phù hợp truy xuất/execute."
+    ],
+    "cases": [
+      "Apply/rollback trên DB test, duplicate transitions/hold references và migration metadata.",
+      "Registry thuần import+array, không đưa entity vào domain/HTTP DTO."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 81,
+    "title": "Execute policy-based retention without erasing held evidence",
+    "type": "FEATURE",
+    "feature": "J01",
+    "priority": "P2",
+    "deps": [
+      79,
+      80,
+      24
+    ],
+    "parent": 100,
+    "req": [
+      "FR-5.4",
+      "NFR-4"
+    ],
+    "uc": "UC-02, UC-08 / UF-01, UF-09",
+    "api": "catalog PRV §19.12",
+    "paths": [
+      "api/src/modules/eqr",
+      "api/src/modules/rpt",
+      "api/src/modules/iam"
+    ],
+    "problem": "Worker được quyền áp retention/anonymization theo policy/hold và kiểm tra copies/backups/HRS; batch idempotent có audit/decision evidence.",
+    "tasks": [
+      "Worker được quyền áp retention/anonymization theo policy/hold và kiểm tra copies/backups/HRS",
+      "batch idempotent có audit/decision evidence."
+    ],
+    "ac": [
+      "Hold hoặc unresolved external copies chặn execution khi policy yêu cầu, không xóa mù ledger/audit.",
+      "Retry/crash/fencing giữ idempotency và trạng thái đã xử lý/partial rõ."
+    ],
+    "cases": [
+      "Dry-run thực nếu implementation hỗ trợ, test holds/backup lifecycle/worker crash.",
+      "Không chạy trên dữ liệu live trong test; rollback/failure không mất evidence."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 82,
+    "title": "Verify privacy requests, retention and evidence holds",
+    "type": "TEST",
+    "feature": "J01",
+    "priority": "P2",
+    "deps": [
+      79,
+      81,
+      54
+    ],
+    "parent": 100,
+    "req": [
+      "FR-5.4",
+      "FR-1.5",
+      "NFR-4"
+    ],
+    "uc": "UC-02, UC-08 / UF-01, UF-09",
+    "api": "catalog PRV §19.12",
+    "paths": [
+      "api/test",
+      "doc/schema-database.md",
+      "api/src/modules/eqr"
+    ],
+    "problem": "Test matrix privacy request/access/projection/hold/retention và backup restoration không làm sống lại dữ liệu trái policy.",
+    "tasks": [
+      "Test matrix privacy request/access/projection/hold/retention và backup restoration không làm sống lại dữ liệu trái policy."
+    ],
+    "ac": [
+      "Các allowed/denied/hold/retry/copy cases có evidence trong môi trường synthetic.",
+      "Báo giới hạn với HRS/backup external, không tuyên bố compliance chỉ từ test pass."
+    ],
+    "cases": [
+      "Clock policy boundary, held evidence, restored backup reapply policy, concurrent worker.",
+      "Audit actor/reason/version và dữ liệu projection không tiết lộ ngoài scope."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 83,
+    "title": "Version integration settings and secret references",
+    "type": "FEATURE",
+    "feature": "D04",
+    "priority": "P2",
+    "deps": [
+      72,
+      9
+    ],
+    "parent": 92,
+    "req": [
+      "FR-5.2",
+      "NFR-3"
+    ],
+    "uc": "UC-08 / UF-09",
+    "api": "catalog CFG §19.10 và GATE §19.7",
+    "paths": [
+      "api/src/modules/cfg",
+      "api/src/modules/eqr",
+      "api/src/modules/rpt",
+      "contracts/src"
+    ],
+    "problem": "CFG versions/connectors giữ config snapshot cho command/batch; credential chỉ reference, key rotation không làm pending work đổi đích âm thầm.",
+    "tasks": [
+      "CFG versions/connectors giữ config snapshot cho command/batch",
+      "credential chỉ reference, key rotation không làm pending work đổi đích âm thầm."
+    ],
+    "ac": [
+      "ADM được phép đổi settings có version/audit; active/pending work theo policy snapshot đã chọn.",
+      "API/log không trả secret, invalid version/connection validation không ghi một phần."
+    ],
+    "cases": [
+      "Đổi endpoint/key khi command/batch pending, concurrent config version update.",
+      "Read metadata positive/negative scope, secret/redaction response allowlist."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-config",
+    "area": "backend"
+  },
+  {
+    "id": 84,
+    "title": "Expose scoped service readiness and integration alerts",
+    "type": "ENHANCEMENT",
+    "feature": "A07",
+    "priority": "P2",
+    "deps": [
+      39,
+      24,
+      7
+    ],
+    "parent": 92,
+    "req": [
+      "FR-5.3",
+      "NFR-3"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "catalog OPS §19.11",
+    "paths": [
+      "api/src/modules/cfg",
+      "api/src/modules/gate",
+      "api/src/modules/rpt"
+    ],
+    "problem": "Thêm ops health/readiness và alerts owner routing cho DB/job/integration failures; station heartbeat khác device physical health.",
+    "tasks": [
+      "Thêm ops health/readiness và alerts owner routing cho DB/job/integration failures",
+      "station heartbeat khác device physical health."
+    ],
+    "ac": [
+      "Health payload public/protected tách minimal data; backlog age/errors có timestamp và scope.",
+      "Alerts có recipient/ack/escalation decision, không include raw tokens/data hoặc reset DB HTTP."
+    ],
+    "cases": [
+      "DB unavailable, queue stalled, upstream timeout và unauthorized metrics requests.",
+      "So metrics với fixture jobs/cases, không giả active station là cổng hoạt động."
+    ],
+    "validation": "V-API+V-DB",
+    "children": [],
+    "feature_slug": "gate-config",
+    "area": "backend"
+  },
+  {
+    "id": 85,
+    "title": "Verify module boundaries and replaceable integration ports",
+    "type": "TEST",
+    "feature": "H01",
+    "priority": "P0",
+    "deps": [
+      29,
+      87,
+      13
+    ],
+    "parent": 102,
+    "req": [
+      "NFR-5",
+      "M2-SOLID"
+    ],
+    "uc": "Hỗ trợ toàn dự án / quy trình thực thi",
+    "api": "Không có endpoint mới theo mặc định",
+    "paths": [
+      "api/test",
+      "api/src/platform/application",
+      "api/src/modules",
+      "contracts/src"
+    ],
+    "problem": "Kiểm tra imports và contract tests cho domain/application/ORM/HTTP boundaries, TurnstileGateway và future HrExporter; không tạo test chỉ match tên file.",
+    "tasks": [
+      "Kiểm tra imports và contract tests cho domain/application/ORM/HTTP boundaries, TurnstileGateway và future HrExporter",
+      "không tạo test chỉ match tên file."
+    ],
+    "ac": [
+      "Test phát hiện forbidden dependency thật và adapter thay thế vẫn thỏa hành vi port.",
+      "DTO/wire contracts thuần, entities thuộc context và registry không chứa business definition."
+    ],
+    "cases": [
+      "Inject fake gateway/usecase stores và seed known-invalid import fixture nếu cần.",
+      "So SOLID evidence với assertions hành vi, không tuyên bố tên interface là bằng chứng SOLID."
+    ],
+    "validation": "V-API",
+    "children": [],
+    "feature_slug": "verification",
+    "area": "backend"
+  },
+  {
+    "id": 86,
+    "title": "Show privacy purpose and scoped personal-profile states",
+    "type": "UI",
+    "feature": "C03",
+    "priority": "P0",
+    "deps": [
+      8,
+      20,
+      1
+    ],
+    "parent": 100,
+    "req": [
+      "FR-1.5",
+      "NFR-4"
+    ],
+    "uc": "UC-02 / UF-01",
+    "api": "API-EQR-14; API-ATT-01…04 khi dùng công cá nhân",
+    "paths": [
+      "client/src/features/employee-mobile/Mobile.tsx",
+      "client/src/app/context.tsx",
+      "doc/user-flow.md"
+    ],
+    "problem": "EMP portal hiển thị purpose/data/recipient/contact từ notice baseline được owner chốt; hồ sơ/công self-only, không dùng danh sách account demo công khai.",
+    "tasks": [
+      "EMP portal hiển thị purpose/data/recipient/contact từ notice baseline được owner chốt",
+      "hồ sơ/công self-only, không dùng danh sách account demo công khai."
+    ],
+    "ac": [
+      "Notice không bịa retention/legal claim; policy còn thiếu được công bố/chốt trước acceptance.",
+      "Self profile/history và logout/cache/error states đúng API, user không chọn employeeId khác để xem."
+    ],
+    "cases": [
+      "EMP self vs forged employeeId, identity switch, empty state và notice content review.",
+      "Responsive/keyboard/contrast theo guidelines hiện có, không expose QR/token trong logs."
+    ],
+    "validation": "V-CLIENT",
+    "children": [],
+    "feature_slug": "architecture",
+    "area": "frontend"
+  },
+  {
+    "id": 87,
+    "title": "Isolate session use cases from persistence and HTTP adapters",
+    "type": "REFACTOR",
+    "feature": "B01",
+    "priority": "P1",
+    "deps": [
+      7
+    ],
+    "parent": 89,
+    "req": [
+      "NFR-5",
+      "M2-SOLID"
+    ],
+    "uc": "UC-08 / UF-00, UF-09",
+    "api": "API-IAM-01…03; quyền server cho các API nghiệp vụ",
+    "paths": [
+      "api/src/modules/iam/application/auth.service.ts",
+      "api/src/modules/iam/presentation/auth.controller.ts",
+      "api/src/bootstrap/modules/iam.module.ts",
+      "api/test/auth.service.test.mjs"
+    ],
+    "problem": "AuthService hiện ở application nhưng import Nest exceptions, TypeORM và ORM entities; tách ports/mapping/wiring tối thiểu theo architecture đã chọn, giữ auth behavior.",
+    "tasks": [
+      "AuthService hiện ở application nhưng import Nest exceptions, TypeORM và ORM entities",
+      "tách ports/mapping/wiring tối thiểu theo architecture đã chọn, giữ auth behavior."
+    ],
+    "ac": [
+      "Pure application/domain không phụ thuộc Nest/TypeORM/ORM; wiring ở bootstrap, HTTP errors map ở presentation.",
+      "Session/hash/RBAC behavior và API contract giữ nguyên, không thêm feature auth ngoài scope."
+    ],
+    "cases": [
+      "Auth/bootstrap tests trước/sau và positive/negative session scenarios không đổi.",
+      "Boundary tests 085 và DI bootstrap xác nhận adapter replacement, không đổi registry/schema vô cớ."
+    ],
+    "validation": "V-API",
+    "children": [],
+    "feature_slug": "authorization",
+    "area": "security"
+  },
+  {
+    "id": 103,
+    "title": "Implement durable audit writes and scoped audit search",
+    "type": "FEATURE",
+    "priority": "P0",
+    "deps": [
+      7,
+      4
+    ],
+    "parent": 96,
+    "paths": [
+      "api/src/modules/iam",
+      "contracts/src"
+    ],
+    "req": [
+      "NFR-3",
+      "NFR-4"
+    ],
+    "problem": "AuditEntry mới có persistence; chưa có use case ghi/query audit cho thao tác nghiệp vụ.",
+    "tasks": [
+      "Định nghĩa audit port và event schema actor/action/object/outcome/reason/correlationId; redact dữ liệu nhạy cảm.",
+      "Ghi audit thay đổi dữ liệu cùng transaction; thất bại đăng nhập/từ chối quyền có đường ghi riêng phù hợp.",
+      "Thêm query API có scope, filter/pagination và UI tra cứu tối thiểu; không cung cấp sửa/xóa audit qua UI."
+    ],
+    "ac": [
+      "Tạo/sửa employee, revoke QR, đổi role/station, correction và export có audit truy vết theo operation đã triển khai.",
+      "Rollback thay đổi nghiệp vụ không để audit thành công giả; lỗi audit bắt buộc không bị bỏ qua im lặng.",
+      "EMP/EXE không đọc log ngoài quyền; log không chứa mật khẩu, raw session/QR, station secret hoặc private key."
+    ],
+    "cases": [
+      "Kiểm tra commit/rollback và audit ở DB test; correlationId nối request với attempt/command.",
+      "Gọi trực tiếp query audit ngoài scope; kiểm tra redaction bằng payload chứa dữ liệu nhạy cảm."
+    ],
+    "children": [],
+    "feature_slug": "audit",
+    "area": "security"
+  },
+  {
+    "id": 104,
+    "title": "Implement shift definitions and effective employee schedules",
+    "type": "FEATURE",
+    "priority": "P2",
+    "deps": [
+      4,
+      7,
+      55,
+      56
+    ],
+    "parent": 99,
+    "paths": [
+      "api/src/modules/att",
+      "contracts/src/attendance.ts"
+    ],
+    "req": [
+      "Extension: shift policy"
+    ],
+    "problem": "UI ca làm tồn tại nhưng chưa có API/persistence nghiệp vụ hoàn chỉnh; cần refine schema thay vì ghi shiftId giả.",
+    "tasks": [
+      "Chốt owner ATT, timezone, ca đêm, khoảng hiệu lực, grace và policy ca chồng lấn.",
+      "Tạo entity/registry/migration/constraints và API CRUD trạng thái ca, gán lịch hiệu lực theo scope.",
+      "Giữ lịch sử lịch ca; xác định version lịch dùng để tính lại công và ảnh hưởng snapshot HRS."
+    ],
+    "ac": [
+      "Ca 22h–06h xác định ngày nghiệp vụ đúng theo policy; kiểm tra giờ, hiệu lực và chồng lấn.",
+      "Gán ca ngoài scope hoặc update stale bị từ chối; thay lịch không ghi đè lịch sử hoặc snapshot đã phát hành."
+    ],
+    "cases": [
+      "Migration up/down trên DB test; CRUD/gán ca và reload qua API.",
+      "Test timezone, đổi ngày/ca đêm, chồng lấn, effective date và quyền khác factory."
+    ],
+    "children": [],
+    "feature_slug": "extended-business",
+    "area": "backend"
+  },
+  {
+    "id": 105,
+    "title": "Connect shift and schedule screens to persisted APIs",
+    "type": "UI",
+    "priority": "P2",
+    "deps": [
+      104,
+      57
+    ],
+    "parent": 99,
+    "paths": [
+      "client/src/features/shifts",
+      "client/src/data/api.ts",
+      "client/src/features/employees"
+    ],
+    "req": [
+      "Extension: shift policy"
+    ],
+    "problem": "saveShift/assignShift hiện luôn từ chối; cần nối API ca/lịch sau khi contract được chốt.",
+    "tasks": [
+      "Nối danh sách/form ca, gán ca theo hiệu lực và lịch sử vào API thật.",
+      "Dùng factory/department/team IDs từ server; hỗ trợ loading/empty/403/409/lỗi mạng và thao tác bàn phím."
+    ],
+    "ac": [
+      "Tạo/sửa/gán lịch và reload vẫn đúng DB; lỗi API không hiển thị thành công.",
+      "UI ca đêm và hiệu lực nhất quán policy; chỉ mở nút theo capability server, API vẫn kiểm tra quyền."
+    ],
+    "cases": [
+      "E2E HR đúng scope CRUD và gán lịch; EMP chỉ xem lịch cá nhân nếu được cấp.",
+      "Kiểm tra responsive, lỗi mạng và stale update 409."
+    ],
+    "children": [],
+    "feature_slug": "extended-business",
+    "area": "frontend"
+  },
+  {
+    "id": 89,
+    "title": "Authorization & session RBAC",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Mọi API nghiệp vụ kiểm tra session, permission và scope ở server; không phụ thuộc việc ẩn nút UI.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      7,
+      8,
+      50,
+      87
+    ],
+    "feature_slug": "authorization",
+    "area": "security"
+  },
+  {
+    "id": 90,
+    "title": "Employee Management",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "HR tạo/sửa/trạng thái nhân viên và phân công có hiệu lực, lưu thật và giữ lịch sử.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      55,
+      56,
+      57
+    ],
+    "feature_slug": "employee",
+    "area": "backend"
+  },
+  {
+    "id": 91,
+    "title": "QR Credential Management",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "QR do server ký, ngắn hạn, thu hồi được và chống replay nguyên tử.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      9,
+      10,
+      11,
+      15,
+      17
+    ],
+    "feature_slug": "qr",
+    "area": "security"
+  },
+  {
+    "id": 92,
+    "title": "Gate & Factory Configuration",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Tổ chức/trạm/credential/cấu hình version được quản trị đúng quyền; heartbeat phản ánh dữ liệu nhận thực tế.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      6,
+      39,
+      72,
+      73,
+      74,
+      83,
+      84
+    ],
+    "feature_slug": "gate-config",
+    "area": "backend"
+  },
+  {
+    "id": 93,
+    "title": "Gate Scan & Access Processing",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Station xác thực gửi scan; policy, TCS adapter và UI phân biệt quyết định truy cập với kết quả mở/qua cổng.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      12,
+      13,
+      14,
+      16,
+      18,
+      27
+    ],
+    "feature_slug": "gate-processing",
+    "area": "backend"
+  },
+  {
+    "id": 94,
+    "title": "Attendance Event Recording",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Lưu sự kiện và revision từ bằng chứng được chấp thuận; truy vấn cá nhân/phạm vi không ghi trùng.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      19,
+      20,
+      21
+    ],
+    "feature_slug": "attendance",
+    "area": "backend"
+  },
+  {
+    "id": 95,
+    "title": "Reliability, Recovery & Offline Policy",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Mất mạng/ACK hoặc crash không mất dữ liệu đã nhận bền vững và không tự phát lại tác động vật lý chưa rõ.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      42
+    ],
+    "feature_slug": "reliability",
+    "area": "backend"
+  },
+  {
+    "id": 96,
+    "title": "Audit & Traceability",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Thao tác quan trọng có audit bền vững, truy vấn đúng scope và không lộ bí mật.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      103
+    ],
+    "feature_slug": "audit",
+    "area": "security"
+  },
+  {
+    "id": 97,
+    "title": "Reporting & HRS Integration",
+    "type": "TASK",
+    "priority": "P1",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Báo cáo đúng scope, snapshot tháng bất biến và giao nhận HRS có ACK/retry/đối soát.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      28,
+      41,
+      75,
+      76,
+      77
+    ],
+    "feature_slug": "reporting",
+    "area": "backend"
+  },
+  {
+    "id": 98,
+    "title": "Administration: Accounts & Role Assignments",
+    "type": "TASK",
+    "priority": "P1",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "ADM quản lý tài khoản và role assignment có scope/hiệu lực, không tự nâng quyền nghiệp vụ HR.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      43,
+      58,
+      59
+    ],
+    "feature_slug": "administration",
+    "area": "security"
+  },
+  {
+    "id": 99,
+    "title": "Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "type": "TASK",
+    "priority": "P2",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Có mô hình ca, ghép công và correction có revision; quy tắc ca đêm/thiếu lượt được công bố.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      40,
+      104,
+      105
+    ],
+    "feature_slug": "extended-business",
+    "area": "backend"
+  },
+  {
+    "id": 100,
+    "title": "Architecture, Privacy & Assignment Deliverables",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Báo cáo M1/M2, ba views, SOLID/reflection và policy dữ liệu khớp phạm vi code đã kiểm chứng.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      1,
+      33,
+      34,
+      35,
+      36,
+      37,
+      78,
+      79,
+      80,
+      81,
+      82,
+      86
+    ],
+    "feature_slug": "architecture",
+    "area": "architecture"
+  },
+  {
+    "id": 101,
+    "title": "Foundation, Delivery & Operations",
+    "type": "TASK",
+    "priority": "P1",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Workspace/migration/CI/runbook và quản trị backlog tái lập được; chỉ sửa gap đã xác minh.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      2,
+      3,
+      4,
+      5,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      54,
+      88
+    ],
+    "feature_slug": "foundation",
+    "area": "devops"
+  },
+  {
+    "id": 102,
+    "title": "Verification: API, DB, E2E & NFR",
+    "type": "TASK",
+    "priority": "P0",
+    "parent": null,
+    "deps": [],
+    "paths": [],
+    "req": [
+      "M1/M2 scope: see child tickets"
+    ],
+    "problem": "Có bằng chứng PostgreSQL, race/crash, quyền, E2E và đo latency trên revision ứng viên.",
+    "tasks": [
+      "Refine và phân công các ticket con; xác nhận contract/phụ thuộc trước khi chuyển Ready.",
+      "Tích hợp phần đã triển khai và đối chiếu tiêu chí từng ticket với evidence đúng revision."
+    ],
+    "ac": [
+      "Tất cả ticket con thuộc phạm vi cam kết được nghiệm thu; phần hoãn có lý do và liên kết rõ.",
+      "Luồng tính năng tích hợp đạt kiểm chứng; không suy Done từ sự tồn tại schema/UI hay việc import backlog."
+    ],
+    "cases": [
+      "Review AC/evidence/limitations của ticket con và demo tích hợp tính năng."
+    ],
+    "children": [
+      29,
+      30,
+      31,
+      32,
+      38,
+      85
+    ],
+    "feature_slug": "verification",
+    "area": "backend"
+  }
+]

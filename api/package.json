@@ -11,10 +11,11 @@
     "seed:accounts": "pnpm build && node --import ./scripts/load-env.mjs scripts/seed-accounts.mjs"
   },
   "dependencies": {
-    "@tmc/contracts": "workspace:*",
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@nestjs/swagger": "^11.4.8",
+    "@tmc/contracts": "workspace:*",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",

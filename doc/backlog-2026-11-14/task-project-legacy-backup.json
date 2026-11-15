@@ -1,0 +1,7768 @@
+{
+  "id": "PVT_kwHODenJ1c4BqGqu",
+  "title": "TMC Access — Assignment M1/M2 Delivery",
+  "url": "https://github.com/users/stephen89-hcmut/projects/1",
+  "owner": {
+    "login": "stephen89-hcmut"
+  },
+  "fields": {
+    "nodes": [
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_Q",
+        "name": "Title",
+        "dataType": "TITLE"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_U",
+        "name": "Assignees",
+        "dataType": "ASSIGNEES"
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhofP_Y",
+        "name": "Status",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          {
+            "id": "f75ad846",
+            "name": "Todo",
+            "color": "GREEN",
+            "description": "This item hasn't been started"
+          },
+          {
+            "id": "47fc9ee4",
+            "name": "In Progress",
+            "color": "YELLOW",
+            "description": "This is actively being worked on"
+          },
+          {
+            "id": "98236657",
+            "name": "Done",
+            "color": "PURPLE",
+            "description": "This has been completed"
+          },
+          {
+            "id": "849cce20",
+            "name": "Ready",
+            "color": "BLUE",
+            "description": "Dependencies and acceptance refined; ready to assign"
+          },
+          {
+            "id": "596af227",
+            "name": "In Review",
+            "color": "PURPLE",
+            "description": "PR/evidence waiting for human review"
+          },
+          {
+            "id": "1d5e6899",
+            "name": "Blocked",
+            "color": "RED",
+            "description": "Record blocker, owner and next action"
+          }
+        ]
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_c",
+        "name": "Labels",
+        "dataType": "LABELS"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_g",
+        "name": "Linked pull requests",
+        "dataType": "LINKED_PULL_REQUESTS"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_k",
+        "name": "Milestone",
+        "dataType": "MILESTONE"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_o",
+        "name": "Repository",
+        "dataType": "REPOSITORY"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_4",
+        "name": "Reviewers",
+        "dataType": "REVIEWERS"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAA",
+        "name": "Parent issue",
+        "dataType": "PARENT_ISSUE"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAE",
+        "name": "Sub-issues progress",
+        "dataType": "SUB_ISSUES_PROGRESS"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAM",
+        "name": "Created",
+        "dataType": "CREATED"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAU",
+        "name": "Updated",
+        "dataType": "UPDATED"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAc",
+        "name": "Closed",
+        "dataType": "CLOSED"
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBA",
+        "name": "Priority",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          {
+            "id": "2a0e5407",
+            "name": "P0",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "d9318991",
+            "name": "P1",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "adfc8158",
+            "name": "P2",
+            "color": "GRAY",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBE",
+        "name": "Sprint",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          {
+            "id": "d667dffd",
+            "name": "S1",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "cbdebde7",
+            "name": "S2",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "3d40e14a",
+            "name": "S3",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "a711c8c9",
+            "name": "S4",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "eaf2ae8e",
+            "name": "Deferred",
+            "color": "GRAY",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBI",
+        "name": "Area",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          {
+            "id": "eef4d06e",
+            "name": "Frontend",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "e36c1ef4",
+            "name": "Backend",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "c8d2ac20",
+            "name": "Database",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "f979c73f",
+            "name": "Architecture",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "3de87ea4",
+            "name": "DevOps",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "b3f2cb5d",
+            "name": "Security",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "id": "a4764bd8",
+            "name": "UI/UX",
+            "color": "GRAY",
+            "description": ""
+          }
+        ]
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQBM",
+        "name": "Estimate Hours",
+        "dataType": "NUMBER"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhp47X8",
+        "name": "Task ID",
+        "dataType": "TEXT"
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhp47ZE",
+        "name": "Feature",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          {
+            "id": "66070fe6",
+            "name": "authorization",
+            "color": "PURPLE",
+            "description": "Authorization & session RBAC"
+          },
+          {
+            "id": "a21eaf03",
+            "name": "employee",
+            "color": "PURPLE",
+            "description": "Employee Management"
+          },
+          {
+            "id": "985e2bc4",
+            "name": "qr",
+            "color": "PURPLE",
+            "description": "QR Credential Management"
+          },
+          {
+            "id": "45a7f0de",
+            "name": "gate-config",
+            "color": "PURPLE",
+            "description": "Gate & Factory Configuration"
+          },
+          {
+            "id": "2125b59e",
+            "name": "gate-processing",
+            "color": "PURPLE",
+            "description": "Gate Scan & Access Processing"
+          },
+          {
+            "id": "bffa82f9",
+            "name": "attendance",
+            "color": "PURPLE",
+            "description": "Attendance Event Recording"
+          },
+          {
+            "id": "54c4bb22",
+            "name": "reliability",
+            "color": "PURPLE",
+            "description": "Reliability, Recovery & Offline Policy"
+          },
+          {
+            "id": "68593433",
+            "name": "audit",
+            "color": "PURPLE",
+            "description": "Audit & Traceability"
+          },
+          {
+            "id": "f909d1a7",
+            "name": "reporting",
+            "color": "PURPLE",
+            "description": "Reporting & HRS Integration"
+          },
+          {
+            "id": "cb24f599",
+            "name": "administration",
+            "color": "PURPLE",
+            "description": "Administration: Accounts & Role Assignments"
+          },
+          {
+            "id": "51dfbe1a",
+            "name": "extended-business",
+            "color": "PURPLE",
+            "description": "Nghiệp vụ mở rộng: ca làm & hiệu chỉnh"
+          },
+          {
+            "id": "d0d97ca5",
+            "name": "architecture",
+            "color": "PURPLE",
+            "description": "Architecture, Privacy & Assignment Deliverables"
+          },
+          {
+            "id": "eefff167",
+            "name": "foundation",
+            "color": "PURPLE",
+            "description": "Foundation, Delivery & Operations"
+          },
+          {
+            "id": "c157e6f5",
+            "name": "verification",
+            "color": "PURPLE",
+            "description": "Verification: API, DB, E2E & NFR"
+          }
+        ]
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhp47Zs",
+        "name": "Work Type",
+        "dataType": "SINGLE_SELECT",
+        "options": [
+          {
+            "id": "0ac9be25",
+            "name": "Epic",
+            "color": "PURPLE",
+            "description": "Epic"
+          },
+          {
+            "id": "05cfc7d0",
+            "name": "Ticket",
+            "color": "BLUE",
+            "description": "Ticket"
+          },
+          {
+            "id": "d61b2aa8",
+            "name": "Sub-ticket",
+            "color": "GRAY",
+            "description": "Sub-ticket"
+          }
+        ]
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhp47as",
+        "name": "Target Date",
+        "dataType": "DATE"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhp47bY",
+        "name": "Dependencies",
+        "dataType": "TEXT"
+      }
+    ]
+  },
+  "views": {
+    "nodes": [
+      {
+        "id": "PVTV_lAHODenJ1c4BqGquzgMZHxE",
+        "name": "Feature Backlog",
+        "number": 1,
+        "layout": "TABLE_LAYOUT"
+      },
+      {
+        "id": "PVTV_lAHODenJ1c4BqGquzgMjy68",
+        "name": "Feature Epics",
+        "number": 2,
+        "layout": "TABLE_LAYOUT"
+      },
+      {
+        "id": "PVTV_lAHODenJ1c4BqGquzgMjy7E",
+        "name": "Critical Path P0",
+        "number": 3,
+        "layout": "TABLE_LAYOUT"
+      },
+      {
+        "id": "PVTV_lAHODenJ1c4BqGquzgMjy7I",
+        "name": "Review Queue",
+        "number": 4,
+        "layout": "TABLE_LAYOUT"
+      },
+      {
+        "id": "PVTV_lAHODenJ1c4BqGquzgMjy7Y",
+        "name": "Blocked Work",
+        "number": 5,
+        "layout": "TABLE_LAYOUT"
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4ORw",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVX9FA",
+        "number": 43,
+        "title": "[TMC-043] [UI] Deliver the IAM administration interface",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/43",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM8cQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-043] [UI] Deliver the IAM administration interface",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-043",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "administration",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-008, TMC-060, TMC-061",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4OUo",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVYQQ",
+        "number": 42,
+        "title": "[TMC-042] [SPIKE] Evaluate and prototype autonomous offline edge operation",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/42",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM5Og"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-042] [SPIKE] Evaluate and prototype autonomous offline edge operation",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-042",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-022, TMC-024, TMC-030, TMC-069, TMC-070, TMC-071",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4OXI",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVWgw",
+        "number": 41,
+        "title": "[TMC-041] [FEATURE] Deliver versioned monthly HRS exports",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/41",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM7AA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-041] [FEATURE] Deliver versioned monthly HRS exports",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-041",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-019, TMC-024, TMC-040, TMC-065, TMC-066, TMC-067, TMC-068",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4OZs",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVUzA",
+        "number": 40,
+        "title": "[TMC-040] [FEATURE] Deliver versioned HR attendance corrections",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/40",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM9Iw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-040] [FEATURE] Deliver versioned HR attendance corrections",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-040",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "extended-business",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-019, TMC-020, TMC-062, TMC-063, TMC-064",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Ob0",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVTKg",
+        "number": 39,
+        "title": "[TMC-039] [ENHANCEMENT] Monitor station heartbeat and pending work",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/39",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM2Rg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-039] [ENHANCEMENT] Monitor station heartbeat and pending work",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-039",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-config",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-028, TMC-024",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Oek",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVRig",
+        "number": 38,
+        "title": "[TMC-038] [TEST] Verify the release candidate and triage blockers",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/38",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQNAAw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-038] [TEST] Verify the release candidate and triage blockers",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-038",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-029, TMC-030, TMC-031, TMC-032, TMC-035, TMC-036",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4OhY",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVP5g",
+        "number": 37,
+        "title": "[TMC-037] [DOCS] Package the M2 report and submission evidence",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/37",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-037] [DOCS] Package the M2 report and submission evidence",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-037",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-034, TMC-035, TMC-036, TMC-038",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Ojk",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVOpQ",
+        "number": 36,
+        "title": "[TMC-036] [DOCS] Verify setup instructions and the reproducible demo",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/36",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-036] [DOCS] Verify setup instructions and the reproducible demo",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-036",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-005, TMC-032",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4OmQ",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVNHg",
+        "number": 35,
+        "title": "[TMC-035] [DOCS] Align architecture decisions and three required views",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/35",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-035] [DOCS] Align architecture decisions and three required views",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-035",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-001, TMC-022, TMC-033, TMC-034, TMC-031",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4OpI",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVLoA",
+        "number": 34,
+        "title": "[TMC-034] [DOCS] Write the implementation-based SOLID reflection",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/34",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-034] [DOCS] Write the implementation-based SOLID reflection",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-034",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-033, TMC-030",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Ors",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVKMg",
+        "number": 33,
+        "title": "[TMC-033] [DOCS] Document SOLID evidence from implementation",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/33",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-033] [DOCS] Document SOLID evidence from implementation",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-033",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-019, TMC-024, TMC-085",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4OuU",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVIwg",
+        "number": 32,
+        "title": "[TMC-032] [TEST] Verify the complete user journey and UI states",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/32",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQNAAw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-032] [TEST] Verify the complete user journey and UI states",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-032",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-021, TMC-023, TMC-030, TMC-031, TMC-085",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4OxQ",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVHNA",
+        "number": 31,
+        "title": "[TMC-031] [TEST] Coordinate kiosk performance and data-access verification",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/31",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQNAAw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-031] [TEST] Coordinate kiosk performance and data-access verification",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-031",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-030, TMC-051, TMC-052, TMC-053",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4O00",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVF2g",
+        "number": 30,
+        "title": "[TMC-030] [TEST] Verify concurrent replay and crash recovery",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/30",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQNAAw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-030] [TEST] Verify concurrent replay and crash recovery",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-030",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-023, TMC-024, TMC-025, TMC-026, TMC-029",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4O5A",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVEhw",
+        "number": 29,
+        "title": "[TMC-029] [TEST] Verify the main module against PostgreSQL",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/29",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQNAAw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-029] [TEST] Verify the main module against PostgreSQL",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-029",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-019, TMC-020, TMC-015",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4O8g",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVDIg",
+        "number": 28,
+        "title": "[TMC-028] [UI] Connect scoped dashboard data and factory filters",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/28",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM7AA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-028] [UI] Connect scoped dashboard data and factory filters",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-028",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-020, TMC-021, TMC-025",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4O_M",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVVBzA",
+        "number": 27,
+        "title": "[TMC-027] [UI] Connect camera scans to the server contract",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/27",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3Jw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-027] [UI] Connect camera scans to the server contract",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-027",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-processing",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-018",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PBE",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU_Vw",
+        "number": 26,
+        "title": "[TMC-026] [TEST] Exercise lost responses and process crash scenarios",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/26",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM5Og"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-026] [TEST] Exercise lost responses and process crash scenarios",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-026",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-013, TMC-016, TMC-022",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PDc",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU90w",
+        "number": 25,
+        "title": "[TMC-025] [FEATURE] Implement scoped security reconciliation cases",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/25",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM5Og"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-025] [FEATURE] Implement scoped security reconciliation cases",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-025",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-024, TMC-007, TMC-020",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PFk",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU8hQ",
+        "number": 24,
+        "title": "[TMC-024] [FEATURE] Reconcile unknown commands using durable fenced jobs",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/24",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM5Og"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-024] [FEATURE] Reconcile unknown commands using durable fenced jobs",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-024",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-019, TMC-022, TMC-026",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PHQ",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU7QA",
+        "number": 23,
+        "title": "[TMC-023] [ENHANCEMENT] Recover kiosk requests with a metadata journal",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/23",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM5Og"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-023] [ENHANCEMENT] Recover kiosk requests with a metadata journal",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-023",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-018, TMC-020, TMC-022",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PJc",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU5xg",
+        "number": 22,
+        "title": "[TMC-022] [DOCS] Finalize network failure architecture decisions",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/22",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM5Og"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-022] [DOCS] Finalize network failure architecture decisions",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-022",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-016",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PL4",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU4cA",
+        "number": 21,
+        "title": "[TMC-021] [UI] Connect personal history and attempt details",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/21",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3sg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-021] [UI] Connect personal history and attempt details",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-021",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "attendance",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-020, TMC-008",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PN4",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU3FQ",
+        "number": 20,
+        "title": "[TMC-020] [FEATURE] Expose scoped attempt status and attendance history",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/20",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3sg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-020] [FEATURE] Expose scoped attempt status and attendance history",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-020",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "attendance",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-019, TMC-007",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PQc",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU1iw",
+        "number": 19,
+        "title": "[TMC-019] [FEATURE] Write attendance revisions from verified passage evidence",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/19",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3sg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-019] [FEATURE] Write attendance revisions from verified passage evidence",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-019",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "attendance",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-016",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PUU",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVU0Mg",
+        "number": 18,
+        "title": "[TMC-018] [UI] Connect the virtual kiosk to real attempt states",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/18",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3Jw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-018] [UI] Connect the virtual kiosk to real attempt states",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-018",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-processing",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-016, TMC-017",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PW4",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUy2g",
+        "number": 17,
+        "title": "[TMC-017] [UI] Display server-issued QR codes in the employee portal",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/17",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM1iw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-017] [UI] Display server-issued QR codes in the employee portal",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-017",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "qr",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-010, TMC-008",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PZc",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUxMg",
+        "number": 16,
+        "title": "[TMC-016] [FEATURE] Claim and reconcile gate commands with CAS",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/16",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3Jw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-016] [FEATURE] Claim and reconcile gate commands with CAS",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-016",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-processing",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-013, TMC-014, TMC-015",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Pck",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUv3w",
+        "number": 15,
+        "title": "[TMC-015] [FEATURE] Prevent QR replay with atomic redemption",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/15",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM1iw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-015] [FEATURE] Prevent QR replay with atomic redemption",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-015",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "qr",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-014, TMC-010",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Pe8",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUuYA",
+        "number": 14,
+        "title": "[TMC-014] [FEATURE] Persist idempotent attempts before gate dispatch",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/14",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3Jw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-014] [FEATURE] Persist idempotent attempts before gate dispatch",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-014",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-processing",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-004, TMC-011, TMC-012, TMC-013",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Phg",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUtFw",
+        "number": 13,
+        "title": "[TMC-013] [FEATURE] Implement a fault-capable turnstile simulator",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/13",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3Jw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-013] [FEATURE] Implement a fault-capable turnstile simulator",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-013",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-processing",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-003, TMC-005",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Pi8",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUr-w",
+        "number": 12,
+        "title": "[TMC-012] [FEATURE] Evaluate access policies using server-owned data",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/12",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM3Jw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-012] [FEATURE] Evaluate access policies using server-owned data",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-012",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-processing",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-006, TMC-011",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Plk",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUqoQ",
+        "number": 11,
+        "title": "[TMC-011] [FEATURE] Validate QR signatures and token claims",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/11",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM1iw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-011] [FEATURE] Validate QR signatures and token claims",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-011",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "qr",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-010",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Pnk",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUpIg",
+        "number": 10,
+        "title": "[TMC-010] [FEATURE] Issue short-lived QR tokens and revoke credentials",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/10",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM1iw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-010] [FEATURE] Issue short-lived QR tokens and revoke credentials",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-010",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "qr",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-009, TMC-007",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Ppo",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUn6g",
+        "number": 9,
+        "title": "[TMC-009] [FEATURE] Implement QR credential and signing-key metadata",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/9",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM1iw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-009] [FEATURE] Implement QR credential and signing-key metadata",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-009",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "qr",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-004, TMC-006",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Prw",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUmeQ",
+        "number": 8,
+        "title": "[TMC-008] [UI] Verify session login and protected navigation",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/8",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": [
+            {
+              "login": "tungbinhdinh89"
+            }
+          ]
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM0HQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-008] [UI] Verify session login and protected navigation",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-008",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "authorization",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-002",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Pt4",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUlEA",
+        "number": 7,
+        "title": "[TMC-007] [ENHANCEMENT] Complete server session authorization and scope checks",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/7",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM0HQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-007] [ENHANCEMENT] Complete server session authorization and scope checks",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-007",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "authorization",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-005, TMC-006",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4PxI",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUjjQ",
+        "number": 6,
+        "title": "[TMC-006] [TASK] Verify identity, scope and station fixtures",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/6",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM2Rg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-006] [TASK] Verify identity, scope and station fixtures",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-006",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-config",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-004",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4Pz0",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUiDg",
+        "number": 5,
+        "title": "[TMC-005] [CI] Complete Node test runners and CI contracts",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/5",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-005] [CI] Complete Node test runners and CI contracts",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-005",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-003, TMC-004",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4P10",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUf6Q",
+        "number": 4,
+        "title": "[TMC-004] [BUILD] Verify PostgreSQL migrations and core constraints",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/4",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-004] [BUILD] Verify PostgreSQL migrations and core constraints",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-004",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-003",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4P3g",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUeWg",
+        "number": 3,
+        "title": "[TMC-003] [BUILD] Complete backend ports and shared wire contracts",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/3",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-003] [BUILD] Complete backend ports and shared wire contracts",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-003",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-002",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4P6o",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUc5w",
+        "number": 2,
+        "title": "[TMC-002] [BUILD] Verify the client workspace and preview baseline",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/2",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-002] [BUILD] Verify the client workspace and preview baseline",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-002",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-001",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhF4P84",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABcVUbpQ",
+        "number": 1,
+        "title": "[TMC-001] [DOCS] Confirm M2 scope and requirement traceability",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/1",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {},
+          {
+            "text": "[TMC-001] [DOCS] Confirm M2 scope and requirement traceability",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Done",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-001",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-044",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTrM",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMVBA",
+        "number": 55,
+        "title": "[TMC-051] [TEST] Measure kiosk response latency under shift-change load",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/55",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVHNA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-051] [TEST] Measure kiosk response latency under shift-change load",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-051",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-030, TMC-018, TMC-019",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTrc",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMVwQ",
+        "number": 56,
+        "title": "[TMC-052] [TEST] Verify role, object and factory authorization boundaries",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/56",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVHNA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-052] [TEST] Verify role, object and factory authorization boundaries",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-052",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-030, TMC-007, TMC-050",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTr0",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMWPA",
+        "number": 57,
+        "title": "[TMC-053] [TEST] Verify payload redaction and session data isolation",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/57",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVHNA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-053] [TEST] Verify payload redaction and session data isolation",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-053",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-030, TMC-050, TMC-021",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTss",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMbew",
+        "number": 64,
+        "title": "[TMC-060] [UI] Build account administration screens",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/64",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVX9FA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-060] [UI] Build account administration screens",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-060",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "administration",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-058, TMC-008",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTuE",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMb-g",
+        "number": 65,
+        "title": "[TMC-061] [UI] Build scoped role-assignment administration screens",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/65",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVX9FA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-061] [UI] Build scoped role-assignment administration screens",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-061",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "administration",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-059, TMC-060",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTuM",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMcqA",
+        "number": 66,
+        "title": "[TMC-062] [FEATURE] Pair attendance intervals and classify anomalies",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/66",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVUzA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-062] [FEATURE] Pair attendance intervals and classify anomalies",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-062",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "extended-business",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-019, TMC-020",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTvk",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMe9w",
+        "number": 69,
+        "title": "[TMC-065] [FEATURE] Create immutable monthly export snapshots",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/69",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVWgw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-065] [FEATURE] Create immutable monthly export snapshots",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-065",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-040, TMC-024",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTwE",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMeSA",
+        "number": 68,
+        "title": "[TMC-064] [UI] Connect attendance review and correction workflows",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/68",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVUzA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-064] [UI] Connect attendance review and correction workflows",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-064",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "extended-business",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-063, TMC-021",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTwQ",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMfsw",
+        "number": 70,
+        "title": "[TMC-066] [FEATURE] Implement HRS delivery and acknowledgment reconciliation",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/70",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVWgw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-066] [FEATURE] Implement HRS delivery and acknowledgment reconciliation",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-066",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-065",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTws",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMgcA",
+        "number": 71,
+        "title": "[TMC-067] [FEATURE] Schedule durable exports and deadline alerts",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/71",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVWgw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-067] [FEATURE] Schedule durable exports and deadline alerts",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-067",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-066, TMC-024",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTw4",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMhKg",
+        "number": 72,
+        "title": "[TMC-068] [TEST] Verify monthly HRS version and deadline behavior",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/72",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVWgw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-068] [TEST] Verify monthly HRS version and deadline behavior",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-068",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-065, TMC-066, TMC-067",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTxU",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMjTw",
+        "number": 75,
+        "title": "[TMC-071] [TEST] Verify edge partition and replay limitations",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/75",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVYQQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-071] [TEST] Verify edge partition and replay limitations",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-071",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-070",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTxY",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMh3w",
+        "number": 73,
+        "title": "[TMC-069] [SPIKE] Decide the offline edge authorization threat model",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/73",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVYQQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-069] [SPIKE] Decide the offline edge authorization threat model",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-069",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-022, TMC-024, TMC-030",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTx0",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMijQ",
+        "number": 74,
+        "title": "[TMC-070] [FEATURE] Prototype durable offline journals and synchronization",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/74",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVYQQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-070] [FEATURE] Prototype durable offline journals and synchronization",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-070",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-069",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuTzc",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMdhw",
+        "number": 67,
+        "title": "[TMC-063] [FEATURE] Apply audited attendance corrections with version checks",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/67",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABcVVUzA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-063] [FEATURE] Apply audited attendance corrections with version checks",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-063",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "extended-business",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Sub-ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-062, TMC-007",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuT7g",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfKKUEQ",
+        "number": 46,
+        "title": "[TMC-088] [FEATURE] Align client UI with TMC design components",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/46",
+        "state": "CLOSED",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-088] [FEATURE] Align client UI with TMC design components",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-088",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuT8U",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMPiA",
+        "number": 48,
+        "title": "[TMC-044] [TASK] Audit current acceptance evidence and replan capacity",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/48",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-044] [TASK] Audit current acceptance evidence and replan capacity",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-044",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuT9A",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMQOg",
+        "number": 49,
+        "title": "[TMC-045] [DOCS] Define issue templates and label taxonomy",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/49",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-045] [DOCS] Define issue templates and label taxonomy",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-045",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-044, TMC-001",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuT9o",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMRPg",
+        "number": 50,
+        "title": "[TMC-046] [CHORE] Prepare the GitHub Project field schema",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/50",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-046] [CHORE] Prepare the GitHub Project field schema",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-046",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-045",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuT-A",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMR8w",
+        "number": 51,
+        "title": "[TMC-047] [CHORE] Configure saved views and safe project automations",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/51",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-047] [CHORE] Configure saved views and safe project automations",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-047",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-046",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuT-Q",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMSdg",
+        "number": 52,
+        "title": "[TMC-048] [DOCS] Define protected-branch checks and human review ownership",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/52",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-048] [DOCS] Define protected-branch checks and human review ownership",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-048",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-044, TMC-045",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuT_A",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMTIQ",
+        "number": 53,
+        "title": "[TMC-049] [TASK] Import verified ticket metadata without duplicate issues",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/53",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-049] [TASK] Import verified ticket metadata without duplicate issues",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-049",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-046, TMC-047, TMC-048",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuT_s",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMUXw",
+        "number": 54,
+        "title": "[TMC-050] [BUG] Restrict demo bootstrap data to authorized scopes",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/54",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM0HQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-050] [BUG] Restrict demo bootstrap data to authorized scopes",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-050",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "authorization",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-008",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUAI",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMW0Q",
+        "number": 58,
+        "title": "[TMC-054] [TEST] Exercise PostgreSQL backup and point-in-time recovery",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/58",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM_hg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-054] [TEST] Exercise PostgreSQL backup and point-in-time recovery",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-054",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-004, TMC-078",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUA8",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMXcw",
+        "number": 59,
+        "title": "[TMC-055] [FEATURE] Manage employee profiles with audited updates",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/59",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM07A"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-055] [FEATURE] Manage employee profiles with audited updates",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-055",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "employee",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-004",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUBY",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMYVQ",
+        "number": 60,
+        "title": "[TMC-056] [FEATURE] Manage effective employee assignments and factory grants",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/60",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM07A"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-056] [FEATURE] Manage effective employee assignments and factory grants",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-056",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "employee",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-055, TMC-072",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUBs",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMZZQ",
+        "number": 61,
+        "title": "[TMC-057] [UI] Connect HR employee and access-grant screens",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/61",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM07A"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-057] [UI] Connect HR employee and access-grant screens",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-057",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "employee",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-055, TMC-056, TMC-008",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUC4",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMaDA",
+        "number": 62,
+        "title": "[TMC-058] [FEATURE] Administer accounts and session revocation APIs",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/62",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM8cQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-058] [FEATURE] Administer accounts and session revocation APIs",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-058",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "administration",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-087",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUDM",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMasg",
+        "number": 63,
+        "title": "[TMC-059] [FEATURE] Manage scoped role assignments without privilege escalation",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/63",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM8cQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-059] [FEATURE] Manage scoped role assignments without privilege escalation",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-059",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "administration",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-058, TMC-072",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUDg",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMj3g",
+        "number": 76,
+        "title": "[TMC-072] [FEATURE] Administer effective factory organization data",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/76",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM2Rg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-072] [FEATURE] Administer effective factory organization data",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-072",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-config",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-004",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUDw",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMkoQ",
+        "number": 77,
+        "title": "[TMC-073] [FEATURE] Provision and retire authenticated gate stations",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/77",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM2Rg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-073] [FEATURE] Provision and retire authenticated gate stations",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-073",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-config",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-072, TMC-012",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUEE",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMleQ",
+        "number": 78,
+        "title": "[TMC-074] [UI] Connect station and organization administration screens",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/78",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM2Rg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-074] [UI] Connect station and organization administration screens",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-074",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-config",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-072, TMC-073, TMC-008",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUEs",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMmQA",
+        "number": 79,
+        "title": "[TMC-075] [FEATURE] Query monthly reports with role-specific projections",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/79",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM7AA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-075] [FEATURE] Query monthly reports with role-specific projections",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-075",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-062, TMC-020, TMC-007",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUFA",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMnNg",
+        "number": 80,
+        "title": "[TMC-076] [UI] Connect scoped monthly reports and anomaly views",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/80",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM7AA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-076] [UI] Connect scoped monthly reports and anomaly views",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-076",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-075, TMC-008",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUFc",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMonA",
+        "number": 81,
+        "title": "[TMC-077] [ENHANCEMENT] Export scoped CSV reports with download auditing",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/81",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM7AA"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-077] [ENHANCEMENT] Export scoped CSV reports with download auditing",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-077",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-075, TMC-076",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUF4",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMpQg",
+        "number": 82,
+        "title": "[TMC-078] [DOCS] Decide privacy notice, retention and evidence-hold policies",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/82",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-078] [DOCS] Decide privacy notice, retention and evidence-hold policies",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-078",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-001",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUGE",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMqQg",
+        "number": 83,
+        "title": "[TMC-079] [FEATURE] Implement authorized privacy request lifecycle APIs",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/83",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-079] [FEATURE] Implement authorized privacy request lifecycle APIs",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-079",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-078, TMC-080, TMC-007",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUG0",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMq_Q",
+        "number": 84,
+        "title": "[TMC-080] [BUILD] Add privacy workflow and retention-hold persistence",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/84",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-080] [BUILD] Add privacy workflow and retention-hold persistence",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-080",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-078, TMC-004",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUHU",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMsBg",
+        "number": 85,
+        "title": "[TMC-081] [FEATURE] Execute policy-based retention without erasing held evidence",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/85",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-081] [FEATURE] Execute policy-based retention without erasing held evidence",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-081",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-079, TMC-080, TMC-024",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUIs",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMtbg",
+        "number": 86,
+        "title": "[TMC-082] [TEST] Verify privacy requests, retention and evidence holds",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/86",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-082] [TEST] Verify privacy requests, retention and evidence holds",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-082",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-079, TMC-081, TMC-054",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUJM",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMuBA",
+        "number": 87,
+        "title": "[TMC-083] [FEATURE] Version integration settings and secret references",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/87",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM2Rg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-083] [FEATURE] Version integration settings and secret references",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-083",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-config",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-072, TMC-009",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUJg",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMuvw",
+        "number": 88,
+        "title": "[TMC-084] [ENHANCEMENT] Expose scoped service readiness and integration alerts",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/88",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM2Rg"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-084] [ENHANCEMENT] Expose scoped service readiness and integration alerts",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-084",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-config",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-039, TMC-024, TMC-007",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUJw",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMvrw",
+        "number": 89,
+        "title": "[TMC-085] [TEST] Verify module boundaries and replaceable integration ports",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/89",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQNAAw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-085] [TEST] Verify module boundaries and replaceable integration ports",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-085",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-029, TMC-087, TMC-013",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUKE",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMwNQ",
+        "number": 90,
+        "title": "[TMC-086] [UI] Show privacy purpose and scoped personal-profile states",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/90",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM-4w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-086] [UI] Show privacy purpose and scoped personal-profile states",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-086",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-008, TMC-020, TMC-001",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUKU",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMwuA",
+        "number": 91,
+        "title": "[TMC-087] [REFACTOR] Isolate session use cases from persistence and HTTP adapters",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/91",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM0HQ"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-087] [REFACTOR] Isolate session use cases from persistence and HTTP adapters",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-087",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "authorization",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUKw",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMxlg",
+        "number": 92,
+        "title": "[TMC-103] [FEATURE] Implement durable audit writes and scoped audit search",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/92",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM58w"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-103] [FEATURE] Implement durable audit writes and scoped audit search",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-103",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "audit",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-007, TMC-004",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuULE",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMyUw",
+        "number": 93,
+        "title": "[TMC-104] [FEATURE] Implement shift definitions and effective employee schedules",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/93",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM9Iw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-104] [FEATURE] Implement shift definitions and effective employee schedules",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-104",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "extended-business",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-004, TMC-007, TMC-055, TMC-056",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuULc",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQMzEQ",
+        "number": 94,
+        "title": "[TMC-105] [UI] Connect shift and schedule screens to persisted APIs",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/94",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": {
+          "id": "I_kwDOVTAnWM8AAAABfQM9Iw"
+        }
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-105] [UI] Connect shift and schedule screens to persisted APIs",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-105",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "extended-business",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Ticket",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Frontend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "TMC-104, TMC-057",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUL0",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM0HQ",
+        "number": 95,
+        "title": "[TMC-089] [TASK] Authorization & session RBAC",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/95",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-089] [TASK] Authorization & session RBAC",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-089",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "authorization",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUL8",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM07A",
+        "number": 96,
+        "title": "[TMC-090] [TASK] Employee Management",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/96",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-090] [TASK] Employee Management",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-090",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "employee",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUMU",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM1iw",
+        "number": 97,
+        "title": "[TMC-091] [TASK] QR Credential Management",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/97",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-091] [TASK] QR Credential Management",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-091",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "qr",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUNU",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM2Rg",
+        "number": 98,
+        "title": "[TMC-092] [TASK] Gate & Factory Configuration",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/98",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-092] [TASK] Gate & Factory Configuration",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-092",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-config",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUNw",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM3Jw",
+        "number": 99,
+        "title": "[TMC-093] [TASK] Gate Scan & Access Processing",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/99",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-093] [TASK] Gate Scan & Access Processing",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-093",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "gate-processing",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUOA",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM3sg",
+        "number": 100,
+        "title": "[TMC-094] [TASK] Attendance Event Recording",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/100",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-094] [TASK] Attendance Event Recording",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-094",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "attendance",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUOU",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM5Og",
+        "number": 101,
+        "title": "[TMC-095] [TASK] Reliability, Recovery & Offline Policy",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/101",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-095] [TASK] Reliability, Recovery & Offline Policy",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-095",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reliability",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUOs",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM58w",
+        "number": 102,
+        "title": "[TMC-096] [TASK] Audit & Traceability",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/102",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-096] [TASK] Audit & Traceability",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-096",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "audit",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUO8",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM7AA",
+        "number": 103,
+        "title": "[TMC-097] [TASK] Reporting & HRS Integration",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/103",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-097] [TASK] Reporting & HRS Integration",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-097",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "reporting",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUPY",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM8cQ",
+        "number": 104,
+        "title": "[TMC-098] [TASK] Administration: Accounts & Role Assignments",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/104",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-098] [TASK] Administration: Accounts & Role Assignments",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-098",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "administration",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Security",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUQA",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM9Iw",
+        "number": 105,
+        "title": "[TMC-099] [TASK] Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/105",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-099] [TASK] Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-099",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "extended-business",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P2",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuUQo",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM-4w",
+        "number": 106,
+        "title": "[TMC-100] [TASK] Architecture, Privacy & Assignment Deliverables",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/106",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-100] [TASK] Architecture, Privacy & Assignment Deliverables",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-100",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "architecture",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Architecture",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuURE",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQM_hg",
+        "number": 107,
+        "title": "[TMC-101] [TASK] Foundation, Delivery & Operations",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/107",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-101] [TASK] Foundation, Delivery & Operations",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-101",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "foundation",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P1",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "DevOps",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "PVTI_lAHODenJ1c4BqGquzhIuURk",
+      "content": {
+        "id": "I_kwDOVTAnWM8AAAABfQNAAw",
+        "number": 108,
+        "title": "[TMC-102] [TASK] Verification: API, DB, E2E & NFR",
+        "url": "https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/issues/108",
+        "state": "OPEN",
+        "assignees": {
+          "nodes": []
+        },
+        "parent": null
+      },
+      "fieldValues": {
+        "nodes": [
+          {},
+          {},
+          {
+            "text": "[TMC-102] [TASK] Verification: API, DB, E2E & NFR",
+            "field": {
+              "name": "Title"
+            }
+          },
+          {
+            "name": "Todo",
+            "field": {
+              "name": "Status"
+            }
+          },
+          {
+            "text": "TMC-102",
+            "field": {
+              "name": "Task ID"
+            }
+          },
+          {
+            "name": "verification",
+            "field": {
+              "name": "Feature"
+            }
+          },
+          {
+            "name": "Epic",
+            "field": {
+              "name": "Work Type"
+            }
+          },
+          {
+            "name": "P0",
+            "field": {
+              "name": "Priority"
+            }
+          },
+          {
+            "name": "Backend",
+            "field": {
+              "name": "Area"
+            }
+          },
+          {
+            "text": "None",
+            "field": {
+              "name": "Dependencies"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

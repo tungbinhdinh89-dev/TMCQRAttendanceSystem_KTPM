@@ -1,3 +1,4 @@
+import { ApiTags, ApiCookieAuth, ApiOperation, ApiResponse } from "@nestjs/swagger"
 import { Controller, Get, Req, ForbiddenException, ServiceUnavailableException } from "@nestjs/common"
 import type { SessionIdentity } from "@tmc/contracts"
 import { DataSource } from "typeorm"
@@ -16,10 +17,15 @@ export function withinScope(row: ScopeRow, identity: SessionIdentity, role: Sess
 const roleNames: Record<string, string> = { ADM: "SYSTEM_ADMIN", HR: "HR_MANAGER", SUP: "DEPARTMENT_MANAGER", SEC: "SECURITY_MANAGER", EMP: "EMPLOYEE", EXE: "EXECUTIVE" }
 const site = (code: string) => code === "BD" ? "bd" : code === "LA" ? "la" : "unknown"
 
+@ApiTags("Workspace")
+@ApiCookieAuth("session")
 @Controller("workspace")
 export class WorkspaceController {
   constructor(private readonly dataSource: DataSource, private readonly auth: AuthService) {}
 
+  @ApiOperation({ summary: "Lấy dữ liệu PostgreSQL theo role/scope", description: "EMP chỉ nhận dữ liệu cá nhân; EXE chỉ nhận tổng hợp; không trả password hoặc danh sách tài khoản khác." })
+  @ApiResponse({ status: 401, description: "Chưa đăng nhập." })
+  @ApiResponse({ status: 403, description: "Không có role hợp lệ." })
   @Get("bootstrap")
   async bootstrap(@Req() request: { headers: { cookie?: string } }) {
     const identity = await this.auth.me(readCookie(request, SESSION_COOKIE))

@@ -1,0 +1,632 @@
+{
+  "88": {
+    "id": "I_kwDOVTAnWM8AAAABfKKUEQ",
+    "number": 46,
+    "title": "[TMC-088] [FEATURE] Align client UI with TMC design components",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/46"
+  },
+  "43": {
+    "number": 43,
+    "id": "I_kwDOVTAnWM8AAAABcVX9FA",
+    "title": "[TMC-043] [UI] Deliver the IAM administration interface",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/43"
+  },
+  "42": {
+    "number": 42,
+    "id": "I_kwDOVTAnWM8AAAABcVVYQQ",
+    "title": "[TMC-042] [SPIKE] Evaluate and prototype autonomous offline edge operation",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/42"
+  },
+  "41": {
+    "number": 41,
+    "id": "I_kwDOVTAnWM8AAAABcVVWgw",
+    "title": "[TMC-041] [FEATURE] Deliver versioned monthly HRS exports",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/41"
+  },
+  "40": {
+    "number": 40,
+    "id": "I_kwDOVTAnWM8AAAABcVVUzA",
+    "title": "[TMC-040] [FEATURE] Deliver versioned HR attendance corrections",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/40"
+  },
+  "39": {
+    "number": 39,
+    "id": "I_kwDOVTAnWM8AAAABcVVTKg",
+    "title": "[TMC-039] [ENHANCEMENT] Monitor station heartbeat and pending work",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/39"
+  },
+  "38": {
+    "number": 38,
+    "id": "I_kwDOVTAnWM8AAAABcVVRig",
+    "title": "[TMC-038] [TEST] Verify the release candidate and triage blockers",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/38"
+  },
+  "37": {
+    "number": 37,
+    "id": "I_kwDOVTAnWM8AAAABcVVP5g",
+    "title": "[TMC-037] [DOCS] Package the M2 report and submission evidence",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/37"
+  },
+  "36": {
+    "number": 36,
+    "id": "I_kwDOVTAnWM8AAAABcVVOpQ",
+    "title": "[TMC-036] [DOCS] Verify setup instructions and the reproducible demo",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/36"
+  },
+  "35": {
+    "number": 35,
+    "id": "I_kwDOVTAnWM8AAAABcVVNHg",
+    "title": "[TMC-035] [DOCS] Align architecture decisions and three required views",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/35"
+  },
+  "34": {
+    "number": 34,
+    "id": "I_kwDOVTAnWM8AAAABcVVLoA",
+    "title": "[TMC-034] [DOCS] Write the implementation-based SOLID reflection",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/34"
+  },
+  "33": {
+    "number": 33,
+    "id": "I_kwDOVTAnWM8AAAABcVVKMg",
+    "title": "[TMC-033] [DOCS] Document SOLID evidence from implementation",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/33"
+  },
+  "32": {
+    "number": 32,
+    "id": "I_kwDOVTAnWM8AAAABcVVIwg",
+    "title": "[TMC-032] [TEST] Verify the complete user journey and UI states",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/32"
+  },
+  "31": {
+    "number": 31,
+    "id": "I_kwDOVTAnWM8AAAABcVVHNA",
+    "title": "[TMC-031] [TEST] Coordinate kiosk performance and data-access verification",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/31"
+  },
+  "30": {
+    "number": 30,
+    "id": "I_kwDOVTAnWM8AAAABcVVF2g",
+    "title": "[TMC-030] [TEST] Verify concurrent replay and crash recovery",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/30"
+  },
+  "29": {
+    "number": 29,
+    "id": "I_kwDOVTAnWM8AAAABcVVEhw",
+    "title": "[TMC-029] [TEST] Verify the main module against PostgreSQL",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/29"
+  },
+  "28": {
+    "number": 28,
+    "id": "I_kwDOVTAnWM8AAAABcVVDIg",
+    "title": "[TMC-028] [UI] Connect scoped dashboard data and factory filters",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/28"
+  },
+  "27": {
+    "number": 27,
+    "id": "I_kwDOVTAnWM8AAAABcVVBzA",
+    "title": "[TMC-027] [UI] Connect camera scans to the server contract",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/27"
+  },
+  "26": {
+    "number": 26,
+    "id": "I_kwDOVTAnWM8AAAABcVU_Vw",
+    "title": "[TMC-026] [TEST] Exercise lost responses and process crash scenarios",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/26"
+  },
+  "25": {
+    "number": 25,
+    "id": "I_kwDOVTAnWM8AAAABcVU90w",
+    "title": "[TMC-025] [FEATURE] Implement scoped security reconciliation cases",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/25"
+  },
+  "24": {
+    "number": 24,
+    "id": "I_kwDOVTAnWM8AAAABcVU8hQ",
+    "title": "[TMC-024] [FEATURE] Reconcile unknown commands using durable fenced jobs",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/24"
+  },
+  "23": {
+    "number": 23,
+    "id": "I_kwDOVTAnWM8AAAABcVU7QA",
+    "title": "[TMC-023] [ENHANCEMENT] Recover kiosk requests with a metadata journal",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/23"
+  },
+  "22": {
+    "number": 22,
+    "id": "I_kwDOVTAnWM8AAAABcVU5xg",
+    "title": "[TMC-022] [DOCS] Finalize network failure architecture decisions",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/22"
+  },
+  "21": {
+    "number": 21,
+    "id": "I_kwDOVTAnWM8AAAABcVU4cA",
+    "title": "[TMC-021] [UI] Connect personal history and attempt details",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/21"
+  },
+  "20": {
+    "number": 20,
+    "id": "I_kwDOVTAnWM8AAAABcVU3FQ",
+    "title": "[TMC-020] [FEATURE] Expose scoped attempt status and attendance history",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/20"
+  },
+  "19": {
+    "number": 19,
+    "id": "I_kwDOVTAnWM8AAAABcVU1iw",
+    "title": "[TMC-019] [FEATURE] Write attendance revisions from verified passage evidence",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/19"
+  },
+  "18": {
+    "number": 18,
+    "id": "I_kwDOVTAnWM8AAAABcVU0Mg",
+    "title": "[TMC-018] [UI] Connect the virtual kiosk to real attempt states",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/18"
+  },
+  "17": {
+    "number": 17,
+    "id": "I_kwDOVTAnWM8AAAABcVUy2g",
+    "title": "[TMC-017] [UI] Display server-issued QR codes in the employee portal",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/17"
+  },
+  "16": {
+    "number": 16,
+    "id": "I_kwDOVTAnWM8AAAABcVUxMg",
+    "title": "[TMC-016] [FEATURE] Claim and reconcile gate commands with CAS",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/16"
+  },
+  "15": {
+    "number": 15,
+    "id": "I_kwDOVTAnWM8AAAABcVUv3w",
+    "title": "[TMC-015] [FEATURE] Prevent QR replay with atomic redemption",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/15"
+  },
+  "14": {
+    "number": 14,
+    "id": "I_kwDOVTAnWM8AAAABcVUuYA",
+    "title": "[TMC-014] [FEATURE] Persist idempotent attempts before gate dispatch",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/14"
+  },
+  "13": {
+    "number": 13,
+    "id": "I_kwDOVTAnWM8AAAABcVUtFw",
+    "title": "[TMC-013] [FEATURE] Implement a fault-capable turnstile simulator",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/13"
+  },
+  "12": {
+    "number": 12,
+    "id": "I_kwDOVTAnWM8AAAABcVUr-w",
+    "title": "[TMC-012] [FEATURE] Evaluate access policies using server-owned data",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/12"
+  },
+  "11": {
+    "number": 11,
+    "id": "I_kwDOVTAnWM8AAAABcVUqoQ",
+    "title": "[TMC-011] [FEATURE] Validate QR signatures and token claims",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/11"
+  },
+  "10": {
+    "number": 10,
+    "id": "I_kwDOVTAnWM8AAAABcVUpIg",
+    "title": "[TMC-010] [FEATURE] Issue short-lived QR tokens and revoke credentials",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/10"
+  },
+  "9": {
+    "number": 9,
+    "id": "I_kwDOVTAnWM8AAAABcVUn6g",
+    "title": "[TMC-009] [FEATURE] Implement QR credential and signing-key metadata",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/9"
+  },
+  "8": {
+    "number": 8,
+    "id": "I_kwDOVTAnWM8AAAABcVUmeQ",
+    "title": "[TMC-008] [UI] Verify session login and protected navigation",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/8"
+  },
+  "7": {
+    "number": 7,
+    "id": "I_kwDOVTAnWM8AAAABcVUlEA",
+    "title": "[TMC-007] [ENHANCEMENT] Complete server session authorization and scope checks",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/7"
+  },
+  "6": {
+    "number": 6,
+    "id": "I_kwDOVTAnWM8AAAABcVUjjQ",
+    "title": "[TMC-006] [TASK] Verify identity, scope and station fixtures",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/6"
+  },
+  "5": {
+    "number": 5,
+    "id": "I_kwDOVTAnWM8AAAABcVUiDg",
+    "title": "[TMC-005] [CI] Complete Node test runners and CI contracts",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/5"
+  },
+  "4": {
+    "number": 4,
+    "id": "I_kwDOVTAnWM8AAAABcVUf6Q",
+    "title": "[TMC-004] [BUILD] Verify PostgreSQL migrations and core constraints",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/4"
+  },
+  "3": {
+    "number": 3,
+    "id": "I_kwDOVTAnWM8AAAABcVUeWg",
+    "title": "[TMC-003] [BUILD] Complete backend ports and shared wire contracts",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/3"
+  },
+  "2": {
+    "number": 2,
+    "id": "I_kwDOVTAnWM8AAAABcVUc5w",
+    "title": "[TMC-002] [BUILD] Verify the client workspace and preview baseline",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/2"
+  },
+  "1": {
+    "number": 1,
+    "id": "I_kwDOVTAnWM8AAAABcVUbpQ",
+    "title": "[TMC-001] [DOCS] Confirm M2 scope and requirement traceability",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/1"
+  },
+  "44": {
+    "number": 48,
+    "id": "I_kwDOVTAnWM8AAAABfQMPiA",
+    "title": "[TMC-044] [TASK] Audit current acceptance evidence and replan capacity",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/48"
+  },
+  "45": {
+    "number": 49,
+    "id": "I_kwDOVTAnWM8AAAABfQMQOg",
+    "title": "[TMC-045] [DOCS] Define issue templates and label taxonomy",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/49"
+  },
+  "46": {
+    "number": 50,
+    "id": "I_kwDOVTAnWM8AAAABfQMRPg",
+    "title": "[TMC-046] [CHORE] Prepare the GitHub Project field schema",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/50"
+  },
+  "47": {
+    "number": 51,
+    "id": "I_kwDOVTAnWM8AAAABfQMR8w",
+    "title": "[TMC-047] [CHORE] Configure saved views and safe project automations",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/51"
+  },
+  "48": {
+    "number": 52,
+    "id": "I_kwDOVTAnWM8AAAABfQMSdg",
+    "title": "[TMC-048] [DOCS] Define protected-branch checks and human review ownership",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/52"
+  },
+  "49": {
+    "number": 53,
+    "id": "I_kwDOVTAnWM8AAAABfQMTIQ",
+    "title": "[TMC-049] [TASK] Import verified ticket metadata without duplicate issues",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/53"
+  },
+  "50": {
+    "number": 54,
+    "id": "I_kwDOVTAnWM8AAAABfQMUXw",
+    "title": "[TMC-050] [BUG] Restrict demo bootstrap data to authorized scopes",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/54"
+  },
+  "51": {
+    "number": 55,
+    "id": "I_kwDOVTAnWM8AAAABfQMVBA",
+    "title": "[TMC-051] [TEST] Measure kiosk response latency under shift-change load",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/55"
+  },
+  "52": {
+    "number": 56,
+    "id": "I_kwDOVTAnWM8AAAABfQMVwQ",
+    "title": "[TMC-052] [TEST] Verify role, object and factory authorization boundaries",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/56"
+  },
+  "53": {
+    "number": 57,
+    "id": "I_kwDOVTAnWM8AAAABfQMWPA",
+    "title": "[TMC-053] [TEST] Verify payload redaction and session data isolation",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/57"
+  },
+  "54": {
+    "number": 58,
+    "id": "I_kwDOVTAnWM8AAAABfQMW0Q",
+    "title": "[TMC-054] [TEST] Exercise PostgreSQL backup and point-in-time recovery",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/58"
+  },
+  "55": {
+    "number": 59,
+    "id": "I_kwDOVTAnWM8AAAABfQMXcw",
+    "title": "[TMC-055] [FEATURE] Manage employee profiles with audited updates",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/59"
+  },
+  "56": {
+    "number": 60,
+    "id": "I_kwDOVTAnWM8AAAABfQMYVQ",
+    "title": "[TMC-056] [FEATURE] Manage effective employee assignments and factory grants",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/60"
+  },
+  "57": {
+    "number": 61,
+    "id": "I_kwDOVTAnWM8AAAABfQMZZQ",
+    "title": "[TMC-057] [UI] Connect HR employee and access-grant screens",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/61"
+  },
+  "58": {
+    "number": 62,
+    "id": "I_kwDOVTAnWM8AAAABfQMaDA",
+    "title": "[TMC-058] [FEATURE] Administer accounts and session revocation APIs",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/62"
+  },
+  "59": {
+    "number": 63,
+    "id": "I_kwDOVTAnWM8AAAABfQMasg",
+    "title": "[TMC-059] [FEATURE] Manage scoped role assignments without privilege escalation",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/63"
+  },
+  "60": {
+    "number": 64,
+    "id": "I_kwDOVTAnWM8AAAABfQMbew",
+    "title": "[TMC-060] [UI] Build account administration screens",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/64"
+  },
+  "61": {
+    "number": 65,
+    "id": "I_kwDOVTAnWM8AAAABfQMb-g",
+    "title": "[TMC-061] [UI] Build scoped role-assignment administration screens",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/65"
+  },
+  "62": {
+    "number": 66,
+    "id": "I_kwDOVTAnWM8AAAABfQMcqA",
+    "title": "[TMC-062] [FEATURE] Pair attendance intervals and classify anomalies",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/66"
+  },
+  "63": {
+    "number": 67,
+    "id": "I_kwDOVTAnWM8AAAABfQMdhw",
+    "title": "[TMC-063] [FEATURE] Apply audited attendance corrections with version checks",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/67"
+  },
+  "64": {
+    "number": 68,
+    "id": "I_kwDOVTAnWM8AAAABfQMeSA",
+    "title": "[TMC-064] [UI] Connect attendance review and correction workflows",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/68"
+  },
+  "65": {
+    "number": 69,
+    "id": "I_kwDOVTAnWM8AAAABfQMe9w",
+    "title": "[TMC-065] [FEATURE] Create immutable monthly export snapshots",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/69"
+  },
+  "66": {
+    "number": 70,
+    "id": "I_kwDOVTAnWM8AAAABfQMfsw",
+    "title": "[TMC-066] [FEATURE] Implement HRS delivery and acknowledgment reconciliation",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/70"
+  },
+  "67": {
+    "number": 71,
+    "id": "I_kwDOVTAnWM8AAAABfQMgcA",
+    "title": "[TMC-067] [FEATURE] Schedule durable exports and deadline alerts",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/71"
+  },
+  "68": {
+    "number": 72,
+    "id": "I_kwDOVTAnWM8AAAABfQMhKg",
+    "title": "[TMC-068] [TEST] Verify monthly HRS version and deadline behavior",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/72"
+  },
+  "69": {
+    "number": 73,
+    "id": "I_kwDOVTAnWM8AAAABfQMh3w",
+    "title": "[TMC-069] [SPIKE] Decide the offline edge authorization threat model",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/73"
+  },
+  "70": {
+    "number": 74,
+    "id": "I_kwDOVTAnWM8AAAABfQMijQ",
+    "title": "[TMC-070] [FEATURE] Prototype durable offline journals and synchronization",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/74"
+  },
+  "71": {
+    "number": 75,
+    "id": "I_kwDOVTAnWM8AAAABfQMjTw",
+    "title": "[TMC-071] [TEST] Verify edge partition and replay limitations",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/75"
+  },
+  "72": {
+    "number": 76,
+    "id": "I_kwDOVTAnWM8AAAABfQMj3g",
+    "title": "[TMC-072] [FEATURE] Administer effective factory organization data",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/76"
+  },
+  "73": {
+    "number": 77,
+    "id": "I_kwDOVTAnWM8AAAABfQMkoQ",
+    "title": "[TMC-073] [FEATURE] Provision and retire authenticated gate stations",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/77"
+  },
+  "74": {
+    "number": 78,
+    "id": "I_kwDOVTAnWM8AAAABfQMleQ",
+    "title": "[TMC-074] [UI] Connect station and organization administration screens",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/78"
+  },
+  "75": {
+    "number": 79,
+    "id": "I_kwDOVTAnWM8AAAABfQMmQA",
+    "title": "[TMC-075] [FEATURE] Query monthly reports with role-specific projections",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/79"
+  },
+  "76": {
+    "number": 80,
+    "id": "I_kwDOVTAnWM8AAAABfQMnNg",
+    "title": "[TMC-076] [UI] Connect scoped monthly reports and anomaly views",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/80"
+  },
+  "77": {
+    "number": 81,
+    "id": "I_kwDOVTAnWM8AAAABfQMonA",
+    "title": "[TMC-077] [ENHANCEMENT] Export scoped CSV reports with download auditing",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/81"
+  },
+  "78": {
+    "number": 82,
+    "id": "I_kwDOVTAnWM8AAAABfQMpQg",
+    "title": "[TMC-078] [DOCS] Decide privacy notice, retention and evidence-hold policies",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/82"
+  },
+  "79": {
+    "number": 83,
+    "id": "I_kwDOVTAnWM8AAAABfQMqQg",
+    "title": "[TMC-079] [FEATURE] Implement authorized privacy request lifecycle APIs",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/83"
+  },
+  "80": {
+    "number": 84,
+    "id": "I_kwDOVTAnWM8AAAABfQMq_Q",
+    "title": "[TMC-080] [BUILD] Add privacy workflow and retention-hold persistence",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/84"
+  },
+  "81": {
+    "number": 85,
+    "id": "I_kwDOVTAnWM8AAAABfQMsBg",
+    "title": "[TMC-081] [FEATURE] Execute policy-based retention without erasing held evidence",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/85"
+  },
+  "82": {
+    "number": 86,
+    "id": "I_kwDOVTAnWM8AAAABfQMtbg",
+    "title": "[TMC-082] [TEST] Verify privacy requests, retention and evidence holds",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/86"
+  },
+  "83": {
+    "number": 87,
+    "id": "I_kwDOVTAnWM8AAAABfQMuBA",
+    "title": "[TMC-083] [FEATURE] Version integration settings and secret references",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/87"
+  },
+  "84": {
+    "number": 88,
+    "id": "I_kwDOVTAnWM8AAAABfQMuvw",
+    "title": "[TMC-084] [ENHANCEMENT] Expose scoped service readiness and integration alerts",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/88"
+  },
+  "85": {
+    "number": 89,
+    "id": "I_kwDOVTAnWM8AAAABfQMvrw",
+    "title": "[TMC-085] [TEST] Verify module boundaries and replaceable integration ports",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/89"
+  },
+  "86": {
+    "number": 90,
+    "id": "I_kwDOVTAnWM8AAAABfQMwNQ",
+    "title": "[TMC-086] [UI] Show privacy purpose and scoped personal-profile states",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/90"
+  },
+  "87": {
+    "number": 91,
+    "id": "I_kwDOVTAnWM8AAAABfQMwuA",
+    "title": "[TMC-087] [REFACTOR] Isolate session use cases from persistence and HTTP adapters",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/91"
+  },
+  "103": {
+    "number": 92,
+    "id": "I_kwDOVTAnWM8AAAABfQMxlg",
+    "title": "[TMC-103] [FEATURE] Implement durable audit writes and scoped audit search",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/92"
+  },
+  "104": {
+    "number": 93,
+    "id": "I_kwDOVTAnWM8AAAABfQMyUw",
+    "title": "[TMC-104] [FEATURE] Implement shift definitions and effective employee schedules",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/93"
+  },
+  "105": {
+    "number": 94,
+    "id": "I_kwDOVTAnWM8AAAABfQMzEQ",
+    "title": "[TMC-105] [UI] Connect shift and schedule screens to persisted APIs",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/94"
+  },
+  "89": {
+    "number": 95,
+    "id": "I_kwDOVTAnWM8AAAABfQM0HQ",
+    "title": "[TMC-089] [TASK] Authorization & session RBAC",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/95"
+  },
+  "90": {
+    "number": 96,
+    "id": "I_kwDOVTAnWM8AAAABfQM07A",
+    "title": "[TMC-090] [TASK] Employee Management",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/96"
+  },
+  "91": {
+    "number": 97,
+    "id": "I_kwDOVTAnWM8AAAABfQM1iw",
+    "title": "[TMC-091] [TASK] QR Credential Management",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/97"
+  },
+  "92": {
+    "number": 98,
+    "id": "I_kwDOVTAnWM8AAAABfQM2Rg",
+    "title": "[TMC-092] [TASK] Gate & Factory Configuration",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/98"
+  },
+  "93": {
+    "number": 99,
+    "id": "I_kwDOVTAnWM8AAAABfQM3Jw",
+    "title": "[TMC-093] [TASK] Gate Scan & Access Processing",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/99"
+  },
+  "94": {
+    "number": 100,
+    "id": "I_kwDOVTAnWM8AAAABfQM3sg",
+    "title": "[TMC-094] [TASK] Attendance Event Recording",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/100"
+  },
+  "95": {
+    "number": 101,
+    "id": "I_kwDOVTAnWM8AAAABfQM5Og",
+    "title": "[TMC-095] [TASK] Reliability, Recovery & Offline Policy",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/101"
+  },
+  "96": {
+    "number": 102,
+    "id": "I_kwDOVTAnWM8AAAABfQM58w",
+    "title": "[TMC-096] [TASK] Audit & Traceability",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/102"
+  },
+  "97": {
+    "number": 103,
+    "id": "I_kwDOVTAnWM8AAAABfQM7AA",
+    "title": "[TMC-097] [TASK] Reporting & HRS Integration",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/103"
+  },
+  "98": {
+    "number": 104,
+    "id": "I_kwDOVTAnWM8AAAABfQM8cQ",
+    "title": "[TMC-098] [TASK] Administration: Accounts & Role Assignments",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/104"
+  },
+  "99": {
+    "number": 105,
+    "id": "I_kwDOVTAnWM8AAAABfQM9Iw",
+    "title": "[TMC-099] [TASK] Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/105"
+  },
+  "100": {
+    "number": 106,
+    "id": "I_kwDOVTAnWM8AAAABfQM-4w",
+    "title": "[TMC-100] [TASK] Architecture, Privacy & Assignment Deliverables",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/106"
+  },
+  "101": {
+    "number": 107,
+    "id": "I_kwDOVTAnWM8AAAABfQM_hg",
+    "title": "[TMC-101] [TASK] Foundation, Delivery & Operations",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/107"
+  },
+  "102": {
+    "number": 108,
+    "id": "I_kwDOVTAnWM8AAAABfQNAAw",
+    "title": "[TMC-102] [TASK] Verification: API, DB, E2E & NFR",
+    "url": "https://github.com/tungbinhdinh89/TMCQRAttendanceSystem_KTPM/issues/108"
+  }
+}

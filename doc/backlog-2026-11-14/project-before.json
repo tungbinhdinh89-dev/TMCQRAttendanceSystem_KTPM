@@ -1,0 +1,181 @@
+{
+  "id": "PVT_kwHODenJ1c4BqGqu",
+  "title": "TMC Access M2 Backlog",
+  "url": "https://github.com/users/stephen89-hcmut/projects/1",
+  "viewerCanUpdate": true,
+  "views": {
+    "nodes": [
+      {
+        "id": "PVTV_lAHODenJ1c4BqGquzgMZHxE",
+        "name": "View 1",
+        "layout": "TABLE_LAYOUT",
+        "filter": null
+      }
+    ]
+  },
+  "fields": {
+    "nodes": [
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_Q",
+        "name": "Title",
+        "dataType": "TITLE"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_U",
+        "name": "Assignees",
+        "dataType": "ASSIGNEES"
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhofP_Y",
+        "name": "Status",
+        "options": [
+          {
+            "id": "f75ad846",
+            "name": "Todo"
+          },
+          {
+            "id": "47fc9ee4",
+            "name": "In Progress"
+          },
+          {
+            "id": "98236657",
+            "name": "Done"
+          }
+        ]
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_c",
+        "name": "Labels",
+        "dataType": "LABELS"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_g",
+        "name": "Linked pull requests",
+        "dataType": "LINKED_PULL_REQUESTS"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_k",
+        "name": "Milestone",
+        "dataType": "MILESTONE"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_o",
+        "name": "Repository",
+        "dataType": "REPOSITORY"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofP_4",
+        "name": "Reviewers",
+        "dataType": "REVIEWERS"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAA",
+        "name": "Parent issue",
+        "dataType": "PARENT_ISSUE"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAE",
+        "name": "Sub-issues progress",
+        "dataType": "SUB_ISSUES_PROGRESS"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAM",
+        "name": "Created",
+        "dataType": "CREATED"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAU",
+        "name": "Updated",
+        "dataType": "UPDATED"
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQAc",
+        "name": "Closed",
+        "dataType": "CLOSED"
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBA",
+        "name": "Priority",
+        "options": [
+          {
+            "id": "2a0e5407",
+            "name": "P0"
+          },
+          {
+            "id": "d9318991",
+            "name": "P1"
+          },
+          {
+            "id": "adfc8158",
+            "name": "P2"
+          }
+        ]
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBE",
+        "name": "Sprint",
+        "options": [
+          {
+            "id": "d667dffd",
+            "name": "S1"
+          },
+          {
+            "id": "cbdebde7",
+            "name": "S2"
+          },
+          {
+            "id": "3d40e14a",
+            "name": "S3"
+          },
+          {
+            "id": "a711c8c9",
+            "name": "S4"
+          },
+          {
+            "id": "eaf2ae8e",
+            "name": "Deferred"
+          }
+        ]
+      },
+      {
+        "id": "PVTSSF_lAHODenJ1c4BqGquzhofQBI",
+        "name": "Area",
+        "options": [
+          {
+            "id": "eef4d06e",
+            "name": "Frontend"
+          },
+          {
+            "id": "e36c1ef4",
+            "name": "Backend"
+          },
+          {
+            "id": "c8d2ac20",
+            "name": "Database"
+          },
+          {
+            "id": "f979c73f",
+            "name": "Architecture"
+          },
+          {
+            "id": "3de87ea4",
+            "name": "DevOps"
+          },
+          {
+            "id": "b3f2cb5d",
+            "name": "Security"
+          },
+          {
+            "id": "a4764bd8",
+            "name": "UI/UX"
+          }
+        ]
+      },
+      {
+        "id": "PVTF_lAHODenJ1c4BqGquzhofQBM",
+        "name": "Estimate Hours",
+        "dataType": "NUMBER"
+      }
+    ]
+  }
+}

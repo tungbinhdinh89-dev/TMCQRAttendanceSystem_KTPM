@@ -1,0 +1,306 @@
+{
+  "Title": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NWc",
+    "name": "Title",
+    "dataType": "TITLE"
+  },
+  "Assignees": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NWk",
+    "name": "Assignees",
+    "dataType": "ASSIGNEES"
+  },
+  "Status": {
+    "id": "PVTSSF_lADOFL-1HM4BrnTpzhp5NWs",
+    "name": "Status",
+    "dataType": "SINGLE_SELECT",
+    "options": [
+      {
+        "id": "413a0a0f",
+        "name": "Backlog"
+      },
+      {
+        "id": "4e2a2f31",
+        "name": "Ready"
+      },
+      {
+        "id": "40fc86ce",
+        "name": "In progress"
+      },
+      {
+        "id": "5f439065",
+        "name": "In review"
+      },
+      {
+        "id": "7d684be4",
+        "name": "Done"
+      },
+      {
+        "id": "38a892bd",
+        "name": "Blocked"
+      }
+    ]
+  },
+  "Labels": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NW4",
+    "name": "Labels",
+    "dataType": "LABELS"
+  },
+  "Linked pull requests": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NXA",
+    "name": "Linked pull requests",
+    "dataType": "LINKED_PULL_REQUESTS"
+  },
+  "Milestone": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NXE",
+    "name": "Milestone",
+    "dataType": "MILESTONE"
+  },
+  "Repository": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NXM",
+    "name": "Repository",
+    "dataType": "REPOSITORY"
+  },
+  "Reviewers": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NXo",
+    "name": "Reviewers",
+    "dataType": "REVIEWERS"
+  },
+  "Parent issue": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NX0",
+    "name": "Parent issue",
+    "dataType": "PARENT_ISSUE"
+  },
+  "Sub-issues progress": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NYA",
+    "name": "Sub-issues progress",
+    "dataType": "SUB_ISSUES_PROGRESS"
+  },
+  "Created": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NYQ",
+    "name": "Created",
+    "dataType": "CREATED"
+  },
+  "Updated": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NYc",
+    "name": "Updated",
+    "dataType": "UPDATED"
+  },
+  "Closed": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NYs",
+    "name": "Closed",
+    "dataType": "CLOSED"
+  },
+  "Priority": {
+    "id": "PVTSSF_lADOFL-1HM4BrnTpzhp5Nng",
+    "name": "Priority",
+    "dataType": "SINGLE_SELECT",
+    "options": [
+      {
+        "id": "b649d1f8",
+        "name": "P0",
+        "color": "RED",
+        "description": ""
+      },
+      {
+        "id": "1572fc90",
+        "name": "P1",
+        "color": "ORANGE",
+        "description": ""
+      },
+      {
+        "id": "a8c8633a",
+        "name": "P2",
+        "color": "YELLOW",
+        "description": ""
+      }
+    ]
+  },
+  "Size": {
+    "id": "PVTSSF_lADOFL-1HM4BrnTpzhp5Nn4",
+    "name": "Size",
+    "dataType": "SINGLE_SELECT",
+    "options": [
+      {
+        "id": "16a426ed",
+        "name": "XS",
+        "color": "GREEN",
+        "description": ""
+      },
+      {
+        "id": "11bc770d",
+        "name": "S",
+        "color": "BLUE",
+        "description": ""
+      },
+      {
+        "id": "89f11a1d",
+        "name": "M",
+        "color": "YELLOW",
+        "description": ""
+      },
+      {
+        "id": "1b9e652d",
+        "name": "L",
+        "color": "ORANGE",
+        "description": ""
+      },
+      {
+        "id": "5ea5eb11",
+        "name": "XL",
+        "color": "RED",
+        "description": ""
+      }
+    ]
+  },
+  "Estimate": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5Nn8",
+    "name": "Estimate",
+    "dataType": "NUMBER"
+  },
+  "Iteration": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NoE",
+    "name": "Iteration",
+    "dataType": "TEXT"
+  },
+  "Start date": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NoI",
+    "name": "Start date",
+    "dataType": "DATE"
+  },
+  "Target date": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NoQ",
+    "name": "Target date",
+    "dataType": "DATE"
+  },
+  "Task ID": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5NoU",
+    "name": "Task ID",
+    "dataType": "TEXT"
+  },
+  "Task": {
+    "id": "PVTSSF_lADOFL-1HM4BrnTpzhp5NoY",
+    "name": "Task",
+    "dataType": "SINGLE_SELECT",
+    "options": [
+      {
+        "id": "2e422b9c",
+        "name": "TMC-089 | Authorization & session RBAC",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "aae5b58d",
+        "name": "TMC-090 | Employee Management",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "58c4b34c",
+        "name": "TMC-091 | QR Credential Management",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "8819d99a",
+        "name": "TMC-092 | Gate & Factory Configuration",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "29412805",
+        "name": "TMC-093 | Gate Scan & Access Processing",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "5c6e9405",
+        "name": "TMC-094 | Attendance Event Recording",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "a46853d2",
+        "name": "TMC-095 | Reliability, Recovery & Offline Policy",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "f76e5de3",
+        "name": "TMC-096 | Audit & Traceability",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "b0b8e4dc",
+        "name": "TMC-097 | Reporting & HRS Integration",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "3969227f",
+        "name": "TMC-098 | Administration: Accounts & Role Assignments",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "62c8e006",
+        "name": "TMC-099 | Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "4e892d01",
+        "name": "TMC-100 | Architecture, Privacy & Assignment Deliverables",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "64cb3dea",
+        "name": "TMC-101 | Foundation, Delivery & Operations",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      },
+      {
+        "id": "f1f820cd",
+        "name": "TMC-102 | Verification: API, DB, E2E & NFR",
+        "color": "PURPLE",
+        "description": "Feature task with linked implementation tickets"
+      }
+    ]
+  },
+  "Work Type": {
+    "id": "PVTSSF_lADOFL-1HM4BrnTpzhp5Noc",
+    "name": "Work Type",
+    "dataType": "SINGLE_SELECT",
+    "options": [
+      {
+        "id": "12db97ac",
+        "name": "Task",
+        "color": "BLUE",
+        "description": "Task"
+      },
+      {
+        "id": "aae038b4",
+        "name": "Ticket",
+        "color": "BLUE",
+        "description": "Ticket"
+      },
+      {
+        "id": "3f878b4c",
+        "name": "Sub-ticket",
+        "color": "BLUE",
+        "description": "Sub-ticket"
+      }
+    ]
+  },
+  "Area": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5Nog",
+    "name": "Area",
+    "dataType": "TEXT"
+  },
+  "Dependencies": {
+    "id": "PVTF_lADOFL-1HM4BrnTpzhp5Nok",
+    "name": "Dependencies",
+    "dataType": "TEXT"
+  }
+}

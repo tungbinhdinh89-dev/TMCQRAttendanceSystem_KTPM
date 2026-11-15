@@ -1,0 +1,128 @@
+{
+  "result": "PASS",
+  "verifiedDate": "2026-11-15",
+  "project": "https://github.com/orgs/tungbinhdinh89-dev/projects/2",
+  "items": 105,
+  "workTypes": {
+    "Ticket": 76,
+    "Sub-ticket": 15,
+    "Task": 14
+  },
+  "views": [
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1M4",
+      "name": "Tasks & Tickets",
+      "number": 1,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1Qg",
+      "name": "TMC-089 Authorization & session RBAC",
+      "number": 2,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1Qo",
+      "name": "TMC-090 Employee Management",
+      "number": 3,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1Q0",
+      "name": "TMC-091 QR Credential Management",
+      "number": 4,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1Q4",
+      "name": "TMC-092 Gate & Factory Configuration",
+      "number": 5,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1RA",
+      "name": "TMC-093 Gate Scan & Access Processing",
+      "number": 6,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1RE",
+      "name": "TMC-094 Attendance Event Recording",
+      "number": 7,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1Rg",
+      "name": "TMC-095 Reliability, Recovery & Offline Policy",
+      "number": 8,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1Ro",
+      "name": "TMC-096 Audit & Traceability",
+      "number": 9,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1R8",
+      "name": "TMC-097 Reporting & HRS Integration",
+      "number": 10,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1SA",
+      "name": "TMC-098 Administration: Accounts & Role Assignments",
+      "number": 11,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1SI",
+      "name": "TMC-099 Nghiệp vụ mở rộng: ca làm & hiệu chỉnh",
+      "number": 12,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1Sw",
+      "name": "TMC-100 Architecture, Privacy & Assignment Deliverables",
+      "number": 13,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1S8",
+      "name": "TMC-101 Foundation, Delivery & Operations",
+      "number": 14,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1TE",
+      "name": "TMC-102 Verification: API, DB, E2E & NFR",
+      "number": 15,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1rY",
+      "name": "Tasks",
+      "number": 16,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1rg",
+      "name": "Implementation Tickets",
+      "number": 17,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1rs",
+      "name": "Review Queue",
+      "number": 18,
+      "layout": "TABLE_LAYOUT"
+    },
+    {
+      "id": "PVTV_lADOFL-1HM4BrnTpzgMj1rw",
+      "name": "Blocked",
+      "number": 19,
+      "layout": "TABLE_LAYOUT"
+    }
+  ],
+  "repositoryLinked": true
+}
