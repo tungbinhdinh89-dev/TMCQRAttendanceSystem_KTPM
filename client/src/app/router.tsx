@@ -92,6 +92,7 @@ export default function Router() {
       }
     >
       <Routes>
+        <Route path="/app/audit" element={<Navigate to="/audit" replace />} />
         <Route path="/" element={<Landing />} />
         <Route path="/dang-nhap" element={<Login />} />
         <Route

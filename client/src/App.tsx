@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@figma/astraui"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { BrowserRouter } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Audit from "./features/audit/Audit"
 import AppProvider from "./app/context"
 import Router from "./app/router"
 import MuiBridge from "./styles/mui-theme"
@@ -21,11 +22,12 @@ export default function App() {
         <BrowserRouter
           basename={import.meta.env.BASE_URL.replace(/\/$/, "") || "/"}
         >
-          <AppProvider>
-            <MuiBridge>
-              <Router />
-            </MuiBridge>
-          </AppProvider>
+          <MuiBridge>
+            <Routes>
+              <Route path="/audit" element={<Audit />} />
+              <Route path="*" element={<AppProvider><Router /></AppProvider>} />
+            </Routes>
+          </MuiBridge>
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>

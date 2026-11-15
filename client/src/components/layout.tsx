@@ -29,6 +29,7 @@ import {
   Smartphone,
   ArrowUpRight,
   Building2,
+  ScrollText,
 } from "lucide-react"
 import { useAccount, useApp } from "../app/context"
 import { Brand, Title } from "./ui"
@@ -42,6 +43,7 @@ export const navItems = [
   { id: "kiem-soat", label: "Kiểm soát ra vào", icon: ShieldCheck },
   { id: "ca-lam", label: "Ca làm việc", icon: Calendar },
   { id: "bao-cao", label: "Báo cáo & thống kê", icon: BarChart3 },
+  { id: "audit", label: "Nhật ký hệ thống", icon: ScrollText },
 ]
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme()
