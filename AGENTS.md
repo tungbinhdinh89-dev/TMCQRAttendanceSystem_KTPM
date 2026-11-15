@@ -1,5 +1,36 @@
 # figma-make-app
 
+## Assigned GitHub tickets: automatic coordination
+
+- When the user assigns implementation of `#102`, a GitHub issue URL or a TMC ticket,
+  follow [the ticket execution flow](doc/ticket-execution-flow.md) before editing code.
+  `#102` means GitHub issue number 102; `TMC-102` is a different identifier and must be resolved.
+  A bare ticket reference handed over as work means implement through PR under this workflow;
+  an explicit request for explanation/review remains read-only.
+- Resolve the canonical repository from the remote/API (currently
+  `tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM`); do not assume an old owner URL is canonical.
+  Inspect the issue, comments, native sub-issues recursively with pagination, dependencies,
+  Implementation Checklist and every Acceptance Criterion. Do not create a duplicate issue.
+- Assignment of ticket implementation is standing authorization to coordinate relevant sub-agents:
+  `frontend-dev` + frontend-design for UI; `backend-dev` for API; typeorm-migrations only for
+  schema/entity/constraint changes; `qa-engineer` for verification; `pm` for scope/AC;
+  `tech-lead` for contracts, architecture and integration. Delegate actionable independent work;
+  do not require all roles for a small ticket or exceed the available agent slots.
+- The coordinator owns issue discovery, the plan, dependency order, file ownership, Git operations,
+  integration, evidence and PR delivery. Give each worker its issue/AC, owned files, constraints,
+  checks and a shared-workspace notice. Workers must not revert others' work or independently
+  checkout/stage/commit/push in a shared worktree. Shared contracts have one named owner.
+- Start from freshly fetched `origin/main`; use an isolated worktree when the current workspace
+  is dirty or contains another ticket. Commit reviewable completed increments during the task.
+  Validate the integrated committed SHA before pushing and opening a PR targeting main.
+- Deliver a per-checklist/per-AC evidence table, child-ticket coverage and real limitations.
+  Keep the PR open for the user to review/approve. Never auto-merge, auto-approve, close the
+  assigned issues or mark Done; use non-closing issue references. Resume from the execution
+  record instead of creating duplicate branches, issues, commits or PRs.
+- A request to explain/review a ticket is read-only unless implementation is also requested.
+  This authorization does not include deployment, DB reset/seed/apply to an unspecified target,
+  unrelated dependency implementation, or changing repository permissions/protection.
+
 ## Issue-to-PR delivery for assigned work
 
 - When the user requests issue-driven implementation, first inspect existing remote issues and the local
@@ -31,14 +62,15 @@ A Vite development server is **already running** on `$PORT` (default 8443). You 
 
 ## Project Structure
 
-This is the canonical project structure. Start with task-relevant files below. Only follow imports or inspect other files when required, when a documented path is missing, or when the repository contradicts this guide.
+The web client is in `client/`; API in `api/`; shared contracts in `contracts/`.
+Start with task-relevant files below and confirm manifests on the checked-out branch.
 
-- `src/main.tsx` - React entrypoint; imports `src/index.css` and mounts `src/App.tsx` into the `#root` element
-- `src/App.tsx` - Primary application component and the usual starting point for UI work
-- `src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
-- `index.html` - Vite HTML shell containing the `#root` element and loading `src/main.tsx`
-- `package.json` - Project dependencies and the Vite build, development, preview, and formatting scripts
-- `vite.config.ts` - Vite configuration with React, Tailwind CSS v4, and Figma Make plugins plus the `@` alias for `src`
+- `client/src/main.tsx` - React entrypoint
+- `client/src/App.tsx` - Primary application component; inspect router and the assigned feature
+- `client/src/index.css` - Global CSS entrypoint and Tailwind CSS v4 import
+- `client/index.html` - Vite HTML shell
+- `package.json`, `client/package.json`, `api/package.json`, `contracts/package.json` - Owning scripts and dependencies
+- `client/vite.config.ts` - Client Vite configuration
 - `.mise.toml` - Toolchain versions for Node.js and pnpm
 
 ## Dependencies
