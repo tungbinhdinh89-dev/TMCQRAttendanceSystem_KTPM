@@ -34,7 +34,7 @@ export type SessionIdentity = {
 export class AuthService {
   constructor(private readonly dataSource: DataSource, private readonly audit: AuditPort = new AuditService(dataSource)) {}
 
-  async verifyRequestOrigin(origin: string | undefined, action: "AUTH_LOGIN" | "AUTH_LOGOUT"): Promise<void> {
+  async verifyRequestOrigin(origin: string | undefined, action: string): Promise<void> {
     if (origin && !allowedOrigins().includes(origin)) {
       await this.audit.write({ actorType:"ANONYMOUS",action,objectType:"AUTH",objectId:"request",outcome:"DENIED",reason:"ORIGIN_NOT_ALLOWED" })
       throw new ForbiddenException({code:"AUTH_ORIGIN_FORBIDDEN",message:"Origin is not allowed"})

@@ -2,6 +2,7 @@ import { ThemeProvider } from "@figma/astraui"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Audit from "./features/audit/Audit"
+import Management from "./features/management/Management"
 import AppProvider from "./app/context"
 import Router from "./app/router"
 import MuiBridge from "./styles/mui-theme"
@@ -25,6 +26,7 @@ export default function App() {
           <MuiBridge>
             <Routes>
               <Route path="/audit" element={<Audit />} />
+              <Route path="/management" element={<Management />} />
               <Route path="*" element={<AppProvider><Router /></AppProvider>} />
             </Routes>
           </MuiBridge>

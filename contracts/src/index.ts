@@ -5,3 +5,5 @@ export * from "./attendance"
 export * from "./reports"
 
 export * from "./audit"
+export * from "./organization"
+export * from "./gate-configuration"

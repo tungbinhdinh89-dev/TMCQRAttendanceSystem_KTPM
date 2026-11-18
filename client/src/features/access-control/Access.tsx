@@ -72,6 +72,7 @@ export default function Access() {
   )
   return (
     <>
+      <div className="mb-lg"><a className="text-brand-primary" href="/management?tab=stations">M? qu?n tr? t? ch?c v? tr?m tr?n m?y ch? ?</a></div>
       <PageHeader
         title="Kiểm soát ra vào"
         description="Theo dõi từng lượt xác thực và giữ mọi điểm chạm trong tầm kiểm soát."
