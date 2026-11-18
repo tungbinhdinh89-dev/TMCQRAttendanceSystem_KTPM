@@ -17,5 +17,6 @@ import { AuthController } from "../../modules/iam/presentation/auth.controller"
     },
   ],
   controllers: [AuthController, AuditController],
+  exports: [AuthService, AuditService],
 })
 export class IamModule {}
