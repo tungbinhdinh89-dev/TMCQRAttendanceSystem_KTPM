@@ -1,0 +1,20 @@
+.management-page { max-width: 1480px; margin: 0 auto; padding: 32px; min-width: 0; }
+.management-top, .management-top > div, .management-actions, .management-pagination { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.management-top { justify-content: space-between; margin-bottom: 24px; }
+.management-page .surface-card, .management-page > .MuiAlert-root { margin-block: 20px; }
+.management-page h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+.management-page h3 { font-weight: 600; margin-block: 20px 12px; }
+.management-page button, .management-page a { min-height: 44px; }
+.management-login { max-width: 480px; margin-inline: auto; }
+.management-form { display: grid; gap: 20px; padding-block: 12px; }
+.management-filters { display: grid; gap: 16px; grid-template-columns: minmax(180px, 2fr) 1fr 1fr auto auto; align-items: center; }
+.management-progress { display: flex; gap: 12px; align-items: center; padding: 16px; }
+.management-table { width: 100%; overflow: auto; }
+.management-table table { border-collapse: collapse; width: 100%; min-width: 650px; }
+.management-table th, .management-table td { padding: 14px 12px; text-align: left; border-bottom: 1px solid var(--border-default); overflow-wrap: anywhere; max-width: 260px; }
+.management-table th { color: var(--text-secondary); font-weight: 500; }
+.management-table td .management-actions { min-width: 220px; }
+.management-pagination { justify-content: flex-end; margin-top: 16px; }
+.management-json { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 480px; overflow: auto; padding: 16px; font-size: 13px; background: var(--surface-secondary-bg); }
+@media (max-width: 1000px) { .management-filters { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .management-page { padding: 20px 16px; } .management-filters { grid-template-columns: 1fr; } .management-top .brand-tagline { display: none; } }

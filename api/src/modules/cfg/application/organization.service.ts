@@ -22,6 +22,7 @@ export class OrganizationService {
   return {factories:visible,departments,teams}
  }
  async save(identity:SessionIdentity,kind:string,input:Record<string,unknown>,id?:string){
+  if(!input||typeof input!=="object"||Array.isArray(input))throw new BadRequestException("Invalid request body")
   if(!Object.hasOwn(types,kind))throw new BadRequestException("Invalid organization kind")
   configurationScope(identity,true)
   return this.ds.transaction(async manager=>{

@@ -26,6 +26,7 @@ export class StationConfigurationService {
  private integrationDto(row:IntegrationEndpointOrmEntity){return {id:row.id,code:row.code,providerType:row.providerType,factoryId:row.factoryId,baseUrl:row.baseUrl,requestTimeoutMs:row.requestTimeoutMs,contractVersion:row.contractVersion,configVersionId:row.configVersionId,isEnabled:row.isEnabled,rowVersion:row.rowVersion,hasSecretReference:!!row.authSecretRef}}
  async integrations(identity:SessionIdentity){const scope=configurationScope(identity);return {items:(await this.ds.getRepository(IntegrationEndpointOrmEntity).find({order:{code:"ASC"}})).filter(r=>scope.global||(r.factoryId&&scope.factoryIds.includes(r.factoryId))).map(r=>this.integrationDto(r))}}
  async saveIntegration(identity:SessionIdentity,input:Record<string,unknown>,id?:string){
+  if(!input||typeof input!=="object"||Array.isArray(input))throw new BadRequestException("Invalid request body")
   configurationScope(identity,true)
   return this.ds.transaction(async manager=>{
    const repo=manager.getRepository(IntegrationEndpointOrmEntity)
@@ -54,6 +55,7 @@ export class StationConfigurationService {
  }
  async stations(identity:SessionIdentity){const scope=configurationScope(identity);return {items:(await this.ds.getRepository(GateStationOrmEntity).find({order:{code:"ASC"}})).filter(r=>scope.global||scope.factoryIds.includes(r.factoryId)).map(r=>({...r,online:r.status==="ACTIVE"&&stationOnline(r.lastSeenAt),physicalState:"UNKNOWN" as const}))}}
  async saveStation(identity:SessionIdentity,input:Record<string,unknown>,id?:string){
+  if(!input||typeof input!=="object"||Array.isArray(input))throw new BadRequestException("Invalid request body")
   configurationScope(identity,true)
   return this.ds.transaction(async manager=>{
    const repo=manager.getRepository(GateStationOrmEntity)
@@ -101,7 +103,7 @@ export class StationConfigurationService {
  async heartbeat(stationId:string,bearer:string|undefined,input:Record<string,unknown>){
   if(Object.keys(input??{}).length)throw new BadRequestException("Heartbeat body must be empty; identity and direction are server-owned")
   const match=/^Bearer ([0-9a-f-]{36})\.([A-Za-z0-9_-]{43})$/.exec(bearer??"")
-  if(!match)throw new UnauthorizedException("Station credential required")
+  if(!match||!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(match[1]))throw new UnauthorizedException("Station credential required")
   return this.ds.transaction(async manager=>{
    // Same station lock order as rotation/revocation prevents revoked credentials racing heartbeat.
    const station=await manager.getRepository(GateStationOrmEntity).findOne({where:{id:uuid(stationId)},lock:{mode:"pessimistic_write"}})

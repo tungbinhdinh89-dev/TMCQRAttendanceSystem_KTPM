@@ -31,6 +31,7 @@ export default function Settings() {
     [reset, setReset] = useState(false)
   return (
     <>
+      <div className="mb-lg"><a className="text-brand-primary" href="/management?tab=organization">M? qu?n tr? t? ch?c v? tr?m tr?n m?y ch? ?</a></div>
       <PageHeader
         title="Cài đặt hệ thống"
         description="Thiết lập một không gian làm việc phù hợp với đội ngũ của bạn."
