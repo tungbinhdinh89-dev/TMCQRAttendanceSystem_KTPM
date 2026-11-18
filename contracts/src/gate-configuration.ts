@@ -1,0 +1,3 @@
+export interface StationRecord {id:string;factoryId:string;integrationEndpointId:string;configVersionId:string;code:string;direction:"IN"|"OUT";turnstileId:string;status:string;rowVersion:number;lastSeenAt:string|null;online:boolean;physicalState:"UNKNOWN"}
+export interface IntegrationRecord {id:string;code:string;providerType:string;factoryId:string|null;baseUrl:string;requestTimeoutMs:number;contractVersion:string;configVersionId:string;isEnabled:boolean;rowVersion:number;hasSecretReference:boolean}
+export interface StationCredentialResult {credentialId:string;secret:string;expiresAt:string|null}
