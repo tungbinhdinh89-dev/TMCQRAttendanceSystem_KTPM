@@ -55,3 +55,5 @@ Configuration under /api/configuration/{stations,integrations,readiness}; statio
 CORS_ORIGINS must include exact trusted client origin; auth cookies use Secure in production. STATION_STALE_SECONDS defaults300, bounded10..86400. Integration secret fields accept env:/vault:/secret: references only. Existing references/config versions remain for pending work; no outbound upstream probe is sent. Readiness alerts explicitly route manual review to ADM, without pretending to persist ACK or deliver messages.
 
 Employee session revocation uses scalar IAM table IDs within the employee status transaction; no cross-module ORM coupling introduced. This is a pragmatic coordination boundary and not a new session-admin API. No issue closed or marked Done; PR requires user review.
+
+PR: https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/pull/111 — OPEN targeting main, awaiting user review. No automatic merge/issue closure/Done.
