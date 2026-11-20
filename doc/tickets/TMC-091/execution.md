@@ -44,3 +44,5 @@ Backend commit d1fe320; frontend commit 9df0886. On committed application code 9
 Migration1794960000000 is hand-authored, reviewed up/down, not DB-diff/generated/applied. It fails safely on pre-existing duplicate active credentials rather than deleting history. No apply/reset/seed/deployment was performed. Existing redemption PK/unique attempt constraint reused; synchronize/migrationsRun false remain.
 
 Key configuration, rollout/rotation, API paths and replay tradeoffs: README.md in this directory. Validation audit intentionally contains no full token. Issuance/audit uses same transaction; raw token transient response only. Real session/DB behavior and migration integration still need authorized-environment verification. Parent/closed children not reopened or marked Done. Await user review; no automatic merge/approval.
+
+PR: https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM/pull/112 — OPEN targeting main, awaiting user review/approval. Application checks at9df0886; subsequent commits documentation only.
