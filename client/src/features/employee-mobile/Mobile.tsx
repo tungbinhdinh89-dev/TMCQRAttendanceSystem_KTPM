@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Button, IconButton, Badge, Avatar, Tabs } from "@figma/astraui"
 import {
@@ -17,12 +17,10 @@ import {
   MapPin,
   Check,
 } from "lucide-react"
-import QRCode from "react-qr-code"
 import { useApp, useAccount } from "../../app/context"
 import { Brand, Title, Card, Status, InfoRow, Empty } from "../../components/ui"
 import { ThemeToggle } from "../../components/layout"
 import { formatDate, formatTime, today, initials } from "../../lib/date"
-import { makeQr } from "../../lib/qr"
 import { api } from "../../data/api"
 import { sites } from "../../data/types"
 import { AdjustmentForm } from "../attendance/Attendance"
@@ -54,19 +52,7 @@ export default function Mobile() {
   )
   const current = records.find((a) => a.date === today())
   const page = location.pathname.split("/")[2] || "trang-chu"
-  const [payload, setPayload] = useState(() => makeQr(employee.id)),
-    [now, setNow] = useState(Date.now()),
-    [request, setRequest] = useState(false)
-  const expire = Number(payload.split(":")[4]),
-    remaining = Math.max(0, Math.ceil((expire - now) / 1000))
-  useEffect(() => {
-    const timer = setInterval(() => setNow(Date.now()), 1000)
-    return () => clearInterval(timer)
-  }, [])
-  const refresh = () => {
-    setPayload(makeQr(employee.id))
-    setNow(Date.now())
-  }
+  const [request, setRequest] = useState(false)
   const locked = employee.qrLocked || employee.status !== "active"
   return (
     <div className="mobile-preview">
@@ -161,7 +147,6 @@ export default function Mobile() {
                   className="w-full"
                   iconStart={<QrCode size={16} />}
                   onClick={() => {
-                    refresh()
                     navigate("/mobile/ma-qr")
                   }}
                 >
@@ -212,94 +197,7 @@ export default function Mobile() {
             </>
           )}
           {page === "ma-qr" && (
-            <>
-              <Title>Mã QR của tôi</Title>
-              <div className="text-label-sm text-text-secondary mt-md mb-xl">
-                Đưa mã vào vùng quét tại cổng nhà máy.
-              </div>
-              <Card className="qr-card">
-                <Avatar
-                  type="initial"
-                  initials={initials(employee.name)}
-                  size="large"
-                />
-                <Title level={3} className="mt-lg">
-                  {employee.name}
-                </Title>
-                <div className="text-video-title text-text-secondary mt-xs">
-                  {employee.code} · {employee.department}
-                </div>
-                <div
-                  className={`personal-qr ${
-                    remaining === 0 || locked ? "qr-expired" : ""
-                  }`}
-                >
-                  <QRCode
-                    value={payload}
-                    size={230}
-                    bgColor="var(--on-brand)"
-                    fgColor="var(--on-reverse)"
-                    title="Mã QR ra vào cá nhân"
-                  />
-                  {(remaining === 0 || locked) && (
-                    <div className="qr-expired-overlay">
-                      <ShieldCheck size={32} />
-                      <div className="text-label">
-                        {locked ? "Mã QR bị khóa" : "Mã đã hết hạn"}
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <Badge
-                  label={
-                    locked
-                      ? "Liên hệ nhân sự để hỗ trợ"
-                      : remaining
-                        ? `Có hiệu lực trong ${remaining} giây`
-                        : "Vui lòng làm mới mã"
-                  }
-                  variant={locked ? "danger" : remaining ? "brand" : "warning"}
-                />
-                <progress className="qr-countdown" max={60} value={remaining} />
-                <Button
-                  variant={remaining ? "neutral" : "primary"}
-                  iconStart={<RefreshCw size={16} />}
-                  disabled={locked}
-                  onClick={refresh}
-                >
-                  Làm mới mã QR
-                </Button>
-                <div className="text-video-title text-text-secondary flex gap-xs items-center mt-lg">
-                  <MapPin size={16} />
-                  Chỉ có hiệu lực tại {sites[employee.site]}
-                </div>
-              </Card>
-              <div className="mobile-demo-box">
-                <Title level={3}>Thử nghiệm luồng quét</Title>
-                <div className="text-video-title text-text-secondary mt-md mb-lg">
-                  Sao chép payload và dán vào kiosk trên cùng trình duyệt để xem
-                  cập nhật.
-                </div>
-                <Button
-                  variant="neutral"
-                  size="small"
-                  iconStart={<Copy size={16} />}
-                  onClick={async () => {
-                    try {
-                      await navigator.clipboard.writeText(payload)
-                      notify("Đã sao chép payload QR demo")
-                    } catch {
-                      notify(
-                        "Trình duyệt không cho phép sao chép. Dùng bộ mô phỏng kiosk.",
-                        true,
-                      )
-                    }
-                  }}
-                >
-                  Sao chép payload
-                </Button>
-              </div>
-            </>
+            <Card><Title>Mã QR cá nhân</Title><Button onClick={() => navigate("/qr")}>Mở mã QR bảo mật</Button></Card>
           )}
           {page === "lich-su" && (
             <>
