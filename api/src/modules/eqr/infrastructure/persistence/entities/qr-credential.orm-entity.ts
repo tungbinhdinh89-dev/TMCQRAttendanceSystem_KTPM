@@ -1,7 +1,8 @@
-import { Column, Entity } from "typeorm"
+import { Column, Entity, Index } from "typeorm"
 import { VersionedOrmEntity } from "../../../../../platform/infrastructure/database/base.orm-entity"
 
 @Entity({ name: "qr_credentials" })
+@Index("uq_qr_credentials_active_employee", ["employeeId"], {unique:true,where:"status = 'ACTIVE' AND revoked_at IS NULL"})
 export class QrCredentialOrmEntity extends VersionedOrmEntity {
   @Column({ name: "employee_id", type: "uuid" }) employeeId!: string
   @Column({ name: "credential_ref", type: "varchar", length: 128 }) credentialRef!: string
