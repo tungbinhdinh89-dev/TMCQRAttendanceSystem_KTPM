@@ -1,3 +1,5 @@
+import { WebScannerController } from "../dist/modules/gate/presentation/web-scanner.controller.js"
+import { WebScannerService } from "../dist/modules/gate/application/web-scanner.service.js"
 import test from "node:test"
 import assert from "node:assert/strict"
 import { Test } from "@nestjs/testing"
@@ -17,8 +19,8 @@ import { StationConfigurationService } from "../dist/modules/gate/application/st
 
 async function fixture(t) {
   const module = await Test.createTestingModule({
-    controllers: [AuthController, AuditController, EmployeeController, QrController, OrganizationController, StationConfigurationController, StationHeartbeatController],
-    providers: [AuthService, AuditService, EmployeeService, QrService, OrganizationService, StationConfigurationService].map(provide => ({ provide, useValue: {} })),
+    controllers: [WebScannerController, AuthController, AuditController, EmployeeController, QrController, OrganizationController, StationConfigurationController, StationHeartbeatController],
+    providers: [WebScannerService, AuthService, AuditService, EmployeeService, QrService, OrganizationService, StationConfigurationService].map(provide => ({ provide, useValue: {} })),
   }).compile()
   const app = module.createNestApplication()
   app.setGlobalPrefix("api")
@@ -62,4 +64,19 @@ test("API_DOCS_ENABLED=false disables both documentation endpoints", async t => 
   assert.equal(configureApiDocumentation(app), undefined)
   await app.listen(0, "127.0.0.1")
   for (const path of ["/api/docs/", "/api/openapi.json"]) assert.equal((await fetch(`${await app.getUrl()}${path}`)).status, 404)
+})
+
+test("scanner documentation uses SEC session security and explicit demo attendance contract", async t => {
+  const app = await fixture(t)
+  configureApiDocumentation(app)
+  await app.listen(0, "127.0.0.1")
+  const doc = await (await fetch(`${await app.getUrl()}/api/openapi.json`)).json()
+  const operation = doc.paths["/api/scanner/stations/{id}/scans"].post
+  assert.deepEqual(operation.security, [{ session: [] }])
+  const request = operation.requestBody.content["application/json"].schema
+  assert.deepEqual(request.required, ["eventId", "token"])
+  assert.equal(request.additionalProperties, false)
+  assert.equal(request.properties.direction, undefined)
+  assert.equal(operation.responses["200"].content["application/json"].schema.$ref, "#/components/schemas/WebScanResult")
+  assert.deepEqual(doc.components.schemas.WebScanResult.properties.mode.enum, ["CLASSROOM_DEMO"])
 })
