@@ -5,12 +5,16 @@
   "type": "module",
   "packageManager": "pnpm@10.34.3",
   "scripts": {
-    "dev": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1 --frontend",
+    "dev": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1 -Frontend",
     "dev:client": "pnpm.cmd --dir client dev",
     "dev:full": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1",
     "build": "pnpm.cmd --dir client build",
     "preview": "pnpm.cmd --dir client preview",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "dev:api": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1 -Backend",
+    "db:status": "powershell -ExecutionPolicy Bypass -File scripts/check.ps1",
+    "db:show": "powershell -ExecutionPolicy Bypass -File scripts/migrate.ps1 -Show",
+    "db:migrate": "powershell -ExecutionPolicy Bypass -File scripts/migrate.ps1"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

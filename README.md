@@ -63,29 +63,30 @@ Lệnh `api start` ưu tiên `DATABASE_URL` của terminal, sau đó nạp `api/
 Chạy cả backend và frontend:
 
 ```powershell
-$env:DEMO_PASSWORD = "mat-khau-demo"
-$env:DEMO_STATION_SECRET = "station-secret-demo"
-pnpm --dir api seed:demo
 pnpm.cmd dev:full
 ```
 
-`run.ps1` đọc cấu hình PostgreSQL local từ `api/env-variable.txt` và tạo `DATABASE_URL` chỉ trong process chạy.
-Các chế độ chạy:
+All API launch and database commands load the same configuration: terminal DATABASE_URL first,
+then api/.env, then root env-variable.txt as a legacy fallback. No api/env-variable.txt is required.
+Starting the app does not create, migrate or seed the database. The API is built before starting
+so new routes cannot be missed because of an old dist directory. Stop an existing backend before
+starting another on port 3000.
 
-```powershell
-# Mặc định: kiểm tra database, build/chạy API và chạy Vite client
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1
+| Command from repository root | Action |
+| --- | --- |
+| `pnpm.cmd dev` | Frontend only |
+| `pnpm.cmd dev:api` | Build/start backend only |
+| `pnpm.cmd dev:full` | Build/start backend and frontend |
+| `pnpm.cmd db:status` | Read-only connection/table-count check |
+| `pnpm.cmd db:show` | Build and list applied/pending migrations; no app server |
+| `pnpm.cmd db:migrate` | Build and apply pending migrations to the configured database; no seed |
+| `powershell -ExecutionPolicy Bypass -File scripts/updatedb.ps1` | Migrate and check status |
+| `powershell -ExecutionPolicy Bypass -File scripts/updatedb.ps1 -Seed` | Explicitly migrate/check AND seed demo data; requires demo secrets |
 
-# Chỉ frontend; API phải chạy sẵn tại VITE_API_URL
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1 --frontend
-
-# Chỉ backend; kiểm tra database và build API trước
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1 --backend
-```
-
-`pnpm.cmd dev` chỉ chạy frontend; `pnpm.cmd dev:full` chạy API và frontend cùng lúc.
-
-Ảnh minh họa: Sam Moghadam / Unsplash, được lưu cục bộ để preview ổn định. Font Instrument Sans được lưu cục bộ; giấy phép ở `public/fonts/OFL.txt`.
+PowerShell wrappers use `-Frontend`, `-Backend`, `-All`; `-DatabaseName <name>` explicitly overrides
+only the database name for that invocation. Otherwise the database in DATABASE_URL is preserved.
+`db:status` always stays read-only even when the terminal has a stale DB_ACTION=ensure.
+Do not run seed or test:integration against business data; the integration command includes demo seed.
 
 Backend NestJS hiện cung cấp session auth tối thiểu:
 
