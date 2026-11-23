@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Audit from "./features/audit/Audit"
 import Management from "./features/management/Management"
+import Qr from "./features/qr/Qr"
 import AppProvider from "./app/context"
 import Router from "./app/router"
 import MuiBridge from "./styles/mui-theme"
@@ -27,6 +28,8 @@ export default function App() {
             <Routes>
               <Route path="/audit" element={<Audit />} />
               <Route path="/management" element={<Management />} />
+              <Route path="/qr" element={<Qr />} />
+              <Route path="/mobile/ma-qr" element={<Qr />} />
               <Route path="*" element={<AppProvider><Router /></AppProvider>} />
             </Routes>
           </MuiBridge>
