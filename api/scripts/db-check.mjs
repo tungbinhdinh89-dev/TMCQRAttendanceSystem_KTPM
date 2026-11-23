@@ -1,7 +1,7 @@
 import { Client } from "pg"
 
 const databaseUrl = process.env.DATABASE_URL
-const databaseName = process.env.DATABASE_NAME || "tmc"
+const databaseName = process.env.TMC_DATABASE_OVERRIDE || (databaseUrl ? decodeURIComponent(new URL(databaseUrl).pathname.slice(1)) : "") || process.env.DATABASE_NAME || "tmc"
 const action = process.env.DB_ACTION || "status"
 
 if (!databaseUrl) throw new Error("DATABASE_URL is not set.")
