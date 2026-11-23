@@ -1,11 +1,12 @@
 import { useEffect, useState, type FormEvent } from "react"
 import { Alert, Button, CircularProgress, Dialog, DialogContent, DialogTitle, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { Brand, Card, PageHeader } from "../../components/ui"
 import { ThemeToggle } from "../../components/layout"
 import { AuditApiError, auditApi, canReadAudit, type AuditIdentity } from "../../data/audit"
 import type { AuditEntry, AuditPage, AuditQuery } from "../../../../contracts/src/audit"
 import MandatoryPasswordChange from "../auth/MandatoryPasswordChange"
+import { AccessMessage } from "../auth/ServerAccess"
 import "./audit.css"
 
 const initialFilters = { action: "", outcome: "", objectType: "", objectId: "", correlationId: "", factoryId: "", from: "", to: "" }
@@ -70,6 +71,8 @@ export default function Audit() {
     for (const [key, value] of Object.entries(filters)) if (value.trim()) Object.assign(next, { [key]: key === "from" || key === "to" ? new Date(value).toISOString() : value.trim() })
     setQuery(next)
   }
+  if (!sessionBusy && !identity) return <Navigate to="/dang-nhap" replace />
+  if (identity && !identity.mustChangePassword && !allowed) return <AccessMessage identity={identity} />
   return <main className="audit-page">
     <header className="audit-top"><Brand /><div className="audit-actions"><Link to="/">Trang chủ</Link><ThemeToggle /></div></header>
     <PageHeader title="Nhật ký hệ thống" description="Tra cứu hoạt động và kết quả xử lý trong phạm vi được cấp quyền." />

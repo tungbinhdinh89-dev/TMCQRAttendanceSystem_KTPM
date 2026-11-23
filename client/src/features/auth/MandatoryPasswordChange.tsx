@@ -9,6 +9,12 @@ export default function MandatoryPasswordChange({ onChanged, onLogout }: { onCha
   const [confirmation, setConfirmation] = useState("")
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
+  async function logout() {
+    setBusy(true); setError("")
+    try { await onLogout() }
+    catch { setError("Chưa đăng xuất được. Kiểm tra kết nối rồi thử lại.") }
+    finally { setBusy(false) }
+  }
   async function submit(event: FormEvent) {
     event.preventDefault(); setError("")
     if (password.length < 12 || password.length > 128) { setError("Mật khẩu mới phải có từ 12 đến 128 ký tự."); return }
@@ -28,7 +34,7 @@ export default function MandatoryPasswordChange({ onChanged, onLogout }: { onCha
       <TextField label="Mật khẩu mới" type="password" autoComplete="new-password" helperText="Từ 12 đến 128 ký tự, khác mật khẩu tạm." value={password} onChange={e => setPassword(e.target.value)} slotProps={{ htmlInput: { minLength: 12, maxLength: 128 } }} required disabled={busy} />
       <TextField label="Nhập lại mật khẩu mới" type="password" autoComplete="new-password" value={confirmation} onChange={e => setConfirmation(e.target.value)} required disabled={busy} />
       <Button type="submit" variant="contained" disabled={busy}>{busy ? "Đang lưu…" : "Lưu mật khẩu mới"}</Button>
-      <Button type="button" onClick={() => void onLogout()} disabled={busy}>Đăng xuất</Button>
+      <Button type="button" onClick={() => void logout()} disabled={busy}>Đăng xuất</Button>
     </form>
   </Card>
 }
