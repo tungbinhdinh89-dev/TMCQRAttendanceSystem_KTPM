@@ -19,6 +19,19 @@ export function employeeCode(value: unknown, max: number): string {
   if(!/^[A-Za-z0-9][A-Za-z0-9_.:-]*$/.test(code)) throw new BadRequestException("Invalid employee or HR code")
   return code
 }
+export function employeeCodePrefix(factoryCode: string): string {
+  return `${factoryCode.trim().toUpperCase().replace(/[^A-Z0-9_.-]/g, "-").slice(0, 20) || "TMC"}-`
+}
+export function nextEmployeeCode(prefix: string, previous: string | null): string {
+  const next = BigInt(previous ?? "0") + 1n
+  const code = `${prefix}${next.toString().padStart(4, "0")}`
+  if (code.length > 32) throw new ConflictException({ code: "EMPLOYEE_CODE_EXHAUSTED", field: "employeeCode", message: "Employee code range exhausted" })
+  return code
+}
+function employeeConflict(field: "employeeCode" | "externalHrId", row?: number): ConflictException {
+  return new ConflictException({ code: field === "employeeCode" ? "EMPLOYEE_CODE_EXISTS" : "HRS_CODE_EXISTS", field,
+    message: field === "employeeCode" ? "Mã nhân viên đã tồn tại; hãy dùng mã khác." : "Mã HRS đã tồn tại; hãy kiểm tra mã từ hệ thống nhân sự.", ...(row ? { row } : {}) })
+}
 export function employeeScope(identity: SessionIdentity): { global: boolean; factoryIds: string[] } {
   const roles = identity.roles.filter(r => r.code === "HR")
   const global = roles.some(r => r.scopeType === "GLOBAL")
@@ -51,7 +64,7 @@ export class EmployeeService {
   }
   private async transaction<T>(work: (m: EntityManager) => Promise<T>): Promise<T> {
     try { return await this.ds.transaction(work) } catch (e) {
-      if ((e as {code?: string}).code === "23505") throw new ConflictException("Employee code or HR mapping already exists")
+      if ((e as {code?: string}).code === "23505") throw employeeConflict((e as {constraint?: string}).constraint === "uq_employees_external_hr_id" ? "externalHrId" : "employeeCode")
       throw e
     }
   }
@@ -104,6 +117,8 @@ export class EmployeeService {
     if (query.factoryId) { const id=employeeId(query.factoryId); this.factory(identity,id); qb.andWhere("a.factory_id=:factoryId",{factoryId:id}) }
     if (query.status) { if (!["ACTIVE","INACTIVE"].includes(String(query.status))) throw new BadRequestException("Invalid status"); qb.andWhere("e.status=:status",{status:query.status}) }
     if (query.q) { const q=employeeText(query.q,150); qb.andWhere("(e.employee_code ILIKE :q OR e.full_name ILIKE :q OR e.external_hr_id ILIKE :q)",{q:`%${q}%`}) }
+    // Joined pagination resolves metadata property paths before SQL column mapping.
+    // Using e.employee_code here crashes TypeORM's distinct/order wrapper.
     const [employees,total]=await qb.orderBy("e.employeeCode","ASC").skip((page-1)*pageSize).take(pageSize).getManyAndCount()
     return {items:await Promise.all(employees.map(async e=>this.profile(e,await this.current(this.ds.manager,e.id,at)))),total,page,pageSize}
   }
@@ -116,17 +131,85 @@ export class EmployeeService {
       assignments:assignments.filter(a=>scope.global||scope.factoryIds.includes(a.factoryId)).map(a=>({...a,validFrom:a.validFrom.toISOString(),validTo:a.validTo?.toISOString()??null})),
       accessGrants:grants.filter(g=>scope.global||scope.factoryIds.includes(g.factoryId)).map(g=>({...g,validFrom:g.validFrom.toISOString(),validTo:g.validTo?.toISOString()??null,revokedAt:g.revokedAt?.toISOString()??null}))}
   }
-  async create(identity: SessionIdentity, input: Record<string, unknown>) {
+  private async codePreview(m: EntityManager, identity: SessionIdentity, factoryId: unknown) {
+    const id = employeeId(factoryId); this.factory(identity, id)
+    const [factory] = await m.query("SELECT id,code FROM factories WHERE id=$1 AND status='ACTIVE'", [id])
+    if (!factory) throw new BadRequestException("Active factory required")
+    const prefix = employeeCodePrefix(factory.code)
+    // Scan every historical employee, including INACTIVE, so retired codes are never reused.
+    // left() avoids interpreting factory-code underscores as SQL LIKE wildcards.
+    const [result] = await m.query(`SELECT MAX(CASE WHEN substring(employee_code FROM length($1::text)+1) ~ '^[0-9]+$'
+      THEN substring(employee_code FROM length($1::text)+1)::numeric END)::text AS last
+      FROM employees WHERE left(employee_code,length($1::text))=$1`, [prefix])
+    return { employeeCode: nextEmployeeCode(prefix, result?.last ?? null), prefix, suggested: true as const }
+  }
+  async previewCode(identity: SessionIdentity, factoryId: unknown) {
     employeeScope(identity)
+    // A preview is intentionally not a reservation; allocation is repeated while saving under lock.
+    return this.codePreview(this.ds.manager, identity, factoryId)
+  }
+  private async allocationLock(m: EntityManager) {
+    // All create/import/manual-override requests share this transaction-scoped lock.
+    // Global lock also protects factories whose normalized prefixes happen to match.
+    await m.query("SELECT pg_advisory_xact_lock(180055, 1)")
+  }
+  private body(input: unknown): asserts input is Record<string, unknown> {
+    if (!input || typeof input !== "object" || Array.isArray(input)) throw new BadRequestException("Invalid employee request")
+  }
+  private async createInTransaction(m: EntityManager, identity: SessionIdentity, input: Record<string, unknown>, row?: number) {
+    this.body(input)
+    if (input.generateEmployeeCode !== undefined && typeof input.generateEmployeeCode !== "boolean") throw new BadRequestException("Invalid automatic code option")
+    const org = await this.hierarchy(m, identity, input)
+    const automatic = input.generateEmployeeCode === true || input.employeeCode == null || input.employeeCode === ""
+    const code = automatic ? (await this.codePreview(m, identity, org.factoryId)).employeeCode : employeeCode(input.employeeCode, 32)
+    const hrs = employeeCode(input.externalHrId, 64)
+    const repository = m.getRepository(EmployeeOrmEntity)
+    if (await repository.findOneBy({employeeCode:code})) throw employeeConflict("employeeCode", row)
+    if (await repository.findOneBy({externalHrId:hrs})) throw employeeConflict("externalHrId", row)
+    const employee = repository.create({id:randomUUID(),employeeCode:code,externalHrId:hrs,fullName:employeeText(input.fullName,150),email:this.email(input.email),status:"ACTIVE",deactivatedAt:null,rowVersion:1})
+    await m.save(employee)
+    await m.save(m.getRepository(EmployeeAssignmentOrmEntity).create({id:randomUUID(),employeeId:employee.id,...org,validFrom:new Date(),validTo:null,assignedByUserId:identity.userId}))
+    await this.auditWrite(m,identity,"EMPLOYEE_CREATE",employee,org.factoryId,{employeeCode:employee.employeeCode,source:row ? "CSV_IMPORT" : "FORM"})
+    return employee
+  }
+  async create(identity: SessionIdentity, input: Record<string, unknown>) {
+    employeeScope(identity); this.body(input)
     const result=await this.transaction(async m=>{
-      const org=await this.hierarchy(m,identity,input)
-      const employee=m.getRepository(EmployeeOrmEntity).create({id:randomUUID(),employeeCode:employeeCode(input.employeeCode,32),externalHrId:employeeCode(input.externalHrId,64),fullName:employeeText(input.fullName,150),email:this.email(input.email),status:"ACTIVE",deactivatedAt:null,rowVersion:1})
-      await m.save(employee)
-      await m.save(m.getRepository(EmployeeAssignmentOrmEntity).create({id:randomUUID(),employeeId:employee.id,...org,validFrom:new Date(),validTo:null,assignedByUserId:identity.userId}))
-      await this.auditWrite(m,identity,"EMPLOYEE_CREATE",employee,org.factoryId,{employeeCode:employee.employeeCode})
-      return employee.id
+      await this.allocationLock(m)
+      return (await this.createInTransaction(m, identity, input)).id
     })
     return this.detail(identity,result)
+  }
+  async importEmployees(identity: SessionIdentity, input: Record<string, unknown>) {
+    employeeScope(identity); this.body(input)
+    if (!Array.isArray(input.rows) || input.rows.length < 1 || input.rows.length > 2000) throw new BadRequestException({code:"EMPLOYEE_IMPORT_INVALID",message:"Import requires 1–2000 rows"})
+    const rows = input.rows as unknown[]
+    const hrs = new Set<string>(), codes = new Set<string>()
+    rows.forEach((row, index) => {
+      this.body(row)
+      const hrCode = employeeCode(row.externalHrId,64)
+      if (hrs.has(hrCode)) throw employeeConflict("externalHrId",index+2)
+      hrs.add(hrCode)
+      if (row.employeeCode && row.generateEmployeeCode !== true) {
+        const code=employeeCode(row.employeeCode,32)
+        if (codes.has(code)) throw employeeConflict("employeeCode",index+2)
+        codes.add(code)
+      }
+    })
+    return this.transaction(async m => {
+      await this.allocationLock(m)
+      const items=[]
+      for (let index=0;index<rows.length;index++) {
+        try {
+          const e=await this.createInTransaction(m,identity,rows[index] as Record<string,unknown>,index+2)
+          items.push({id:e.id,employeeCode:e.employeeCode,externalHrId:e.externalHrId,fullName:e.fullName})
+        } catch (error) {
+          if (error instanceof BadRequestException) throw new BadRequestException({code:"EMPLOYEE_IMPORT_INVALID",row:index+2,message:`Dòng ${index+2}: ${error.message}`})
+          throw error
+        }
+      }
+      return {imported:items.length,items}
+    })
   }
   private email(input: unknown): string | null {
     if (input == null || input === "") return null
