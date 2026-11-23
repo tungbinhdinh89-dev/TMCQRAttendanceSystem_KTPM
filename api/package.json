@@ -10,13 +10,15 @@
     "test": "pnpm run build && node --test test/auth.service.test.mjs test/bootstrap.test.mjs test/runtime-env.test.mjs test/audit.service.test.mjs",
     "test:integration": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js && node --test test/integration/**/*.test.mjs",
     "test:management": "pnpm build && node --test test/employees.test.mjs test/configuration-policy.test.mjs",
-    "test:qr": "pnpm build && node --test test/qr.test.mjs"
+    "test:qr": "pnpm build && node --test test/qr.test.mjs",
+    "test:onboarding": "pnpm build && node --test test/employee-onboarding.test.mjs"
   },
   "dependencies": {
-    "@tmc/contracts": "workspace:*",
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@tmc/contracts": "workspace:*",
+    "express": "5.2.1",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
