@@ -12,7 +12,8 @@
     "test:management": "pnpm build && node --test test/employees.test.mjs test/configuration-policy.test.mjs",
     "test:qr": "pnpm build && node --test test/qr.test.mjs",
     "test:onboarding": "pnpm build && node --test test/employee-onboarding.test.mjs test/employee-pagination.test.mjs",
-    "test:api-docs": "pnpm build && node --test test/openapi.test.mjs test/api-exception.test.mjs"
+    "test:api-docs": "pnpm build && node --test test/openapi.test.mjs test/api-exception.test.mjs",
+    "test:authorization": "pnpm build && node --test test/authorization.test.mjs test/bootstrap.test.mjs test/configuration-policy.test.mjs test/qr.test.mjs test/employee-account.test.mjs"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.0",

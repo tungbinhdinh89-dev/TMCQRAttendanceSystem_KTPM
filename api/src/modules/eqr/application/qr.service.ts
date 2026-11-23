@@ -56,6 +56,7 @@ export class QrService implements QrValidator {
     return signing
   }
   async provision(identity: SessionIdentity, id: string, input: Record<string, unknown>) {
+    employeeScope(identity)
     employeeId(id); const reason = employeeText(input.reason, 1000)
     if (input.regenerate !== undefined && typeof input.regenerate !== "boolean") throw new BadRequestException("Invalid regenerate flag")
     return this.ds.transaction(async m => {
@@ -82,6 +83,7 @@ export class QrService implements QrValidator {
     await m.query("UPDATE qr_credentials SET status='REVOKED',revoked_at=NOW(),revoked_by_user_id=$2,revoke_reason=$3,row_version=row_version+1 WHERE employee_id=$1 AND revoked_at IS NULL", [id, identity.userId, reason])
   }
   async revoke(identity: SessionIdentity, id: string, input: Record<string, unknown>) {
+    employeeScope(identity)
     employeeId(id); const reason = employeeText(input.reason, 1000)
     return this.ds.transaction(async m => {
       const e = await m.getRepository(EmployeeOrmEntity).findOne({ where: { id }, lock: { mode: "pessimistic_write" } })

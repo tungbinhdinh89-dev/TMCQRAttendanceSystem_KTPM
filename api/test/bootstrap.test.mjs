@@ -8,7 +8,7 @@ import { AuditService } from "../dist/modules/iam/application/audit.service.js"
 test("auth and demo routes bootstrap with the shared database provider", async (t) => {
   const module = await Test.createTestingModule({ imports: [AppModule] })
     .overrideProvider(DataSource)
-    .useValue({ query: async () => [] })
+    .useValue({ query: async () => { throw new Error("Anonymous routes must not query business data") } })
     .overrideProvider(AuditService)
     .useValue({ write: async () => undefined, search: async () => ({ items: [], total: 0, page: 1, pageSize: 25 }) })
     .compile()
@@ -30,6 +30,11 @@ test("auth and demo routes bootstrap with the shared database provider", async (
 
   const logout = await fetch(`${baseUrl}/api/auth/logout`, { method: "POST" })
   assert.equal(logout.status, 204)
+
+  for (const path of ["employees", "employees/00000000-0000-4000-8000-000000000001/account", "qr/self", "qr/self/code", "organization", "configuration/stations", "configuration/integrations", "configuration/readiness", "audit-entries"]) {
+    const denied = await fetch(`${baseUrl}/api/${path}`)
+    assert.equal(denied.status, 401, `Anonymous ${path}`)
+  }
 
   const bootstrap = await fetch(`${baseUrl}/api/demo/bootstrap`)
   assert.equal(bootstrap.status, 200)

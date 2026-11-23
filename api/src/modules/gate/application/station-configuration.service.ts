@@ -24,7 +24,7 @@ export class StationConfigurationService {
   await repo.save(row);return row.id
  }
  private integrationDto(row:IntegrationEndpointOrmEntity){return {id:row.id,code:row.code,providerType:row.providerType,factoryId:row.factoryId,baseUrl:row.baseUrl,requestTimeoutMs:row.requestTimeoutMs,contractVersion:row.contractVersion,configVersionId:row.configVersionId,isEnabled:row.isEnabled,rowVersion:row.rowVersion,hasSecretReference:!!row.authSecretRef}}
- async integrations(identity:SessionIdentity){const scope=configurationScope(identity);return {items:(await this.ds.getRepository(IntegrationEndpointOrmEntity).find({order:{code:"ASC"}})).filter(r=>scope.global||(r.factoryId&&scope.factoryIds.includes(r.factoryId))).map(r=>this.integrationDto(r))}}
+ async integrations(identity:SessionIdentity){const scope=configurationScope(identity,false,"integration");return {items:(await this.ds.getRepository(IntegrationEndpointOrmEntity).find({order:{code:"ASC"}})).filter(r=>scope.global||(r.factoryId&&scope.factoryIds.includes(r.factoryId))).map(r=>this.integrationDto(r))}}
  async saveIntegration(identity:SessionIdentity,input:Record<string,unknown>,id?:string){
   if(!input||typeof input!=="object"||Array.isArray(input))throw new BadRequestException("Invalid request body")
   configurationScope(identity,true)
@@ -53,7 +53,7 @@ export class StationConfigurationService {
    return this.integrationDto(row)
   }).catch(dbConflict)
  }
- async stations(identity:SessionIdentity){const scope=configurationScope(identity);return {items:(await this.ds.getRepository(GateStationOrmEntity).find({order:{code:"ASC"}})).filter(r=>scope.global||scope.factoryIds.includes(r.factoryId)).map(r=>({...r,online:r.status==="ACTIVE"&&stationOnline(r.lastSeenAt),physicalState:"UNKNOWN" as const}))}}
+ async stations(identity:SessionIdentity){const scope=configurationScope(identity,false,"station");return {items:(await this.ds.getRepository(GateStationOrmEntity).find({order:{code:"ASC"}})).filter(r=>scope.global||scope.factoryIds.includes(r.factoryId)).map(r=>({...r,online:r.status==="ACTIVE"&&stationOnline(r.lastSeenAt),physicalState:"UNKNOWN" as const}))}}
  async saveStation(identity:SessionIdentity,input:Record<string,unknown>,id?:string){
   if(!input||typeof input!=="object"||Array.isArray(input))throw new BadRequestException("Invalid request body")
   configurationScope(identity,true)
@@ -117,7 +117,7 @@ export class StationConfigurationService {
   })
  }
  async readiness(identity:SessionIdentity){
-  const scope=configurationScope(identity)
+  const scope=configurationScope(identity,false,"station")
   try {
   const stations=(await this.stations(identity)).items
   const params:any[]=[scope.global,scope.factoryIds]

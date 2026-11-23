@@ -1,43 +1,41 @@
 # TMC Access
 
-Prototype frontend tiếng Việt cho hệ thống chấm công và kiểm soát ra vào bằng QR của TMC Manufacturing.
+## Authorization: web routes and API boundaries (TMC-107)
 
-## Trải nghiệm
+Web pages (`/qr`, `/management`) and backend endpoints (`/api/...`) are separate boundaries.
+Every real business API checks the server session and its role/scope; hiding a menu is not authorization.
+Use `/dang-nhap` for real username/password login. Legacy role selection and localStorage account IDs
+cannot grant access to business pages. Public demo bootstrap contains an empty static shell, never real
+employee/account/station/grant data. Legacy prototype pages are redirected or explicitly unavailable.
 
-- `/`: website giới thiệu, điểm vào mặc định.
-- `/dang-nhap`: đăng nhập và chọn một trong sáu vai trò demo.
-- `/app`: tổng quan, nhân sự, chấm công, kiểm soát, ca làm, báo cáo, cài đặt.
-- `/mobile/trang-chu`: ứng dụng nhân viên với QR động, lịch sử và thông báo.
-- `/kiosk`: quét camera hoặc mô phỏng các tình huống tại cổng.
+| Role | Actual web area | Allowed API capabilities | Denied / not implemented |
+| --- | --- | --- | --- |
+| EMP | `/qr`, `/mobile/ma-qr` | `/api/qr/self`, `/api/qr/self/code` (and old self token alias), own session only | Employee lists, other employees' QR, account provisioning, configuration, audit |
+| HR | `/management?tab=employees`, `tab=organization` read | Scoped `/api/employees/**`, EMP-only account provisioning, QR issue/reissue/revoke, organization lookup | Personal QR without explicit EMP; station/readiness/integration configuration; general role administration |
+| SEC | `/management?tab=stations`, `tab=readiness`, organization lookup read | Scoped station/readiness reads, organization lookup | Employee management, personal QR without EMP, config writes/credentials and integration settings |
+| ADM + `iam:manage` | Organization/stations/integrations/readiness administration | Scoped organization/configuration writes, station credentials, integrations and audit read | HR employee CRUD or personal QR unless separately assigned HR/EMP; no wildcard admin bypass |
+| HR/SEC + `audit:read` | `/audit` | Scoped audit query | Mutation/deletion of audit; a role label alone does not grant audit permission |
+| SUP | Authenticated workspace explaining current availability | Session endpoints | Team attendance/report API remains unimplemented; no fallback to factory-wide HR data |
+| EXE | Authenticated workspace explaining current availability | Session endpoints | Aggregate report API remains unimplemented; no employee/account details or SEC role mapping |
 
-| Tài khoản | Vai trò |
-| --- | --- |
-| `admin` | Quản trị hệ thống |
-| `hr` | Quản lý nhân sự |
-| `security` | Quản lý an ninh |
-| `guard` | Nhân viên bảo vệ |
-| `manager` | Quản lý bộ phận |
-| `employee` | Nhân viên |
+All roles can log in, inspect their own session (`GET /api/me`), change password and log out.
+`/api/my-profile` is not implemented and is not implied by `/api/me`. Employee history, reporting,
+attendance corrections, security reconciliation and general account/role administration are future APIs;
+this matrix does not pretend those features are implemented. Station heartbeat uses separate station
+bearer credentials, not a human SEC session. OpenAPI describes routes, not a grant to call them.
 
-**Mật khẩu chung: `Tmc@123`.** Mỗi vai trò có trang đích, menu, phạm vi dữ liệu và quyền thao tác riêng.
+### Policy rules
 
-## Dữ liệu demo và backend
+- No session: protected APIs return 401. Valid session with insufficient role/scope: 403. Unknown endpoint: 404.
+- Temporary-password sessions may inspect session/change password/log out; business data remains blocked.
+- Factory/global scope is taken from the SAME assignment granting the capability. HR GLOBAL cannot widen SEC FACTORY or ADM FACTORY.
+- Explicit multi-role users combine capabilities. HR+EMP can view only their OWN QR; HR alone cannot retrieve any personal QR payload, even after issuing the credential.
+- HR provisioning creates only EMP SELF, not arbitrary roles. This narrow onboarding operation was explicitly requested; it does not make HR an IAM administrator.
+- Disabled/inactive users/employees and revoked/expired sessions remain denied by backend authentication.
+- Do not use guessed URL parameters or localStorage role flags to authorize data. Server selects self employeeId from session and checks organization scope for managed objects.
 
-Dữ liệu nền được seed trong PostgreSQL. Frontend client lấy bootstrap data từ `GET /api/demo/bootstrap`; phiên UI hiện tại vẫn dùng `tmc-access-session:v1`.
-
-Thêm/sửa nhân viên, khóa QR, phân ca, duyệt điều chỉnh và quét kiosk đều lưu lại sau khi tải trang. Tab cùng trình duyệt được cập nhật qua sự kiện `storage`.
-
-Quản trị viên có thể vào **Cài đặt hệ thống → Dữ liệu demo → Đặt lại dữ liệu demo** để khôi phục dữ liệu. Giao diện sáng/tối được giữ nguyên.
-
-## Luồng QR
-
-1. Đăng nhập bằng `employee`, mở **Mã QR**.
-2. QR có hiệu lực 60 giây; có thể sao chép payload để kiểm tra.
-3. Đăng nhập `admin`, `security`, `guard`, hoặc dùng kiosk trải nghiệm công khai.
-4. Chọn cổng, mô phỏng quét hoặc dán payload. Camera cần HTTPS/localhost và quyền thiết bị.
-5. Lượt hợp lệ ghi nhật ký, luân phiên vào/ra và cập nhật bảng công; lượt lỗi chỉ ghi nhật ký. Quét lặp bị chặn trong 30 giây.
-
-Kiosk có các tình huống hết hạn, khóa QR, sai nhà máy và payload lỗi. Người có quyền được xác nhận thủ công kèm lý do và tên người vận hành.
+Detailed matrix entries are implementation policy derived from the assignment's RBAC/privacy actors and
+the approved project workflow; the assignment does not prescribe these exact URL names or every permission.
 
 ## Công nghệ và kiểm tra
 
