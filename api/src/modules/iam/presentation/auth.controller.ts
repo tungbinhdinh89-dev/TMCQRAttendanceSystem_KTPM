@@ -33,10 +33,19 @@ export class AuthController {
     clearSessionCookie(response)
   }
 
+  @Post("auth/change-password")
+  @Header("Cache-Control", "no-store")
+  @HttpCode(204)
+  async changePassword(@Req() request: RequestLike, @Body() body: { currentPassword?: unknown; newPassword?: unknown }, @Res({ passthrough: true }) response: ResponseLike) {
+    await this.authService.verifyRequestOrigin(request.headers.origin, "AUTH_PASSWORD_CHANGE")
+    await this.authService.changePassword(readCookie(request, SESSION_COOKIE), body?.currentPassword, body?.newPassword)
+    clearSessionCookie(response)
+  }
+
   @Get("me")
   @Header("Cache-Control", "no-store")
   async me(@Req() request: RequestLike) {
-    return this.authService.me(readCookie(request, SESSION_COOKIE))
+    return this.authService.me(readCookie(request, SESSION_COOKIE), true)
   }
 }
 

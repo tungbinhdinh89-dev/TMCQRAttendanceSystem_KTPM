@@ -7,6 +7,6 @@ export class QrTokenOrmEntity extends CreatedOrmEntity {
   @Column({ name: "signing_key_id", type: "varchar", length: 64 }) signingKeyId!: string
   @Column({ name: "issued_by_user_id", type: "uuid" }) issuedByUserId!: string
   @Column({ name: "token_hash", type: "char", length: 64 }) tokenHash!: string
-  @Column({ name: "expires_at", type: "timestamptz" }) expiresAt!: Date
+  @Column({ name: "expires_at", type: "timestamptz", nullable: true }) expiresAt!: Date | null
   @Column({ name: "revoked_at", type: "timestamptz", nullable: true }) revokedAt!: Date | null
 }

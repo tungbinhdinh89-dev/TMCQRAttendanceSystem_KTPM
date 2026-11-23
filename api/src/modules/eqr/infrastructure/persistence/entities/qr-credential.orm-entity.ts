@@ -4,6 +4,7 @@ import { VersionedOrmEntity } from "../../../../../platform/infrastructure/datab
 @Entity({ name: "qr_credentials" })
 @Index("uq_qr_credentials_active_employee", ["employeeId"], {unique:true,where:"status = 'ACTIVE' AND revoked_at IS NULL"})
 export class QrCredentialOrmEntity extends VersionedOrmEntity {
+  @Column({ name: "signed_payload", type: "text", nullable: true, select: false }) signedPayload!: string | null
   @Column({ name: "employee_id", type: "uuid" }) employeeId!: string
   @Column({ name: "credential_ref", type: "varchar", length: 128 }) credentialRef!: string
   @Column({ type: "varchar", length: 16, default: "ACTIVE" }) status!: string
