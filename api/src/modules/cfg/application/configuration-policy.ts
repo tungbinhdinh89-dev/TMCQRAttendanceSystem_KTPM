@@ -1,10 +1,16 @@
 import { BadRequestException, ConflictException, ForbiddenException } from "@nestjs/common"
 import type { SessionIdentity } from "../../iam/application/auth.service"
-export function configurationScope(identity:SessionIdentity,write=false) {
- const roles=identity.roles.filter(r=>write ? r.code==="ADM"&&r.permissions.includes("iam:manage") : ["ADM","HR","SEC"].includes(r.code))
+export type ConfigurationResource = "organization" | "station" | "integration"
+/** Never borrow scope or permissions from another role assignment. */
+export function configurationScope(identity:SessionIdentity,write=false,resource:ConfigurationResource="organization") {
+ const roles=identity.roles.filter(r=>{
+  if(r.code==="ADM") return r.permissions.includes("iam:manage")
+  if(write||resource==="integration") return false
+  return r.code==="SEC"||(resource==="organization"&&r.code==="HR")
+ })
  const global=roles.some(r=>r.scopeType==="GLOBAL")
  const factoryIds=[...new Set(roles.filter(r=>r.scopeType==="FACTORY"&&r.factoryId).map(r=>r.factoryId!))]
- if(!global&&!factoryIds.length)throw new ForbiddenException("No configuration scope")
+ if(!global&&!factoryIds.length)throw new ForbiddenException("No configuration scope for this resource")
  return {global,factoryIds}
 }
 export function assertFactory(identity:SessionIdentity,factoryId:string|null,write=false) {

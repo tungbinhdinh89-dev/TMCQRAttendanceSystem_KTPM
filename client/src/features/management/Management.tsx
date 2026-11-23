@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link, Navigate, useSearchParams } from "react-router-dom"
 import { Alert, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Tab, Tabs, TextField } from "@mui/material"
 import { Brand, Card, PageHeader } from "../../components/ui"
 import { ThemeToggle } from "../../components/layout"
@@ -8,6 +8,8 @@ import MandatoryPasswordChange from "../auth/MandatoryPasswordChange"
 import EmployeeAccountCard from "./EmployeeAccountCard"
 import EmployeeCreateDialog from "./EmployeeCreateDialog"
 import EmployeeImportCard from "./EmployeeImportCard"
+import { isHr, isAdmin, isSecurity, canUseAudit, canUsePersonalQr, managementTabs } from "../../lib/server-access"
+import { AccessMessage } from "../auth/ServerAccess"
 import "./management.css"
 
 type Field = { key: string; label: string; type?: string; required?: boolean; options?: { value: string; label: string }[] }
@@ -33,13 +35,14 @@ export default function Management() {
   const [secret, setSecret] = useState<{ credentialId: string; secret: string } | null>(null)
   const [revision, setRevision] = useState(0)
   const [creatingEmployee, setCreatingEmployee] = useState(false)
-  const hr = identity?.roles.some(r => r.code === "HR" && ["GLOBAL", "FACTORY"].includes(r.scopeType)) ?? false
-  const adm = identity?.roles.some(r => r.code === "ADM" && r.permissions.includes("iam:manage") && ["GLOBAL", "FACTORY"].includes(r.scopeType)) ?? false
-  const canReadConfig = adm || (identity?.roles.some(r => r.code === "SEC") ?? false)
+  const hr = identity ? isHr(identity) : false
+  const adm = identity ? isAdmin(identity) : false
+  const canReadConfig = adm || (identity ? isSecurity(identity) : false)
+  const availableTabs = identity ? managementTabs(identity) : []
   const fail = (e: unknown) => { setSuccess(""); setError(e instanceof Error ? e.message : "Không thể kết nối máy chủ."); if (e instanceof ManagementError && e.status === 403) { setEmployees({ items: [], total: 0, page: 1, pageSize: 20 }); setStations([]); setIntegrations([]); setDetail(null); setReadiness(null); setSecret(null) } if (e instanceof ManagementError && e.status === 401) { setIdentity(null); setCreatingEmployee(false); setOrg(emptyOrg); setEmployees({ items: [], total: 0, page: 1, pageSize: 20 }); setStations([]); setIntegrations([]); setDetail(null); setSecret(null) } }
   useEffect(() => { const controller = new AbortController(); managementSession.me(controller.signal).then(setIdentity).catch(e => { if (!controller.signal.aborted && !(e instanceof ManagementError && e.status === 401)) fail(e) }).finally(() => { if (!controller.signal.aborted) setChecking(false) }); return () => controller.abort() }, [])
   useEffect(() => {
-    if (!identity || identity.mustChangePassword) return
+    if (!identity || identity.mustChangePassword || !managementTabs(identity).some(tab => tab === section)) return
     const controller = new AbortController(); setBusy(true); setError(""); setDetail(null)
     async function load() {
       const organization = await request<Organization>("/organization", "GET", undefined, controller.signal)
@@ -84,14 +87,16 @@ export default function Management() {
   const employeeFields: Field[] = [{ key: "employeeCode", label: "Mã nhân viên", required: true }, { key: "fullName", label: "Họ tên", required: true }, { key: "externalHrId", label: "Mã HRS", required: true }, { key: "email", label: "Email", type: "email" }, ...orgFields]
   const periodFields: Field[] = [{ key: "validFrom", label: "Hiệu lực từ", type: "datetime-local", required: true }, { key: "validTo", label: "Hiệu lực đến", type: "datetime-local" }, reasonField]
   const history = (key: string) => Array.isArray(detail?.[key]) ? detail[key] as RecordRow[] : []
+  if (!checking && !identity) return <Navigate to="/dang-nhap" replace />
+  if (identity && !identity.mustChangePassword && !availableTabs.some(tab => tab === section)) return <AccessMessage identity={identity} />
   return <main className="management-page">
-    <header className="management-top"><Brand /><div><Link to="/">Trang chủ</Link><Link to="/audit">Nhật ký</Link><ThemeToggle /></div></header>
+    <header className="management-top"><Brand /><div><Link to="/">Trang chủ</Link>{identity && canUseAudit(identity) && <Link to="/audit">Nhật ký</Link>}{identity && canUsePersonalQr(identity) && <Link to="/qr">QR của tôi</Link>}<ThemeToggle /></div></header>
     <PageHeader title="Nhân sự & cấu hình nhà máy" description="Quản lý dữ liệu được lưu trên máy chủ trong phạm vi tài khoản của bạn." />
     {error && <Alert severity="error" role="alert">{error}</Alert>}{success && <Alert severity="success" role="status">{success}</Alert>}
     {checking ? <CircularProgress aria-label="Kiểm tra phiên" /> : !identity ? <Card className="management-login"><h2>Đăng nhập</h2><form onSubmit={login} className="management-form"><TextField label="Tên đăng nhập" value={username} onChange={e => setUsername(e.target.value)} autoComplete="username" required /><TextField label="Mật khẩu" type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /><Button type="submit" variant="contained" disabled={busy}>Đăng nhập</Button></form></Card> : identity.mustChangePassword ? <MandatoryPasswordChange onChanged={() => { setIdentity(null); setSuccess("Đã đổi mật khẩu. Đăng nhập lại bằng mật khẩu mới.") }} onLogout={logout} /> : <>
       <div className="management-top"><span>Đã đăng nhập: <strong>{identity.username}</strong></span><Button disabled={busy} onClick={logout}>Đăng xuất</Button></div>
       <Tabs value={section} variant="scrollable" scrollButtons="auto" onChange={(_, value: string) => { setParams({ tab: value }); setSuccess(""); setError(""); setSecret(null) }} aria-label="Nhóm quản trị">
-        <Tab value="employees" label="Nhân viên" /><Tab value="organization" label="Tổ chức" /><Tab value="stations" label="Trạm cổng" /><Tab value="integrations" label="Tích hợp" /><Tab value="readiness" label="Vận hành" />
+        {availableTabs.map(tab => <Tab key={tab} value={tab} label={{ employees: "Nhân viên", organization: "Tổ chức", stations: "Trạm cổng", integrations: "Tích hợp", readiness: "Vận hành" }[tab]} />)}
       </Tabs>
       {busy && <div className="management-progress" role="status"><CircularProgress size={20} />Đang xử lý…</div>}
       {section === "employees" && (!hr ? <Alert severity="info">Tài khoản không có quyền nhân sự. Hãy đăng nhập bằng tài khoản HR được cấp phạm vi phù hợp.</Alert> : <>

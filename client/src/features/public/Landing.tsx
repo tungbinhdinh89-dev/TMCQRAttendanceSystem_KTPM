@@ -16,12 +16,9 @@ import QRCode from "react-qr-code"
 import { useNavigate } from "react-router-dom"
 import { Brand, Title } from "../../components/ui"
 import { PublicShell, ThemeToggle } from "../../components/layout"
-import { useApp } from "../../app/context"
-import { homeFor } from "../../lib/rbac"
 const photo = `${import.meta.env.BASE_URL}images/tmc-factory.jpg`
 export default function Landing() {
-  const navigate = useNavigate(),
-    { account } = useApp()
+  const navigate = useNavigate()
   const scroll = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
   return (
@@ -47,10 +44,10 @@ export default function Landing() {
             variant="neutral"
             iconEnd={<ArrowUpRight size={16} />}
             onClick={() =>
-              navigate(account ? homeFor(account.role) : "/dang-nhap")
+              navigate("/dang-nhap")
             }
           >
-            {account ? "Không gian của tôi" : "Đăng nhập"}
+            Đăng nhập
           </Button>
         </div>
       </header>
@@ -77,7 +74,7 @@ export default function Landing() {
                 variant="primary"
                 iconEnd={<ArrowRight size={16} />}
                 onClick={() =>
-                  navigate(account ? homeFor(account.role) : "/dang-nhap")
+                  navigate("/dang-nhap")
                 }
               >
                 Vào không gian làm việc

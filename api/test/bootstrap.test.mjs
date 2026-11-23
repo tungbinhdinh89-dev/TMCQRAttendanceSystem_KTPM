@@ -5,10 +5,10 @@ import { DataSource } from "typeorm"
 import { AppModule } from "../dist/app.module.js"
 import { AuditService } from "../dist/modules/iam/application/audit.service.js"
 
-test("auth and demo routes bootstrap with the shared database provider", async (t) => {
+test("auth routes bootstrap and removed demo endpoint stays unavailable", async (t) => {
   const module = await Test.createTestingModule({ imports: [AppModule] })
     .overrideProvider(DataSource)
-    .useValue({ query: async () => [] })
+    .useValue({ query: async () => { throw new Error("Anonymous routes must not query business data") } })
     .overrideProvider(AuditService)
     .useValue({ write: async () => undefined, search: async () => ({ items: [], total: 0, page: 1, pageSize: 25 }) })
     .compile()
@@ -31,10 +31,11 @@ test("auth and demo routes bootstrap with the shared database provider", async (
   const logout = await fetch(`${baseUrl}/api/auth/logout`, { method: "POST" })
   assert.equal(logout.status, 204)
 
+  for (const path of ["employees", "employees/00000000-0000-4000-8000-000000000001/account", "qr/self", "qr/self/code", "organization", "configuration/stations", "configuration/integrations", "configuration/readiness", "audit-entries"]) {
+    const denied = await fetch(`${baseUrl}/api/${path}`)
+    assert.equal(denied.status, 401, `Anonymous ${path}`)
+  }
+
   const bootstrap = await fetch(`${baseUrl}/api/demo/bootstrap`)
-  assert.equal(bootstrap.status, 200)
-  const payload = await bootstrap.json()
-  assert.deepEqual(payload.data.employees, [])
-  assert.deepEqual(payload.data.accounts, [])
-  assert.deepEqual(payload.data.gates, [])
+  assert.equal(bootstrap.status, 404)
 })

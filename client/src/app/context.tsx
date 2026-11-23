@@ -8,7 +8,6 @@ import {
 } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Toast, Button } from "@figma/astraui"
-import { api } from "../data/api"
 import type { Account, Database } from "../data/types"
 
 interface AppState {
@@ -36,7 +35,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
     data: db,
     error,
     refetch,
-  } = useQuery({ queryKey: ["database"], queryFn: api.getDatabase })
+  } = useQuery({ queryKey: ["database"], queryFn: async (): Promise<Database> => { throw new Error("Legacy business data provider has been removed. Use the authenticated application routes.") } })
   const [session, setSession] = useState(() => {
     try {
       return localStorage.getItem("tmc-access-session:v1") || ""

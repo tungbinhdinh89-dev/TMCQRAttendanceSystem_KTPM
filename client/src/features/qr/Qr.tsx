@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { Alert, Button, CircularProgress, TextField } from "@mui/material"
 import QRCode from "react-qr-code"
 import { Brand, Card, PageHeader } from "../../components/ui"
@@ -7,6 +7,7 @@ import { ThemeToggle } from "../../components/layout"
 import { managementSession, ManagementError, type ManagementIdentity } from "../../data/management"
 import { qrApi, QrError } from "../../data/qr"
 import MandatoryPasswordChange from "../auth/MandatoryPasswordChange"
+import { AccessMessage } from "../auth/ServerAccess"
 import "./qr.css"
 
 type DisplayQr = Awaited<ReturnType<typeof qrApi.code>>
@@ -70,6 +71,8 @@ export default function Qr() {
     catch (e) { setError(e instanceof Error ? e.message : "Chưa đăng xuất được. Vui lòng thử lại.") }
     finally { setBusy(false) }
   }
+  if (!checking && !identity) return <Navigate to="/dang-nhap" replace />
+  if (identity && !identity.mustChangePassword && !employee) return <AccessMessage identity={identity} />
   return <main className="self-qr-page">
     <header><Brand /><div><Link to="/">Trang chủ</Link><ThemeToggle /></div></header>
     <PageHeader title="Mã QR của tôi" description="Đăng nhập bằng tài khoản HR cấp để xem mã QR cá nhân." />
