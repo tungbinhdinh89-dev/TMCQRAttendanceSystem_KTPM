@@ -1,0 +1,21 @@
+.scanner-page { max-width: 860px; margin: 0 auto; padding: 32px; min-width: 0; }
+.scanner-header, .scanner-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.scanner-header { margin-bottom: 28px; }
+.scanner-header > div { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.scanner-page > .MuiAlert-root, .scanner-page > .ui-card { margin-bottom: 20px; }
+.scanner-stack { display: grid; gap: 20px; }
+.scanner-station { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.scanner-camera { overflow: hidden; border-radius: 16px; background: var(--surface-secondary-bg); min-height: 260px; width: 100%; position: relative; }
+.scanner-camera video { width: 100% !important; height: auto !important; display: block; border-radius: 16px; }
+.scanner-camera-idle { padding: 40px 24px; text-align: center; color: var(--text-secondary); }
+.scanner-result { padding: 20px; border-radius: 12px; background: var(--surface-secondary-bg); }
+.scanner-result h2 { margin: 0 0 12px; font-size: 22px; }
+.scanner-result dl { display: grid; grid-template-columns: auto 1fr; gap: 12px; margin: 16px 0 0; }
+.scanner-result dt { color: var(--text-secondary); }
+.scanner-result dd { margin: 0; overflow-wrap: anywhere; }
+.scanner-page button, .scanner-page a { min-height: 44px; }
+.scanner-note { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin: 0; }
+.scanner-fallback { display: grid; gap: 16px; }
+.scanner-fallback summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+.scanner-fallback form { display: grid; gap: 16px; }
+@media (max-width: 540px) { .scanner-page { padding: 20px 16px; } .scanner-header { margin-bottom: 24px; } .scanner-actions > button { flex: 1; } .scanner-result dl { grid-template-columns: 1fr; gap: 4px; } .scanner-result dd { margin-bottom: 12px; } }

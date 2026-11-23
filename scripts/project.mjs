@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process"
-import { createServer } from "node:net"
+import { createServer, createConnection } from "node:net"
 import { existsSync } from "node:fs"
 import { writeFile, mkdir } from "node:fs/promises"
 import { dirname, resolve, join } from "node:path"
@@ -112,6 +112,31 @@ export function availablePort(number) {
     server.listen(number, () => server.close(yes))
   })
 }
+/** Readiness applies to both PowerShell and Bash launchers. Never start FE against a dead API. */
+export async function waitForBackend(number, service, timeoutMs = 30000) {
+  let cancelled = false
+  const probe = () => new Promise(resolveProbe => {
+    const socket = createConnection({ host: "127.0.0.1", port: number })
+    const done = ready => { socket.destroy(); resolveProbe(ready) }
+    socket.once("connect", () => done(true))
+    socket.once("error", () => done(false))
+    socket.setTimeout(500, () => done(false))
+  })
+  const ready = async () => {
+    const deadline = Date.now() + timeoutMs
+    while (!cancelled && Date.now() < deadline) {
+      if (await probe()) return
+      await new Promise(r => setTimeout(r, 100))
+    }
+    if (!cancelled) throw new Error("API readiness timed out. Frontend was not started; inspect backend output above.")
+  }
+  try {
+    await Promise.race([
+      ready(),
+      service.done.then(result => { throw new Error(`API exited before readiness (exit ${result.code}). Frontend was not started; inspect backend output above.`) }),
+    ])
+  } finally { cancelled = true }
+}
 async function runApp(options, processes) {
   const backend = options.target !== "frontend", frontend = options.target !== "backend"
   if (backend) await loadEnvironment(options)
@@ -124,12 +149,14 @@ async function runApp(options, processes) {
   if (backend) {
     process.env.PORT = String(apiPort)
     console.log(`Backend: http://localhost:${apiPort}/api`)
-    jobs.push(processes.spawn([join(api, "scripts/start.mjs")], api).done)
+    const service = processes.spawn([join(api, "scripts/start.mjs")], api)
+    jobs.push(service.done)
+    if (frontend) { await waitForBackend(apiPort, service); console.log(`API ready on port ${apiPort}.`) }
   }
   if (frontend) {
     const vite = join(client, "node_modules/vite/bin/vite.js")
     if (!existsSync(vite)) throw new Error("Frontend dependencies missing. Run pnpm install at repository root.")
-    console.log(`Frontend: http://localhost:${clientPort}`)
+    console.log(`Frontend port: ${clientPort}; Vite prints the HTTP/HTTPS address below.`)
     jobs.push(processes.spawn([vite, "--port", String(clientPort), "--strictPort"], client).done)
   }
   const first = await Promise.race(jobs)

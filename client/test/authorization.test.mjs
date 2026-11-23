@@ -47,3 +47,12 @@ test("pending password identity cannot enter any business page",()=>{
  assert.equal(canVisit(pending,"/qr"),false)
  assert.equal(canVisit(pending,"/management","?tab=employees"),false)
 })
+
+test("classroom scanner requires explicit SEC access:decide on a valid scope",()=>{
+ assert.equal(canVisit(user(role("SEC")),"/scanner"),false)
+ assert.equal(canVisit(user(role("SEC",["access:decide"])),"/scanner"),true)
+ assert.equal(canVisit(user(role("SEC",["access:decide"],"TEAM")),"/scanner"),false)
+ assert.equal(canVisit(user(role("ADM",["iam:manage"])),"/scanner"),false)
+ assert.equal(canVisit(user(role("HR"),role("SEC",["access:decide"])),"/scanner"),true)
+ assert.equal(canVisit({...user(role("SEC",["access:decide"])),mustChangePassword:true},"/scanner"),false)
+})

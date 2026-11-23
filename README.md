@@ -12,7 +12,7 @@ Legacy prototype pages are redirected or explicitly unavailable.
 | --- | --- | --- | --- |
 | EMP | `/qr`, `/mobile/ma-qr` | `/api/qr/self`, `/api/qr/self/code` (and old self token alias), own session only | Employee lists, other employees' QR, account provisioning, configuration, audit |
 | HR | `/management?tab=employees`, `tab=organization` read | Scoped `/api/employees/**`, EMP-only account provisioning, QR issue/reissue/revoke, organization lookup | Personal QR without explicit EMP; station/readiness/integration configuration; general role administration |
-| SEC | `/management?tab=stations`, `tab=readiness`, organization lookup read | Scoped station/readiness reads, organization lookup | Employee management, personal QR without EMP, config writes/credentials and integration settings |
+| SEC | `/management?tab=stations`, `tab=readiness`; `/scanner` with `access:decide` | Scoped station/readiness/organization reads; scoped classroom demo scans with `access:decide` | Employee management, personal QR without EMP, config writes/credentials and integration settings |
 | ADM + `iam:manage` | Organization/stations/integrations/readiness administration | Scoped organization/configuration writes, station credentials, integrations and audit read | HR employee CRUD or personal QR unless separately assigned HR/EMP; no wildcard admin bypass |
 | HR/SEC + `audit:read` | `/audit` | Scoped audit query | Mutation/deletion of audit; a role label alone does not grant audit permission |
 | SUP | Authenticated workspace explaining current availability | Session endpoints | Team attendance/report API remains unimplemented; no fallback to factory-wide HR data |
@@ -159,3 +159,101 @@ Signing requires a server-only Ed25519 `QR_PRIVATE_KEY_PEM` and a stable `QR_KEY
 | POST | `/api/employees/:id/status` | HR changes ACTIVE/INACTIVE with reason and expectedVersion |
 
 The temporary-password response and static QR payload are sensitive. Do not save them in screenshots, console logs or shared evidence.
+
+## iPhone classroom QR scanner (TMC-108)
+
+This is the approved classroom simulation: SEC scans an employee's signed static QR and records a
+DEMO attendance event, not proof of physical passage through a turnstile. No TCS command is sent.
+The database distinguishes these rows with `attendance_events.source_type = DEMO` and
+`evidence_type = DEMO_QR_SCAN`; future payroll/export logic must exclude or explicitly handle demo data.
+
+### Prepare records
+
+1. ADM configures two active stations in the same active factory, one IN and one OUT.
+2. HR creates an active employee, current organization assignment, valid factory access grant,
+   employee login account and active signed QR credential.
+3. Employee logs in on the computer at `/qr` and displays their QR. Complete first-password change first.
+4. iPhone operator logs in separately as SEC with `access:decide` and GLOBAL/FACTORY scope.
+   HR/EMP/ADM alone cannot use `/scanner`; explicit multi-role grants still combine capabilities.
+
+### HTTPS on the local network
+
+Safari camera access requires a secure context and camera permission:
+[MDN getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia).
+Opening `http://<LAN-IP>:5173` is not sufficient for the scanner. The same-origin `/api` Vite proxy
+keeps login cookies and API requests on HTTPS without calling an HTTP API from an HTTPS page.
+If the API uses another port, set DEV_API_TARGET=http://127.0.0.1:<port> in client/.env.local.
+
+Find the computer's LAN IPv4 (`ipconfig` on Windows), then run from repository root:
+
+```powershell
+# Replace with the computer's current LAN IP; keep this terminal open while downloading the CA.
+pnpm.cmd https:lan --ip 192.168.1.53 --serve-ca
+```
+
+On macOS/Linux use `pnpm https:lan --ip <LAN-IP> --serve-ca`. The helper requires OpenSSL
+(uses Git for Windows' bundled OpenSSL when available, or OPENSSL_PATH / openssl on PATH).
+It generates/reuses a local CA, signs a90-day LAN certificate, configures client/.env.local TLS paths
+and appends exact HTTPS origins in api/.env. It never installs trust automatically, never prints private
+keys, and never changes QR signing keys. All CA/TLS files are under ignored `.local-certs/`.
+The optional LAN download server serves ONLY the public CA certificate, never a directory or private key.
+
+On the iPhone, on the same LAN:
+
+1. Safari opens `http://<LAN-IP>:5194/tmc-local-ca.cer` and downloads the certificate profile.
+2. Install the downloaded profile through Settings > General > VPN & Device Management.
+3. Enable full trust for **TMC Classroom Local CA** under Settings > General > About > Certificate Trust Settings.
+   Manual certificate installation alone does not enable SSL trust:
+   [Apple instructions](https://support.apple.com/en-us/102390).
+4. Stop the public CA download helper with Ctrl+C once installed. Restart the app FE/BE to load TLS/origin changes.
+5. If Windows requests firewall access, allow the app on the private LAN network; no router port forwarding is needed.
+6. Safari opens `https://<LAN-IP>:5173/scanner`, logs in as SEC, selects the configured IN or OUT station,
+   then taps **Mo camera quet QR** and allows the rear camera. Point at the QR displayed on the computer.
+7. A green result means a demo attendance event was recorded. An information result means the same event
+   was already recorded. Denied/unknown/network failure never means successful attendance.
+8. Use the next-scan button for the next employee. For exit, select the separate OUT station; direction is
+   never inferred by alternating earlier scans and cannot be supplied in the request body.
+
+The page also supports local image capture/selection and a masked payload test input. Images are decoded
+in the browser, not uploaded. No raw QR, image or session secret is stored in browser persistence.
+On network timeout retry the SAME pending eventId; do not reload or create a fresh scan to guess the result.
+Losing the page loses the in-memory retry state; this increment is online-only, not an offline attendance journal.
+If the LAN IP changes, rerun the helper with the new IP and restart FE/BE; the CA is retained so it need not
+be reinstalled unless the CA itself is replaced. Uninstall the local certificate profile when no longer needed.
+
+### API and database evidence
+
+- `GET /api/scanner/stations`: active stations in the SEC operator's qualifying scope.
+- `POST /api/scanner/stations/:id/scans`: body `{eventId, token}` only; session cookie authentication.
+  This human-operated DEMO namespace is separate from station bearer-authenticated hardware endpoints.
+- Result includes `CLASSROOM_DEMO`, server direction/time, decision, reason, attendance state and minimal employee identity.
+- Server verifies active station/factory, QR signature and current revocation/employee state, current assignment and access grant.
+- Attempt + demo attendance event/revision + audit commit atomically. Same station/eventId retry is idempotent;
+  changed data returns409; rapid same employee/factory/direction within10seconds is denied as duplicate.
+- No new tables/migration are needed. Existing QR/account migrations must already be applied. No seed/reset required.
+
+To inspect one scan (use its response attendanceEventId as a bound parameter):
+
+```sql
+SELECT e.id, e.source_type, e.evidence_type, r.direction, r.occurred_at, r.activity_factory_id
+FROM attendance_events e
+JOIN attendance_event_revisions r ON r.event_id=e.id AND r.revision_no=e.current_revision_no
+WHERE e.id = $1;
+```
+
+Checks: `pnpm --dir api test:scanner`, `pnpm --dir client test:authorization`, `pnpm --dir client build`.
+Physical iPhone camera permission/trust and QR readability must still be verified on the actual phone;
+desktop mocked browser tests do not prove that hardware behavior.
+
+Launcher troubleshooting: the shared Node runner used by `run.ps1` and `run.sh` waits up to30seconds for the configured API port before
+starting Vite. If the backend exits, the frontend is not launched; inspect the backend output
+in the launcher terminal. Frontend uses a strict port
+instead of silently moving to5174. A502 from the HTTPS /api proxy means the backend is
+unavailable; it is not an employee authorization error. Start one launcher instance only.
+
+Camera readability follow-up: the scanner decodes the full video frame rather than a fixed220px crop,
+requests rear-camera1280x720 as ideal video constraints, and shows a searching hint after8seconds.
+The computer's employee QR is rendered360px with a white quiet zone and black modules. Keep the whole
+QR and white border visible; move the phone farther away rather than filling/cropping the camera view.
+Regression evidence uses real html5-qrcode decoding of a long QR from canvas video frames, not a mocked
+success callback. Camera source/API result are synthetic; physical iPhone focus/lighting still need testing.

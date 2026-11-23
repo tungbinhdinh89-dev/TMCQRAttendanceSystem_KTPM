@@ -7,7 +7,7 @@ import { tmpdir } from "node:os"
 import { join } from "node:path"
 import { spawnSync } from "node:child_process"
 import { createRequire } from "node:module"
-import { parseArgs, migrationSource, migrationStatus, Processes, availablePort, root } from "../project.mjs"
+import { parseArgs, migrationSource, migrationStatus, Processes, availablePort, waitForBackend, root } from "../project.mjs"
 
 const ts = createRequire(import.meta.url)("typescript")
 test("run defaults to both services; mode and migration flags are strict and path-safe",()=>{
@@ -66,4 +66,17 @@ test("shell wrappers use quoted script-relative paths and LF, not cwd or a Windo
     const ps=await readFile(join(root,"scripts",name+".ps1"),"utf8")
     assert.match(ps,/\$PSScriptRoot/);assert.ok(ps.includes('@args'));assert.match(ps,/exit \$LASTEXITCODE/)
   }
+})
+
+test("backend readiness waits for listener and rejects early process exit",async t=>{
+ const server=createServer(socket=>socket.end())
+ server.listen(0);await once(server,"listening");const port=server.address().port
+ await new Promise(r=>server.close(r))
+ const timer=setTimeout(()=>server.listen(port),200)
+ t.after(()=>{clearTimeout(timer);if(server.listening)server.close()})
+ await waitForBackend(port,{done:new Promise(()=>{})},2000)
+ assert.equal(server.listening,true)
+ const processes=new Processes();t.after(()=>processes.stop())
+ const service=processes.spawn(["-e","process.exit(3)"])
+ await assert.rejects(waitForBackend(1,service,2000),/API exited before readiness/)
 })

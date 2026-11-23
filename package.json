@@ -18,7 +18,8 @@
     "db:add": "node scripts/project.mjs add",
     "db:update": "node scripts/project.mjs update",
     "db:check": "node scripts/project.mjs check",
-    "test:scripts": "node --test scripts/test/project.test.mjs"
+    "test:scripts": "node --test scripts/test/project.test.mjs",
+    "https:lan": "node scripts/lan-https.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

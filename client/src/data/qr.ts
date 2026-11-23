@@ -1,5 +1,6 @@
+import { apiBase } from "../lib/api-base"
 import { z } from "zod"
-const base = (import.meta.env.VITE_API_URL || "http://localhost:3000/api").replace(/\/$/, "")
+const base = apiBase
 const credential = z.object({ id: z.string(), status: z.string(), credentialRef: z.string() })
 const statusSchema = z.object({ credential: credential.nullable(), signingAvailable: z.boolean(), serverTime: z.string().datetime() })
 const staticSchema = z.object({ token: z.string().min(1), credentialId: z.string(), issuedAt: z.string().datetime(), serverTime: z.string().datetime() })
