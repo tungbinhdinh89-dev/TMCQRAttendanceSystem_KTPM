@@ -64,27 +64,49 @@ Chạy cả backend và frontend:
 pnpm.cmd dev:full
 ```
 
-All API launch and database commands load the same configuration: terminal DATABASE_URL first,
-then api/.env, then root env-variable.txt as a legacy fallback. No api/env-variable.txt is required.
-Starting the app does not create, migrate or seed the database. The API is built before starting
-so new routes cannot be missed because of an old dist directory. Stop an existing backend before
-starting another on port 3000.
+## Project scripts: Windows, macOS and Linux
 
-| Command from repository root | Action |
-| --- | --- |
-| `pnpm.cmd dev` | Frontend only |
-| `pnpm.cmd dev:api` | Build/start backend only |
-| `pnpm.cmd dev:full` | Build/start backend and frontend |
-| `pnpm.cmd db:status` | Read-only connection/table-count check |
-| `pnpm.cmd db:show` | Build and list applied/pending migrations; no app server |
-| `pnpm.cmd db:migrate` | Build and apply pending migrations to the configured database; no seed |
-| `powershell -ExecutionPolicy Bypass -File scripts/updatedb.ps1` | Migrate and check status |
-| `powershell -ExecutionPolicy Bypass -File scripts/updatedb.ps1 -Seed` | Explicitly migrate/check AND seed demo data; requires demo secrets |
+Prerequisites: Node.js22+, pnpm, `pnpm install` at repository root, and an existing PostgreSQL database.
+The four script pairs share one Node runner; they work from any current directory.
+Database config precedence is terminal DATABASE_URL > api/.env > root env-variable.txt.
+Secrets stay in api/.env (ignored by Git). Frontend-only mode does not need DB configuration.
 
-PowerShell wrappers use `-Frontend`, `-Backend`, `-All`; `-DatabaseName <name>` explicitly overrides
-only the database name for that invocation. Otherwise the database in DATABASE_URL is preserved.
-`db:status` always stays read-only even when the terminal has a stale DB_ACTION=ensure.
-Do not run seed or test:integration against business data; the integration command includes demo seed.
+| Action | Windows PowerShell | macOS / Linux terminal |
+| --- | --- | --- |
+| Start FE + BE | `.\scripts\run.ps1` | `./scripts/run.sh` |
+| Frontend only | `.\scripts\run.ps1 --frontend` | `./scripts/run.sh --frontend` |
+| Backend only | `.\scripts\run.ps1 --backend` | `./scripts/run.sh --backend` |
+| Generate migration from entity/DB diff | `.\scripts\add.ps1 AddEmployeeEmail` | `./scripts/add.sh AddEmployeeEmail` |
+| Create empty migration for manual SQL | `.\scripts\add.ps1 ManualChange --empty` | `./scripts/add.sh ManualChange --empty` |
+| Apply pending migrations | `.\scripts\update.ps1` | `./scripts/update.sh` |
+| Check DB + migration list/status | `.\scripts\check.ps1` | `./scripts/check.sh` |
+
+If PowerShell execution policy blocks local scripts, invoke for example:
+`powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1 --frontend`.
+Shell scripts are executable in Git; `bash scripts/run.sh` also works.
+Pass `--help` to any script. `--database-name OtherDb` explicitly overrides only the database
+name for backend/database commands; otherwise the configured DATABASE_URL target is preserved.
+
+- `run` uses backend PORT (default3000) and frontend VITE_PORT (default5173), builds the API first,
+  refuses occupied ports without killing existing apps, and stops companion services when one exits.
+  Ctrl+C stops the processes started by this invocation. It never runs migrations or seeds automatically.
+- `add Name` builds the API and generates a TypeORM TS migration in
+  `api/src/platform/infrastructure/database/migrations/`. Apply existing pending migrations first.
+  No schema diff means no file is created. `--empty` works offline. Always review both up/down before update.
+- `update` applies only pending migrations with TypeORM transaction mode all and records history.
+  A PostgreSQL advisory lock prevents overlapping updates through these scripts. No seed/reset/database creation.
+  An already-current DB is a no-op. Missing historical source is an error, not permission to rewrite history.
+- `check` is read-only and prints connection status plus every migration as APPLIED, PENDING / NOT APPLIED,
+  or MISSING_SOURCE, with totals. Pending alone is a successful check; connection/source errors exit nonzero.
+  It does not create a missing database or migration-history table and ignores legacy DB_ACTION values.
+- API builds clean dist to avoid running orphaned compiled migrations. Migration scripts execute with API cwd
+  and an absolute migrations glob, so launching from another folder gives the same result.
+
+Cross-platform pnpm aliases: `pnpm dev` / `pnpm dev:full` (both), `pnpm dev:client`, `pnpm dev:api`,
+`pnpm db:add -- AddEmployeeEmail`, `pnpm db:update`, `pnpm db:check`, `pnpm test:scripts`.
+Old db:status/db:show/db:migrate aliases remain compatible; old dev.ps1/migrate.ps1/updatedb.ps1
+and the separate db-check.mjs implementation are removed. `test:integration` includes demo seed;
+do not use it against business data. Demo seeding remains a separate explicit API command.
 
 Backend NestJS hiện cung cấp session auth tối thiểu:
 
