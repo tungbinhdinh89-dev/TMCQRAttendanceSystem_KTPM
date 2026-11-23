@@ -5,8 +5,8 @@
 Web pages (`/qr`, `/management`) and backend endpoints (`/api/...`) are separate boundaries.
 Every real business API checks the server session and its role/scope; hiding a menu is not authorization.
 Use `/dang-nhap` for real username/password login. Legacy role selection and localStorage account IDs
-cannot grant access to business pages. Public demo bootstrap contains an empty static shell, never real
-employee/account/station/grant data. Legacy prototype pages are redirected or explicitly unavailable.
+cannot grant access to business pages. The demo bootstrap endpoint and its client fetch have been removed entirely.
+Legacy prototype pages are redirected or explicitly unavailable.
 
 | Role | Actual web area | Allowed API capabilities | Denied / not implemented |
 | --- | --- | --- | --- |
@@ -93,11 +93,11 @@ Backend NestJS hiện cung cấp session auth tối thiểu:
 
 Chạy kiểm thử auth bằng `pnpm --dir api test`; seed và kiểm thử PostgreSQL chạy riêng bằng `pnpm --dir api seed:demo` và `pnpm --dir api test:integration`.
 
-**Giới hạn:** Backend có bootstrap API cho dữ liệu demo và session auth tối thiểu. Frontend vẫn dùng phiên prototype; các API nghiệp vụ QR, kiosk, attendance và việc tích hợp session vào frontend chưa hoàn chỉnh. Không dùng hệ thống hiện tại để kiểm soát ra vào thực tế.
+**Limitations:** Real session authentication, scoped employee management and static QR are implemented; kiosk/TCS, attendance and reporting remain outside the completed backend scope. Legacy prototype pages do not authorize business access.
 
 ## HR account onboarding and static QR (TMC-106)
 
-This flow uses real backend cookie sessions, separately from the legacy demo role chooser.
+This flow uses real backend cookie sessions, without the removed legacy demo role chooser.
 
 1. HR signs in at `/management?tab=employees`, opens an active employee and provisions an account. The account receives only `EMP` with `SELF` scope; HR cannot select privileged roles. Username and employee binding are unique.
 2. The generated temporary password is shown once in the successful response. HR hands it directly to the employee. Closing the panel clears it; no password is stored in browser persistence or audit. Email delivery and password recovery are outside this increment.

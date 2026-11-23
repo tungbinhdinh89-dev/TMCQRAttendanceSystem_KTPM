@@ -51,7 +51,7 @@ export function buildApiDocument(app: INestApplication): OpenAPIObject {
   for (const [path, item] of Object.entries(document.paths)) for (const method of methods) {
     const operation = item?.[method]
     if (!operation) continue
-    const publicRoute = path === "/api/auth/login" || path.startsWith("/api/demo/")
+    const publicRoute = path === "/api/auth/login"
     operation.security = publicRoute ? [] : [{ session: [] }]
     operation.tags = [path.includes("auth/") || path === "/api/me" ? "Authentication" : path.includes("qr/") || path.includes("qr-credential") ? "QR Credentials" : path.includes("employees") ? "Employees" : path.includes("organization") ? "Organization" : path.includes("configuration") || path.includes("heartbeat") ? "Gate Configuration" : path.includes("audit") ? "Audit" : "Workspace"]
     operation.responses = { ...operation.responses, "400": response("Invalid request", ref("Error")), ...(!publicRoute ? { "401": response("Missing/invalid session or station credential", ref("Error")), "403": response("Permission or scope denied", ref("Error")) } : {}) }

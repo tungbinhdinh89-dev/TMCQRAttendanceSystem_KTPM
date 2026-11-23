@@ -6,7 +6,6 @@ import { auditScope } from "../dist/modules/iam/application/audit.service.js"
 import { AuthService } from "../dist/modules/iam/application/auth.service.js"
 import { StationConfigurationService } from "../dist/modules/gate/application/station-configuration.service.js"
 import { QrService } from "../dist/modules/eqr/application/qr.service.js"
-import { DemoBootstrapController } from "../dist/modules/cfg/presentation/demo-bootstrap.controller.js"
 
 const factory="00000000-0000-4000-8000-000000000001"
 const otherFactory="00000000-0000-4000-8000-000000000002"
@@ -92,14 +91,6 @@ test("anonymous cookie identity and cookie-as-station credentials are rejected",
  await assert.rejects(station.heartbeat(factory,"tmc_session=not-a-station-bearer",{}),e=>e.getStatus()===401)
 })
 
-test("public demo bootstrap returns no business or account data and cannot query DB",()=>{
- const controller=new DemoBootstrapController(noData)
- const payload=controller.bootstrap()
- for(const key of ["employees","accounts","shifts","attendance","events","adjustments","notifications","gates","accessGrants"]){assert.deepEqual(payload.data[key],[])}
- assert.equal(payload.data.version,1)
- assert.equal(typeof payload.traceId,"string")
-})
-
 test("HTTP route boundaries reject missing/wrong roles before database access",async t=>{
  const {Test}=await import("@nestjs/testing")
  const {DataSource}=await import("typeorm")
@@ -125,6 +116,6 @@ test("HTTP route boundaries reject missing/wrong roles before database access",a
   const response=await fetch(`${base}/api/${path}`,{method,...(method==="POST"?{headers:{"Content-Type":"application/json"},body:JSON.stringify({reason:"unit-test"})}:{})})
   assert.equal(response.status,expected,`${code??"anonymous"} ${method} ${path}`)
  }
- for(const code of [null,"EMP","HR","SEC","ADM","SUP","EXE"]){current=code?identity([role(code)]):null;const response=await fetch(`${base}/api/demo/bootstrap`);assert.equal(response.status,200);assert.deepEqual((await response.json()).data.accounts,[])}
- assert.equal(queries,0,"Neither denied routes nor public demo route may read business persistence")
+ for(const code of [null,"EMP","HR","SEC","ADM","SUP","EXE"]){current=code?identity([role(code)]):null;const response=await fetch(`${base}/api/demo/bootstrap`);assert.equal(response.status,404)}
+ assert.equal(queries,0,"Denied routes and removed endpoints must not read business persistence")
 })

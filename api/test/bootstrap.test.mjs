@@ -5,7 +5,7 @@ import { DataSource } from "typeorm"
 import { AppModule } from "../dist/app.module.js"
 import { AuditService } from "../dist/modules/iam/application/audit.service.js"
 
-test("auth and demo routes bootstrap with the shared database provider", async (t) => {
+test("auth routes bootstrap and removed demo endpoint stays unavailable", async (t) => {
   const module = await Test.createTestingModule({ imports: [AppModule] })
     .overrideProvider(DataSource)
     .useValue({ query: async () => { throw new Error("Anonymous routes must not query business data") } })
@@ -37,9 +37,5 @@ test("auth and demo routes bootstrap with the shared database provider", async (
   }
 
   const bootstrap = await fetch(`${baseUrl}/api/demo/bootstrap`)
-  assert.equal(bootstrap.status, 200)
-  const payload = await bootstrap.json()
-  assert.deepEqual(payload.data.employees, [])
-  assert.deepEqual(payload.data.accounts, [])
-  assert.deepEqual(payload.data.gates, [])
+  assert.equal(bootstrap.status, 404)
 })
