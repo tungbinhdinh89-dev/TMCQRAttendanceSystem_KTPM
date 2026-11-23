@@ -30,3 +30,7 @@ env-variable.txt
 /.codex
 /.github
 /plans
+# Local-only documentation and package cache
+/doc/
+/.pnpm-store/
+!.env.example
