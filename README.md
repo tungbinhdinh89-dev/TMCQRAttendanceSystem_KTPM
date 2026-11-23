@@ -222,3 +222,9 @@ WHERE e.id = $1;
 Checks: `pnpm --dir api test:scanner`, `pnpm --dir client test:authorization`, `pnpm --dir client build`.
 Physical iPhone camera permission/trust and QR readability must still be verified on the actual phone;
 desktop mocked browser tests do not prove that hardware behavior.
+
+Launcher troubleshooting: `run.ps1` waits up to30seconds for the configured API port before
+starting Vite. If the hidden backend exits, the frontend is not launched; inspect
+`logs/api-run-<PORT>-error.log` and `logs/api-run-<PORT>.log`. Frontend uses a strict port
+instead of silently moving to5174. A502 from the HTTPS /api proxy means the backend is
+unavailable; it is not an employee authorization error. Start one launcher instance only.
