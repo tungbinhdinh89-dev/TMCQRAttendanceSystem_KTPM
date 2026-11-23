@@ -14,7 +14,10 @@ export interface EmployeeAccessGrant {
 }
 export interface EmployeeDetail extends EmployeeProfile { assignments: EmployeeAssignment[]; accessGrants: EmployeeAccessGrant[] }
 export interface EmployeePage { items: EmployeeProfile[]; total: number; page: number; pageSize: number }
-export interface CreateEmployeeRequest { employeeCode: string; externalHrId: string; fullName: string; email?: string | null; factoryId: string; departmentId?: string | null; teamId?: string | null }
+export interface CreateEmployeeRequest { employeeCode?: string; generateEmployeeCode?: boolean; externalHrId: string; fullName: string; email?: string | null; factoryId: string; departmentId?: string | null; teamId?: string | null }
+export interface EmployeeCodeSuggestion { employeeCode: string; prefix: string; suggested: true }
+export interface ImportEmployeesRequest { rows: CreateEmployeeRequest[] }
+export interface ImportEmployeesResult { imported: number; items: Array<Pick<EmployeeProfile,"id"|"employeeCode"|"externalHrId"|"fullName">> }
 export interface UpdateEmployeeRequest { expectedVersion: number; fullName?: string; externalHrId?: string; email?: string | null }
 export interface EmployeeStatusRequest { expectedVersion: number; status: "ACTIVE" | "INACTIVE"; reason: string }
 export interface AssignEmployeeRequest { factoryId: string; departmentId?: string | null; teamId?: string | null; validFrom: string; validTo?: string | null; reason: string }

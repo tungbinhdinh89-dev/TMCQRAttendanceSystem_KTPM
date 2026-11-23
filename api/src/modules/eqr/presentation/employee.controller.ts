@@ -11,6 +11,8 @@ export class EmployeeController {
     return this.auth.me(readCookie(request,SESSION_COOKIE))
   }
   @Get() @Header("Cache-Control","no-store") async list(@Req() r:Request,@Query() q:Record<string,unknown>) {return this.employees.list(await this.identity(r),q)}
+  @Get("next-code") @Header("Cache-Control","no-store") async previewCode(@Req() r:Request,@Query() q:Record<string,unknown>) {return this.employees.previewCode(await this.identity(r),q.factoryId)}
+  @Post("import") @Header("Cache-Control","no-store") async importEmployees(@Req() r:Request,@Body() b:Record<string,unknown>) {return this.employees.importEmployees(await this.identity(r,true),b??{})}
   @Get(":id") @Header("Cache-Control","no-store") async detail(@Req() r:Request,@Param("id") id:string) {return this.employees.detail(await this.identity(r),id)}
   @Post() async create(@Req() r:Request,@Body() b:Record<string,unknown>) {return this.employees.create(await this.identity(r,true),b??{})}
   @Patch(":id") async update(@Req() r:Request,@Param("id") id:string,@Body() b:Record<string,unknown>) {return this.employees.update(await this.identity(r,true),id,b??{})}
