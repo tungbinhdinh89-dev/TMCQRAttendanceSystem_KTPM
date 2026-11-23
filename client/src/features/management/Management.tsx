@@ -56,7 +56,11 @@ export default function Management() {
   }, [identity, section, query, revision])
   const choose = (rows: RecordRow[]) => rows.map(row => ({ value: row.id, label: text(row, "name") || text(row, "code") }))
   const orgFields: Field[] = [{ key: "factoryId", label: "Nhà máy", options: choose(org.factories), required: true }, { key: "departmentId", label: "Phòng ban", options: choose(org.departments) }, { key: "teamId", label: "Tổ", options: choose(org.teams) }]
-  const open = (title: string, path: string, method: string, fields: Field[], row?: RecordRow, fixed?: Record<string, unknown>) => { setError(""); setSuccess(""); setEditor({ title, path, method, fields, fixed, values: Object.fromEntries(fields.map(f => [f.key, row ? text(row, f.key) : ""])) }) }
+  const open = (title: string, path: string, method: string, fields: Field[], row?: RecordRow, fixed?: Record<string, unknown>) => {
+    setError(""); setSuccess("")
+    if (path === "/employees" && method === "POST") { setCreatingEmployee(true); return }
+    setEditor({ title, path, method, fields, fixed, values: Object.fromEntries(fields.map(f => [f.key, row ? text(row, f.key) : ""])) })
+  }
   const editorOptions = (field: Field) => {
     if (!editor || !field.options) return field.options
     if (field.key === "factoryId") return choose(org.factories.filter(row => row.status === "ACTIVE"))
