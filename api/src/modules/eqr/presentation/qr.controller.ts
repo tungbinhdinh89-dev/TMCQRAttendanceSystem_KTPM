@@ -8,6 +8,7 @@ export class QrController {
   constructor(private readonly service:QrService,private readonly auth:AuthService){}
   private async identity(req:Request,write=false){if(write)await this.auth.verifyRequestOrigin(req.headers.origin,"QR_WRITE");return this.auth.me(readCookie(req,SESSION_COOKIE))}
   @Get("qr/self") @Header("Cache-Control","no-store") async status(@Req() req:Request){return this.service.status(await this.identity(req))}
+  @Get("qr/self/code") @Header("Cache-Control","no-store") async code(@Req() req:Request){return this.service.issue(await this.identity(req))}
   @Post("qr/self/token") @Header("Cache-Control","no-store") async issue(@Req() req:Request,@Body() input:Record<string,unknown>){
     if(input&&Object.keys(input).length)throw new BadRequestException("Self QR accepts no employee selector")
     return this.service.issue(await this.identity(req,true))

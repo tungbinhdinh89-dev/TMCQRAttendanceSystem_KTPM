@@ -9,5 +9,6 @@ export class UserOrmEntity extends VersionedOrmEntity {
   @Column({ type: "varchar", length: 100 }) username!: string
   @Column({ name: "password_hash", type: "text" }) passwordHash!: string
   @Column({ type: "varchar", length: 16, default: "ACTIVE" }) status!: string
+  @Column({ name: "must_change_password", type: "boolean", default: false }) mustChangePassword!: boolean
   @Column({ name: "last_login_at", type: "timestamptz", nullable: true }) lastLoginAt!: Date | null
 }

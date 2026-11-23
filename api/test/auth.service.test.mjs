@@ -62,6 +62,7 @@ function createFixture() {
       throw new Error(`Unexpected repository ${entity.name}`)
     },
     transaction: async (callback) => callback({
+      getRepository: (entity) => dataSource.getRepository(entity),
       save: sessionRepository.save,
       update: async (entity, id, patch) => entity.name === "UserSessionOrmEntity"
         ? sessionRepository.update(id, patch)

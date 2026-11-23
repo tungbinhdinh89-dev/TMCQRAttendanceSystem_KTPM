@@ -3,7 +3,7 @@ import type { AuditPage, AuditQuery } from "../../../contracts/src/audit"
 
 const baseUrl = (import.meta.env.VITE_API_URL || "http://localhost:3000/api").replace(/\/$/, "")
 const identitySchema = z.object({
-  userId: z.string(), username: z.string(),
+  userId: z.string(), username: z.string(), mustChangePassword: z.boolean().optional().default(false),
   roles: z.array(z.object({ code: z.string(), scopeType: z.string(), permissions: z.array(z.string()) })),
 })
 export type AuditIdentity = z.infer<typeof identitySchema>

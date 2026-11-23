@@ -1,4 +1,4 @@
-﻿import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common"
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common"
 import { randomUUID } from "node:crypto"
 import { DataSource, EntityManager } from "typeorm"
 import { AuditService } from "../../iam/application/audit.service"

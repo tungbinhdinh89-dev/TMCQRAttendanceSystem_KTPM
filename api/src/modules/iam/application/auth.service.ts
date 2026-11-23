@@ -1,5 +1,5 @@
 import { createHash, randomBytes, randomUUID, scryptSync, timingSafeEqual } from "node:crypto"
-import { ForbiddenException, Injectable, UnauthorizedException } from "@nestjs/common"
+import { BadRequestException, ForbiddenException, Injectable, UnauthorizedException } from "@nestjs/common"
 import { allowedOrigins } from "../../../platform/http/allowed-origins"
 import { AuditService } from "./audit.service"
 import type { AuditPort } from "./ports/audit.port"
@@ -19,6 +19,7 @@ export type SessionIdentity = {
   userId: string
   username: string
   employeeId: string
+  mustChangePassword?: boolean
   employee: { employeeCode: string; fullName: string; status: string }
   roles: Array<{
     code: string
@@ -68,6 +69,12 @@ export class AuthService {
       revokeReason: null,
     })
     await this.dataSource.transaction(async (manager) => {
+      // Match employee deactivation lock order; never create a new live session after revocation.
+      const liveEmployee = await manager.getRepository(EmployeeOrmEntity).findOne({ where: { id: employee.id }, lock: { mode: "pessimistic_write" } })
+      const liveUser = await manager.getRepository(UserOrmEntity).findOne({ where: { id: user.id }, lock: { mode: "pessimistic_write" } })
+      if (!liveEmployee || liveEmployee.status !== "ACTIVE" || !liveUser || liveUser.status !== "ACTIVE" || liveUser.passwordHash !== user.passwordHash) {
+        throw new UnauthorizedException({ code: "AUTH_INVALID_CREDENTIALS", message: "Credentials or employee status changed; sign in again" })
+      }
       await manager.save(session)
       await manager.update(UserOrmEntity, user.id, { lastLoginAt: new Date() })
       await this.audit.write({ actorType: "USER", actorUserId: user.id, action: "AUTH_LOGIN", objectType: "AUTH", objectId: user.id, outcome: "SUCCESS", correlationId }, manager)
@@ -76,7 +83,7 @@ export class AuthService {
     return { token, expiresAt, identity }
   }
 
-  async me(token: string | undefined): Promise<SessionIdentity> {
+  async me(token: string | undefined, allowPasswordChange = false): Promise<SessionIdentity> {
     const session = await this.findSession(token)
     const user = await this.dataSource.getRepository(UserOrmEntity).findOne({ where: { id: session.userId } })
     if (!user || user.status !== "ACTIVE") {
@@ -88,8 +95,32 @@ export class AuthService {
       await this.audit.write({actorType:"USER",actorUserId:user.id,action:"AUTH_SESSION",objectType:"AUTH",objectId:"session",outcome:"DENIED",reason:"EMPLOYEE_INACTIVE"})
       throw new UnauthorizedException({ code: "AUTH_EMPLOYEE_INACTIVE", message: "Employee is inactive" })
     }
+    if (user.mustChangePassword && !allowPasswordChange) {
+      throw new ForbiddenException({ code: "AUTH_PASSWORD_CHANGE_REQUIRED", message: "Change your temporary password before continuing" })
+    }
     await this.dataSource.getRepository(UserSessionOrmEntity).update(session.id, { lastSeenAt: new Date() })
     return this.identityFor(user, employee)
+  }
+
+  async changePassword(token: string | undefined, currentPassword: unknown, newPassword: unknown): Promise<void> {
+    if (typeof currentPassword !== "string" || !currentPassword || currentPassword.length > 1024 || typeof newPassword !== "string" || newPassword.length < 12 || newPassword.length > 128 || !newPassword.trim() || newPassword === currentPassword) {
+      throw new BadRequestException({ code: "AUTH_PASSWORD_INVALID", message: "New password must contain 12-128 characters and differ from the current password" })
+    }
+    const identity = await this.me(token, true)
+    await this.dataSource.transaction(async manager => {
+      const employee = await manager.getRepository(EmployeeOrmEntity).findOne({ where: { id: identity.employeeId }, lock: { mode: "pessimistic_write" } })
+      const user = await manager.getRepository(UserOrmEntity).findOne({ where: { id: identity.userId }, lock: { mode: "pessimistic_write" } })
+      const session = await manager.getRepository(UserSessionOrmEntity).findOne({ where: { tokenHash: hashToken(token!) }, lock: { mode: "pessimistic_write" } })
+      if (!employee || employee.status !== "ACTIVE" || !user || user.status !== "ACTIVE" || !session || session.userId !== user.id || session.revokedAt || session.expiresAt.getTime() <= Date.now()) {
+        throw new UnauthorizedException({ code: "AUTH_SESSION_INVALID", message: "Session is invalid" })
+      }
+      if (!verifyPassword(currentPassword, user.passwordHash)) {
+        throw new UnauthorizedException({ code: "AUTH_CURRENT_PASSWORD_INVALID", message: "Current password is incorrect" })
+      }
+      await manager.update(UserOrmEntity, user.id, { passwordHash: encodePassword(newPassword), mustChangePassword: false })
+      await manager.query("UPDATE user_sessions SET revoked_at=NOW(),revoke_reason='PASSWORD_CHANGED' WHERE user_id=$1 AND revoked_at IS NULL", [user.id])
+      await this.audit.write({ actorType: "USER", actorUserId: user.id, action: "AUTH_PASSWORD_CHANGE", objectType: "USER", objectId: user.id, outcome: "SUCCESS" }, manager)
+    })
   }
 
   async logout(token: string | undefined): Promise<void> {
@@ -172,6 +203,7 @@ export class AuthService {
       userId: user.id,
       username: user.username,
       employeeId: employee.id,
+      mustChangePassword: user.mustChangePassword === true,
       employee: { employeeCode: employee.employeeCode, fullName: employee.fullName, status: employee.status },
       roles: [...roleMap.values()],
     }

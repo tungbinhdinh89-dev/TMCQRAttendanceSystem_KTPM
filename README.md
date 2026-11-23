@@ -96,3 +96,45 @@ Backend NestJS hiện cung cấp session auth tối thiểu:
 Chạy kiểm thử auth bằng `pnpm --dir api test`; seed và kiểm thử PostgreSQL chạy riêng bằng `pnpm --dir api seed:demo` và `pnpm --dir api test:integration`.
 
 **Giới hạn:** Backend có bootstrap API cho dữ liệu demo và session auth tối thiểu. Frontend vẫn dùng phiên prototype; các API nghiệp vụ QR, kiosk, attendance và việc tích hợp session vào frontend chưa hoàn chỉnh. Không dùng hệ thống hiện tại để kiểm soát ra vào thực tế.
+
+## HR account onboarding and static QR (TMC-106)
+
+This flow uses real backend cookie sessions, separately from the legacy demo role chooser.
+
+1. HR signs in at `/management?tab=employees`, opens an active employee and provisions an account. The account receives only `EMP` with `SELF` scope; HR cannot select privileged roles. Username and employee binding are unique.
+2. The generated temporary password is shown once in the successful response. HR hands it directly to the employee. Closing the panel clears it; no password is stored in browser persistence or audit. Email delivery and password recovery are outside this increment.
+3. Employee opens `/qr` (also `/mobile/ma-qr`) and signs in. Until they change the temporary password, backend business APIs return `403 AUTH_PASSWORD_CHANGE_REQUIRED`. A new password must be 12–128 characters and differ from the current password. A successful change revokes all sessions; sign in again with the new password.
+4. HR explicitly issues the employee's QR credential. The signed static payload contains an opaque credential reference, not employee name, HRS ID or employee code. Employee retrieval returns the same payload across refreshes and logins. HR reissue replaces it and invalidates the previous code.
+5. HR revokes QR or marks the employee INACTIVE. Deactivation revokes sessions, QR credentials/tokens and access grants in the existing transaction. An inactive employee cannot log in. Reactivation does not restore revoked QR or access grants; HR must issue/grant again.
+
+QR validation always requires the server to check the live credential, employee and signing-key state. A static code can be copied and is reusable while valid; it is not proof of physical passage. Kiosk/TCS/attendance processing is outside this increment. Direction must come from authenticated station configuration in future gate processing.
+
+### Database and key setup
+
+Schema migrations are authored, not automatically applied. `synchronize` and `migrationsRun` stay false. Review and apply only to your intended configured database using the normal migration workflow:
+
+```powershell
+pnpm.cmd --dir api build
+pnpm.cmd --dir api exec node --import ./scripts/load-env.mjs ./node_modules/typeorm/cli.js migration:show -d dist/platform/infrastructure/database/data-source.js
+# After verifying the intended DATABASE_URL target:
+pnpm.cmd --dir api exec node --import ./scripts/load-env.mjs ./node_modules/typeorm/cli.js migration:run -d dist/platform/infrastructure/database/data-source.js
+```
+
+New migrations add `users.must_change_password`, persisted static QR payload and nullable QR token expiry. Existing users default to no forced password change; only newly provisioned accounts are forced. Old short-lived QR payloads are not accepted by the static QR validator; HR must reissue legacy credentials. Rollback revokes static tokens before restoring non-null expiry; it does not restore earlier QR codes. Back up before schema deployment.
+
+Signing requires a server-only Ed25519 `QR_PRIVATE_KEY_PEM` and a stable `QR_KEY_ID`; do not commit or send private key material to the browser. Keep the key stable; changing the configured signer must not silently alter a previously issued code. Retiring/revoking verification metadata invalidates associated QR codes. No seed/reset is needed for this feature.
+
+### API reference for this flow
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/employees/:id/account` | HR checks the scoped employee account without password/hash |
+| POST | `/api/employees/:id/account` | HR provisions `{username}`; returns generated temporary password once |
+| POST | `/api/auth/change-password` | Authenticated `{currentPassword,newPassword}`; invalidates sessions |
+| GET | `/api/me` | Session identity, including `mustChangePassword` |
+| POST | `/api/employees/:id/qr-credential` | HR issues/reissues signed static QR with reason |
+| POST | `/api/employees/:id/qr-credential/revoke` | HR revokes QR with reason |
+| GET | `/api/qr/self/code` | EMP retrieves the existing signed static payload |
+| POST | `/api/employees/:id/status` | HR changes ACTIVE/INACTIVE with reason and expectedVersion |
+
+The temporary-password response and static QR payload are sensitive. Do not save them in screenshots, console logs or shared evidence.

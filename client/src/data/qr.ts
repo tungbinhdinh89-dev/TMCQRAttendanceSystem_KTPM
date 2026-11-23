@@ -2,7 +2,7 @@ import { z } from "zod"
 const base = (import.meta.env.VITE_API_URL || "http://localhost:3000/api").replace(/\/$/, "")
 const credential = z.object({ id: z.string(), status: z.string(), credentialRef: z.string() })
 const statusSchema = z.object({ credential: credential.nullable(), signingAvailable: z.boolean(), serverTime: z.string().datetime() })
-const tokenSchema = z.object({ token: z.string().min(1), expiresAt: z.string().datetime(), serverTime: z.string().datetime(), refreshAfterSeconds: z.number().nonnegative() })
+const staticSchema = z.object({ token: z.string().min(1), credentialId: z.string(), issuedAt: z.string().datetime(), serverTime: z.string().datetime() })
 export type SelfQrStatus = z.infer<typeof statusSchema>
 export class QrError extends Error { constructor(public status: number, message: string) { super(message) } }
 async function request(path: string, method = "GET", signal?: AbortSignal) {
@@ -15,5 +15,5 @@ async function request(path: string, method = "GET", signal?: AbortSignal) {
 }
 export const qrApi = {
   async status(signal?: AbortSignal) { return statusSchema.parse(await request("/qr/self", "GET", signal)) },
-  async issue(signal?: AbortSignal) { return tokenSchema.parse(await request("/qr/self/token", "POST", signal)) },
+  async code(signal?: AbortSignal) { return staticSchema.parse(await request("/qr/self/code", "GET", signal)) },
 }
