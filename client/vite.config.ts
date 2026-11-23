@@ -12,8 +12,10 @@ export default defineConfig(({ mode }) => {
   if (tls && (!env.DEV_HTTPS_CERT || !env.DEV_HTTPS_KEY)) throw new Error("Set DEV_HTTPS_CERT and DEV_HTTPS_KEY before enabling LAN HTTPS.")
   return {
     plugins: [react(), tailwindcss()],
+    optimizeDeps: { include: ["html5-qrcode"] },
     resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
     server: {
+      strictPort: true,
       fs: { deny: ["**/.env", "**/.env.*", "**/.git/**", "**/.local-certs/**", "**/*.{pem,key,pfx,p12,crt}"] },
       ...(tls ? { host: env.DEV_HTTPS_HOST || "0.0.0.0", https: { cert: readFileSync(resolve(clientRoot, env.DEV_HTTPS_CERT)), key: readFileSync(resolve(clientRoot, env.DEV_HTTPS_KEY)) } } : {}),
       proxy: { "/api": { target: env.DEV_API_TARGET || "http://127.0.0.1:3000", changeOrigin: true } },
