@@ -30,3 +30,10 @@ env-variable.txt
 /.codex
 /.github
 /plans
+!.env.example
+/.pnpm-store
+/.tmp-employee-gates
+/.tmp-issue-102
+/.tmp-qr-credentials
+/doc/backlog-2026-11-14
+/doc/
