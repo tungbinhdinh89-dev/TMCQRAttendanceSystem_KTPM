@@ -1,4 +1,4 @@
-﻿import { createHash, randomBytes, randomUUID, scryptSync, timingSafeEqual } from "node:crypto"
+import { createHash, randomBytes, randomUUID, scryptSync, timingSafeEqual } from "node:crypto"
 import { BadRequestException, ForbiddenException, Injectable, UnauthorizedException } from "@nestjs/common"
 import { allowedOrigins } from "../../../platform/http/allowed-origins"
 import { AuditService } from "./audit.service"
@@ -229,4 +229,3 @@ export function encodePassword(password: string): string {
   const salt = randomBytes(16).toString("hex")
   return `scrypt$${salt}$${scryptSync(password, salt, 64).toString("hex")}`
 }
-

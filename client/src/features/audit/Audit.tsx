@@ -5,6 +5,7 @@ import { Brand, Card, PageHeader } from "../../components/ui"
 import { ThemeToggle } from "../../components/layout"
 import { AuditApiError, auditApi, canReadAudit, type AuditIdentity } from "../../data/audit"
 import type { AuditEntry, AuditPage, AuditQuery } from "../../../../contracts/src/audit"
+import MandatoryPasswordChange from "../auth/MandatoryPasswordChange"
 import "./audit.css"
 
 const initialFilters = { action: "", outcome: "", objectType: "", objectId: "", correlationId: "", factoryId: "", from: "", to: "" }
@@ -37,7 +38,7 @@ export default function Audit() {
     setPage(null)
     setDetail(null)
     setError("")
-    if (!identity || !allowed) return
+    if (!identity || identity.mustChangePassword || !allowed) return
     const controller = new AbortController()
     setBusy(true)
     auditApi.search(query, controller.signal).then(result => { if (!controller.signal.aborted) setPage(result) }).catch(e => {
@@ -81,7 +82,7 @@ export default function Audit() {
         <TextField label="Mật khẩu" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)} required disabled={sessionBusy} />
         <Button type="submit" variant="contained" disabled={sessionBusy}>{sessionBusy ? "Đang kiểm tra…" : "Đăng nhập"}</Button>
       </form>
-    </Card> : <>
+    </Card> : identity.mustChangePassword ? <MandatoryPasswordChange onChanged={() => { setIdentity(null); setSessionError("Đã đổi mật khẩu. Đăng nhập lại bằng mật khẩu mới.") }} onLogout={logout} /> : <>
       <div className="audit-session"><span>Đã đăng nhập: <strong>{identity.username}</strong></span><Button onClick={logout} disabled={sessionBusy}>Đăng xuất</Button></div>
       {!allowed ? <Alert severity="warning" role="alert">Tài khoản không có quyền xem nhật ký. Vui lòng đăng xuất và sử dụng tài khoản được cấp quyền.</Alert> : <>
         <Card>
