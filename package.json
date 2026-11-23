@@ -5,16 +5,20 @@
   "type": "module",
   "packageManager": "pnpm@10.34.3",
   "scripts": {
-    "dev": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1 -Frontend",
-    "dev:client": "pnpm.cmd --dir client dev",
-    "dev:full": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1",
+    "dev": "node scripts/project.mjs run",
+    "dev:client": "node scripts/project.mjs run --frontend",
+    "dev:full": "node scripts/project.mjs run",
     "build": "pnpm.cmd --dir client build",
     "preview": "pnpm.cmd --dir client preview",
     "format": "oxfmt",
-    "dev:api": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1 -Backend",
-    "db:status": "powershell -ExecutionPolicy Bypass -File scripts/check.ps1",
-    "db:show": "powershell -ExecutionPolicy Bypass -File scripts/migrate.ps1 -Show",
-    "db:migrate": "powershell -ExecutionPolicy Bypass -File scripts/migrate.ps1"
+    "dev:api": "node scripts/project.mjs run --backend",
+    "db:status": "node scripts/project.mjs check",
+    "db:show": "node scripts/project.mjs check",
+    "db:migrate": "node scripts/project.mjs update",
+    "db:add": "node scripts/project.mjs add",
+    "db:update": "node scripts/project.mjs update",
+    "db:check": "node scripts/project.mjs check",
+    "test:scripts": "node --test scripts/test/project.test.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
