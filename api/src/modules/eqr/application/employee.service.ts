@@ -1,4 +1,4 @@
-﻿import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common"
+import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common"
 import { randomUUID } from "node:crypto"
 import { DataSource, EntityManager } from "typeorm"
 import { AuditService } from "../../iam/application/audit.service"
@@ -104,7 +104,7 @@ export class EmployeeService {
     if (query.factoryId) { const id=employeeId(query.factoryId); this.factory(identity,id); qb.andWhere("a.factory_id=:factoryId",{factoryId:id}) }
     if (query.status) { if (!["ACTIVE","INACTIVE"].includes(String(query.status))) throw new BadRequestException("Invalid status"); qb.andWhere("e.status=:status",{status:query.status}) }
     if (query.q) { const q=employeeText(query.q,150); qb.andWhere("(e.employee_code ILIKE :q OR e.full_name ILIKE :q OR e.external_hr_id ILIKE :q)",{q:`%${q}%`}) }
-    const [employees,total]=await qb.orderBy("e.employee_code","ASC").skip((page-1)*pageSize).take(pageSize).getManyAndCount()
+    const [employees,total]=await qb.orderBy("e.employeeCode","ASC").skip((page-1)*pageSize).take(pageSize).getManyAndCount()
     return {items:await Promise.all(employees.map(async e=>this.profile(e,await this.current(this.ds.manager,e.id,at)))),total,page,pageSize}
   }
   async detail(identity: SessionIdentity, id: string): Promise<EmployeeDetail> {
