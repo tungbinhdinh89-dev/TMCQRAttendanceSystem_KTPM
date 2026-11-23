@@ -1,6 +1,8 @@
 import { NestFactory } from "@nestjs/core"
 import { allowedOrigins } from "./platform/http/allowed-origins"
 import { AppModule } from "./app.module"
+import { ApiExceptionFilter } from "./platform/http/api-exception.filter"
+import { configureApiDocumentation } from "./platform/http/openapi"
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bodyParser: false })
@@ -10,7 +12,9 @@ async function bootstrap() {
   app.use(json({ limit: "100kb" }))
   app.use(urlencoded({ extended: true, limit: "100kb" }))
   app.setGlobalPrefix("api")
+  app.useGlobalFilters(new ApiExceptionFilter())
   app.enableCors({ origin: allowedOrigins(), credentials: true })
+  configureApiDocumentation(app)
   await app.listen(process.env.PORT ?? 3000)
 }
 

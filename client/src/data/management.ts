@@ -11,7 +11,8 @@ export async function managementRequest<T>(path: string, method = "GET", body?: 
   const response = await fetch(`${base}${path}`, { method, credentials: "include", cache: "no-store", signal, ...(body !== undefined ? { headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {}) })
   if (!response.ok) {
     const messages: Record<number, string> = { 400: "Dữ liệu chưa hợp lệ. Kiểm tra mã, khoảng hiệu lực và quan hệ tổ chức.", 401: "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.", 403: "Bạn không có quyền thực hiện trong phạm vi này.", 404: "Không tìm thấy dữ liệu hoặc dữ liệu đã thay đổi.", 409: "Dữ liệu đã thay đổi hoặc mã bị trùng. Tải lại danh sách trước khi sửa tiếp." }
-    const payload: { code?: string; field?: string; message?: string; row?: number } = await response.json().catch(() => ({}))
+    const payload: { code?: string; field?: string; message?: string; row?: number; requestId?: string } = await response.json().catch(() => ({}))
+    if (response.status >= 500) throw new ManagementError(response.status, `Máy chủ chưa xử lý được yêu cầu. Tải lại danh sách để kiểm tra trước khi lưu lại.${payload.requestId ? ` Mã tham chiếu lỗi: ${payload.requestId}` : ""}`, payload.field, payload.code)
     const conflicts: Record<string, string> = { EMPLOYEE_CODE_EXISTS: "Mã nhân viên đã tồn tại. Dùng lại mã tự động hoặc nhập mã khác; nếu nhân viên quay lại hãy kích hoạt hồ sơ cũ.", HRS_CODE_EXISTS: "Mã HRS đã tồn tại. Kiểm tra mã trên hệ thống nhân sự gốc; không tự tạo mã thay thế." }
     const detail = payload.code && conflicts[payload.code]
     if (detail) throw new ManagementError(response.status, `${payload.row ? `Dòng ${payload.row}: ` : ""}${detail}`, payload.field, payload.code)

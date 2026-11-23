@@ -11,12 +11,14 @@
     "test:integration": "pnpm build && node dist/platform/infrastructure/database/seeds/demo-seed.js && node --test test/integration/**/*.test.mjs",
     "test:management": "pnpm build && node --test test/employees.test.mjs test/configuration-policy.test.mjs",
     "test:qr": "pnpm build && node --test test/qr.test.mjs",
-    "test:onboarding": "pnpm build && node --test test/employee-onboarding.test.mjs"
+    "test:onboarding": "pnpm build && node --test test/employee-onboarding.test.mjs",
+    "test:api-docs": "pnpm build && node --test test/openapi.test.mjs test/api-exception.test.mjs"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@nestjs/swagger": "^11.4.8",
     "@tmc/contracts": "workspace:*",
     "express": "5.2.1",
     "pg": "^8.16.3",
