@@ -1,6 +1,7 @@
+import { apiBase } from "../lib/api-base"
 import { z } from "zod"
 
-const base = (import.meta.env.VITE_API_URL || "http://localhost:3000/api").replace(/\/$/, "")
+const base = apiBase
 const identitySchema = z.object({ userId: z.string(), username: z.string(), mustChangePassword: z.boolean().optional().default(false), roles: z.array(z.object({ code: z.string(), scopeType: z.string(), factoryId: z.string().nullable().optional(), permissions: z.array(z.string()) })) })
 export type ManagementIdentity = z.infer<typeof identitySchema>
 export type RecordRow = { id: string; rowVersion?: number; [key: string]: unknown }

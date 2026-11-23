@@ -14,7 +14,8 @@
     "dev:api": "powershell -ExecutionPolicy Bypass -File scripts/run.ps1 -Backend",
     "db:status": "powershell -ExecutionPolicy Bypass -File scripts/check.ps1",
     "db:show": "powershell -ExecutionPolicy Bypass -File scripts/migrate.ps1 -Show",
-    "db:migrate": "powershell -ExecutionPolicy Bypass -File scripts/migrate.ps1"
+    "db:migrate": "powershell -ExecutionPolicy Bypass -File scripts/migrate.ps1",
+    "https:lan": "node scripts/lan-https.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

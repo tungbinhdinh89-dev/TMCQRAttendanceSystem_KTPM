@@ -8,7 +8,8 @@ import Landing from "./features/public/Landing"
 import Login from "./features/auth/Login"
 import ServerAccess from "./features/auth/ServerAccess"
 import MuiBridge from "./styles/mui-theme"
-import { useEffect } from "react"
+import { lazy, Suspense, useEffect } from "react"
+const Scanner = lazy(() => import("./features/scanner/Scanner"))
 const client = new QueryClient({
   defaultOptions: {
     queries: { staleTime: 30000, retry: 1, refetchOnWindowFocus: true },
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/dang-nhap" element={<Login />} />
               <Route path="/audit" element={<ServerAccess><Audit /></ServerAccess>} />
               <Route path="/management" element={<ServerAccess><Management /></ServerAccess>} />
+              <Route path="/scanner" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở máy quét…</div>}><Scanner /></Suspense></ServerAccess>} />
               <Route path="/qr" element={<ServerAccess><Qr /></ServerAccess>} />
               <Route path="/mobile/ma-qr" element={<ServerAccess><Qr /></ServerAccess>} />
               <Route path="/workspace" element={<ServerAccess workspace />} />
