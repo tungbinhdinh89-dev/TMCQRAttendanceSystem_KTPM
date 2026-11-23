@@ -5,7 +5,7 @@
 .self-qr-form { display: grid; gap: 20px; margin-top: 24px; }
 .self-qr-page button, .self-qr-page a { min-height: 44px; }
 .self-qr-card { display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; }
-.self-qr-code { background: #fff; padding: 20px; border-radius: 12px; max-width: 100%; }
+.self-qr-code { width: min(100%, 400px); background: #fff; padding: 20px; border-radius: 12px; max-width: 100%; }
 .self-qr-code svg { width: 100%; height: auto; display: block; }
 .self-qr-card progress { width: 100%; accent-color: var(--accent-primary); }
 .self-qr-placeholder { padding: 24px 0; color: var(--text-secondary); }

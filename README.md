@@ -228,3 +228,10 @@ starting Vite. If the hidden backend exits, the frontend is not launched; inspec
 `logs/api-run-<PORT>-error.log` and `logs/api-run-<PORT>.log`. Frontend uses a strict port
 instead of silently moving to5174. A502 from the HTTPS /api proxy means the backend is
 unavailable; it is not an employee authorization error. Start one launcher instance only.
+
+Camera readability follow-up: the scanner decodes the full video frame rather than a fixed220px crop,
+requests rear-camera1280x720 as ideal video constraints, and shows a searching hint after8seconds.
+The computer's employee QR is rendered360px with a white quiet zone and black modules. Keep the whole
+QR and white border visible; move the phone farther away rather than filling/cropping the camera view.
+Regression evidence uses real html5-qrcode decoding of a long QR from canvas video frames, not a mocked
+success callback. Camera source/API result are synthetic; physical iPhone focus/lighting still need testing.

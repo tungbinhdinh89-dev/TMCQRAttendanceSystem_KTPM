@@ -47,6 +47,11 @@ export default function Scanner() {
     if (result) reveal(".scanner-result")
     else if (hasPending) reveal(".scanner-pending")
   }, [result, hasPending])
+  useEffect(() => {
+    if (!scanning || hasPending) return
+    const timer = window.setTimeout(() => setNotice("Chưa đọc được QR. Giữ toàn bộ mã và viền trắng trong khung hình, đưa điện thoại ra xa một chút, tăng sáng màn hình hoặc thử Chụp / chọn ảnh QR."), 8000)
+    return () => clearTimeout(timer)
+  }, [scanning, hasPending])
   async function stopCamera() {
     if (stoppingPromise.current) return stoppingPromise.current
     stoppingPromise.current = (async () => {
@@ -110,7 +115,7 @@ export default function Scanner() {
       const current = new Html5Qrcode("web-scanner-camera", { formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE], verbose: false })
       camera.current = current
       const targetStation = stationRef.current
-      const started = current.start({ facingMode: "environment" }, { fps: 8, qrbox: { width: 220, height: 220 }, aspectRatio: 1 }, text => { void accept(text, targetStation) }, () => {})
+      const started = current.start({ facingMode: "environment" }, { fps: 8, videoConstraints: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } } }, text => { void accept(text, targetStation) }, () => {})
       startingPromise.current = started
       await started
       if (!mounted.current || document.hidden || pending.current) { void stopCamera(); return }
@@ -162,6 +167,7 @@ export default function Scanner() {
           {selected && <div className="scanner-station"><span>{selected.factoryName} · {selected.code}</span><Chip color={selected.direction === "IN" ? "primary" : "secondary"} label={selected.direction === "IN" ? "IN · Ghi nhận VÀO" : "OUT · Ghi nhận RA"} /></div>}
         </>}
         <div><div id="web-scanner-camera" className="scanner-camera" />{!scanning && !starting && <p className="scanner-camera-idle">Đưa QR trên màn hình máy tính vào camera sau. Camera dừng sau mỗi lượt để tránh quét liên tiếp.</p>}</div>
+        {scanning && !hasPending && <Alert severity="info" role="status">Camera đang dò mã QR. Giữ toàn bộ mã và viền trắng trong khung hình.</Alert>}
         <div className="scanner-actions"><Button variant="contained" disabled={!selected || blocked || !!result} onClick={() => void startCamera()}>{starting ? "Đang mở camera…" : "Mở camera quét QR"}</Button><Button disabled={!scanning && !starting} onClick={() => void stopCamera()}>Dừng camera</Button></div>
         {hasPending && <Alert className="scanner-pending" severity="warning"><strong>{busy ? "Đang gửi lượt quét…" : "Chưa xác nhận kết quả lượt quét"}</strong><p>Giữ nguyên trạm và mã sự kiện. Gửi lại cùng lượt không tạo bản chấm công thứ hai.</p><div className="scanner-actions"><Button variant="contained" disabled={busy} onClick={() => void sendCurrent()}>Kiểm tra / gửi lại cùng lượt</Button><Button disabled={busy} onClick={discardPending}>Bỏ trạng thái chờ</Button></div></Alert>}
         {result && <div className="scanner-result" role="status" aria-live="polite"><Alert severity={recorded ? result.duplicate || result.attendanceState === "ALREADY_RECORDED" ? "info" : "success" : "error"}><strong>{recorded ? result.duplicate || result.attendanceState === "ALREADY_RECORDED" ? "Lượt đã được ghi nhận trước đó" : "Đã ghi chấm công mô phỏng" : "Từ chối · chưa ghi chấm công"}</strong></Alert><dl>{result.employee && <><dt>Nhân viên</dt><dd>{result.employee.fullName} · {result.employee.employeeCode}</dd></>}<dt>Hướng</dt><dd>{result.direction === "IN" ? "IN · Vào" : "OUT · Ra"}</dd><dt>Thời gian máy chủ</dt><dd>{new Date(result.occurredAt).toLocaleString("vi-VN")}</dd>{result.reasonCode && <><dt>Kết quả</dt><dd>{reasons[result.reasonCode] || "Mã hoặc quyền truy cập không hợp lệ. Kiểm tra trạng thái nhân viên, QR và quyền nhà máy."}</dd></>}</dl><Button variant="contained" onClick={next} disabled={busy}>Quét nhân viên tiếp theo</Button></div>}
