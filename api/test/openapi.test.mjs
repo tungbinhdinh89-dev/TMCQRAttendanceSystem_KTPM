@@ -1,4 +1,8 @@
 import { WebScannerController } from "../dist/modules/gate/presentation/web-scanner.controller.js"
+import { AttendanceHistoryController } from "../dist/modules/att/presentation/attendance-history.controller.js"
+import { AttendanceHistoryService } from "../dist/modules/att/application/attendance-history.service.js"
+import { GateHistoryController } from "../dist/modules/gate/presentation/gate-history.controller.js"
+import { GateHistoryService } from "../dist/modules/gate/application/gate-history.service.js"
 import { WebScannerService } from "../dist/modules/gate/application/web-scanner.service.js"
 import test from "node:test"
 import assert from "node:assert/strict"
@@ -19,8 +23,8 @@ import { StationConfigurationService } from "../dist/modules/gate/application/st
 
 async function fixture(t) {
   const module = await Test.createTestingModule({
-    controllers: [WebScannerController, AuthController, AuditController, EmployeeController, QrController, OrganizationController, StationConfigurationController, StationHeartbeatController],
-    providers: [WebScannerService, AuthService, AuditService, EmployeeService, QrService, OrganizationService, StationConfigurationService].map(provide => ({ provide, useValue: {} })),
+    controllers: [AttendanceHistoryController, GateHistoryController, WebScannerController, AuthController, AuditController, EmployeeController, QrController, OrganizationController, StationConfigurationController, StationHeartbeatController],
+    providers: [AttendanceHistoryService, GateHistoryService, WebScannerService, AuthService, AuditService, EmployeeService, QrService, OrganizationService, StationConfigurationService].map(provide => ({ provide, useValue: {} })),
   }).compile()
   const app = module.createNestApplication()
   app.setGlobalPrefix("api")
@@ -79,4 +83,22 @@ test("scanner documentation uses SEC session security and explicit demo attendan
   assert.equal(request.properties.direction, undefined)
   assert.equal(operation.responses["200"].content["application/json"].schema.$ref, "#/components/schemas/WebScanResult")
   assert.deepEqual(doc.components.schemas.WebScanResult.properties.mode.enum, ["CLASSROOM_DEMO"])
+})
+
+test("history documentation describes read-only scopes, bounded filters and aggregate redaction", async t => {
+  const app = await fixture(t)
+  const doc = configureApiDocumentation(app)
+  for (const path of ["/api/attendance/history", "/api/attendance/summary", "/api/gate/history"]) {
+    assert.deepEqual(doc.paths[path].get.security, [{ session: [] }])
+    assert.equal(doc.paths[path].post, undefined)
+    assert.equal(doc.paths[path].get.parameters.find(p => p.name === "pageSize").schema.maximum, 100)
+  }
+  assert.ok(doc.paths["/api/attendance/history/{id}"].get.responses["404"])
+  assert.ok(doc.paths["/api/gate/history/{id}"].get.responses["404"])
+  assert.equal(doc.paths["/api/attendance/summary"].get.parameters.some(p => p.name === "employeeId"), false)
+  const aggregate = doc.components.schemas.AttendanceSummaryItem.properties
+  for (const key of ["employeeId", "employeeCode", "fullName", "token"]) assert.equal(aggregate[key], undefined)
+  for (const item of ["AttendanceHistoryItem", "GateHistoryItem"]) {
+    for (const key of ["token", "tokenFingerprint", "requestHash", "passwordHash"]) assert.equal(doc.components.schemas[item].properties[key], undefined)
+  }
 })
