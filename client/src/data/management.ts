@@ -2,7 +2,7 @@ import { apiBase } from "../lib/api-base"
 import { z } from "zod"
 
 const base = apiBase
-const identitySchema = z.object({ userId: z.string(), username: z.string(), mustChangePassword: z.boolean().optional().default(false), roles: z.array(z.object({ code: z.string(), scopeType: z.string(), factoryId: z.string().nullable().optional(), departmentId: z.string().nullable().optional(), teamId: z.string().nullable().optional(), permissions: z.array(z.string()) })) })
+const identitySchema = z.object({ userId: z.string(), username: z.string(), employee: z.object({ employeeCode: z.string(), fullName: z.string(), status: z.string() }).optional(), mustChangePassword: z.boolean().optional().default(false), roles: z.array(z.object({ code: z.string(), scopeType: z.string(), factoryId: z.string().nullable().optional(), departmentId: z.string().nullable().optional(), teamId: z.string().nullable().optional(), permissions: z.array(z.string()) })) })
 export type ManagementIdentity = z.infer<typeof identitySchema>
 export type RecordRow = { id: string; rowVersion?: number; [key: string]: unknown }
 export interface Organization { factories: RecordRow[]; departments: RecordRow[]; teams: RecordRow[] }

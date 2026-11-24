@@ -12,6 +12,7 @@ import { AccessMessage } from "../auth/ServerAccess"
 import "./qr.css"
 
 type DisplayQr = Awaited<ReturnType<typeof qrApi.code>>
+const roleNames: Record<string, string> = { EMP: "Nhân viên", HR: "Nhân sự", SUP: "Giám sát tổ", SEC: "Bảo vệ", ADM: "Quản trị hệ thống", EXE: "Điều hành" }
 export default function Qr() {
   const [identity, setIdentity] = useState<ManagementIdentity | null>(null)
   const [qr, setQr] = useState<DisplayQr | null>(null)
@@ -81,6 +82,16 @@ export default function Qr() {
     {notice && <Alert severity="success" role="status">{notice}</Alert>}
     {checking ? <CircularProgress aria-label="Kiểm tra phiên đăng nhập" /> : !identity ? <Card><h2>Đăng nhập nhân viên</h2><form onSubmit={login} className="self-qr-form"><TextField label="Tên đăng nhập" autoComplete="username" value={username} onChange={e => setUsername(e.target.value)} required disabled={busy} /><TextField label="Mật khẩu" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)} required disabled={busy} /><Button type="submit" variant="contained" disabled={busy}>Đăng nhập</Button></form></Card> : identity.mustChangePassword ? <MandatoryPasswordChange onChanged={() => { generation.current++; setQr(null); setIdentity(null); setNotice("Đã đổi mật khẩu. Đăng nhập lại bằng mật khẩu mới.") }} onLogout={logout} /> : <>
       <div className="self-qr-session"><span>Đã đăng nhập: <strong>{identity.username}</strong></span><Button disabled={busy} onClick={logout}>Đăng xuất / đổi tài khoản</Button></div>
+      <Card className="self-qr-profile"><section aria-labelledby="qr-profile-title">
+        <p className="self-qr-profile-label">Thông tin nhân viên</p>
+        <h2 id="qr-profile-title">{identity.employee?.fullName || "Chưa cập nhật họ tên"}</h2>
+        <dl>
+          <div><dt>Mã nhân viên</dt><dd>{identity.employee?.employeeCode || "Chưa cập nhật"}</dd></div>
+          <div><dt>Vai trò hệ thống</dt><dd>{[...new Set(identity.roles.map(r => roleNames[r.code] || r.code))].join(", ") || "Chưa được cấp"}</dd></div>
+          <div><dt>Tài khoản</dt><dd>{identity.username}</dd></div>
+          {identity.employee && <div><dt>Trạng thái hồ sơ</dt><dd>{identity.employee.status === "ACTIVE" ? "Đang làm việc" : "Ngừng hoạt động"}</dd></div>}
+        </dl>
+      </section></Card>
       {!employee ? <Alert severity="warning">Chỉ tài khoản có quyền nhân viên được xem QR cá nhân.</Alert> : <Card className="self-qr-card">
         {qr ? <><div className="self-qr-code"><QRCode value={qr.token} size={360} bgColor="#ffffff" fgColor="#000000" title="Mã QR cá nhân do HR cấp" /></div><p role="status">QR đang hoạt động</p><p>Cấp ngày {new Date(qr.issuedAt).toLocaleString("vi-VN")}</p></> : <div className="self-qr-placeholder"><p>Chưa có QR hợp lệ để hiển thị.</p><p>Liên hệ nhân sự để được cấp QR hoặc kiểm tra trạng thái thu hồi.</p></div>}
         <Button onClick={() => { setQr(null); setError(""); void check() }} disabled={busy}>Kiểm tra trạng thái QR</Button>
