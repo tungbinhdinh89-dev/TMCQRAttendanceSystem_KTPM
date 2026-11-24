@@ -1,8 +1,9 @@
 import { apiBase } from "../lib/api-base"
 import { z } from "zod"
+import { readManagementResponse } from "./management-response"
 
 const base = apiBase
-const identitySchema = z.object({ userId: z.string(), username: z.string(), mustChangePassword: z.boolean().optional().default(false), roles: z.array(z.object({ code: z.string(), scopeType: z.string(), factoryId: z.string().nullable().optional(), departmentId: z.string().nullable().optional(), teamId: z.string().nullable().optional(), permissions: z.array(z.string()) })) })
+const identitySchema = z.object({ userId: z.string(), username: z.string(), employee: z.object({ employeeCode: z.string(), fullName: z.string(), status: z.string() }).optional(), mustChangePassword: z.boolean().optional().default(false), roles: z.array(z.object({ code: z.string(), scopeType: z.string(), factoryId: z.string().nullable().optional(), departmentId: z.string().nullable().optional(), teamId: z.string().nullable().optional(), permissions: z.array(z.string()) })) })
 export type ManagementIdentity = z.infer<typeof identitySchema>
 export type RecordRow = { id: string; rowVersion?: number; [key: string]: unknown }
 export interface Organization { factories: RecordRow[]; departments: RecordRow[]; teams: RecordRow[] }
@@ -21,7 +22,7 @@ export async function managementRequest<T>(path: string, method = "GET", body?: 
     if (payload.row) throw new ManagementError(response.status, `Dòng ${payload.row}: ${messages[response.status] || "Không thể nhập file."}`, payload.field, payload.code)
     throw new ManagementError(response.status, messages[response.status] || "Máy chủ chưa xử lý được yêu cầu. Không có thông báo lưu thành công; hãy tải lại để kiểm tra.")
   }
-  return response.status === 204 ? undefined as T : response.json()
+  return readManagementResponse<T>(response, method === "GET" && /^\/employees\/[^/?]+\/account$/.test(path))
 }
 export const managementSession = {
   async me(signal?: AbortSignal) { return identitySchema.parse(await managementRequest("/me", "GET", undefined, signal)) },

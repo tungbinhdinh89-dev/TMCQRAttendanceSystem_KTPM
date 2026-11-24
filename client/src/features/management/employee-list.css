@@ -1,0 +1,47 @@
+.employee-list-page { padding-top: 4px; }
+.employee-list-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+.employee-list-eyebrow { margin: 0 0 8px; font-size: 11px; letter-spacing: .1em; color: var(--text-secondary); font-weight: 600; }
+.employee-list-heading h1 { display: flex; gap: 12px; align-items: center; margin: 0 0 10px; font-size: 30px; line-height: 1.25; font-weight: 650; }
+.employee-list-heading p:last-child { color: var(--text-secondary); margin: 0; }
+.employee-total { font-size: 13px; padding: 4px 10px; border: 1px solid var(--border-secondary); border-radius: 8px; color: var(--text-secondary); font-weight: 500; }
+.employee-list-heading-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.employee-list-heading-actions > button { white-space: nowrap; }
+.employee-list-panel { background: var(--surface-bg); border: 1px solid var(--border-secondary); border-radius: 16px; min-width: 0; overflow: hidden; }
+.employee-list-filters { padding: 24px; display: grid; grid-template-columns: minmax(220px, 1.5fr) minmax(180px, 1fr) minmax(170px, 1fr) auto; gap: 14px; align-items: center; }
+.employee-list-filters .MuiInputBase-root { min-height: 44px; }
+.employee-filter-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 0 24px 16px; color: var(--text-secondary); font-size: 12px; }
+.employee-results-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 24px; border-top: 1px solid var(--border-secondary); font-weight: 600; }
+.employee-results-heading small { font-weight: 400; color: var(--text-secondary); }
+.employee-list-results { min-height: 120px; }
+.employee-list-table { overflow: auto; }
+.employee-list-table table { width: 100%; border-collapse: collapse; min-width: 780px; }
+.employee-list-table th { padding: 14px 24px; font-size: 12px; color: var(--text-secondary); font-weight: 500; background: var(--surface-secondary-bg); text-align: left; white-space: nowrap; }
+.employee-list-table td { padding: 18px 24px; border-bottom: 1px solid var(--border-secondary); vertical-align: middle; }
+.employee-list-table tr:last-child td { border-bottom: none; }
+.employee-list-table tbody tr:hover { background: color-mix(in srgb, var(--surface-secondary-bg) 55%, transparent); }
+.employee-person { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.employee-list-avatar { width: 40px; height: 40px; flex-shrink: 0; border-radius: 12px; background: var(--surface-secondary-bg); color: var(--text-primary); display: grid; place-items: center; font-size: 13px; font-weight: 600; }
+.employee-name { font-weight: 600; text-decoration: none; color: var(--text-primary); overflow-wrap: anywhere; }
+.employee-name:hover { text-decoration: underline; }
+.employee-email { display: block; color: var(--text-secondary); font-size: 12px; margin-top: 3px; overflow-wrap: anywhere; }
+.employee-code { font-size: 12px; background: var(--surface-secondary-bg); padding: 5px 8px; border-radius: 6px; white-space: nowrap; }
+.employee-hrs { color: var(--text-secondary); font-size: 13px; }
+.employee-status { display: inline-flex; align-items: center; gap: 7px; padding: 5px 9px; border-radius: 7px; white-space: nowrap; font-size: 12px; background: var(--surface-secondary-bg); color: var(--text-secondary); }
+.employee-status > span { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.employee-status.is-active { color: var(--tmc-positive, #166534); background: color-mix(in srgb, var(--tmc-positive, #166534) 9%, var(--surface-bg)); }
+.dark .employee-status.is-active { color: #86efac; background: color-mix(in srgb, #86efac 10%, var(--surface-bg)); }
+.employee-row-actions { display: flex; align-items: center; justify-content: flex-end; gap: 4px; white-space: nowrap; }
+.employee-action-label { display: block; text-align: right; }
+.employee-list-pagination { padding: 16px 24px; border-top: 1px solid var(--border-secondary); display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--text-secondary); font-size: 13px; flex-wrap: wrap; }
+.employee-list-pagination > div { display: flex; align-items: center; gap: 8px; }
+.employee-list-pagination strong { color: var(--text-primary); font-weight: 600; }
+.employee-list-empty { display: grid; justify-items: center; text-align: center; padding: 54px 24px; color: var(--text-secondary); }
+.employee-list-empty h2 { color: var(--text-primary); font-size: 18px; margin: 18px 0 8px; }
+.employee-list-empty p { max-width: 390px; margin: 0 0 20px; }
+.employee-empty-icon { width: 62px; height: 62px; display: grid; place-items: center; border-radius: 18px; background: var(--surface-secondary-bg); }
+.employee-list-skeleton { padding: 12px 24px; }
+.employee-list-mobile { display: none; }
+#employee-row-menu .MuiMenuItem-root { gap: 12px; min-height: 44px; }
+@media (max-width: 640px) { .employee-list-page .employee-list-heading-actions { display: grid; grid-template-columns: auto minmax(0, 1fr); } }
+@media (max-width: 1200px) { .employee-list-filters { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .employee-search { grid-column: 1 / -1; } .employee-list-filters > button { justify-self: start; } }
+@media (max-width: 640px) { .employee-list-heading { margin-bottom: 20px; gap: 20px; } .employee-list-heading h1 { font-size: 26px; } .employee-list-heading-actions { width: 100%; } .employee-list-heading-actions > button { flex: 1; } .employee-list-filters { padding: 20px 16px; grid-template-columns: minmax(0, 1fr); gap: 16px; } .employee-search { grid-column: auto; } .employee-list-filters > button { justify-self: stretch; } .employee-results-heading { padding: 16px; align-items: flex-start; } .employee-filter-tags { padding-inline: 16px; } .employee-list-table { display: none; } .employee-list-mobile { display: grid; } .employee-mobile-row { padding: 20px 16px; border-bottom: 1px solid var(--border-secondary); } .employee-mobile-row:last-child { border-bottom: none; } .employee-mobile-person { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; } .employee-mobile-row dl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin: 18px 0 12px; } .employee-mobile-row dt { color: var(--text-secondary); font-size: 12px; } .employee-mobile-row dd { margin: 4px 0 0; overflow-wrap: anywhere; } .employee-list-pagination { padding: 16px; } }

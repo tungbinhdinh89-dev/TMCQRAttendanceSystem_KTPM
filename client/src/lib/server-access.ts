@@ -36,6 +36,7 @@ export function canVisit(u: AccessIdentity, path: string, search = ""): boolean 
   if (path === "/gate-history") return canReadGateHistory(u)
   if (path === "/attendance-summary") return canReadAttendanceSummary(u)
   if (path === "/audit") return canUseAudit(u)
+  if (/^\/management\/employees\/[^/]+$/.test(path)) return isHr(u)
   if (path === "/management") {
     const tabs = managementTabs(u), tab = new URLSearchParams(search).get("tab")
     return tab ? tabs.includes(tab as ManagementTab) : tabs.length > 0

@@ -1,6 +1,6 @@
-import HistoryLinks from "../attendance-history/HistoryLinks"
+import AuthenticatedShell from "../../components/AuthenticatedShell"
 import { useEffect, useState, type ReactNode } from "react"
-import { Link, Navigate, useLocation } from "react-router-dom"
+import { Link, Navigate, Outlet, useLocation } from "react-router-dom"
 import { Alert, Button, CircularProgress } from "@mui/material"
 import { Brand, Card } from "../../components/ui"
 import { managementSession, ManagementError, type ManagementIdentity } from "../../data/management"
@@ -24,20 +24,21 @@ export default function ServerAccess({ children, workspace = false, legacy = fal
     setChecking(true); setIdentity(null); setError("")
     managementSession.me(controller.signal).then(u => { if (active) setIdentity(u) }).catch(e => { if (active && !(e instanceof ManagementError && e.status === 401)) setError(e instanceof Error ? e.message : "Không thể kiểm tra phiên đăng nhập.") }).finally(() => { if (active) setChecking(false) })
     return () => { active = false; controller.abort() }
-  }, [location.pathname, location.search])
+  }, [])
   if (checking) return <main className="management-page"><CircularProgress aria-label="Kiểm tra quyền truy cập" /></main>
   if (error) return <main className="management-page"><Alert severity="error">{error}</Alert><Button onClick={() => window.location.reload()}>Thử lại</Button></main>
   if (!identity) return <Navigate to={`/dang-nhap?returnTo=${encodeURIComponent(location.pathname + location.search)}`} replace />
   if (identity.mustChangePassword) return <main className="management-page"><Brand /><MandatoryPasswordChange onChanged={() => window.location.assign("/dang-nhap?changed=1")} onLogout={async () => { await managementSession.logout(); window.location.assign("/dang-nhap") }} /></main>
-  if (workspace) return <AccessMessage identity={identity} unavailable />
-  if (legacy) {
+  let content: ReactNode = children ?? <Outlet />
+  if (workspace || location.pathname === "/workspace") content = <AccessMessage identity={identity} unavailable />
+  else if (legacy) {
     const aliases: Record<string, string> = { "/app/nhan-su": "/management?tab=employees", "/app/cai-dat": "/management?tab=organization", "/app/kiem-soat": "/management?tab=stations", "/app/audit": "/audit", "/app/cham-cong": "/attendance", "/mobile/lich-su": "/attendance", "/app/bao-cao": "/attendance-summary", "/mobile/ma-qr": "/qr" }
     const destination = aliases[location.pathname]
     if (destination) return <Navigate to={destination} replace />
     if (["/app", "/app/tong-quan", "/mobile", "/mobile/trang-chu"].includes(location.pathname)) return <Navigate to={serverHome(identity)} replace />
-    return <AccessMessage identity={identity} />
+    content = <AccessMessage identity={identity} />
   }
-  if (!canVisit(identity, location.pathname, location.search)) return <AccessMessage identity={identity} />
+  else if (!canVisit(identity, location.pathname, location.search)) content = <AccessMessage identity={identity} />
   if (location.pathname === "/management" && !new URLSearchParams(location.search).has("tab")) return <Navigate to={serverHome(identity)} replace />
-  return children
+  return <AuthenticatedShell identity={identity}>{content}</AuthenticatedShell>
 }

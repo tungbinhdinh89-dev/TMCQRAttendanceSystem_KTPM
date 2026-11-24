@@ -1,15 +1,16 @@
-import HistoryLinks from "../attendance-history/HistoryLinks"
 import { useEffect, useState, type FormEvent } from "react"
-import { Link, Navigate, useSearchParams } from "react-router-dom"
+import { Link, Navigate, useParams, useSearchParams } from "react-router-dom"
 import { Alert, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Tab, Tabs, TextField } from "@mui/material"
-import { Brand, Card, PageHeader } from "../../components/ui"
-import { ThemeToggle } from "../../components/layout"
+import { Card, PageHeader } from "../../components/ui"
 import { ManagementError, managementRequest as request, managementSession, text, type EmployeePage, type ManagementIdentity, type Organization, type RecordRow } from "../../data/management"
 import MandatoryPasswordChange from "../auth/MandatoryPasswordChange"
 import EmployeeAccountCard from "./EmployeeAccountCard"
+import EmployeeDetailOverview from "./EmployeeDetailOverview"
 import EmployeeCreateDialog from "./EmployeeCreateDialog"
 import EmployeeImportCard from "./EmployeeImportCard"
-import { isHr, isAdmin, isSecurity, canUseAudit, canUsePersonalQr, canUseScanner, managementTabs } from "../../lib/server-access"
+import EmployeeList from "./EmployeeList"
+import { formatVietnamDateTime } from "../../lib/date"
+import { isHr, isAdmin, isSecurity, managementTabs } from "../../lib/server-access"
 import { AccessMessage } from "../auth/ServerAccess"
 import "./management.css"
 
@@ -22,7 +23,9 @@ const now = () => { const date = new Date(); return new Date(date.getTime() - da
 
 export default function Management() {
   const [params, setParams] = useSearchParams()
-  const section = params.get("tab") || "employees"
+  const { employeeId } = useParams()
+  const detailPage = !!employeeId
+  const section = detailPage ? "employees" : params.get("tab") || "employees"
   const [identity, setIdentity] = useState<ManagementIdentity | null>(null)
   const [checking, setChecking] = useState(true)
   const [username, setUsername] = useState(""); const [password, setPassword] = useState("")
@@ -36,19 +39,34 @@ export default function Management() {
   const [secret, setSecret] = useState<{ credentialId: string; secret: string } | null>(null)
   const [revision, setRevision] = useState(0)
   const [creatingEmployee, setCreatingEmployee] = useState(false)
+  const [accountEmployee, setAccountEmployee] = useState<RecordRow | null>(null)
+  const [accountRevision, setAccountRevision] = useState(0)
+  const [detailLoading, setDetailLoading] = useState(false)
+  const [detailRevision, setDetailRevision] = useState(0)
   const hr = identity ? isHr(identity) : false
   const adm = identity ? isAdmin(identity) : false
   const canReadConfig = adm || (identity ? isSecurity(identity) : false)
   const availableTabs = identity ? managementTabs(identity) : []
-  const fail = (e: unknown) => { setSuccess(""); setError(e instanceof Error ? e.message : "Không thể kết nối máy chủ."); if (e instanceof ManagementError && e.status === 403) { setEmployees({ items: [], total: 0, page: 1, pageSize: 20 }); setStations([]); setIntegrations([]); setDetail(null); setReadiness(null); setSecret(null) } if (e instanceof ManagementError && e.status === 401) { setIdentity(null); setCreatingEmployee(false); setOrg(emptyOrg); setEmployees({ items: [], total: 0, page: 1, pageSize: 20 }); setStations([]); setIntegrations([]); setDetail(null); setSecret(null) } }
+  const fail = (e: unknown) => { setSuccess(""); setError(e instanceof Error ? e.message : "Không thể kết nối máy chủ."); if (e instanceof ManagementError && e.status === 403) { setEmployees({ items: [], total: 0, page: 1, pageSize: 20 }); setStations([]); setIntegrations([]); setDetail(null); setAccountEmployee(null); setReadiness(null); setSecret(null) } if (e instanceof ManagementError && e.status === 401) { setIdentity(null); setCreatingEmployee(false); setOrg(emptyOrg); setEmployees({ items: [], total: 0, page: 1, pageSize: 20 }); setStations([]); setIntegrations([]); setDetail(null); setAccountEmployee(null); setSecret(null) } }
   useEffect(() => { const controller = new AbortController(); managementSession.me(controller.signal).then(setIdentity).catch(e => { if (!controller.signal.aborted && !(e instanceof ManagementError && e.status === 401)) fail(e) }).finally(() => { if (!controller.signal.aborted) setChecking(false) }); return () => controller.abort() }, [])
   useEffect(() => {
+    if (!identity || identity.mustChangePassword || !availableTabs.length) return
+    const controller = new AbortController()
+    request<Organization>("/organization", "GET", undefined, controller.signal).then(value => { if (!controller.signal.aborted) setOrg(value) }).catch(e => { if (!controller.signal.aborted) fail(e) })
+    return () => controller.abort()
+  }, [identity, section === "organization" ? revision : 0])
+  useEffect(() => {
+    if (!employeeId || !identity || !hr) return
+    const controller = new AbortController()
+    setDetail(null); setDetailLoading(true); setBusy(false); setError(""); setSuccess(""); setEditor(null); setAccountEmployee(null)
+    request<RecordRow>(`/employees/${encodeURIComponent(employeeId)}`, "GET", undefined, controller.signal).then(value => { if (!controller.signal.aborted) setDetail(value) }).catch(e => { if (!controller.signal.aborted) fail(e) }).finally(() => { if (!controller.signal.aborted) setDetailLoading(false) })
+    return () => controller.abort()
+  }, [employeeId, identity, hr, detailRevision])
+  useEffect(() => {
+    if (detailPage) return
     if (!identity || identity.mustChangePassword || !managementTabs(identity).some(tab => tab === section)) return
     const controller = new AbortController(); setBusy(true); setError(""); setDetail(null)
     async function load() {
-      const organization = await request<Organization>("/organization", "GET", undefined, controller.signal)
-      if (controller.signal.aborted) return
-      setOrg(organization)
       if (section === "employees" && hr) {
         const p = new URLSearchParams({ page: String(query.page), pageSize: "20" }); for (const [k, v] of Object.entries(query)) if (k !== "page" && v) p.set(k, String(v))
         const data = await request<EmployeePage>(`/employees?${p}`, "GET", undefined, controller.signal); if (!controller.signal.aborted) setEmployees(data)
@@ -59,7 +77,7 @@ export default function Management() {
     }
     load().catch(e => { if (!controller.signal.aborted) fail(e) }).finally(() => { if (!controller.signal.aborted) setBusy(false) })
     return () => controller.abort()
-  }, [identity, section, query, revision])
+  }, [identity, section, query, revision, detailPage])
   const choose = (rows: RecordRow[]) => rows.map(row => ({ value: row.id, label: text(row, "name") || text(row, "code") }))
   const orgFields: Field[] = [{ key: "factoryId", label: "Nhà máy", options: choose(org.factories), required: true }, { key: "departmentId", label: "Phòng ban", options: choose(org.departments) }, { key: "teamId", label: "Tổ", options: choose(org.teams) }]
   const open = (title: string, path: string, method: string, fields: Field[], row?: RecordRow, fixed?: Record<string, unknown>) => {
@@ -80,33 +98,56 @@ export default function Management() {
     event.preventDefault(); if (!editor) return; setBusy(true); setError(""); setSuccess("")
     const body: Record<string, unknown> = { ...editor.fixed }
     for (const f of editor.fields) { const value = editor.values[f.key]?.trim(); if (value === "" && f.key === "email") body.email = null; if (value !== "") body[f.key] = f.type === "number" ? Number(value) : f.type === "datetime-local" ? new Date(value).toISOString() : f.type === "boolean" ? value === "true" : value }
-    try { const path = editor.method === "DELETE" && editor.path.endsWith("/credentials") ? `${editor.path}/${encodeURIComponent(String(body.credentialId))}` : editor.path; if (editor.method === "DELETE") delete body.credentialId; const response = await request<RecordRow>(path, editor.method, body); if (editor.path.endsWith("/credentials") && response?.secret) setSecret({ credentialId: String(response.credentialId), secret: String(response.secret) }); setEditor(null); setSuccess("Máy chủ đã xác nhận lưu thay đổi."); setRevision(r => r + 1); if (detail) setDetail(await request<RecordRow>(`/employees/${detail.id}`)) } catch (e) { fail(e) } finally { setBusy(false) }
+    try { const path = editor.method === "DELETE" && editor.path.endsWith("/credentials") ? `${editor.path}/${encodeURIComponent(String(body.credentialId))}` : editor.path; if (editor.method === "DELETE") delete body.credentialId; const response = await request<RecordRow>(path, editor.method, body); if (editor.path.endsWith("/credentials") && response?.secret) setSecret({ credentialId: String(response.credentialId), secret: String(response.secret) }); setEditor(null); setSuccess("Máy chủ đã xác nhận lưu thay đổi."); if (!detailPage) setRevision(r => r + 1); if (detailPage && detail && !editor.path.includes("qr-credential")) setDetail(await request<RecordRow>(`/employees/${detail.id}`)) } catch (e) { fail(e) } finally { setBusy(false) }
   }
-  async function inspect(row: RecordRow) { setBusy(true); setError(""); try { setDetail(await request<RecordRow>(`/employees/${row.id}`)) } catch (e) { fail(e) } finally { setBusy(false) } }
   async function login(event: FormEvent) { event.preventDefault(); setBusy(true); setError(""); try { setIdentity(await managementSession.login(username.trim(), password)); setPassword(""); setRevision(r => r + 1) } catch (e) { fail(e) } finally { setBusy(false) } }
   async function logout() { setBusy(true); setSecret(null); try { await managementSession.logout(); setIdentity(null); setCreatingEmployee(false); setDetail(null); setEmployees({ items: [], page: 1, pageSize: 20, total: 0 }); setOrg(emptyOrg); setStations([]); setIntegrations([]); setSuccess("") } catch (e) { fail(e) } finally { setBusy(false) } }
   const employeeFields: Field[] = [{ key: "employeeCode", label: "Mã nhân viên", required: true }, { key: "fullName", label: "Họ tên", required: true }, { key: "externalHrId", label: "Mã HRS", required: true }, { key: "email", label: "Email", type: "email" }, ...orgFields]
   const periodFields: Field[] = [{ key: "validFrom", label: "Hiệu lực từ", type: "datetime-local", required: true }, { key: "validTo", label: "Hiệu lực đến", type: "datetime-local" }, reasonField]
   const history = (key: string) => Array.isArray(detail?.[key]) ? detail[key] as RecordRow[] : []
+  const renderEmployeeHistoryCell = (row: RecordRow, key: string) => {
+    if (["validFrom", "validTo", "revokedAt"].includes(key)) return formatVietnamDateTime(row[key])
+    const records = key === "factoryId" ? org.factories : key === "departmentId" ? org.departments : key === "teamId" ? org.teams : null
+    if (records) {
+      if (!row[key]) return "—"
+      const record = records.find(item => item.id === row[key])
+      return record ? text(record, "name") || text(record, "code") || "Chưa cập nhật tên" : "Không có trong danh mục được cấp"
+    }
+    return text(row, key) || "—"
+  }
   if (!checking && !identity) return <Navigate to="/dang-nhap" replace />
   if (identity && !identity.mustChangePassword && !availableTabs.some(tab => tab === section)) return <AccessMessage identity={identity} />
   return <main className="management-page">
-    <header className="management-top"><Brand /><div><Link to="/">Trang chủ</Link>{identity && canUseAudit(identity) && <Link to="/audit">Nhật ký</Link>}{identity && canUsePersonalQr(identity) && <Link to="/qr">QR của tôi</Link>}{identity && canUseScanner(identity) && <Link to="/scanner">Qu?t ch?m c?ng</Link>}{identity && <HistoryLinks identity={identity} />}<ThemeToggle /></div></header>
-    <PageHeader title="Nhân sự & cấu hình nhà máy" description="Quản lý dữ liệu được lưu trên máy chủ trong phạm vi tài khoản của bạn." />
+    {detailPage && <Button component={Link} to="/management?tab=employees">← Danh sách nhân viên</Button>}
+    {!detailPage && section !== "employees" && <PageHeader title="Nhân sự & cấu hình nhà máy" description="Quản lý dữ liệu được lưu trên máy chủ trong phạm vi tài khoản của bạn." />}
     {error && <Alert severity="error" role="alert">{error}</Alert>}{success && <Alert severity="success" role="status">{success}</Alert>}
     {checking ? <CircularProgress aria-label="Kiểm tra phiên" /> : !identity ? <Card className="management-login"><h2>Đăng nhập</h2><form onSubmit={login} className="management-form"><TextField label="Tên đăng nhập" value={username} onChange={e => setUsername(e.target.value)} autoComplete="username" required /><TextField label="Mật khẩu" type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /><Button type="submit" variant="contained" disabled={busy}>Đăng nhập</Button></form></Card> : identity.mustChangePassword ? <MandatoryPasswordChange onChanged={() => { setIdentity(null); setSuccess("Đã đổi mật khẩu. Đăng nhập lại bằng mật khẩu mới.") }} onLogout={logout} /> : <>
-      <div className="management-top"><span>Đã đăng nhập: <strong>{identity.username}</strong></span><Button disabled={busy} onClick={logout}>Đăng xuất</Button></div>
-      <Tabs value={section} variant="scrollable" scrollButtons="auto" onChange={(_, value: string) => { setParams({ tab: value }); setSuccess(""); setError(""); setSecret(null) }} aria-label="Nhóm quản trị">
+      {!detailPage && section !== "employees" && <Tabs value={section} variant="scrollable" scrollButtons="auto" onChange={(_, value: string) => { setParams({ tab: value }); setSuccess(""); setError(""); setSecret(null) }} aria-label="Nhóm quản trị">
         {availableTabs.map(tab => <Tab key={tab} value={tab} label={{ employees: "Nhân viên", organization: "Tổ chức", stations: "Trạm cổng", integrations: "Tích hợp", readiness: "Vận hành" }[tab]} />)}
-      </Tabs>
-      {busy && <div className="management-progress" role="status"><CircularProgress size={20} />Đang xử lý…</div>}
+      </Tabs>}
+      {detailPage && detailLoading && <div role="status" className="management-progress"><CircularProgress size={20} />Đang tải hồ sơ…</div>}
+      {detailPage && !detailLoading && !detail && error && <Button onClick={() => setDetailRevision(value => value + 1)}>Tải lại hồ sơ</Button>}
+      {busy && (detailPage || section !== "employees") && <div className="management-progress" role="status"><CircularProgress size={20} />Đang xử lý…</div>}
       {section === "employees" && (!hr ? <Alert severity="info">Tài khoản không có quyền nhân sự. Hãy đăng nhập bằng tài khoản HR được cấp phạm vi phù hợp.</Alert> : <>
-        <Card><form className="management-filters" onSubmit={e => { e.preventDefault(); setQuery(q => ({ ...q, q: search, page: 1 })) }}><TextField label="Tên hoặc mã nhân viên" value={search} onChange={e => setSearch(e.target.value)} /><TextField select label="Nhà máy" value={query.factoryId} onChange={e => setQuery(q => ({ ...q, factoryId: e.target.value, page: 1 }))}><MenuItem value="">Tất cả trong phạm vi</MenuItem>{choose(org.factories).map(o => <MenuItem key={o.value} value={o.value}>{o.label}</MenuItem>)}</TextField><TextField select label="Trạng thái" value={query.status} onChange={e => setQuery(q => ({ ...q, status: e.target.value, page: 1 }))}><MenuItem value="">Tất cả</MenuItem>{statusOptions.map(o => <MenuItem value={o.value} key={o.value}>{o.label}</MenuItem>)}</TextField><Button type="submit" disabled={busy}>Tìm kiếm</Button><Button variant="contained" disabled={busy} onClick={() => open("Thêm nhân viên", "/employees", "POST", employeeFields)}>Thêm nhân viên</Button></form></Card>
-        <Card><h2>Danh sách nhân viên</h2><DataTable rows={employees.items} columns={[['employeeCode', 'Mã'], ['fullName', 'Họ tên'], ['status', 'Trạng thái'], ['externalHrId', 'Mã HRS']]} action={row => <><Button disabled={busy} onClick={() => inspect(row)}>Chi tiết</Button><Button disabled={busy} onClick={() => open("Sửa hồ sơ", `/employees/${row.id}`, "PATCH", employeeFields.slice(1, 4), row, { expectedVersion: row.rowVersion })}>Sửa</Button><Button disabled={busy} onClick={() => open("Đổi trạng thái", `/employees/${row.id}/status`, "POST", [reasonField], undefined, { expectedVersion: row.rowVersion, status: row.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE' })}>{row.status === 'ACTIVE' ? 'Ngừng hoạt động' : 'Kích hoạt lại'}</Button></>} />
-          <div className="management-pagination"><span>{employees.total} hồ sơ · Trang {query.page}</span><Button disabled={busy || query.page <= 1} onClick={() => setQuery(q => ({ ...q, page: q.page - 1 }))}>Trang trước</Button><Button disabled={busy || query.page * employees.pageSize >= employees.total} onClick={() => setQuery(q => ({ ...q, page: q.page + 1 }))}>Trang sau</Button></div></Card>
-        {detail && <EmployeeAccountCard key={detail.id} employeeId={detail.id} employeeCode={text(detail, "employeeCode")} active={detail.status === "ACTIVE"} />}
-        {detail && <Card><h2>QR tĩnh cá nhân</h2><p>HR cấp QR cố định để nhân viên sử dụng nhiều lần. Thu hồi hoặc cấp lại sẽ vô hiệu mã cũ. Ngừng hoạt động sẽ vô hiệu QR và phiên đăng nhập.</p><div className="management-actions"><Button disabled={busy || detail.status !== "ACTIVE"} onClick={() => open("Cấp QR tĩnh", `/employees/${detail.id}/qr-credential`, "POST", [reasonField])}>Cấp QR tĩnh</Button><Button disabled={busy || detail.status !== "ACTIVE"} onClick={() => open("Cấp lại QR tĩnh", `/employees/${detail.id}/qr-credential`, "POST", [reasonField], undefined, { regenerate: true })}>Cấp lại QR</Button><Button disabled={busy} onClick={() => open("Thu hồi QR tĩnh", `/employees/${detail.id}/qr-credential/revoke`, "POST", [reasonField])}>Thu hồi QR</Button></div></Card>}
-        {detail && <Card><h2>{text(detail, 'fullName')} · Phân công & quyền truy cập</h2><div className="management-actions"><Button onClick={() => { open("Phân công tổ chức", `/employees/${detail.id}/assignments`, "POST", [...orgFields, ...periodFields]); setEditor(e => e ? { ...e, values: { ...e.values, validFrom: now() } } : e) }}>Thêm phân công</Button><Button onClick={() => { open("Cấp quyền nhà máy", `/employees/${detail.id}/access-grants`, "POST", [orgFields[0], ...periodFields]); setEditor(e => e ? { ...e, values: { ...e.values, validFrom: now() } } : e) }}>Cấp quyền ra/vào</Button><Button onClick={() => setDetail(null)}>Đóng chi tiết</Button></div><h3>Lịch sử phân công</h3><DataTable rows={history('assignments')} columns={[["factoryId", "Nhà máy"], ["departmentId", "Phòng ban"], ["validFrom", "Từ"], ["validTo", "Đến"]]} /><h3>Quyền truy cập</h3><DataTable rows={history('accessGrants')} columns={[["factoryId", "Nhà máy"], ["validFrom", "Từ"], ["validTo", "Đến"], ["revokedAt", "Thu hồi"]]} action={row => !row.revokedAt && <Button onClick={() => open("Thu hồi quyền", `/employees/${detail.id}/access-grants/${row.id}/revoke`, "POST", [reasonField], undefined, { expectedVersion: row.rowVersion })}>Thu hồi</Button>} /></Card>}
+        {!detailPage && <EmployeeList employees={employees} organization={org} query={query} search={search} busy={busy} hasError={!!error}
+          onSearch={setSearch} onQuery={patch => setQuery(value => ({ ...value, ...patch }))}
+          onApply={() => setQuery(value => ({ ...value, q: search.trim(), page: 1 }))}
+          onReset={() => { setSearch(""); setQuery({ q: "", factoryId: "", status: "", page: 1 }) }}
+          onRefresh={() => setRevision(value => value + 1)}
+          onCreate={() => open("Thêm nhân viên", "/employees", "POST", employeeFields)}
+          onEdit={row => open("Sửa hồ sơ", `/employees/${row.id}`, "PATCH", employeeFields.slice(1, 4), row, { expectedVersion: row.rowVersion })}
+          onStatus={row => open("Đổi trạng thái", `/employees/${row.id}/status`, "POST", [reasonField], undefined, { expectedVersion: row.rowVersion, status: row.status === "ACTIVE" ? "INACTIVE" : "ACTIVE" })}
+        />}
+        {detail && <EmployeeDetailOverview key={detail.id} employee={detail} organization={org} busy={busy} accountRevision={accountRevision}
+          onEdit={() => open("Sửa hồ sơ", `/employees/${detail.id}`, "PATCH", employeeFields.slice(1, 4), detail, { expectedVersion: detail.rowVersion })}
+          onAccount={() => setAccountEmployee(detail)}
+          onIssueQr={regenerate => open(regenerate ? "Cấp lại QR" : "Cấp QR", `/employees/${detail.id}/qr-credential`, "POST", [reasonField], undefined, regenerate ? { regenerate: true } : undefined)}
+          onRevokeQr={() => open("Thu hồi QR", `/employees/${detail.id}/qr-credential/revoke`, "POST", [reasonField])}
+          onAssign={() => { open("Phân công tổ chức", `/employees/${detail.id}/assignments`, "POST", [...orgFields, ...periodFields]); setEditor(value => value ? { ...value, values: { ...value.values, validFrom: now() } } : value) }}
+          onGrant={() => { open("Cấp quyền nhà máy", `/employees/${detail.id}/access-grants`, "POST", [orgFields[0], ...periodFields]); setEditor(value => value ? { ...value, values: { ...value.values, validFrom: now() } } : value) }}
+          assignmentHistory={<DataTable rows={history("assignments")} renderCell={renderEmployeeHistoryCell} columns={[["factoryId", "Nhà máy"], ["departmentId", "Phòng ban"], ["teamId", "Tổ"], ["validFrom", "Từ"], ["validTo", "Đến"]]} />}
+          grantHistory={<DataTable rows={history("accessGrants")} renderCell={renderEmployeeHistoryCell} columns={[["factoryId", "Nhà máy"], ["validFrom", "Từ"], ["validTo", "Đến"], ["revokedAt", "Thu hồi"]]} action={row => !row.revokedAt && <Button disabled={busy} onClick={() => open("Thu hồi quyền", `/employees/${detail.id}/access-grants/${row.id}/revoke`, "POST", [reasonField], undefined, { expectedVersion: row.rowVersion })}>Thu hồi</Button>} />}
+        />}
       </>)}
       {section === 'organization' && <>{!adm && <Alert severity="info">Chỉ ADM được sửa cấu hình tổ chức. Dữ liệu hiển thị theo phạm vi máy chủ cấp.</Alert>}{(['factories', 'departments', 'teams'] as const).map(kind => {
         const label = { factories: 'Nhà máy', departments: 'Phòng ban', teams: 'Tổ' }[kind]
@@ -120,12 +161,17 @@ export default function Management() {
     </>}
     {creatingEmployee && <EmployeeCreateDialog org={org} onClose={() => setCreatingEmployee(false)} onSaved={code => { setCreatingEmployee(false); setSuccess(`Máy chủ đã lưu hồ sơ với mã ${code}.`); setRevision(r => r + 1) }} />}
     <Dialog open={!!editor} onClose={() => { if (!busy) setEditor(null) }} fullWidth maxWidth="sm"><form onSubmit={save}><DialogTitle>{editor?.title}</DialogTitle><DialogContent><div className="management-form">{error && <Alert severity="error">{error}</Alert>}{editor?.fields.map(f => <TextField key={f.key} label={f.label} type={f.options ? undefined : f.type || 'text'} select={!!f.options} disabled={busy || (f.key === "departmentId" && editor.fields.some(field => field.key === "factoryId") && !editor.values.factoryId) || (f.key === "teamId" && !editor.values.departmentId)} helperText={f.options && !(editorOptions(f)?.length) ? emptyOrganizationMessage : undefined} required={f.required} value={editor.values[f.key] || ''} onChange={e => changeEditor(f.key, e.target.value)} slotProps={f.type === 'datetime-local' ? { inputLabel: { shrink: true } } : undefined}>{f.options && [<MenuItem key="empty" value="">Chọn…</MenuItem>, ...(editorOptions(f) ?? []).map(o => <MenuItem key={o.value} value={o.value}>{o.label}</MenuItem>)]}</TextField>)}</div></DialogContent><DialogActions><Button onClick={() => setEditor(null)} disabled={busy}>Hủy</Button><Button type="submit" variant="contained" disabled={busy}>Lưu trên máy chủ</Button></DialogActions></form></Dialog>
+    <Dialog open={!!accountEmployee} onClose={() => setAccountEmployee(null)} fullWidth maxWidth="sm" aria-labelledby="employee-account-dialog-title">
+      <DialogTitle id="employee-account-dialog-title">Tài khoản · {accountEmployee && text(accountEmployee, "fullName")}</DialogTitle>
+      <DialogContent>{accountEmployee && <EmployeeAccountCard key={accountEmployee.id} employeeId={accountEmployee.id} employeeCode={text(accountEmployee, "employeeCode")} active={accountEmployee.status === "ACTIVE"} onProvisioned={() => setAccountRevision(value => value + 1)} />}</DialogContent>
+      <DialogActions><Button onClick={() => setAccountEmployee(null)}>Đóng</Button></DialogActions>
+    </Dialog>
     <Dialog open={!!secret} onClose={() => setSecret(null)} fullWidth><DialogTitle>Credential chỉ hiển thị một lần</DialogTitle><DialogContent><Alert severity="warning">Lưu vào nơi quản lý secret của thiết bị. Đóng cửa sổ sẽ xóa nội dung khỏi giao diện.</Alert><p>ID: {secret?.credentialId}</p><pre className="management-json">{secret?.secret}</pre></DialogContent><DialogActions><Button onClick={() => setSecret(null)}>Đã lưu an toàn — đóng</Button></DialogActions></Dialog>
   </main>
 }
 
-function DataTable({ rows, columns, action }: { rows: RecordRow[]; columns: string[][]; action?: (row: RecordRow) => React.ReactNode }) {
-  return <div className="management-table"><table><thead><tr>{columns.map(([key, label]) => <th key={key}>{label}</th>)}{action && <th>Thao tác</th>}</tr></thead><tbody>{rows.length ? rows.map(row => <tr key={row.id}>{columns.map(([key]) => <td key={key}>{typeof row[key] === 'boolean' ? <Chip size="small" label={row[key] ? 'Có' : 'Không'} /> : text(row, key) || '—'}</td>)}{action && <td><div className="management-actions">{action(row)}</div></td>}</tr>) : <tr><td colSpan={columns.length + (action ? 1 : 0)}>Không có dữ liệu trong phạm vi/bộ lọc hiện tại.</td></tr>}</tbody></table></div>
+function DataTable({ rows, columns, action, renderCell }: { rows: RecordRow[]; columns: string[][]; action?: (row: RecordRow) => React.ReactNode; renderCell?: (row: RecordRow, key: string) => React.ReactNode }) {
+  return <div className="management-table"><table><thead><tr>{columns.map(([key, label]) => <th key={key}>{label}</th>)}{action && <th>Thao tác</th>}</tr></thead><tbody>{rows.length ? rows.map(row => <tr key={row.id}>{columns.map(([key]) => <td key={key}>{renderCell ? renderCell(row, key) : typeof row[key] === 'boolean' ? <Chip size="small" label={row[key] ? 'Có' : 'Không'} /> : text(row, key) || '—'}</td>)}{action && <td><div className="management-actions">{action(row)}</div></td>}</tr>) : <tr><td colSpan={columns.length + (action ? 1 : 0)}>Không có dữ liệu trong phạm vi/bộ lọc hiện tại.</td></tr>}</tbody></table></div>
 }
 function stationFields(org: Organization, integrations: RecordRow[]): Field[] {
   const options = (rows: RecordRow[]) => rows.map(row => ({ value: row.id, label: text(row, 'name') || text(row, 'code') }))

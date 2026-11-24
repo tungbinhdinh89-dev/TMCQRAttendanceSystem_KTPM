@@ -1,14 +1,12 @@
 import { useEffect, useState, type FormEvent } from "react"
 import { Link, Navigate, useSearchParams } from "react-router-dom"
 import { Alert, Button, Chip, CircularProgress, Dialog, DialogContent, DialogTitle, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material"
-import { Brand, Card, PageHeader } from "../../components/ui"
-import { ThemeToggle } from "../../components/layout"
+import { Card, PageHeader } from "../../components/ui"
 import { managementSession, ManagementError, type ManagementIdentity } from "../../data/management"
 import { readHistory, readHistoryDetail, type HistoryMode, type HistoryQuery, type HistoryResult } from "../../data/attendance-history"
-import { canReadAttendance, canReadAttendanceSummary, canReadGateHistory, canUsePersonalQr, canUseScanner, managementTabs } from "../../lib/server-access"
+import { canReadAttendance, canReadAttendanceSummary, canReadGateHistory } from "../../lib/server-access"
 import type { AttendanceHistoryItem, GateHistoryItem } from "../../../../contracts/src/attendance"
 import { AccessMessage } from "../auth/ServerAccess"
-import HistoryLinks from "./HistoryLinks"
 import "../audit/audit.css"
 import "./history.css"
 
@@ -81,17 +79,10 @@ export default function History({ mode }: { mode: HistoryMode }) {
     if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start || end - start > 93 * 86400000) { setError("Chọn khoảng thời gian hợp lệ, tối đa 93 ngày."); return }
     setQuery(queryFor(filters, query.pageSize))
   }
-  async function logout() {
-    setResult(null); setDetail(null); setBusy(true)
-    try { await managementSession.logout(); window.location.assign("/dang-nhap") }
-    catch { setError("Chưa đăng xuất được. Vui lòng thử lại."); setBusy(false) }
-  }
   if (!checking && !identity && !error) return <Navigate to="/dang-nhap" replace />
   if (identity && !allowed) return <AccessMessage identity={identity} />
   return <main className="audit-page">
-    <header className="audit-top"><Brand /><nav className="audit-actions" aria-label="Điều hướng chấm công"><Link to="/">Trang chủ</Link>{identity && <><HistoryLinks identity={identity} />{canUsePersonalQr(identity) && <Link to="/qr">QR của tôi</Link>}{canUseScanner(identity) && <Link to="/scanner">Quét QR</Link>}{managementTabs(identity).length > 0 && <Link to="/management">Quản lý</Link>}</>}<ThemeToggle /></nav></header>
     <PageHeader title={heading[mode]} description={mode === "summary" ? "Số lượt vào/ra theo ngày và nhà máy trong phạm vi điều hành được cấp." : mode === "gate" ? "Theo dõi lượt quét và kết quả tại cổng trong nhà máy được giao." : "Tra cứu các sự kiện chấm công đã ghi nhận trong phạm vi của bạn."} />
-    {checking ? <CircularProgress aria-label="Kiểm tra phiên đăng nhập" /> : identity && <div className="audit-session"><span>Đã đăng nhập: <strong>{identity.username}</strong></span><Button onClick={logout} disabled={busy}>Đăng xuất</Button></div>}
     {error && <Alert severity="error" action={<Button onClick={() => identity ? setReload(n => n + 1) : window.location.assign("/dang-nhap")}>{identity ? "Thử lại" : "Đăng nhập"}</Button>}>{error}</Alert>}
     {allowed && <>
       <p className="history-scope">{mode === "summary" ? "Chỉ hiển thị số liệu tổng hợp; không cung cấp hồ sơ hoặc lịch sử từng nhân viên." : mode === "gate" ? "Nhật ký cổng không phải bảng công. Lượt bị từ chối hoặc chưa ghi nhận không được tính là đã chấm công." : selfOnly ? "Bạn đang xem lịch sử của chính mình. Bạn không có quyền tự sửa công." : "Chỉ hiển thị nhân viên trong phạm vi được giao. Trang này chỉ đọc, không thay đổi dữ liệu công."}</p>
