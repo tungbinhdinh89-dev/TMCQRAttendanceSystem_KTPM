@@ -121,7 +121,7 @@ export function buildApiDocument(app: INestApplication): OpenAPIObject {
   for (const [path, summary, result, parameters] of [
     ["/api/attendance/history", "Attendance current revisions: HR assigned scope, EMP self, SUP assigned team", "AttendanceHistoryPage", [...historyParameters, query("employeeId", uuid)]],
     ["/api/attendance/summary", "EXE scoped daily aggregates only; counts are not payroll hours", "AttendanceSummaryPage", historyParameters],
-    ["/api/gate/history", "SEC scoped gate attempts; denied/pending attempts are not attendance", "GateHistoryPage", historyParameters],
+    ["/api/gate/history", "SEC scoped gate attempts; denied/pending attempts are not attendance", "GateHistoryPage", [...historyParameters, query("eventId", uuid)]],
   ] as const) patch(path, "get", { summary, tags: ["Attendance History"], parameters: [...parameters], responses: { "200": response("Scoped read-only result", ref(result)), "400": response("Invalid filter, page or time range", ref("Error")), "401": response("Session required", ref("Error")), "403": response("Role, permission or assigned scope denied; ADM has no implicit business permission", ref("Error")) } })
   for (const [path, schema] of [["/api/attendance/history/{id}", "AttendanceHistoryItem"], ["/api/gate/history/{id}", "GateHistoryItem"]] as const) {
     const operation = document.paths[path]?.get

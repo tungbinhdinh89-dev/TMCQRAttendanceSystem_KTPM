@@ -257,3 +257,28 @@ The computer's employee QR is rendered360px with a white quiet zone and black mo
 QR and white border visible; move the phone farther away rather than filling/cropping the camera view.
 Regression evidence uses real html5-qrcode decoding of a long QR from canvas video frames, not a mocked
 success callback. Camera source/API result are synthetic; physical iPhone focus/lighting still need testing.
+
+### Scoped attendance history
+
+Use server accounts with the appropriate active role assignment and permission. These pages read PostgreSQL; they do not use prototype sample data.
+
+| Role | Page | Read API | Required scope/permission |
+|---|---|---|---|
+| EMP | `/attendance` (also linked from `/qr`) | `GET /api/attendance/history` | `attendance:read`; always self, even if EMP assignment says GLOBAL |
+| HR | `/attendance` | `GET /api/attendance/history` | `attendance:read` on the same HR assignment; GLOBAL/FACTORY/DEPARTMENT/TEAM |
+| SUP | `/attendance` | `GET /api/attendance/history` | `attendance:read` on TEAM assignment with factory and team IDs |
+| SEC | `/gate-history` | `GET /api/gate/history` | `access:decide` on SEC GLOBAL/FACTORY assignment |
+| EXE | `/attendance-summary` | `GET /api/attendance/summary` | `attendance:read` on EXE assigned scope; daily/factory counts only |
+| ADM | No implicit business-history page | Denied without a separate qualifying business assignment | `iam:manage` does not grant attendance access |
+
+Attendance and gate detail endpoints append `/:id` to their history path. Nonexistent or invisible detail IDs return 404. Gate list also accepts `eventId` to look up a stored scan without supplying/revalidating its QR. No QR payload, fingerprint, password, session secret or HRS ID is returned.
+
+Filters: timezone-qualified `from` inclusive / `to` exclusive, maximum 93 days, default last 30 days; `page` starts at 1, `pageSize` defaults to 25 and is capped at 100. Optional `factoryId`, `stationId`, `direction` only narrow the authorized result. Attendance allows `employeeId`; aggregate API rejects it. Counts and pages use the same scoped SQL statement; current revision determines timestamp, direction, organization and voided status. HR/SUP organization scope uses the event's recorded assignment, not today's employee team.
+
+The UI uses Vietnam dates/time. A DEMO or DEMO_QR_SCAN record remains labelled as simulation evidence. Gate denied/pending/unknown attempts do not become attendance just because they appear in a log. Aggregate counts exclude voided revisions and are not payroll hours. Read permission does not grant corrections: this delivery has no attendance edit API/action.
+
+To verify: scan an employee QR on the SEC scanner, then log in as that employee and open `/attendance`; the same persisted event is visible to HR in scope. SEC checks `/gate-history`; EXE checks `/attendance-summary`. Try the same links as ADM-only or a different scoped actor to verify refusal/isolation. A SUP fixture with FACTORY scope and no team is intentionally denied; an authorized administrator must assign the actual TEAM scope. Do not run database reset/seed to bypass this policy.
+
+Focused checks: `pnpm --dir api build`, then `node --test api/test/attendance-history.test.mjs api/test/attendance-history-http.test.mjs api/test/openapi.test.mjs`; `pnpm --dir client build`; `pnpm --dir client test:authorization`. Swagger documents the actual routes at `/api/docs`.
+
+Verification on 2026-11-24: API history/HTTP/Swagger focused10 tests and scanner/authorization regression15 tests passed. Read-only PostgreSQL service checks used synthetic scoped identities against existing stored data: one HR/self/team/gate row and one aggregate group checked; foreign employee/factory filters returned zero and foreign detail IDs returned404. EXE employee selector rejected400. No DB writes, seed or migration applied. EXPLAIN parsed the scoped query on this small dataset; large-history performance is unmeasured and date-range indexes may be needed as data grows. Browser smoke uses mocked API responses (not live account login); physical iPhone and two real authenticated browser sessions remain manual acceptance checks.
