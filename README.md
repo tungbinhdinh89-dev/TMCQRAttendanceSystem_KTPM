@@ -4,14 +4,37 @@
 
 ## 1. Chuẩn bị
 
-- Node.js 22 và pnpm 10 (phiên bản dự án trong `.mise.toml`).
-- Docker Desktop đang chạy, sử dụng Linux containers.
-- OpenSSL khi dùng HTTPS trên iPhone; script hỗ trợ bản kèm Git for Windows.
-- Chạy các lệnh dưới đây từ thư mục gốc dự án.
+- Git để clone source.
+- Node.js **22.12 trở lên trong nhánh 22.x** và pnpm **10.34.3**, theo toolchain dự án và yêu cầu Vite. Nên cài bản cập nhật mới nhất của Node 22.
+- Docker Desktop đã khởi động, engine sử dụng Linux containers. Docker chỉ chạy PostgreSQL; FE/BE chạy bằng Node trên máy tính.
+- OpenSSL khi dùng HTTPS trên iPhone; script hỗ trợ bản đi kèm Git for Windows.
+- Chạy các lệnh dưới đây từ **thư mục gốc repository**, không phải thư mục `client/` hay `api/`.
 
-```powershell
-pnpm install
+### Clone và cài thư viện
+
+Các lệnh sau dùng được trong PowerShell, Terminal macOS và Linux:
+
+```sh
+git clone https://github.com/tungbinhdinh89-dev/TMCQRAttendanceSystem_KTPM.git
+cd TMCQRAttendanceSystem_KTPM
+node --version
+npm install --global pnpm@10.34.3
+pnpm --version
+pnpm install --frozen-lockfile
 ```
+
+`node --version` cần trả về `v22.x` với phiên bản ít nhất 22.12. Nếu đã cài đúng pnpm, bỏ qua lệnh cài global. Dự án dùng workspace; chỉ cần cài thư viện một lần ở root.
+
+### Thứ tự setup lần đầu
+
+1. Clone và cài thư viện như trên.
+2. Khởi động Docker Desktop và PostgreSQL ở mục 2.
+3. Tạo `api/.env` và khóa ký QR theo mục 2.
+4. Chạy migration, rồi seed dữ liệu ban đầu.
+5. Chạy FE/BE ở mục 3; đăng nhập bằng tài khoản seed.
+6. Nếu cần camera iPhone, cấu hình thêm HTTPS và tin cậy CA ở mục 4.
+
+Source clone mới **không có database, tài khoản, QR, `.env` hoặc chứng chỉ của máy khác**. Các file riêng này được Git bỏ qua và phải tạo trên máy bạn.
 
 ## 2. PostgreSQL local bằng Docker Desktop
 
@@ -60,6 +83,8 @@ DATABASE_URL="postgresql://admin:123456@127.0.0.1:5432/tmc-local"
 
 Script chỉ thay `DATABASE_URL`, giữ nguyên cấu hình khác như khóa ký QR và CORS; không in khóa bí mật, không chạy migration, không tạo dữ liệu mẫu. `api/.env` được Git bỏ qua.
 
+Không cần tạo `.env` ở root. Không sao chép connection string hoặc private key của người khác để chạy bản local mới.
+
 Backend ưu tiên `DATABASE_URL` trong terminal, rồi `api/.env`, cuối cùng `env-variable.txt` cũ. Nếu terminal còn biến kết nối database cũ, xóa biến trong phiên hiện tại trước khi chạy backend:
 
 ```powershell
@@ -68,6 +93,18 @@ Remove-Item Env:TMC_DATABASE_OVERRIDE -ErrorAction SilentlyContinue
 ```
 
 macOS/Linux dùng `unset DATABASE_URL TMC_DATABASE_OVERRIDE`. Khởi động lại backend sau khi đổi `.env`.
+
+### Tạo khóa ký QR trước khi demo
+
+Đăng nhập có thể hoạt động khi chưa có khóa, nhưng **HR cấp QR sẽ trả 503**. Sau khi tạo `api/.env`, chạy nguyên dòng sau trong PowerShell hoặc Bash để tạo khóa Ed25519 local:
+
+```sh
+node -e "const fs=require('node:fs'),c=require('node:crypto');const p='api/.env',s=fs.readFileSync(p,'utf8');if(/^\s*(?:export\s+)?QR_(KEY_ID|PRIVATE_KEY_PEM)\s*=/m.test(s))throw Error('Da co cau hinh QR: giu nguyen khoa hien tai.');const k=c.generateKeyPairSync('ed25519').privateKey.export({type:'pkcs8',format:'pem'});fs.appendFileSync(p,'\nQR_KEY_ID=tmc-local-ed25519-v1\nQR_PRIVATE_KEY_PEM='+JSON.stringify(k)+'\n',{mode:0o600});console.log('Da luu khoa QR vao api/.env; khong in private key.');"
+```
+
+Lệnh thêm `QR_KEY_ID` và `QR_PRIVATE_KEY_PEM` vào `api/.env`, không in private key. Chỉ dùng cho **lần khởi tạo database mới**. Nếu báo đã có cấu hình, giữ nguyên khóa hiện tại và kiểm tra đủ cả hai biến. Không đổi khóa sau khi đã cấp QR; khi phục hồi database cũ phải dùng lại khóa tương ứng.
+
+Khóa ký QR khác với chứng chỉ HTTPS/CA cho camera iPhone. Không commit hoặc đưa private key vào frontend. Script setup connection string không tự tạo khóa này.
 
 ### Tạo bảng bằng migration
 
@@ -135,6 +172,24 @@ Không thêm `-v` vào `docker compose down` nếu muốn giữ dữ liệu. `PO
 
 ## 3. Chạy frontend và backend
 
+Sau khi hoàn thành mục 2, chạy lệnh chung cho Windows/macOS/Linux:
+
+```sh
+node scripts/project.mjs run
+```
+
+Giữ terminal mở. Trên bản clone mới chưa cấu hình HTTPS, các địa chỉ mặc định là:
+
+| Địa chỉ | Công dụng |
+| --- | --- |
+| `http://localhost:5173/dang-nhap` | Đăng nhập ứng dụng |
+| `http://localhost:5173/management?tab=employees` | HR quản lý nhân viên |
+| `http://localhost:5173/qr` | EMP xem QR cá nhân |
+| `http://localhost:3000/api/docs` | Swagger, thử API bằng cookie đăng nhập |
+| `http://localhost:3000/api/openapi.json` | OpenAPI dạng JSON |
+
+Nếu đã cấu hình LAN HTTPS, Vite vẫn dùng cấu hình trong `client/.env.local`; hãy mở URL HTTPS được terminal in ra.
+
 | Công việc | Windows PowerShell | macOS/Linux |
 | --- | --- | --- |
 | Cả frontend/backend | `.\scripts\run.ps1` | `bash scripts/run.sh` |
@@ -161,9 +216,34 @@ Các script dùng đường dẫn tương đối với chính file, có thể g�
 
 Có thể dùng alias: `pnpm dev`, `pnpm dev:client`, `pnpm dev:api`, `pnpm db:check`, `pnpm db:update`, `pnpm db:add -- AddEmployeeEmail`.
 
+### Mở dự án ở những lần tiếp theo
+
+Mở Docker Desktop rồi chạy:
+
+```sh
+docker compose up -d --wait
+node scripts/project.mjs run
+```
+
+Không cần seed hoặc tạo lại khóa. Sau `git pull`, nếu có migration mới, dừng backend, chạy `check`/`update` đúng database rồi khởi động lại. `Ctrl+C` dừng launcher; `docker compose stop` dừng database và giữ dữ liệu.
+
+### Demo nhanh bằng tài khoản có sẵn
+
+1. Đăng nhập `hr.local` với mật khẩu mặc định `TmcLocal@123456` (hoặc `DEMO_PASSWORD` tại lần seed đầu).
+2. Mở **Nhân viên → Chi tiết** của **Nguyễn Minh Anh**, mã **TMC0001**.
+3. Tài khoản mẫu đã có sẵn nên nút tài khoản là **Xem tài khoản**. Tại **QR chấm công**, bấm **Cấp QR**, nhập lý do và lưu.
+4. Mở một trình duyệt khác hoặc cửa sổ riêng tư, đăng nhập `emp.local` và mở `/qr`.
+5. Để quét bằng iPhone, thực hiện thêm mục 4; dùng `sec.local` ở phiên riêng. Không đăng nhập HR/EMP/SEC chung một phiên trình duyệt vì cookie phiên sẽ thay tài khoản hiện tại.
+
+EMP mẫu đã có phân công và access grant ở BD/LA. Với nhân viên HR tạo mới, kiểm tra và cấp **quyền ra/vào nhà máy** trước khi scan; tạo hồ sơ, cấp tài khoản, cấp access grant và cấp QR là các thao tác riêng.
+
 ## 4. Dùng iPhone làm máy quét QR
 
-### Chạy ứng dụng trên LAN 192.168.1.53
+### Xác định IP và chạy ứng dụng trên LAN
+
+Xem IPv4 của card mạng đang dùng bằng `ipconfig` trên Windows hoặc cài đặt mạng của macOS/Linux. **`192.168.1.53` chỉ là ví dụ của máy phát triển hiện tại; thay bằng IP máy bạn.**
+
+Shortcut Windows bên dưới đọc IP từ biến **`$lanAddress`** trong `scripts/run-expose.ps1`. Sửa biến đó trước khi chạy trên máy khác:
 
 ```powershell
 .\scripts\run-expose.ps1              # Cả frontend và backend
@@ -187,6 +267,8 @@ node scripts/lan-https.mjs --ip 192.168.1.53 --serve-ca
 2. Cài hồ sơ tại Cài đặt → Cài đặt chung → VPN & Quản lý thiết bị.
 3. Bật tin cậy đầy đủ cho **TMC Classroom Local CA** tại Cài đặt chung → Giới thiệu → Cài đặt tin cậy chứng nhận.
 4. Dừng terminal phục vụ CA sau khi tải xong, rồi chạy lại FE/BE để nạp HTTPS mới.
+
+Lệnh cấu hình CA dùng được trên cả ba hệ điều hành; thay IP mẫu bằng IP máy bạn. Sau khi dừng terminal tải CA, khởi động ứng dụng bằng `node scripts/project.mjs run` hoặc shortcut Windows đã chỉnh đúng IP. Trên máy tính, dùng URL HTTPS LAN được Vite in ra và chấp nhận/tin cậy chứng chỉ local trong trình duyệt máy tính.
 
 Chỉ chứng chỉ CA công khai được phục vụ; không chia sẻ `ca-key.pem`, `lan-key.pem` hoặc khóa ký QR. Xem [hướng dẫn Apple về tin cậy chứng chỉ](https://support.apple.com/en-us/102390).
 
@@ -219,7 +301,7 @@ Permission và scope phải thuộc cùng assignment. HR GLOBAL không mở rộ
 
 ### HR cấp tài khoản và QR
 
-HR mở chi tiết nhân viên đang hoạt động để tạo tài khoản EMP SELF. Mật khẩu tạm chỉ hiện một lần; giao trực tiếp cho nhân viên. Nhân viên phải đổi sang mật khẩu 12–128 ký tự khác mật khẩu cũ; đổi thành công thu hồi mọi session và phải đăng nhập lại.
+HR mở **Nhân viên → Chi tiết** (`/management/employees/:id`). Nếu chưa có tài khoản, bấm **Cấp tài khoản**; nếu đã có thì chỉ có **Xem tài khoản**, không xem lại mật khẩu cũ. Tài khoản được tạo ACTIVE với EMP SELF; mật khẩu tạm chỉ hiện một lần để bàn giao trực tiếp. Nhân viên phải đổi sang mật khẩu 12–128 ký tự khác mật khẩu cũ; đổi thành công thu hồi mọi session và phải đăng nhập lại. Tài khoản seed local đã sẵn sàng để demo, không bắt đổi mật khẩu tạm.
 
 HR cấp QR riêng cho nhân viên. QR tĩnh chứa tham chiếu credential, không chứa tên/mã HRS; payload giữ nguyên khi nhân viên tải lại trang. Cấp lại thay QR cũ. Thu hồi QR có hiệu lực khi máy chủ kiểm tra; cho nhân viên nghỉ còn thu hồi session, credential/token và access grant trong giao dịch. Kích hoạt lại không tự khôi phục quyền/QR cũ.
 
@@ -262,13 +344,29 @@ pnpm test:scripts
 
 `pnpm --dir api test:integration` có bước seed dữ liệu; chỉ dùng database test đã chỉ định. Không chạy tùy tiện trên dữ liệu cần giữ.
 
+Dùng `pnpm --dir client build` trên cả ba hệ điều hành; alias `pnpm build` ở root hiện dùng `pnpm.cmd` của Windows.
+
 - **Cổng 3000/5173 đang dùng:** dừng đúng launcher cũ; script không tự kill dịch vụ khác.
+- **Không tìm thấy `dockerDesktopLinuxEngine`:** mở Docker Desktop, chờ engine sẵn sàng; kiểm tra `docker version` có phần Server và đang dùng Linux containers.
+- **Đăng nhập tài khoản seed trả 401:** phải chạy seed thật, không chỉ `--dry-run`; dùng mật khẩu ứng dụng `TmcLocal@123456` hoặc `DEMO_PASSWORD` tại lần seed đầu, không dùng mật khẩu database `123456`.
 - **502 ở `/api/me`:** frontend không kết nối được backend; xem terminal backend và `DEV_API_TARGET`.
 - **`/api/me` pending nhưng Swagger trả ngay:** kiểm tra database và log PostgreSQL; session/audit có thao tác ghi nên có thể chờ WAL/ổ đĩa. Dùng `docker compose logs --tail 100 postgres`; không reset dữ liệu để chữa lỗi.
 - **Vẫn kết nối database cũ:** kiểm tra biến `DATABASE_URL` trong terminal, file `api/.env`, rồi khởi động lại backend.
 - **Thiếu bảng:** kiểm tra target, chạy `check` và `update` để áp dụng migration.
 - **QR trả 503:** kiểm tra cấu hình khóa ký server và migration; không tạo QR thay thế trong frontend.
 - **Scanner 403 với EMP/HR:** dùng SEC có quyền/scope phù hợp; role nhân viên không phải người vận hành scanner.
+- **SEC chỉ thấy một nhà máy:** kiểm tra role assignment. Seed local mới có BD và LA; seed lại giữ nguyên quyền đang tồn tại, không tự sửa dữ liệu cũ.
+- **Đã sửa source backend nhưng vẫn gặp lỗi cũ:** dừng và chạy lại backend; launcher thường chạy bản đã build, không tự watch source. Sửa `.env` cũng cần khởi động lại backend.
 - **Camera không mở:** kiểm tra HTTPS tin cậy, quyền camera và mạng LAN. Ảnh/quét trên desktop không chứng minh camera iPhone thật đã hoạt động.
 
 Đã có kiểm tra phân quyền API/UI và truy vấn PostgreSQL chỉ đọc cho lịch sử. Kiểm tra trình duyệt tự động dùng API mô phỏng; vẫn cần nghiệm thu bằng tài khoản thật trên hai trình duyệt và iPhone. Hiệu năng với lịch sử lớn chưa được đo; có thể cần index thời gian sau khi đánh giá query plan.
+
+## Cấu trúc dự án
+
+```text
+client/             React/Vite, trang theo role và scanner
+api/                NestJS, TypeORM, migration và API
+contracts/          Kiểu dữ liệu dùng chung FE/BE
+scripts/            Launcher, cấu hình local, migration, seed và HTTPS
+docker-compose.yml  PostgreSQL local trên Docker Desktop
+```
