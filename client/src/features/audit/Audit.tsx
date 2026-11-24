@@ -1,8 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react"
 import { Alert, Button, CircularProgress, Dialog, DialogContent, DialogTitle, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material"
-import { Link, Navigate } from "react-router-dom"
-import { Brand, Card, PageHeader } from "../../components/ui"
-import { ThemeToggle } from "../../components/layout"
+import { Navigate } from "react-router-dom"
+import { Card, PageHeader } from "../../components/ui"
 import { AuditApiError, auditApi, canReadAudit, type AuditIdentity } from "../../data/audit"
 import type { AuditEntry, AuditPage, AuditQuery } from "../../../../contracts/src/audit"
 import MandatoryPasswordChange from "../auth/MandatoryPasswordChange"
@@ -74,7 +73,6 @@ export default function Audit() {
   if (!sessionBusy && !identity) return <Navigate to="/dang-nhap" replace />
   if (identity && !identity.mustChangePassword && !allowed) return <AccessMessage identity={identity} />
   return <main className="audit-page">
-    <header className="audit-top"><Brand /><div className="audit-actions"><Link to="/">Trang chủ</Link><ThemeToggle /></div></header>
     <PageHeader title="Nhật ký hệ thống" description="Tra cứu hoạt động và kết quả xử lý trong phạm vi được cấp quyền." />
     {sessionError && <Alert severity="error" role="alert">{sessionError}</Alert>}
     {!identity ? <Card className="audit-login">
@@ -86,7 +84,6 @@ export default function Audit() {
         <Button type="submit" variant="contained" disabled={sessionBusy}>{sessionBusy ? "Đang kiểm tra…" : "Đăng nhập"}</Button>
       </form>
     </Card> : identity.mustChangePassword ? <MandatoryPasswordChange onChanged={() => { setIdentity(null); setSessionError("Đã đổi mật khẩu. Đăng nhập lại bằng mật khẩu mới.") }} onLogout={logout} /> : <>
-      <div className="audit-session"><span>Đã đăng nhập: <strong>{identity.username}</strong></span><Button onClick={logout} disabled={sessionBusy}>Đăng xuất</Button></div>
       {!allowed ? <Alert severity="warning" role="alert">Tài khoản không có quyền xem nhật ký. Vui lòng đăng xuất và sử dụng tài khoản được cấp quyền.</Alert> : <>
         <Card>
           <form onSubmit={applyFilters} className="audit-filters" aria-label="Bộ lọc nhật ký">

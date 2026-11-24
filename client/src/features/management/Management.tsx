@@ -1,15 +1,13 @@
-import HistoryLinks from "../attendance-history/HistoryLinks"
 import { useEffect, useState, type FormEvent } from "react"
-import { Link, Navigate, useSearchParams } from "react-router-dom"
+import { Navigate, useSearchParams } from "react-router-dom"
 import { Alert, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Tab, Tabs, TextField } from "@mui/material"
-import { Brand, Card, PageHeader } from "../../components/ui"
-import { ThemeToggle } from "../../components/layout"
+import { Card, PageHeader } from "../../components/ui"
 import { ManagementError, managementRequest as request, managementSession, text, type EmployeePage, type ManagementIdentity, type Organization, type RecordRow } from "../../data/management"
 import MandatoryPasswordChange from "../auth/MandatoryPasswordChange"
 import EmployeeAccountCard from "./EmployeeAccountCard"
 import EmployeeCreateDialog from "./EmployeeCreateDialog"
 import EmployeeImportCard from "./EmployeeImportCard"
-import { isHr, isAdmin, isSecurity, canUseAudit, canUsePersonalQr, canUseScanner, managementTabs } from "../../lib/server-access"
+import { isHr, isAdmin, isSecurity, managementTabs } from "../../lib/server-access"
 import { AccessMessage } from "../auth/ServerAccess"
 import "./management.css"
 
@@ -91,11 +89,9 @@ export default function Management() {
   if (!checking && !identity) return <Navigate to="/dang-nhap" replace />
   if (identity && !identity.mustChangePassword && !availableTabs.some(tab => tab === section)) return <AccessMessage identity={identity} />
   return <main className="management-page">
-    <header className="management-top"><Brand /><div><Link to="/">Trang chủ</Link>{identity && canUseAudit(identity) && <Link to="/audit">Nhật ký</Link>}{identity && canUsePersonalQr(identity) && <Link to="/qr">QR của tôi</Link>}{identity && canUseScanner(identity) && <Link to="/scanner">Qu?t ch?m c?ng</Link>}{identity && <HistoryLinks identity={identity} />}<ThemeToggle /></div></header>
     <PageHeader title="Nhân sự & cấu hình nhà máy" description="Quản lý dữ liệu được lưu trên máy chủ trong phạm vi tài khoản của bạn." />
     {error && <Alert severity="error" role="alert">{error}</Alert>}{success && <Alert severity="success" role="status">{success}</Alert>}
     {checking ? <CircularProgress aria-label="Kiểm tra phiên" /> : !identity ? <Card className="management-login"><h2>Đăng nhập</h2><form onSubmit={login} className="management-form"><TextField label="Tên đăng nhập" value={username} onChange={e => setUsername(e.target.value)} autoComplete="username" required /><TextField label="Mật khẩu" type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /><Button type="submit" variant="contained" disabled={busy}>Đăng nhập</Button></form></Card> : identity.mustChangePassword ? <MandatoryPasswordChange onChanged={() => { setIdentity(null); setSuccess("Đã đổi mật khẩu. Đăng nhập lại bằng mật khẩu mới.") }} onLogout={logout} /> : <>
-      <div className="management-top"><span>Đã đăng nhập: <strong>{identity.username}</strong></span><Button disabled={busy} onClick={logout}>Đăng xuất</Button></div>
       <Tabs value={section} variant="scrollable" scrollButtons="auto" onChange={(_, value: string) => { setParams({ tab: value }); setSuccess(""); setError(""); setSecret(null) }} aria-label="Nhóm quản trị">
         {availableTabs.map(tab => <Tab key={tab} value={tab} label={{ employees: "Nhân viên", organization: "Tổ chức", stations: "Trạm cổng", integrations: "Tích hợp", readiness: "Vận hành" }[tab]} />)}
       </Tabs>

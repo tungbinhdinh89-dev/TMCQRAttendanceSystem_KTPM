@@ -1,10 +1,8 @@
-import HistoryLinks from "../attendance-history/HistoryLinks"
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react"
-import { Link, Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { Alert, Button, CircularProgress, TextField } from "@mui/material"
 import QRCode from "react-qr-code"
-import { Brand, Card, PageHeader } from "../../components/ui"
-import { ThemeToggle } from "../../components/layout"
+import { Card, PageHeader } from "../../components/ui"
 import { managementSession, ManagementError, type ManagementIdentity } from "../../data/management"
 import { qrApi, QrError } from "../../data/qr"
 import MandatoryPasswordChange from "../auth/MandatoryPasswordChange"
@@ -76,12 +74,10 @@ export default function Qr() {
   if (!checking && !identity) return <Navigate to="/dang-nhap" replace />
   if (identity && !identity.mustChangePassword && !employee) return <AccessMessage identity={identity} />
   return <main className="self-qr-page">
-    <header><Brand /><div><Link to="/">Trang chủ</Link>{identity && <HistoryLinks identity={identity} />}<ThemeToggle /></div></header>
     <PageHeader title="Mã QR của tôi" description="Đăng nhập bằng tài khoản HR cấp để xem mã QR cá nhân." />
     {error && <Alert severity="error" role="alert">{error}</Alert>}
     {notice && <Alert severity="success" role="status">{notice}</Alert>}
     {checking ? <CircularProgress aria-label="Kiểm tra phiên đăng nhập" /> : !identity ? <Card><h2>Đăng nhập nhân viên</h2><form onSubmit={login} className="self-qr-form"><TextField label="Tên đăng nhập" autoComplete="username" value={username} onChange={e => setUsername(e.target.value)} required disabled={busy} /><TextField label="Mật khẩu" type="password" autoComplete="current-password" value={password} onChange={e => setPassword(e.target.value)} required disabled={busy} /><Button type="submit" variant="contained" disabled={busy}>Đăng nhập</Button></form></Card> : identity.mustChangePassword ? <MandatoryPasswordChange onChanged={() => { generation.current++; setQr(null); setIdentity(null); setNotice("Đã đổi mật khẩu. Đăng nhập lại bằng mật khẩu mới.") }} onLogout={logout} /> : <>
-      <div className="self-qr-session"><span>Đã đăng nhập: <strong>{identity.username}</strong></span><Button disabled={busy} onClick={logout}>Đăng xuất / đổi tài khoản</Button></div>
       <Card className="self-qr-profile"><section aria-labelledby="qr-profile-title">
         <p className="self-qr-profile-label">Thông tin nhân viên</p>
         <h2 id="qr-profile-title">{identity.employee?.fullName || "Chưa cập nhật họ tên"}</h2>

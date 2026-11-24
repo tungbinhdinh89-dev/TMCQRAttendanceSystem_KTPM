@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Alert, Button, Chip, CircularProgress, MenuItem, TextField } from "@mui/material"
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from "html5-qrcode"
-import { Brand, Card, PageHeader } from "../../components/ui"
-import { ThemeToggle } from "../../components/layout"
-import { managementSession } from "../../data/management"
+import { Card, PageHeader } from "../../components/ui"
 import { scannerApi, ScannerError, type ScanResult, type ScanStation } from "../../data/scanner"
 import "./scanner.css"
+import { useAuthenticatedNavigationGuard } from "../../lib/authenticated-navigation"
 
 type Pending = { stationId: string; eventId: string; token: string }
 const reasons: Record<string, string> = {
@@ -35,6 +34,11 @@ export default function Scanner() {
   const inFlight = useRef(false)
   const sourceBusy = useRef(false)
   const pending = useRef<Pending | null>(null)
+  useAuthenticatedNavigationGuard(() => {
+    if (!pending.current) return true
+    setError("Còn lượt chưa rõ kết quả. Kiểm tra lại hoặc bỏ trạng thái chờ trước khi rời trang hay đăng xuất.")
+    return false
+  })
   const stationRef = useRef(stationId)
   stationRef.current = stationId
   const selected = stations.find(s => s.id === stationId)
@@ -148,15 +152,9 @@ export default function Scanner() {
     if (!window.confirm("Lượt quét có thể đã được máy chủ ghi nhận. Bỏ kiểm tra không huỷ bản ghi trên máy chủ. Vẫn bỏ lượt đang chờ?")) return
     pending.current = null; setHasPending(false); setResult(null); setError(""); setNotice("Đã bỏ trạng thái chờ trên điện thoại. Không coi đây là huỷ chấm công đã lưu; kiểm tra dữ liệu trước khi quét lại.")
   }
-  async function logout() {
-    if (pending.current) { setError("Còn lượt chưa rõ kết quả. Kiểm tra lại hoặc chủ động bỏ trạng thái chờ trước khi đăng xuất."); return }
-    await stopCamera(); setBusy(true)
-    try { await managementSession.logout(); navigate("/dang-nhap", { replace: true }) } catch { setError("Chưa đăng xuất được. Vui lòng thử lại.") } finally { if (mounted.current) setBusy(false) }
-  }
   function manualSubmit(event: FormEvent) { event.preventDefault(); void accept(manual) }
   const recorded = result?.decision === "ALLOW" && ["RECORDED", "ALREADY_RECORDED"].includes(result.attendanceState) && !!result.attendanceEventId
   return <main className="scanner-page">
-    <header className="scanner-header"><Brand /><div><Link to="/management?tab=stations" onClick={event => { if (pending.current) { event.preventDefault(); setError("Còn lượt chưa rõ kết quả. Kiểm tra lại hoặc bỏ trạng thái chờ trước khi rời trang.") } }}>Trạm cổng</Link><ThemeToggle /><Button onClick={() => void logout()} disabled={busy}>Đăng xuất</Button></div></header>
     <PageHeader title="Quét QR chấm công" description="Dùng iPhone quét QR nhân viên hiển thị trên máy tính. Hướng vào/ra lấy từ trạm đã chọn." />
     <div className="scanner-stack">
       <Alert severity="info">Mô phỏng bài assignment. Dữ liệu được lưu với bằng chứng DEMO_QR_SCAN, không xác nhận đi qua cổng vật lý.</Alert>
