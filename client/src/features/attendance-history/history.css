@@ -1,0 +1,14 @@
+.history-scope { color: var(--text-secondary); margin-bottom: 24px; }
+.history-state { display: grid; gap: 4px; }
+.history-note { font-size: 12px; color: var(--text-secondary); }
+.history-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 16px 0; }
+.history-summary > div { padding: 16px; border-radius: 12px; background: var(--surface-secondary-bg); }
+.history-summary strong { display: block; font-size: 26px; }
+.history-detail dl { display: grid; gap: 16px; }
+.history-detail dd { margin: 4px 0 0; overflow-wrap: anywhere; }
+.history-detail dt { color: var(--text-secondary); }
+.history-advanced { grid-column: 1 / -1; }
+.history-advanced summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
+.history-advanced summary:focus-visible { outline: 2px solid var(--text-primary); outline-offset: 4px; }
+.history-advanced-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px; padding-bottom: 16px; }
+@media (max-width: 540px) { .history-summary { grid-template-columns: 1fr; } }

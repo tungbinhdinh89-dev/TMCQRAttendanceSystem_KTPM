@@ -1,3 +1,4 @@
+import HistoryLinks from "../attendance-history/HistoryLinks"
 import { useEffect, useState, type FormEvent } from "react"
 import { Link, Navigate, useSearchParams } from "react-router-dom"
 import { Alert, Button, Chip, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Tab, Tabs, TextField } from "@mui/material"
@@ -90,7 +91,7 @@ export default function Management() {
   if (!checking && !identity) return <Navigate to="/dang-nhap" replace />
   if (identity && !identity.mustChangePassword && !availableTabs.some(tab => tab === section)) return <AccessMessage identity={identity} />
   return <main className="management-page">
-    <header className="management-top"><Brand /><div><Link to="/">Trang chủ</Link>{identity && canUseAudit(identity) && <Link to="/audit">Nhật ký</Link>}{identity && canUsePersonalQr(identity) && <Link to="/qr">QR của tôi</Link>}{identity && canUseScanner(identity) && <Link to="/scanner">Qu?t ch?m c?ng</Link>}<ThemeToggle /></div></header>
+    <header className="management-top"><Brand /><div><Link to="/">Trang chủ</Link>{identity && canUseAudit(identity) && <Link to="/audit">Nhật ký</Link>}{identity && canUsePersonalQr(identity) && <Link to="/qr">QR của tôi</Link>}{identity && canUseScanner(identity) && <Link to="/scanner">Qu?t ch?m c?ng</Link>}{identity && <HistoryLinks identity={identity} />}<ThemeToggle /></div></header>
     <PageHeader title="Nhân sự & cấu hình nhà máy" description="Quản lý dữ liệu được lưu trên máy chủ trong phạm vi tài khoản của bạn." />
     {error && <Alert severity="error" role="alert">{error}</Alert>}{success && <Alert severity="success" role="status">{success}</Alert>}
     {checking ? <CircularProgress aria-label="Kiểm tra phiên" /> : !identity ? <Card className="management-login"><h2>Đăng nhập</h2><form onSubmit={login} className="management-form"><TextField label="Tên đăng nhập" value={username} onChange={e => setUsername(e.target.value)} autoComplete="username" required /><TextField label="Mật khẩu" type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /><Button type="submit" variant="contained" disabled={busy}>Đăng nhập</Button></form></Card> : identity.mustChangePassword ? <MandatoryPasswordChange onChanged={() => { setIdentity(null); setSuccess("Đã đổi mật khẩu. Đăng nhập lại bằng mật khẩu mới.") }} onLogout={logout} /> : <>
