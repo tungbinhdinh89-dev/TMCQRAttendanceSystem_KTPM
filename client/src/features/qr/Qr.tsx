@@ -1,3 +1,4 @@
+import HistoryLinks from "../attendance-history/HistoryLinks"
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react"
 import { Link, Navigate } from "react-router-dom"
 import { Alert, Button, CircularProgress, TextField } from "@mui/material"
@@ -74,7 +75,7 @@ export default function Qr() {
   if (!checking && !identity) return <Navigate to="/dang-nhap" replace />
   if (identity && !identity.mustChangePassword && !employee) return <AccessMessage identity={identity} />
   return <main className="self-qr-page">
-    <header><Brand /><div><Link to="/">Trang chủ</Link><ThemeToggle /></div></header>
+    <header><Brand /><div><Link to="/">Trang chủ</Link>{identity && <HistoryLinks identity={identity} />}<ThemeToggle /></div></header>
     <PageHeader title="Mã QR của tôi" description="Đăng nhập bằng tài khoản HR cấp để xem mã QR cá nhân." />
     {error && <Alert severity="error" role="alert">{error}</Alert>}
     {notice && <Alert severity="success" role="status">{notice}</Alert>}

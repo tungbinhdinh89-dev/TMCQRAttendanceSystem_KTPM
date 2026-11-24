@@ -9,6 +9,7 @@ import Login from "./features/auth/Login"
 import ServerAccess from "./features/auth/ServerAccess"
 import MuiBridge from "./styles/mui-theme"
 import { lazy, Suspense, useEffect } from "react"
+const History = lazy(() => import("./features/attendance-history/History"))
 const Scanner = lazy(() => import("./features/scanner/Scanner"))
 const client = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,9 @@ export default function App() {
               <Route path="/audit" element={<ServerAccess><Audit /></ServerAccess>} />
               <Route path="/management" element={<ServerAccess><Management /></ServerAccess>} />
               <Route path="/scanner" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở máy quét…</div>}><Scanner /></Suspense></ServerAccess>} />
+              <Route path="/attendance" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở lịch sử…</div>}><History mode="attendance" /></Suspense></ServerAccess>} />
+              <Route path="/gate-history" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở nhật ký…</div>}><History mode="gate" /></Suspense></ServerAccess>} />
+              <Route path="/attendance-summary" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở báo cáo…</div>}><History mode="summary" /></Suspense></ServerAccess>} />
               <Route path="/qr" element={<ServerAccess><Qr /></ServerAccess>} />
               <Route path="/mobile/ma-qr" element={<ServerAccess><Qr /></ServerAccess>} />
               <Route path="/workspace" element={<ServerAccess workspace />} />

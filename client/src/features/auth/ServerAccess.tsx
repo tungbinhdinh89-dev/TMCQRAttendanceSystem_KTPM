@@ -1,3 +1,4 @@
+import HistoryLinks from "../attendance-history/HistoryLinks"
 import { useEffect, useState, type ReactNode } from "react"
 import { Link, Navigate, useLocation } from "react-router-dom"
 import { Alert, Button, CircularProgress } from "@mui/material"
@@ -30,7 +31,7 @@ export default function ServerAccess({ children, workspace = false, legacy = fal
   if (identity.mustChangePassword) return <main className="management-page"><Brand /><MandatoryPasswordChange onChanged={() => window.location.assign("/dang-nhap?changed=1")} onLogout={async () => { await managementSession.logout(); window.location.assign("/dang-nhap") }} /></main>
   if (workspace) return <AccessMessage identity={identity} unavailable />
   if (legacy) {
-    const aliases: Record<string, string> = { "/app/nhan-su": "/management?tab=employees", "/app/cai-dat": "/management?tab=organization", "/app/kiem-soat": "/management?tab=stations", "/app/audit": "/audit", "/mobile/ma-qr": "/qr" }
+    const aliases: Record<string, string> = { "/app/nhan-su": "/management?tab=employees", "/app/cai-dat": "/management?tab=organization", "/app/kiem-soat": "/management?tab=stations", "/app/audit": "/audit", "/app/cham-cong": "/attendance", "/mobile/lich-su": "/attendance", "/app/bao-cao": "/attendance-summary", "/mobile/ma-qr": "/qr" }
     const destination = aliases[location.pathname]
     if (destination) return <Navigate to={destination} replace />
     if (["/app", "/app/tong-quan", "/mobile", "/mobile/trang-chu"].includes(location.pathname)) return <Navigate to={serverHome(identity)} replace />

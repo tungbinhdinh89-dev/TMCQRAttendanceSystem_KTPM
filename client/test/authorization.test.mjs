@@ -56,3 +56,24 @@ test("classroom scanner requires explicit SEC access:decide on a valid scope",()
  assert.equal(canVisit(user(role("HR"),role("SEC",["access:decide"])),"/scanner"),true)
  assert.equal(canVisit({...user(role("SEC",["access:decide"])),mustChangePassword:true},"/scanner"),false)
 })
+
+test("attendance pages enforce role, permission and same-assignment scope",()=>{
+ const attendance=["attendance:read"]
+ assert.equal(canVisit(user(role("EMP",attendance,"SELF",null)),"/attendance"),true)
+ assert.equal(canVisit(user(role("HR",attendance)),"/attendance"),true)
+ const supervisor={...role("SUP",attendance,"TEAM"),teamId:"team-a"}
+ assert.equal(canVisit(user(supervisor),"/attendance"),true)
+ assert.equal(serverHome(user(supervisor)),"/attendance")
+ assert.equal(canVisit(user(role("SUP",attendance)),"/attendance"),false)
+ assert.equal(canVisit(user(role("SUP",[],"TEAM"),role("HR",attendance,"SELF",null)),"/attendance"),false)
+ assert.equal(canVisit(user(role("SEC",["access:decide"])),"/gate-history"),true)
+ assert.equal(canVisit(user(role("SEC",["access:decide"])),"/attendance"),false)
+ assert.equal(canVisit(user(role("EXE",attendance)),"/attendance-summary"),true)
+ assert.equal(serverHome(user(role("EXE",attendance))),"/attendance-summary")
+ assert.equal(canVisit(user(role("EXE",attendance)),"/attendance"),false)
+ for(const path of ["/attendance","/gate-history","/attendance-summary"]){
+  assert.equal(canVisit(user(role("ADM",["iam:manage","attendance:read","access:decide"],"GLOBAL",null)),path),false)
+  assert.equal(canVisit({...user(supervisor),mustChangePassword:true},path),false)
+ }
+ assert.equal(canVisit(user(role("EMP")),"/attendance"),false)
+})
