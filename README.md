@@ -1,284 +1,274 @@
-# TMC Access
+﻿# TMC Access — Hệ thống QR chấm công
 
-## Authorization: web routes and API boundaries (TMC-107)
+Ứng dụng phục vụ bài assignment: HR quản lý nhân viên, cấp tài khoản và QR tĩnh; SEC quét QR để giả lập vào/ra; nhân viên và người được phân quyền tra cứu lịch sử. Frontend React/Vite, backend NestJS/TypeORM, database PostgreSQL. Đây là mô phỏng chấm công trực tuyến; chưa tích hợp cổng vật lý/TCS hay tính lương HRS.
 
-Web pages (`/qr`, `/management`) and backend endpoints (`/api/...`) are separate boundaries.
-Every real business API checks the server session and its role/scope; hiding a menu is not authorization.
-Use `/dang-nhap` for real username/password login. Legacy role selection and localStorage account IDs
-cannot grant access to business pages. The demo bootstrap endpoint and its client fetch have been removed entirely.
-Legacy prototype pages are redirected or explicitly unavailable.
+## 1. Chuẩn bị
 
-| Role | Actual web area | Allowed API capabilities | Denied / not implemented |
-| --- | --- | --- | --- |
-| EMP | `/qr`, `/mobile/ma-qr` | `/api/qr/self`, `/api/qr/self/code` (and old self token alias), own session only | Employee lists, other employees' QR, account provisioning, configuration, audit |
-| HR | `/management?tab=employees`, `tab=organization` read | Scoped `/api/employees/**`, EMP-only account provisioning, QR issue/reissue/revoke, organization lookup | Personal QR without explicit EMP; station/readiness/integration configuration; general role administration |
-| SEC | `/management?tab=stations`, `tab=readiness`; `/scanner` with `access:decide` | Scoped station/readiness/organization reads; scoped classroom demo scans with `access:decide` | Employee management, personal QR without EMP, config writes/credentials and integration settings |
-| ADM + `iam:manage` | Organization/stations/integrations/readiness administration | Scoped organization/configuration writes, station credentials, integrations and audit read | HR employee CRUD or personal QR unless separately assigned HR/EMP; no wildcard admin bypass |
-| HR/SEC + `audit:read` | `/audit` | Scoped audit query | Mutation/deletion of audit; a role label alone does not grant audit permission |
-| SUP | Authenticated workspace explaining current availability | Session endpoints | Team attendance/report API remains unimplemented; no fallback to factory-wide HR data |
-| EXE | Authenticated workspace explaining current availability | Session endpoints | Aggregate report API remains unimplemented; no employee/account details or SEC role mapping |
+- Node.js 22 và pnpm 10 (phiên bản dự án trong `.mise.toml`).
+- Docker Desktop đang chạy, sử dụng Linux containers.
+- OpenSSL khi dùng HTTPS trên iPhone; script hỗ trợ bản kèm Git for Windows.
+- Chạy các lệnh dưới đây từ thư mục gốc dự án.
 
-All roles can log in, inspect their own session (`GET /api/me`), change password and log out.
-`/api/my-profile` is not implemented and is not implied by `/api/me`. Employee history, reporting,
-attendance corrections, security reconciliation and general account/role administration are future APIs;
-this matrix does not pretend those features are implemented. Station heartbeat uses separate station
-bearer credentials, not a human SEC session. OpenAPI describes routes, not a grant to call them.
+```powershell
+pnpm install
+```
 
-### Policy rules
+## 2. PostgreSQL local bằng Docker Desktop
 
-- No session: protected APIs return 401. Valid session with insufficient role/scope: 403. Unknown endpoint: 404.
-- Temporary-password sessions may inspect session/change password/log out; business data remains blocked.
-- Factory/global scope is taken from the SAME assignment granting the capability. HR GLOBAL cannot widen SEC FACTORY or ADM FACTORY.
-- Explicit multi-role users combine capabilities. HR+EMP can view only their OWN QR; HR alone cannot retrieve any personal QR payload, even after issuing the credential.
-- HR provisioning creates only EMP SELF, not arbitrary roles. This narrow onboarding operation was explicitly requested; it does not make HR an IAM administrator.
-- Disabled/inactive users/employees and revoked/expired sessions remain denied by backend authentication.
-- Do not use guessed URL parameters or localStorage role flags to authorize data. Server selects self employeeId from session and checks organization scope for managed objects.
+`docker-compose.yml` tạo dịch vụ `postgres` với cấu hình:
 
-Detailed matrix entries are implementation policy derived from the assignment's RBAC/privacy actors and
-the approved project workflow; the assignment does not prescribe these exact URL names or every permission.
+| Thông tin | Giá trị |
+| --- | --- |
+| Database | `tmc-local` |
+| Username | `admin` |
+| Password | `123456` |
+| Host từ backend trên máy tính | `127.0.0.1` |
+| Port | `5432` |
+| Image | `postgres:18` |
+| Volume lưu dữ liệu | `postgres-data` trong Compose project `tmc-local` |
 
-## Công nghệ và kiểm tra
+Thông tin đăng nhập trên chỉ dành cho môi trường local của bài tập. Database chỉ mở cổng trên máy tính; iPhone gọi API qua frontend, không kết nối PostgreSQL trực tiếp.
 
-React, TypeScript, Vite; Astra UI là nguồn component/token; MUI bổ sung bảng, date picker và drawer. React Router, TanStack Query, React Hook Form + Zod, Recharts, Lucide, react-qr-code và html5-qrcode phục vụ nghiệp vụ.
+```powershell
+docker compose up -d --wait
+docker compose ps
+docker compose logs --tail 50 postgres
+```
+
+Compose có healthcheck `pg_isready`. PostgreSQL 18 dùng volume `/var/lib/postgresql`, theo [hướng dẫn image chính thức](https://hub.docker.com/_/postgres). Dữ liệu nằm trong Docker named volume, không nằm trong thư mục source.
+
+Nếu cổng 5432 đang được một PostgreSQL khác sử dụng, dừng dịch vụ đó hoặc đổi đồng thời cổng host trong Compose và connection string. Không tự dừng container/dịch vụ khác.
+
+### Tạo file kết nối backend
+
+```powershell
+.\scripts\setup-local-env.ps1
+```
+
+Hoặc dùng Node trên Windows/macOS/Linux:
 
 ```sh
-pnpm install
-pnpm build
-pnpm --dir api build
-pnpm --dir api test
-pnpm --dir api test:integration
+node scripts/setup-local-env.mjs
+# Cũng có thể dùng: bash scripts/setup-local-env.sh
 ```
 
-Chạy riêng backend sau khi build:
+Script tạo hoặc cập nhật **`api/.env`**:
+
+```dotenv
+DATABASE_URL="postgresql://admin:123456@127.0.0.1:5432/tmc-local"
+```
+
+Script chỉ thay `DATABASE_URL`, giữ nguyên cấu hình khác như khóa ký QR và CORS; không in khóa bí mật, không chạy migration, không tạo dữ liệu mẫu. `api/.env` được Git bỏ qua.
+
+Backend ưu tiên `DATABASE_URL` trong terminal, rồi `api/.env`, cuối cùng `env-variable.txt` cũ. Nếu terminal còn biến kết nối database cũ, xóa biến trong phiên hiện tại trước khi chạy backend:
 
 ```powershell
-pnpm.cmd --dir api build
-pnpm.cmd --dir api start
+Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue
+Remove-Item Env:TMC_DATABASE_OVERRIDE -ErrorAction SilentlyContinue
 ```
 
-Lệnh `api start` ưu tiên `DATABASE_URL` của terminal, sau đó nạp `api/.env` nếu có. Khi vẫn chưa có `DATABASE_URL`, lệnh đọc host/port/username/pass từ `env-variable.txt` ở root, dùng `DATABASE_NAME` hoặc mặc định `tmc`. Không cần chép thông tin kết nối vào source; thiếu cấu hình sẽ báo lỗi rõ thay vì thử PostgreSQL mặc định ở localhost.
+macOS/Linux dùng `unset DATABASE_URL TMC_DATABASE_OVERRIDE`. Khởi động lại backend sau khi đổi `.env`.
 
-Chạy cả backend và frontend:
+### Tạo bảng bằng migration
+
+Container mới chỉ có database trống. Kiểm tra đúng target rồi áp dụng migration:
 
 ```powershell
-pnpm.cmd dev:full
+.\scripts\check.ps1
+.\scripts\update.ps1
+.\scripts\check.ps1
 ```
 
-## Project scripts: Windows, macOS and Linux
+Không dùng TypeORM `synchronize`; dự án để `synchronize=false`, `migrationsRun=false`. Migration không tự seed/reset dữ liệu.
 
-Prerequisites: Node.js22+, pnpm, `pnpm install` at repository root, and an existing PostgreSQL database.
-The four script pairs share one Node runner; they work from any current directory.
-Database config precedence is terminal DATABASE_URL > api/.env > root env-variable.txt.
-Secrets stay in api/.env (ignored by Git). Frontend-only mode does not need DB configuration.
+### Seed dữ liệu ban đầu
 
-| Action | Windows PowerShell | macOS / Linux terminal |
+Sau khi tạo `.env` và chạy migration:
+
+```powershell
+.\scripts\seed-data.ps1
+# Kiểm tra trong giao dịch rồi rollback, không lưu dữ liệu:
+.\scripts\seed-data.ps1 --dry-run
+```
+
+macOS/Linux dùng `bash scripts/seed-data.sh`; cả ba hệ điều hành có thể chạy `node scripts/seed-data.mjs`. Nếu PowerShell chặn script:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\seed-data.ps1
+```
+
+Script chỉ chấp nhận **database `tmc-local` trên localhost**, in host/port/database nhưng không in mật khẩu kết nối. Script build API và yêu cầu migration đã áp dụng; không tự chạy migration, tạo database hoặc reset dữ liệu. Seed nằm trong một giao dịch, lỗi sẽ rollback.
+
+Bộ seed local tái sử dụng hồ sơ/tổ chức/trạm mẫu của dự án; không sao chép hồ sơ hoặc mật khẩu từ database cũ:
+
+- 2 nhà máy Bình Dương (`BD`), Long An (`LA`).
+- 3 phòng ban Nhân sự, Sản xuất, Vận hành và 2 tổ A tương ứng hai nhà máy.
+- 6 nhân viên/tài khoản hoạt động, 6 role và 3 permission nền tảng.
+- 4 trạm `BD-IN`, `BD-OUT`, `LA-IN`, `LA-OUT`; cấu hình tích hợp mô phỏng và access grant nền tảng.
+- Chưa tạo QR hay công giả; HR cấp QR trên giao diện trước khi SEC quét. Cần cấu hình khóa ký QR server riêng.
+
+| Role | Tài khoản | Phạm vi seed local |
 | --- | --- | --- |
-| Start FE + BE | `.\scripts\run.ps1` | `./scripts/run.sh` |
-| Frontend only | `.\scripts\run.ps1 --frontend` | `./scripts/run.sh --frontend` |
-| Backend only | `.\scripts\run.ps1 --backend` | `./scripts/run.sh --backend` |
-| Generate migration from entity/DB diff | `.\scripts\add.ps1 AddEmployeeEmail` | `./scripts/add.sh AddEmployeeEmail` |
-| Create empty migration for manual SQL | `.\scripts\add.ps1 ManualChange --empty` | `./scripts/add.sh ManualChange --empty` |
-| Apply pending migrations | `.\scripts\update.ps1` | `./scripts/update.sh` |
-| Check DB + migration list/status | `.\scripts\check.ps1` | `./scripts/check.sh` |
+| EMP | `emp.local` | SELF, dữ liệu bản thân |
+| HR | `hr.local` | GLOBAL, nhân sự hai nhà máy |
+| SUP | `sup.local` | TEAM, tổ sản xuất A tại Bình Dương |
+| SEC | `sec.local` | FACTORY, Bình Dương |
+| ADM | `adm.local` | GLOBAL, quản trị hệ thống |
+| EXE | `exe.local` | GLOBAL, số liệu tổng hợp |
 
-If PowerShell execution policy blocks local scripts, invoke for example:
-`powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1 --frontend`.
-Shell scripts are executable in Git; `bash scripts/run.sh` also works.
-Pass `--help` to any script. `--database-name OtherDb` explicitly overrides only the database
-name for backend/database commands; otherwise the configured DATABASE_URL target is preserved.
+Mật khẩu ban đầu lấy từ **`DEMO_PASSWORD`** trong terminal hoặc `api/.env`. Nếu chưa đặt, mặc định local là **`TmcLocal@123456`** cho sáu tài khoản. Mật khẩu database vẫn là `123456`, không phải mật khẩu đăng nhập ứng dụng. Đặt `DEMO_PASSWORD` trước lần seed đầu nếu muốn chọn mật khẩu khác; script không in mật khẩu tùy chỉnh.
 
-- `run` uses backend PORT (default3000) and frontend VITE_PORT (default5173), builds the API first,
-  refuses occupied ports without killing existing apps, and stops companion services when one exits.
-  Ctrl+C stops the processes started by this invocation. It never runs migrations or seeds automatically.
-- `add Name` builds the API and generates a TypeORM TS migration in
-  `api/src/platform/infrastructure/database/migrations/`. Apply existing pending migrations first.
-  No schema diff means no file is created. `--empty` works offline. Always review both up/down before update.
-- `update` applies only pending migrations with TypeORM transaction mode all and records history.
-  A PostgreSQL advisory lock prevents overlapping updates through these scripts. No seed/reset/database creation.
-  An already-current DB is a no-op. Missing historical source is an error, not permission to rewrite history.
-- `check` is read-only and prints connection status plus every migration as APPLIED, PENDING / NOT APPLIED,
-  or MISSING_SOURCE, with totals. Pending alone is a successful check; connection/source errors exit nonzero.
-  It does not create a missing database or migration-history table and ignores legacy DB_ACTION values.
-- API builds clean dist to avoid running orphaned compiled migrations. Migration scripts execute with API cwd
-  and an absolute migrations glob, so launching from another folder gives the same result.
+Tài khoản mẫu đăng nhập ngay; tài khoản HR cấp qua UI vẫn phải đổi mật khẩu tạm lần đầu. Chạy lại khi bộ local đã tồn tại sẽ bỏ qua, giữ nguyên mật khẩu, trạng thái và quyền đã thay đổi; không khôi phục QR đã thu hồi. Nếu có dữ liệu nhân viên/tài khoản khác nhưng chưa có đủ bộ local, script từ chối ghi đè.
 
-Cross-platform pnpm aliases: `pnpm dev` / `pnpm dev:full` (both), `pnpm dev:client`, `pnpm dev:api`,
-`pnpm db:add -- AddEmployeeEmail`, `pnpm db:update`, `pnpm db:check`, `pnpm test:scripts`.
-Old db:status/db:show/db:migrate aliases remain compatible; old dev.ps1/migrate.ps1/updatedb.ps1
-and the separate db-check.mjs implementation are removed. `test:integration` includes demo seed;
-do not use it against business data. Demo seeding remains a separate explicit API command.
+`pnpm --dir api seed:demo` là **fixture kiểm thử cũ**, dùng username `.demo`, yêu cầu `DEMO_PASSWORD`/`DEMO_STATION_SECRET` và cố ý vô hiệu SUP/SEC để kiểm tra từ chối đăng nhập. Dùng `seed-data` mới để demo đủ sáu role; không chạy hai bộ seed chồng nhau trên cùng database.
 
-Backend NestJS hiện cung cấp session auth tối thiểu:
-
-- `POST /api/auth/login` nhận username/password và trả cookie `HttpOnly` opaque.
-- `GET /api/me` kiểm tra session, trạng thái tài khoản và trả role/scope/permission hiện hành.
-- `POST /api/auth/logout` thu hồi session hiện tại.
-
-Chạy kiểm thử auth bằng `pnpm --dir api test`; seed và kiểm thử PostgreSQL chạy riêng bằng `pnpm --dir api seed:demo` và `pnpm --dir api test:integration`.
-
-**Limitations:** Real session authentication, scoped employee management and static QR are implemented; kiosk/TCS, attendance and reporting remain outside the completed backend scope. Legacy prototype pages do not authorize business access.
-
-## HR account onboarding and static QR (TMC-106)
-
-This flow uses real backend cookie sessions, without the removed legacy demo role chooser.
-
-1. HR signs in at `/management?tab=employees`, opens an active employee and provisions an account. The account receives only `EMP` with `SELF` scope; HR cannot select privileged roles. Username and employee binding are unique.
-2. The generated temporary password is shown once in the successful response. HR hands it directly to the employee. Closing the panel clears it; no password is stored in browser persistence or audit. Email delivery and password recovery are outside this increment.
-3. Employee opens `/qr` (also `/mobile/ma-qr`) and signs in. Until they change the temporary password, backend business APIs return `403 AUTH_PASSWORD_CHANGE_REQUIRED`. A new password must be 12–128 characters and differ from the current password. A successful change revokes all sessions; sign in again with the new password.
-4. HR explicitly issues the employee's QR credential. The signed static payload contains an opaque credential reference, not employee name, HRS ID or employee code. Employee retrieval returns the same payload across refreshes and logins. HR reissue replaces it and invalidates the previous code.
-5. HR revokes QR or marks the employee INACTIVE. Deactivation revokes sessions, QR credentials/tokens and access grants in the existing transaction. An inactive employee cannot log in. Reactivation does not restore revoked QR or access grants; HR must issue/grant again.
-
-QR validation always requires the server to check the live credential, employee and signing-key state. A static code can be copied and is reusable while valid; it is not proof of physical passage. Kiosk/TCS/attendance processing is outside this increment. Direction must come from authenticated station configuration in future gate processing.
-
-### Database and key setup
-
-Schema migrations are authored, not automatically applied. `synchronize` and `migrationsRun` stay false. Review and apply only to your intended configured database using the normal migration workflow:
+### Quản lý container
 
 ```powershell
-pnpm.cmd --dir api build
-pnpm.cmd --dir api exec node --import ./scripts/load-env.mjs ./node_modules/typeorm/cli.js migration:show -d dist/platform/infrastructure/database/data-source.js
-# After verifying the intended DATABASE_URL target:
-pnpm.cmd --dir api exec node --import ./scripts/load-env.mjs ./node_modules/typeorm/cli.js migration:run -d dist/platform/infrastructure/database/data-source.js
+docker compose stop                 # Dừng, giữ dữ liệu
+docker compose start                # Chạy lại
+docker compose down                 # Gỡ container/network, giữ named volume
+docker compose exec postgres psql -U admin -d tmc-local
 ```
 
-New migrations add `users.must_change_password`, persisted static QR payload and nullable QR token expiry. Existing users default to no forced password change; only newly provisioned accounts are forced. Old short-lived QR payloads are not accepted by the static QR validator; HR must reissue legacy credentials. Rollback revokes static tokens before restoring non-null expiry; it does not restore earlier QR codes. Back up before schema deployment.
+Không thêm `-v` vào `docker compose down` nếu muốn giữ dữ liệu. `POSTGRES_DB/USER/PASSWORD` khởi tạo khi volume trống; sửa Compose không đổi mật khẩu hoặc database trong volume cũ. Tạo database local không tự chuyển dữ liệu từ server trước đây.
 
-Signing requires a server-only Ed25519 `QR_PRIVATE_KEY_PEM` and a stable `QR_KEY_ID`; do not commit or send private key material to the browser. Keep the key stable; changing the configured signer must not silently alter a previously issued code. Retiring/revoking verification metadata invalidates associated QR codes. No seed/reset is needed for this feature.
+## 3. Chạy frontend và backend
 
-### API reference for this flow
-
-| Method | Endpoint | Purpose |
+| Công việc | Windows PowerShell | macOS/Linux |
 | --- | --- | --- |
-| GET | `/api/employees/:id/account` | HR checks the scoped employee account without password/hash |
-| POST | `/api/employees/:id/account` | HR provisions `{username}`; returns generated temporary password once |
-| POST | `/api/auth/change-password` | Authenticated `{currentPassword,newPassword}`; invalidates sessions |
-| GET | `/api/me` | Session identity, including `mustChangePassword` |
-| POST | `/api/employees/:id/qr-credential` | HR issues/reissues signed static QR with reason |
-| POST | `/api/employees/:id/qr-credential/revoke` | HR revokes QR with reason |
-| GET | `/api/qr/self/code` | EMP retrieves the existing signed static payload |
-| POST | `/api/employees/:id/status` | HR changes ACTIVE/INACTIVE with reason and expectedVersion |
+| Cả frontend/backend | `.\scripts\run.ps1` | `bash scripts/run.sh` |
+| Chỉ frontend | `.\scripts\run.ps1 --frontend` | `bash scripts/run.sh --frontend` |
+| Chỉ backend | `.\scripts\run.ps1 --backend` | `bash scripts/run.sh --backend` |
+| Tạo migration từ entity/database | `.\scripts\add.ps1 AddEmployeeEmail` | `bash scripts/add.sh AddEmployeeEmail` |
+| Migration trống để viết SQL | `.\scripts\add.ps1 ManualChange --empty` | `bash scripts/add.sh ManualChange --empty` |
+| Áp dụng migration pending | `.\scripts\update.ps1` | `bash scripts/update.sh` |
+| Kiểm tra kết nối/migration | `.\scripts\check.ps1` | `bash scripts/check.sh` |
 
-The temporary-password response and static QR payload are sensitive. Do not save them in screenshots, console logs or shared evidence.
-
-## iPhone classroom QR scanner (TMC-108)
-
-This is the approved classroom simulation: SEC scans an employee's signed static QR and records a
-DEMO attendance event, not proof of physical passage through a turnstile. No TCS command is sent.
-The database distinguishes these rows with `attendance_events.source_type = DEMO` and
-`evidence_type = DEMO_QR_SCAN`; future payroll/export logic must exclude or explicitly handle demo data.
-
-### Prepare records
-
-1. ADM configures two active stations in the same active factory, one IN and one OUT.
-2. HR creates an active employee, current organization assignment, valid factory access grant,
-   employee login account and active signed QR credential.
-3. Employee logs in on the computer at `/qr` and displays their QR. Complete first-password change first.
-4. iPhone operator logs in separately as SEC with `access:decide` and GLOBAL/FACTORY scope.
-   HR/EMP/ADM alone cannot use `/scanner`; explicit multi-role grants still combine capabilities.
-
-### HTTPS on the local network
-
-Safari camera access requires a secure context and camera permission:
-[MDN getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia).
-Opening `http://<LAN-IP>:5173` is not sufficient for the scanner. The same-origin `/api` Vite proxy
-keeps login cookies and API requests on HTTPS without calling an HTTP API from an HTTPS page.
-If the API uses another port, set DEV_API_TARGET=http://127.0.0.1:<port> in client/.env.local.
-
-Find the computer's LAN IPv4 (`ipconfig` on Windows), then run from repository root:
+Nếu PowerShell chặn script, dùng ví dụ:
 
 ```powershell
-# Replace with the computer's current LAN IP; keep this terminal open while downloading the CA.
-pnpm.cmd https:lan --ip 192.168.1.53 --serve-ca
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run.ps1
 ```
 
-On macOS/Linux use `pnpm https:lan --ip <LAN-IP> --serve-ca`. The helper requires OpenSSL
-(uses Git for Windows' bundled OpenSSL when available, or OPENSSL_PATH / openssl on PATH).
-It generates/reuses a local CA, signs a90-day LAN certificate, configures client/.env.local TLS paths
-and appends exact HTTPS origins in api/.env. It never installs trust automatically, never prints private
-keys, and never changes QR signing keys. All CA/TLS files are under ignored `.local-certs/`.
-The optional LAN download server serves ONLY the public CA certificate, never a directory or private key.
+Các script dùng đường dẫn tương đối với chính file, có thể gọi từ thư mục khác. `--help` hiển thị tham số. `--database-name TenKhac` chỉ đổi tên database cho lệnh backend/database; frontend-only không dùng tùy chọn này.
 
-On the iPhone, on the same LAN:
+- Backend mặc định cổng 3000; frontend 5173. Có thể cấu hình `PORT` và `VITE_PORT` với launcher thường.
+- Launcher build API trước, chờ cổng backend sẵn sàng rồi mới mở frontend khi chạy cả hai.
+- Cổng đã bị chiếm sẽ báo lỗi, không tự tắt tiến trình khác. Ctrl+C dừng các dịch vụ do launcher tạo.
+- `check` chỉ đọc: `APPLIED` đã áp dụng, `PENDING` chưa áp dụng, `MISSING_SOURCE` có lịch sử nhưng thiếu source migration.
+- `add` sinh migration từ chênh lệch schema; xem lại cả `up/down` trước khi áp dụng. `update` chỉ chạy migration pending, có advisory lock chống chạy đồng thời; không tự tạo database hay seed.
 
-1. Safari opens `http://<LAN-IP>:5194/tmc-local-ca.cer` and downloads the certificate profile.
-2. Install the downloaded profile through Settings > General > VPN & Device Management.
-3. Enable full trust for **TMC Classroom Local CA** under Settings > General > About > Certificate Trust Settings.
-   Manual certificate installation alone does not enable SSL trust:
-   [Apple instructions](https://support.apple.com/en-us/102390).
-4. Stop the public CA download helper with Ctrl+C once installed. Restart the app FE/BE to load TLS/origin changes.
-5. If Windows requests firewall access, allow the app on the private LAN network; no router port forwarding is needed.
-6. Safari opens `https://<LAN-IP>:5173/scanner`, logs in as SEC, selects the configured IN or OUT station,
-   then taps **Mo camera quet QR** and allows the rear camera. Point at the QR displayed on the computer.
-7. A green result means a demo attendance event was recorded. An information result means the same event
-   was already recorded. Denied/unknown/network failure never means successful attendance.
-8. Use the next-scan button for the next employee. For exit, select the separate OUT station; direction is
-   never inferred by alternating earlier scans and cannot be supplied in the request body.
+Có thể dùng alias: `pnpm dev`, `pnpm dev:client`, `pnpm dev:api`, `pnpm db:check`, `pnpm db:update`, `pnpm db:add -- AddEmployeeEmail`.
 
-The page also supports local image capture/selection and a masked payload test input. Images are decoded
-in the browser, not uploaded. No raw QR, image or session secret is stored in browser persistence.
-On network timeout retry the SAME pending eventId; do not reload or create a fresh scan to guess the result.
-Losing the page loses the in-memory retry state; this increment is online-only, not an offline attendance journal.
-If the LAN IP changes, rerun the helper with the new IP and restart FE/BE; the CA is retained so it need not
-be reinstalled unless the CA itself is replaced. Uninstall the local certificate profile when no longer needed.
+## 4. Dùng iPhone làm máy quét QR
 
-### API and database evidence
+### Chạy ứng dụng trên LAN 192.168.1.53
 
-- `GET /api/scanner/stations`: active stations in the SEC operator's qualifying scope.
-- `POST /api/scanner/stations/:id/scans`: body `{eventId, token}` only; session cookie authentication.
-  This human-operated DEMO namespace is separate from station bearer-authenticated hardware endpoints.
-- Result includes `CLASSROOM_DEMO`, server direction/time, decision, reason, attendance state and minimal employee identity.
-- Server verifies active station/factory, QR signature and current revocation/employee state, current assignment and access grant.
-- Attempt + demo attendance event/revision + audit commit atomically. Same station/eventId retry is idempotent;
-  changed data returns409; rapid same employee/factory/direction within10seconds is denied as duplicate.
-- No new tables/migration are needed. Existing QR/account migrations must already be applied. No seed/reset required.
-
-To inspect one scan (use its response attendanceEventId as a bound parameter):
-
-```sql
-SELECT e.id, e.source_type, e.evidence_type, r.direction, r.occurred_at, r.activity_factory_id
-FROM attendance_events e
-JOIN attendance_event_revisions r ON r.event_id=e.id AND r.revision_no=e.current_revision_no
-WHERE e.id = $1;
+```powershell
+.\scripts\run-expose.ps1              # Cả frontend và backend
+.\scripts\run-expose.ps1 --frontend   # Chỉ frontend; backend phải đang chạy cổng 3000
+.\scripts\run-expose.ps1 --backend    # Chỉ backend
 ```
 
-Checks: `pnpm --dir api test:scanner`, `pnpm --dir client test:authorization`, `pnpm --dir client build`.
-Physical iPhone camera permission/trust and QR readability must still be verified on the actual phone;
-desktop mocked browser tests do not prove that hardware behavior.
+Launcher cấu hình HTTPS cho frontend, proxy `/api` về `http://127.0.0.1:3000`, cập nhật origin trong cấu hình local và giữ CA hiện có khi làm mới chứng chỉ server. File cấu hình/chứng chỉ nằm trong các đường dẫn được Git bỏ qua. Script không tự cài chứng chỉ tin cậy hay đổi firewall. Nếu IP máy tính đổi, cập nhật địa chỉ trong script trước khi dùng.
 
-Launcher troubleshooting: the shared Node runner used by `run.ps1` and `run.sh` waits up to30seconds for the configured API port before
-starting Vite. If the backend exits, the frontend is not launched; inspect the backend output
-in the launcher terminal. Frontend uses a strict port
-instead of silently moving to5174. A502 from the HTTPS /api proxy means the backend is
-unavailable; it is not an employee authorization error. Start one launcher instance only.
+Dừng launcher cũ trước khi chạy, tránh trùng cổng 3000/5173. iPhone và máy tính phải chung LAN/Wi-Fi; cho phép Node qua firewall mạng riêng nếu Windows hỏi. Không cần mở cổng router.
 
-Camera readability follow-up: the scanner decodes the full video frame rather than a fixed220px crop,
-requests rear-camera1280x720 as ideal video constraints, and shows a searching hint after8seconds.
-The computer's employee QR is rendered360px with a white quiet zone and black modules. Keep the whole
-QR and white border visible; move the phone farther away rather than filling/cropping the camera view.
-Regression evidence uses real html5-qrcode decoding of a long QR from canvas video frames, not a mocked
-success callback. Camera source/API result are synthetic; physical iPhone focus/lighting still need testing.
+### Cài chứng chỉ trên iPhone lần đầu
 
-### Scoped attendance history
+Camera Safari cần HTTPS tin cậy; HTTP qua IP LAN không đủ. Có thể tải chứng chỉ CA công khai bằng terminal riêng:
 
-Use server accounts with the appropriate active role assignment and permission. These pages read PostgreSQL; they do not use prototype sample data.
+```powershell
+node scripts/lan-https.mjs --ip 192.168.1.53 --serve-ca
+```
 
-| Role | Page | Read API | Required scope/permission |
-|---|---|---|---|
-| EMP | `/attendance` (also linked from `/qr`) | `GET /api/attendance/history` | `attendance:read`; always self, even if EMP assignment says GLOBAL |
-| HR | `/attendance` | `GET /api/attendance/history` | `attendance:read` on the same HR assignment; GLOBAL/FACTORY/DEPARTMENT/TEAM |
-| SUP | `/attendance` | `GET /api/attendance/history` | `attendance:read` on TEAM assignment with factory and team IDs |
-| SEC | `/gate-history` | `GET /api/gate/history` | `access:decide` on SEC GLOBAL/FACTORY assignment |
-| EXE | `/attendance-summary` | `GET /api/attendance/summary` | `attendance:read` on EXE assigned scope; daily/factory counts only |
-| ADM | No implicit business-history page | Denied without a separate qualifying business assignment | `iam:manage` does not grant attendance access |
+1. Trên iPhone, mở `http://192.168.1.53:5194/tmc-local-ca.cer` bằng Safari.
+2. Cài hồ sơ tại Cài đặt → Cài đặt chung → VPN & Quản lý thiết bị.
+3. Bật tin cậy đầy đủ cho **TMC Classroom Local CA** tại Cài đặt chung → Giới thiệu → Cài đặt tin cậy chứng nhận.
+4. Dừng terminal phục vụ CA sau khi tải xong, rồi chạy lại FE/BE để nạp HTTPS mới.
 
-Attendance and gate detail endpoints append `/:id` to their history path. Nonexistent or invisible detail IDs return 404. Gate list also accepts `eventId` to look up a stored scan without supplying/revalidating its QR. No QR payload, fingerprint, password, session secret or HRS ID is returned.
+Chỉ chứng chỉ CA công khai được phục vụ; không chia sẻ `ca-key.pem`, `lan-key.pem` hoặc khóa ký QR. Xem [hướng dẫn Apple về tin cậy chứng chỉ](https://support.apple.com/en-us/102390).
 
-Filters: timezone-qualified `from` inclusive / `to` exclusive, maximum 93 days, default last 30 days; `page` starts at 1, `pageSize` defaults to 25 and is capped at 100. Optional `factoryId`, `stationId`, `direction` only narrow the authorized result. Attendance allows `employeeId`; aggregate API rejects it. Counts and pages use the same scoped SQL statement; current revision determines timestamp, direction, organization and voided status. HR/SUP organization scope uses the event's recorded assignment, not today's employee team.
+### Chuẩn bị và quét
 
-The UI uses Vietnam dates/time. A DEMO or DEMO_QR_SCAN record remains labelled as simulation evidence. Gate denied/pending/unknown attempts do not become attendance just because they appear in a log. Aggregate counts exclude voided revisions and are not payroll hours. Read permission does not grant corrections: this delivery has no attendance edit API/action.
+1. ADM cấu hình nhà máy đang hoạt động và hai trạm: một `IN`, một `OUT`.
+2. HR tạo nhân viên, phân công tổ chức, quyền vào nhà máy, tài khoản đăng nhập và cấp QR.
+3. Nhân viên đăng nhập trên máy tính tại `https://192.168.1.53:5173/qr`; đổi mật khẩu tạm trước nếu được yêu cầu.
+4. Trên iPhone mở `https://192.168.1.53:5173/scanner`, đăng nhập SEC có `access:decide` và scope GLOBAL/FACTORY phù hợp.
+5. Chọn trạm IN hoặc OUT, mở camera sau và cho phép truy cập. Giữ toàn bộ QR cùng viền trắng trong khung hình; nếu không nhận, đưa điện thoại ra xa hơn hoặc chọn ảnh QR để kiểm tra.
+6. Chỉ kết quả đã ghi nhận mới xác nhận có sự kiện công; từ chối, lỗi mạng hay trạng thái chưa rõ không được xem là thành công. Timeout thì thử lại cùng lượt quét đang chờ, không tự tạo lượt mới để đoán kết quả.
 
-To verify: scan an employee QR on the SEC scanner, then log in as that employee and open `/attendance`; the same persisted event is visible to HR in scope. SEC checks `/gate-history`; EXE checks `/attendance-summary`. Try the same links as ADM-only or a different scoped actor to verify refusal/isolation. A SUP fixture with FACTORY scope and no team is intentionally denied; an authorized administrator must assign the actual TEAM scope. Do not run database reset/seed to bypass this policy.
+Hướng vào/ra lấy từ trạm; không tự luân phiên theo lượt trước. Sự kiện mô phỏng có `source_type=DEMO`, `evidence_type=DEMO_QR_SCAN`; không chứng minh đi qua cổng vật lý. Attempt, sự kiện/revision và audit ghi cùng giao dịch. Gửi lại cùng station/eventId không tạo công trùng; thay payload trả 409; quét lặp nhanh cùng người/nhà máy/hướng trong 10 giây bị từ chối. Mô hình hiện tại trực tuyến, không có nhật ký offline.
 
-Focused checks: `pnpm --dir api build`, then `node --test api/test/attendance-history.test.mjs api/test/attendance-history-http.test.mjs api/test/openapi.test.mjs`; `pnpm --dir client build`; `pnpm --dir client test:authorization`. Swagger documents the actual routes at `/api/docs`.
+## 5. Phân quyền và trang nghiệp vụ
 
-Verification on 2026-11-24: API history/HTTP/Swagger focused10 tests and scanner/authorization regression15 tests passed. Read-only PostgreSQL service checks used synthetic scoped identities against existing stored data: one HR/self/team/gate row and one aggregate group checked; foreign employee/factory filters returned zero and foreign detail IDs returned404. EXE employee selector rejected400. No DB writes, seed or migration applied. EXPLAIN parsed the scoped query on this small dataset; large-history performance is unmeasured and date-range indexes may be needed as data grows. Browser smoke uses mocked API responses (not live account login); physical iPhone and two real authenticated browser sessions remain manual acceptance checks.
+Backend kiểm tra session, permission và scope; ẩn menu không thay thế phân quyền API. Không có session trả 401; thiếu quyền trả 403; detail không tồn tại/không nhìn thấy trả 404. Role trong localStorage không cấp quyền. `/api/demo/bootstrap` đã được bỏ.
+
+| Role | Trang/nghiệp vụ |
+| --- | --- |
+| EMP | `/qr`, `/attendance`: QR và lịch sử của chính mình; không tự sửa công |
+| HR | `/management?tab=employees`: hồ sơ, tài khoản EMP, cấp/thu hồi QR; `/attendance` theo phạm vi được giao |
+| SUP | `/attendance` trong tổ được giao; cần assignment TEAM với factory/team, không tự có quyền sửa |
+| SEC | `/scanner`, `/gate-history` và đọc trạm trong nhà máy được giao; không quản lý bảng công nhân sự |
+| EXE | `/attendance-summary`: số tổng hợp theo ngày/nhà máy, không có chi tiết từng người |
+| ADM | Quản trị tổ chức/trạm/tích hợp với `iam:manage`; không tự có quyền HR/EMP |
+| HR/SEC có `audit:read`, ADM có `iam:manage` | `/audit` trong scope phù hợp; không sửa/xóa audit |
+
+Permission và scope phải thuộc cùng assignment. HR GLOBAL không mở rộng SEC FACTORY. Tài khoản có nhiều role hợp lệ được kết hợp các khả năng, nhưng EMP luôn chỉ xem QR/lịch sử cá nhân. SUP chỉ có FACTORY mà chưa có TEAM sẽ bị từ chối.
+
+### HR cấp tài khoản và QR
+
+HR mở chi tiết nhân viên đang hoạt động để tạo tài khoản EMP SELF. Mật khẩu tạm chỉ hiện một lần; giao trực tiếp cho nhân viên. Nhân viên phải đổi sang mật khẩu 12–128 ký tự khác mật khẩu cũ; đổi thành công thu hồi mọi session và phải đăng nhập lại.
+
+HR cấp QR riêng cho nhân viên. QR tĩnh chứa tham chiếu credential, không chứa tên/mã HRS; payload giữ nguyên khi nhân viên tải lại trang. Cấp lại thay QR cũ. Thu hồi QR có hiệu lực khi máy chủ kiểm tra; cho nhân viên nghỉ còn thu hồi session, credential/token và access grant trong giao dịch. Kích hoạt lại không tự khôi phục quyền/QR cũ.
+
+Backend cần khóa Ed25519 riêng `QR_PRIVATE_KEY_PEM` và `QR_KEY_ID` ổn định. Không đổi khóa tùy tiện, không commit hay đưa khóa ra trình duyệt. Script tạo connection string không tự tạo/thay khóa này. Chưa có luồng gửi email hoặc khôi phục mật khẩu tự động.
+
+## 6. API và Swagger
+
+Mở `http://localhost:3000/api/docs` hoặc `/api/openapi.json`. Đăng nhập bằng tài khoản đã được cấp; Swagger cùng origin dùng cookie HttpOnly. Tài liệu API không tự cấp quyền gọi endpoint.
+
+| Phương thức | Endpoint | Mục đích |
+| --- | --- | --- |
+| POST | `/api/auth/login` | Đăng nhập username/password |
+| GET | `/api/me` | Session và role/scope/permission hiện tại |
+| POST | `/api/auth/change-password` | Đổi mật khẩu, thu hồi session |
+| POST | `/api/auth/logout` | Đăng xuất |
+| GET/POST | `/api/employees/:id/account` | HR xem/cấp tài khoản cho nhân viên trong scope |
+| POST | `/api/employees/:id/qr-credential` | HR cấp/cấp lại QR với lý do |
+| POST | `/api/employees/:id/qr-credential/revoke` | HR thu hồi QR |
+| GET | `/api/qr/self/code` | EMP lấy payload QR đã được cấp |
+| POST | `/api/employees/:id/status` | HR đổi ACTIVE/INACTIVE với reason/expectedVersion |
+| GET | `/api/scanner/stations` | Trạm hoạt động trong scope SEC |
+| POST | `/api/scanner/stations/:id/scans` | Nhận `{eventId, token}`, hướng/thời gian từ server |
+| GET | `/api/attendance/history`, `/api/attendance/history/:id` | HR/SUP/EMP đọc lịch sử và chi tiết theo scope |
+| GET | `/api/gate/history`, `/api/gate/history/:id` | SEC đọc nhật ký cổng; list hỗ trợ `eventId` |
+| GET | `/api/attendance/summary` | EXE đọc số tổng hợp |
+
+Lịch sử có phân trang, `pageSize` tối đa 100; khoảng thời gian tối đa 93 ngày, mặc định 30 ngày. `from` gồm thời điểm đầu, `to` không gồm thời điểm cuối, phải có timezone. Bộ lọc factory/station/employee chỉ thu hẹp phạm vi. API tổng hợp từ chối `employeeId`, bỏ revision voided, không tính giờ công/lương. HR/SUP đọc theo phân công được ghi cùng sự kiện, không lấy tổ hiện tại để thay lịch sử.
+
+Trang hiển thị giờ Việt Nam, có loading/empty/error, chi tiết hỗ trợ `?id=...` sau reload. Không lưu payload QR, mật khẩu hay session secret trong browser storage. `/api/my-profile`, chỉnh sửa công, ghép ca/tính lương và quản trị role tổng quát không được ngầm xem là đã có.
+
+## 7. Kiểm tra và xử lý lỗi
+
+```powershell
+pnpm --dir client build
+pnpm --dir client test:authorization
+pnpm --dir api test:history
+pnpm --dir api test:scanner
+pnpm test:scripts
+```
+
+`pnpm --dir api test:integration` có bước seed dữ liệu; chỉ dùng database test đã chỉ định. Không chạy tùy tiện trên dữ liệu cần giữ.
+
+- **Cổng 3000/5173 đang dùng:** dừng đúng launcher cũ; script không tự kill dịch vụ khác.
+- **502 ở `/api/me`:** frontend không kết nối được backend; xem terminal backend và `DEV_API_TARGET`.
+- **`/api/me` pending nhưng Swagger trả ngay:** kiểm tra database và log PostgreSQL; session/audit có thao tác ghi nên có thể chờ WAL/ổ đĩa. Dùng `docker compose logs --tail 100 postgres`; không reset dữ liệu để chữa lỗi.
+- **Vẫn kết nối database cũ:** kiểm tra biến `DATABASE_URL` trong terminal, file `api/.env`, rồi khởi động lại backend.
+- **Thiếu bảng:** kiểm tra target, chạy `check` và `update` để áp dụng migration.
+- **QR trả 503:** kiểm tra cấu hình khóa ký server và migration; không tạo QR thay thế trong frontend.
+- **Scanner 403 với EMP/HR:** dùng SEC có quyền/scope phù hợp; role nhân viên không phải người vận hành scanner.
+- **Camera không mở:** kiểm tra HTTPS tin cậy, quyền camera và mạng LAN. Ảnh/quét trên desktop không chứng minh camera iPhone thật đã hoạt động.
+
+Đã có kiểm tra phân quyền API/UI và truy vấn PostgreSQL chỉ đọc cho lịch sử. Kiểm tra trình duyệt tự động dùng API mô phỏng; vẫn cần nghiệm thu bằng tài khoản thật trên hai trình duyệt và iPhone. Hiệu năng với lịch sử lớn chưa được đo; có thể cần index thời gian sau khi đánh giá query plan.
