@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, type ReactNode } from "react"
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { Alert, Button, Drawer, IconButton, useMediaQuery } from "@mui/material"
 import { Building2, ClipboardList, History, Home, LogOut, Menu, QrCode, ScanLine, ShieldCheck, Users, X, BarChart3, Plug, Activity } from "lucide-react"
@@ -20,6 +20,9 @@ export default function AuthenticatedShell({ identity, children }: { identity: M
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
   const guard = useRef<NavigationGuard | null>(null)
+  const content = useRef<HTMLDivElement>(null)
+  const tab = new URLSearchParams(location.search).get("tab")
+  useEffect(() => { content.current?.scrollTo({ top: 0, left: 0 }) }, [location.pathname, tab])
   const register = useCallback((value: NavigationGuard) => { guard.current = value; return () => { if (guard.current === value) guard.current = null } }, [])
   const items = [
     { path: "/qr", label: "QR của tôi", icon: QrCode },
@@ -33,6 +36,7 @@ export default function AuthenticatedShell({ identity, children }: { identity: M
   const active = (path: string) => {
     const [pathname, search] = path.split("?")
     if (pathname === "/qr" && location.pathname === "/mobile/ma-qr") return true
+    if (path === "/management?tab=employees" && location.pathname.startsWith("/management/employees/")) return true
     return pathname === location.pathname && (!search || new URLSearchParams(search).get("tab") === new URLSearchParams(location.search).get("tab"))
   }
   const current = items.find(item => active(item.path))?.label || "Không gian làm việc"
@@ -59,6 +63,7 @@ export default function AuthenticatedShell({ identity, children }: { identity: M
       <div className="auth-topbar-title">{mobile && <IconButton aria-label="Mở menu điều hướng" aria-expanded={open} aria-controls="authenticated-sidebar" onClick={() => setOpen(true)}><Menu size={22} /></IconButton>}<span>{current}</span></div>
       <div className="auth-topbar-account"><ThemeToggle /><span className="auth-avatar" aria-hidden="true">{(identity.employee?.fullName || identity.username).trim().split(/\s+/).slice(-2).map(part => part[0]).join("").toUpperCase()}</span><div><strong>{identity.employee?.fullName || identity.username}</strong><small>{[...new Set(identity.roles.map(r => roles[r.code] || r.code))].join(" · ")}</small></div></div>
     </header>{error && <Alert severity="error" className="auth-shell-error">{error}</Alert>}
-    <div id="authenticated-content" tabIndex={-1} className="auth-shell-content">{children}</div></div>
+    <div id="authenticated-content" ref={content} tabIndex={-1} className="auth-shell-content">{children}</div>
+    <footer className="auth-footer"><span>TMC Access</span><span>Kết nối · An toàn · Hiệu quả</span></footer></div>
   </div></AuthenticatedNavigation.Provider>
 }

@@ -77,3 +77,11 @@ test("attendance pages enforce role, permission and same-assignment scope",()=>{
  }
  assert.equal(canVisit(user(role("EMP")),"/attendance"),false)
 })
+
+test('employee detail deep links require HR and never inherit administrator or self access',()=>{
+ const path='/management/employees/00000000-0000-4000-8000-000000000001'
+ assert.equal(canVisit(user(role('HR')),path),true)
+ for(const code of ['EMP','SUP','SEC','EXE'])assert.equal(canVisit(user(role(code,['attendance:read','iam:manage'])),path),false)
+ assert.equal(canVisit(user(role('ADM',['iam:manage'],'GLOBAL',null)),path),false)
+ assert.equal(canVisit({...user(role('HR')),mustChangePassword:true},path),false)
+})

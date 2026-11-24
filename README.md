@@ -112,7 +112,7 @@ Bộ seed local tái sử dụng hồ sơ/tổ chức/trạm mẫu của dự á
 | EMP | `emp.local` | SELF, dữ liệu bản thân |
 | HR | `hr.local` | GLOBAL, nhân sự hai nhà máy |
 | SUP | `sup.local` | TEAM, tổ sản xuất A tại Bình Dương |
-| SEC | `sec.local` | FACTORY, Bình Dương |
+| SEC | `sec.local` | Hai assignment FACTORY riêng: Bình Dương và Long An; scanner có BD-IN/BD-OUT/LA-IN/LA-OUT |
 | ADM | `adm.local` | GLOBAL, quản trị hệ thống |
 | EXE | `exe.local` | GLOBAL, số liệu tổng hợp |
 

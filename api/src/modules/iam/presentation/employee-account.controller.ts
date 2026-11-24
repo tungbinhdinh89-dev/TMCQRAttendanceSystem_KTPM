@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Header, Param, Post, Req } from "@nestjs/common"
+import { BadRequestException, Body, Controller, Get, Header, Param, Post, Req, Res } from "@nestjs/common"
 import { AuthService, SESSION_COOKIE } from "../application/auth.service"
 import { EmployeeAccountService } from "../application/employee-account.service"
 import { readCookie } from "./auth.controller"
@@ -9,8 +9,9 @@ export class EmployeeAccountController {
   constructor(private readonly accounts: EmployeeAccountService, private readonly auth: AuthService) {}
   @Get("employees/:id/account")
   @Header("Cache-Control", "no-store")
-  async get(@Req() request: RequestLike, @Param("id") id: string) {
-    return this.accounts.get(await this.auth.me(readCookie(request, SESSION_COOKIE)), id)
+  async get(@Req() request: RequestLike, @Param("id") id: string, @Res() response: { json(value: unknown): unknown }) {
+    // Nest sends an empty body for a bare null; clients need valid JSON for "no account".
+    return response.json(await this.accounts.get(await this.auth.me(readCookie(request, SESSION_COOKIE)), id))
   }
   @Post("employees/:id/account")
   @Header("Cache-Control", "no-store")

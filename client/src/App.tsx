@@ -33,15 +33,18 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/dang-nhap" element={<Login />} />
-              <Route path="/audit" element={<ServerAccess><Audit /></ServerAccess>} />
-              <Route path="/management" element={<ServerAccess><Management /></ServerAccess>} />
-              <Route path="/scanner" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở máy quét…</div>}><Scanner /></Suspense></ServerAccess>} />
-              <Route path="/attendance" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở lịch sử…</div>}><History mode="attendance" /></Suspense></ServerAccess>} />
-              <Route path="/gate-history" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở nhật ký…</div>}><History mode="gate" /></Suspense></ServerAccess>} />
-              <Route path="/attendance-summary" element={<ServerAccess><Suspense fallback={<div role="status">Đang mở báo cáo…</div>}><History mode="summary" /></Suspense></ServerAccess>} />
-              <Route path="/qr" element={<ServerAccess><Qr /></ServerAccess>} />
-              <Route path="/mobile/ma-qr" element={<ServerAccess><Qr /></ServerAccess>} />
-              <Route path="/workspace" element={<ServerAccess workspace />} />
+              <Route element={<ServerAccess />}>
+                <Route path="/audit" element={<Audit />} />
+                <Route path="/management" element={<Management />} />
+                <Route path="/management/employees/:employeeId" element={<Management />} />
+                <Route path="/scanner" element={<Suspense fallback={<div role="status">Đang mở máy quét…</div>}><Scanner /></Suspense>} />
+                <Route path="/attendance" element={<Suspense fallback={<div role="status">Đang mở lịch sử…</div>}><History mode="attendance" /></Suspense>} />
+                <Route path="/gate-history" element={<Suspense fallback={<div role="status">Đang mở nhật ký…</div>}><History mode="gate" /></Suspense>} />
+                <Route path="/attendance-summary" element={<Suspense fallback={<div role="status">Đang mở báo cáo…</div>}><History mode="summary" /></Suspense>} />
+                <Route path="/qr" element={<Qr />} />
+                <Route path="/mobile/ma-qr" element={<Qr />} />
+                <Route path="/workspace" element={<div />} />
+              </Route>
               <Route path="*" element={<ServerAccess legacy />} />
             </Routes>
           </MuiBridge>

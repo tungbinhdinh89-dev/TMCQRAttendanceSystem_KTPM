@@ -54,7 +54,9 @@ try {
       const scope = i === 0 ? "SELF" : i === 2 ? "TEAM" : i === 3 ? "FACTORY" : "GLOBAL"
       await runner.query("UPDATE user_role_assignments SET scope_type=$1,factory_id=$2,department_id=$3,team_id=$4 WHERE user_id=$5 AND role_id=$6", [scope, [2, 3].includes(i) ? demoIds.factories.bd : null, i === 2 ? demoIds.departments.bdProd : null, i === 2 ? demoIds.teams.bdA : null, demoIds.users[i], demoIds.roles[i]])
     }
-    const checks = await runner.query("SELECT u.username,e.status,a.scope_type FROM users u JOIN employees e ON e.id=u.employee_id JOIN user_role_assignments a ON a.user_id=u.id WHERE u.id=ANY($1::uuid[]) ORDER BY u.username", [demoIds.users])
+    // Keep factory-scoped assignments separate; the local scanner can operate at BD and LA.
+    await runner.query("INSERT INTO user_role_assignments (id,user_id,role_id,scope_type,factory_id,valid_from) VALUES ($1,$2,$3,'FACTORY',$4,NOW())", ["00000000-0000-4000-8000-000000000706", demoIds.users[3], demoIds.roles[3], demoIds.factories.la])
+    const checks = await runner.query("SELECT u.username,e.status FROM users u JOIN employees e ON e.id=u.employee_id WHERE u.id=ANY($1::uuid[]) ORDER BY u.username", [demoIds.users])
     if (checks.length !== 6 || checks.some(r => r.status !== "ACTIVE")) throw new Error("Kiểm tra dữ liệu seed thất bại.")
     if (dryRun) {
       const auth = new AuthService({ getRepository: entity => runner.manager.getRepository(entity), transaction: fn => fn(runner.manager) }, { write: async () => {} })

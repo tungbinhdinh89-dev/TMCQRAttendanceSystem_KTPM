@@ -1,0 +1,5 @@
+﻿import test from 'node:test';import assert from 'node:assert/strict';import {Test} from '@nestjs/testing';
+import {EmployeeAccountController} from '../dist/modules/iam/presentation/employee-account.controller.js';
+import {EmployeeAccountService} from '../dist/modules/iam/application/employee-account.service.js';
+import {AuthService} from '../dist/modules/iam/application/auth.service.js';
+test('employee without account returns JSON null so HR provisioning form can open',async t=>{const module=await Test.createTestingModule({controllers:[EmployeeAccountController],providers:[{provide:EmployeeAccountService,useValue:{get:async()=>null}},{provide:AuthService,useValue:{me:async()=>({userId:'hr'})}}]}).compile();const app=module.createNestApplication();app.useLogger(false);app.setGlobalPrefix('api');t.after(()=>app.close());await app.listen(0,'127.0.0.1');const r=await fetch(`${await app.getUrl()}/api/employees/00000000-0000-4000-8000-000000000001/account`);assert.equal(r.status,200);assert.equal(await r.text(),'null');});

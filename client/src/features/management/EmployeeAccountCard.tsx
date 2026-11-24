@@ -5,7 +5,7 @@ import { managementRequest as request } from "../../data/management"
 
 type Account = { userId: string; username: string; status: string; mustChangePassword: boolean }
 type IssuedAccount = { userId: string; username: string; temporaryPassword: string }
-export default function EmployeeAccountCard({ employeeId, employeeCode, active }: { employeeId: string; employeeCode: string; active: boolean }) {
+export default function EmployeeAccountCard({ employeeId, employeeCode, active, onProvisioned }: { employeeId: string; employeeCode: string; active: boolean; onProvisioned?: () => void }) {
   const [account, setAccount] = useState<Account | null>(null)
   const [username, setUsername] = useState(employeeCode)
   const [issued, setIssued] = useState<IssuedAccount | null>(null)
@@ -23,7 +23,11 @@ export default function EmployeeAccountCard({ employeeId, employeeCode, active }
     event.preventDefault(); setBusy(true); setError("")
     try {
       const result = await request<IssuedAccount>(`/employees/${employeeId}/account`, "POST", { username: username.trim() })
+      if (!result || typeof result.userId !== "string" || !result.userId || typeof result.username !== "string" || !result.username || typeof result.temporaryPassword !== "string" || !result.temporaryPassword) {
+        throw new Error("Chưa nhận đủ thông tin cấp tài khoản. Kiểm tra lại trạng thái tài khoản trước khi gửi lại; hệ thống chưa xác nhận bàn giao mật khẩu tạm.")
+      }
       setIssued(result); setAccount({ userId: result.userId, username: result.username, status: "ACTIVE", mustChangePassword: true })
+      onProvisioned?.()
     } catch (e) { setError(e instanceof Error ? e.message : "Không thể cấp tài khoản. Kiểm tra trạng thái trước khi thử lại.") }
     finally { setBusy(false) }
   }
